@@ -40,14 +40,13 @@ public class Deck {
     /**
      * To add a card into the used_card_deck.
      *
-     *
      */
     public void add_card(Card card) {
         used_card_deck.add(card);
     }
 
     /**
-     * To remove a card from the unused card deck.
+     * To return the numbers of card in a card deck.
      *
      * @return the numbers of card in a card deck.
      */
