@@ -1,5 +1,3 @@
-package Entity;
-
 public class Card {
     private String color;
     private int number;
@@ -19,6 +17,11 @@ public class Card {
         this.color = color;
         this.number = number;
         this.function = function;
+        this.id = id;
+    }
+
+    public Card(String color, String id){
+        this.color = color;
         this.id = id;
     }
 

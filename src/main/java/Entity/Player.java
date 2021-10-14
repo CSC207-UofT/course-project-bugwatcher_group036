@@ -1,7 +1,7 @@
 package Entity;
 
 import java.util.ArrayList;
-
+import Entity.Card;
 
 public class Player {
 
