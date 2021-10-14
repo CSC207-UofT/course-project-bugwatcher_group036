@@ -14,7 +14,7 @@ import UseCase.PlayerUseCase;
 public class Controller {
 
     private PlayerUseCase playerManager;
-    private CardUseCase cardManager;
+    private DeckUseCase cardManager;
 
     /**
      * Construct a Controller with a given number of players.
@@ -41,7 +41,7 @@ public class Controller {
         this.playerManager = new PlayerUseCase(currentPlayer);
 
         // create a new CardUseCase as the cardManager.
-        this.cardManager = new CardUseCase();
+        this.cardManager = new DeckUseCase();
 
     }
 
