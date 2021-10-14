@@ -27,6 +27,9 @@ public class Card {
         this.id = id;
     }
 
+    /**
+     * Construct a default card, just a replacement of normal cards but have no effects.
+     */
     public Card(){
         this.color = "black";
         this.number = -1;
@@ -52,6 +55,10 @@ public class Card {
             return null;
         }
         return this.function;
+    }
+
+    public String getId() {
+        return id;
     }
 
     // test code

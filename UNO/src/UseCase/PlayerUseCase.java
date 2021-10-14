@@ -78,18 +78,6 @@ public class PlayerUseCase{
         return lastCard;
     }
 
-//    public void playerPlayCard(int playerCount, String cardID, ArrayList<Card> cards){
-//        try{  // if 0 <= playerCount <= 3, there would be no error reported
-//            for (Card c: cards) {
-//                c.
-//            }
-//            lastCard = players[playerCount].playCard(c);
-//        }
-//        catch (Exception e){
-//            System.out.println("abnormal player count!");
-//        }
-//    }
-
     /**
      * Determining whether any player has won.
      * If the outcome is true, the controller will know that it's time to cease the game.
@@ -105,9 +93,14 @@ public class PlayerUseCase{
         return false;
     }
 
+    /**
+     * Return true if the player with the given index wins.
+     * @param playerCount
+     * @return
+     */
     public boolean winOrNot(int playerCount){
 
-        return (players[playerCount].getCardNum() == 0)
+        return (players[playerCount].getCardNum() == 0);
     }
 
     /**
