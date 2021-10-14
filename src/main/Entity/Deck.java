@@ -1,25 +1,25 @@
-package Entity;
+package main.Entity;
 
 import java.util.*;
 
 public class Deck {
 
-    private ArrayList<Card> used_card_deck;
-    private ArrayList<Card> unused_card_deck;
+    private ArrayList<Card> used;
+    private ArrayList<Card> unused;
 
     /**
      * Construct the Deck in UNO card game.
      *
      */
     public Deck(){
-        this.used_card_deck = new ArrayList<Card>();
-        this.unused_card_deck = new ArrayList<Card>();
+        this.used = new ArrayList<Card>();
+        this.unused = new ArrayList<Card>();
 
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
                 Card newCard = new Card(color, i, "noFunc", color + i);
-                unused_card_deck.add(newCard);
+                unused.add(newCard);
             }
         }
 
@@ -30,8 +30,8 @@ public class Deck {
      *
      * If the card deck is empty, Placed all the used card into the card deck.
      */
-    public boolean is_empty(){
-        return unused_card_deck.isEmpty();
+    public boolean isEmpty(){
+        return unused.isEmpty();
         }
 
 //    /**
@@ -57,7 +57,7 @@ public class Deck {
      *
      * @return the numbers of card in a card deck.
      */
-    public int num_of_cards(ArrayList<Card> deck) {
+    public int numOfCards(ArrayList<Card> deck) {
         return deck.size();
     }
 
@@ -65,54 +65,54 @@ public class Deck {
      * getter
      * @return unsed_card_deck
      */
-    public ArrayList<Card> getUsed_card_deck(){
-        return used_card_deck;
+    public ArrayList<Card> getUsedCardDeck(){
+        return used;
     }
 
     /**
      * setter
      * @param replacement the new deck to replace the old one
      */
-    public void setUsed_card_deck(ArrayList<Card> replacement){
-        used_card_deck = replacement;
+    public void setUsedCardDeck(ArrayList<Card> replacement){
+        used = replacement;
     }
 
     /**
      * getter
      * @return unused_card_deck
      */
-    public ArrayList<Card> getUnused_card_deck(){
-        return unused_card_deck;
+    public ArrayList<Card> getUnusedCardDeck(){
+        return unused;
     }
 
     /**
      * setter
      * @param replacement the new deck to replace the old one
      */
-    public void setUnused_card_deck(ArrayList<Card> replacement){
-        unused_card_deck = replacement;
+    public void setUnusedCardDeck(ArrayList<Card> replacement){
+        unused = replacement;
     }
 
     public Card drawCardFromUnusedDeck() {
         Random rand = new Random();
-        int index = rand.nextInt(unused_card_deck.size());
-        return unused_card_deck.remove(index);
+        int index = rand.nextInt(unused.size());
+        return unused.remove(index);
     }
 
     public boolean shuffleFromUsedToUnused() {
-        if (used_card_deck.isEmpty()) {
+        if (used.isEmpty()) {
             return false;
         } else {
-            ArrayList<Card> temp = unused_card_deck;
-            unused_card_deck = used_card_deck;
-            used_card_deck = temp;
+            ArrayList<Card> temp = unused;
+            unused = used;
+            used = temp;
             return true;
         }
 
     }
 
     public void putCardToUsedDeck(Card c) {
-        used_card_deck.add(c);
+        used.add(c);
     }
 
 }
