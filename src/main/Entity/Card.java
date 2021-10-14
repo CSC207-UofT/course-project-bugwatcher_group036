@@ -1,4 +1,4 @@
-package Entity;
+package main.Entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,32 +33,38 @@ public class Card {
     public Card(){
         this.color = "black";
         this.number = -1;
-        this.function = null;
+        this.function = "nullfunc";
+        this.id = "nullid";
     }
 
     /**
      *  Variety of getter functions that returns the param of the card accordingly
      */
     public String getColor(){
-        return this.color;
+        return color;
     }
 
     public Object getNumber(){
-        if (this.number == -1){
+        if (number == -1){
             return null;
         }
-        return this.number;
+        return number;
     }
 
     public Object getFunction() {
-        if (this.function == null) {
+        if (function == null) {
             return null;
         }
-        return this.function;
+        return function;
     }
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" + "id=" + id + '}';
     }
 
     // test code

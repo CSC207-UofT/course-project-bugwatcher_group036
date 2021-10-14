@@ -1,9 +1,9 @@
-package UseCase;
+package main.UseCase;
 
 import java.util.ArrayList;
 
-import Entity.Card;
-import Entity.Player;
+import main.Entity.Card;
+import main.Entity.Player;
 
 /**
  * The player use case interact with card and player, and receive commands
@@ -116,9 +116,8 @@ public class PlayerUseCase{
         for (Card c: handCard){
             // pass if it's default card or match the condition (either color or number matches)
             // or the card color is black
-            if (lastCard.equals(new Card()) ||
-                    (c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
-                    c.getColor().equals("black") ){
+            if ((c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
+                    lastCard.getColor().equals("black") ){
                 return true;
             }
         }
@@ -138,9 +137,8 @@ public class PlayerUseCase{
         for (Card c: handCard) {
             // pass if it's default card or match the condition (either color or number matches)
             // or the card color is black
-            if (lastCard.equals(new Card()) ||
-                    (c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
-                    c.getColor().equals("black")) {
+            if ((c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
+                    lastCard.getColor().equals("black")) {
                 CardsCanPlay.add(c);
             }
         }
@@ -181,4 +179,9 @@ public class PlayerUseCase{
     public int getPlayerNum(){
         return players.length;
     }
+
+    public ArrayList<Card> getHandCard(int playerCount) {
+        return players[playerCount].getHandCard();
+    }
+
 }
