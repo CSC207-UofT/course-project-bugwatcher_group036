@@ -1,9 +1,6 @@
 package Entity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Deck {
 
@@ -17,6 +14,15 @@ public class Deck {
     public Deck(){
         this.used_card_deck = new ArrayList<Card>();
         this.unused_card_deck = new ArrayList<Card>();
+
+        String[] colors = {"red", "green", "blue", "yellow"};
+        for (String color : colors) {
+            for (int i = 0; i < 10; i++) {
+                Card newCard = new Card(color, i, "noFunc", color + i);
+                unused_card_deck.add(newCard);
+            }
+        }
+
     }
 
     /**
@@ -86,4 +92,27 @@ public class Deck {
     public void setUnused_card_deck(ArrayList<Card> replacement){
         unused_card_deck = replacement;
     }
+
+    public Card drawCardFromUnusedDeck() {
+        Random rand = new Random();
+        int index = rand.nextInt(unused_card_deck.size());
+        return unused_card_deck.remove(index);
+    }
+
+    public boolean shuffleFromUsedToUnused() {
+        if (used_card_deck.isEmpty()) {
+            return false;
+        } else {
+            ArrayList<Card> temp = unused_card_deck;
+            unused_card_deck = used_card_deck;
+            used_card_deck = temp;
+            return true;
+        }
+
+    }
+
+    public void putCardToUsedDeck(Card c) {
+        used_card_deck.add(c);
+    }
+
 }
