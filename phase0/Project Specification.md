@@ -4,6 +4,6 @@ Starting from implementing the UNO with basic setting and person-to-person on on
 we will gradually add more modes and settings to the game.
 
 Our directions are mainly on these *three aspects*:
-* Optimizing basic settings, including refining program structure and developing graphical User Interface to make it more user-friendly.
-* Implementing more settings, like playing specific card would trigger special change, and adding extra function card into the deck.
-* Developing UNO AI and player-to-computer mode, where player can choose number of computers. Moreover, we may develope remote game-mode (In the case that we have extra time).
+* **Optimizing basic settings**, including refining program structure and developing graphical User Interface to make it more user-friendly.
+* **Implementing more rules**, like playing specific card would trigger special change, and adding extra function card into the deck.
+* **Developing more game mode**, like UNO AI and player-to-computer mode, where player can choose number of computers. Moreover, we may develope remote game-mode (In the case that we have extra time).
