@@ -1,7 +1,7 @@
-package main.UseCase;
+package UseCase;
 
-import main.Entity.Card;
-import main.Entity.Deck;
+import Entity.Card;
+import Entity.Deck;
 import java.util.ArrayList;
 
 public class DeckUseCase {
