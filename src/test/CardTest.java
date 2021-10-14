@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import Entity.Card;
 import org.junit.*;
