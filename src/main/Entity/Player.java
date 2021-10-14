@@ -7,7 +7,7 @@ public class Player {
 
     private String id;
     private int position;
-    private ArrayList<Card> handCard;
+    private ArrayList<Card> han;
 
     public Player(String id, int position){
         this.id = id;
