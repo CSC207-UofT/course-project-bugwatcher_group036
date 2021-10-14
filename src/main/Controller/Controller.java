@@ -1,16 +1,16 @@
-package Controller;
+package main.Controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
-import Entity.Card;
-import Entity.Player;
-import UseCase.PlayerUseCase;
-import UseCase.DeckUseCase;
+import main.Entity.Card;
+import main.Entity.Player;
+import main.UseCase.PlayerUseCase;
+import main.UseCase.DeckUseCase;
 
 /**
- * The Controller to run a game.
+ * The main.Controller to run a game.
  */
 public class Controller {
 
@@ -18,7 +18,7 @@ public class Controller {
     private DeckUseCase cardManager;
 
     /**
-     * Construct a Controller with a given number of players.
+     * Construct a main.Controller with a given number of players.
      * @param numberOfPlayers
      */
     public Controller(int numberOfPlayers) {

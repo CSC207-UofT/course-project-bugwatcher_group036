@@ -1,6 +1,6 @@
 package Test;
 
-import Entity.Card;
+import main.Entity.Card;
 import org.junit.*;
 
 import static org.junit.Assert.assertEquals;

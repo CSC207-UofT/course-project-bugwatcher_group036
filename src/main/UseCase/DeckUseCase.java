@@ -1,8 +1,7 @@
-package UseCase;
+package main.UseCase;
 
-import java.util.Random;
-import Entity.Card;
-import Entity.Deck;
+import main.Entity.Card;
+import main.Entity.Deck;
 import java.util.ArrayList;
 
 public class DeckUseCase {
