@@ -15,8 +15,8 @@ public class Deck {
      *
      */
     public Deck(){
-        this.unused_card_deck = new ArrayList<Card>();
         this.used_card_deck = new ArrayList<Card>();
+        this.unused_card_deck = new ArrayList<Card>();
     }
 
     /**
@@ -28,23 +28,23 @@ public class Deck {
         return unused_card_deck.isEmpty();
         }
 
-    /**
-     * To remove a card from the unused card deck.
-     *
-     * @return Card that is removed from the unused card deck
-     */
-    public Card remove_card() {
-        return unused_card_deck.remove(0);
-    }
+//    /**
+//     * To remove a card from the unused card deck.
+//     *
+//     * @return Card that is removed from the unused card deck
+//     */
+//    public Card remove_card() {
+//        return unused_card_deck.remove(0);
+//    }
 
 
-    /**
-     * To add a card into the used_card_deck.
-     *
-     */
-    public void add_card(Card card) {
-        used_card_deck.add(card);
-    }
+//    /**
+//     * To add a card into the used_card_deck.
+//     *
+//     */
+//    public void add_card(Card card) {
+//        used_card_deck.add(card);
+//    }
 
     /**
      * To return the numbers of card in a card deck.
@@ -53,5 +53,37 @@ public class Deck {
      */
     public int num_of_cards(ArrayList<Card> deck) {
         return deck.size();
+    }
+
+    /**
+     * getter
+     * @return unsed_card_deck
+     */
+    public ArrayList<Card> getUsed_card_deck(){
+        return used_card_deck;
+    }
+
+    /**
+     * setter
+     * @param replacement the new deck to replace the old one
+     */
+    public void setUsed_card_deck(ArrayList<Card> replacement){
+        used_card_deck = replacement;
+    }
+
+    /**
+     * getter
+     * @return unused_card_deck
+     */
+    public ArrayList<Card> getUnused_card_deck(){
+        return unused_card_deck;
+    }
+
+    /**
+     * setter
+     * @param replacement the new deck to replace the old one
+     */
+    public void setUnused_card_deck(ArrayList<Card> replacement){
+        unused_card_deck = replacement;
     }
 }
