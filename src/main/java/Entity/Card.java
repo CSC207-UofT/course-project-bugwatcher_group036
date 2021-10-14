@@ -22,6 +22,11 @@ public class Card {
         this.id = id;
     }
 
+    public Card(String color, String id){
+        this.color = color;
+        this.id = id;
+    }
+
     /**
      * Construct a default card, just a replacement of normal cards but have no effects.
      */
