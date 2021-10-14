@@ -9,6 +9,7 @@ public class Card {
     private String color;
     private int number;
     private String function;
+    private String id;
 
     /**
      * Construct the individual card with info implemented in UNO card game.
@@ -19,10 +20,11 @@ public class Card {
      * @param number   The card's number <0~9, -1>
      * @param function    The card's function <switch, reverse, skip, plustwo, plusfour, null>
      */
-    public Card(String color, int number, String function){
+    public Card(String color, int number, String function, String id){
         this.color = color;
         this.number = number;
         this.function = function;
+        this.id = id;
     }
 
     public Card(){

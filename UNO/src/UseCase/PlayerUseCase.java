@@ -15,15 +15,35 @@ public class PlayerUseCase{
     private Card lastCard;
 
     /**
-     * Constructor of the PlayerUseCase class, with one attribute "Player"
+     * Constructor of the PlayerUseCase class, with given a ArrayList of Players
      * needed to be initialized in upper level.
      *
      * @param players the players are stored in player use case, and
-     *                can be called using their indicies
+     *                can be called using their indices.
      */
     public PlayerUseCase(Player[] players){
         this.players = players;
         this.lastCard = new Card();
+    }
+
+    /**
+     * Constructor of the PlayerUseCase class, with the number of players, numberOfPlayers.
+     * needed to be initialized in upper level.
+     * @param numberOfPlayers
+     */
+    public PlayerUseCase(int numberOfPlayers) {
+        this.players = new Player[numberOfPlayers];
+        this.lastCard = new Card();
+    }
+
+    /**
+     * Create and return a new player with the given id and position.
+     * @param id
+     * @param position
+     * @return
+     */
+    public Player createPlayer(String id, int position) {
+        return new Player(id, position);
     }
 
     /**
@@ -47,14 +67,28 @@ public class PlayerUseCase{
      * @param playerCount the index that indicate to which player's action it is
      * @param c the card needed to be played
      */
-    public void playerPlayCard(int playerCount, Card c){
+    public Card playerPlayCard(int playerCount, Card c){
         try{  // if 0 <= playerCount <= 3, there would be no error reported
             lastCard = players[playerCount].playCard(c);
         }
         catch (Exception e){
             System.out.println("abnormal player count!");
+            throw e;
         }
+        return lastCard;
     }
+
+//    public void playerPlayCard(int playerCount, String cardID, ArrayList<Card> cards){
+//        try{  // if 0 <= playerCount <= 3, there would be no error reported
+//            for (Card c: cards) {
+//                c.
+//            }
+//            lastCard = players[playerCount].playCard(c);
+//        }
+//        catch (Exception e){
+//            System.out.println("abnormal player count!");
+//        }
+//    }
 
     /**
      * Determining whether any player has won.
@@ -69,6 +103,11 @@ public class PlayerUseCase{
             }
         }
         return false;
+    }
+
+    public boolean winOrNot(int playerCount){
+
+        return (players[playerCount].getCardNum() == 0)
     }
 
     /**
@@ -92,6 +131,35 @@ public class PlayerUseCase{
         }
 
         return false;
+    }
+
+    /**
+     * Return the ArrayList of Cards that the given player could player in the current tound.
+     * @param playerCount
+     * @return
+     */
+    public ArrayList<Card> CardsPlayerCanPlay(int playerCount) {
+        Player p = players[playerCount];
+        ArrayList<Card> handCard = p.getHandCard();
+        ArrayList<Card> CardsCanPlay = new ArrayList<Card>();
+        for (Card c: handCard) {
+            // pass if it's default card or match the condition (either color or number matches)
+            // or the card color is black
+            if (lastCard.equals(new Card()) ||
+                    (c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
+                    c.getColor().equals("black")) {
+                CardsCanPlay.add(c);
+            }
+        }
+        return CardsCanPlay;
+    }
+
+    /**
+     * Renew the last card with the given card c.
+     * @param c
+     */
+    public void renewLastCard(Card c) {
+        lastCard = c;
     }
 
     /**

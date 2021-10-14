@@ -20,6 +20,15 @@ public class Deck {
     }
 
     /**
+     * Construct the Deck in UNO card game with a given ArrayList of cards, cards.
+     * @param cards
+     */
+    public Deck(ArrayList<Card> cards) {
+        this.unused_card_deck = cards;
+        this.used_card_deck = new ArrayList<Card>();
+    }
+
+    /**
      * To check whether the unused_card_deck is empty.
      *
      * If the card deck is empty, Placed all the used card into the card deck.
