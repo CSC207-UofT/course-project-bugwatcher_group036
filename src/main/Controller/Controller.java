@@ -1,13 +1,13 @@
-package main.Controller;
+package Controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
-import main.Entity.Card;
-import main.Entity.Player;
-import main.UseCase.PlayerUseCase;
-import main.UseCase.DeckUseCase;
+import Entity.Card;
+import Entity.Player;
+import UseCase.PlayerUseCase;
+import UseCase.DeckUseCase;
 
 /**
  * The main.Controller to run a game.
@@ -34,12 +34,12 @@ public class Controller {
             Scanner keyboard = new Scanner(System.in);
             System.out.println("enter a player name for player " + (i+1) + ":");
             String playerID = keyboard.nextLine();
-            Player newPlayer = playerManager.createPlayer(playerID, i);
-            currentPlayer[i] = newPlayer;
+            playerManager.createPlayer(playerID, i);
         }
+        currentPlayer = playerManager.getPlayers(); //zhuyuezx: simplified this part.
 
         // create a new PlayerUseCase with the array of players as the playManager.
-        this.playerManager = new PlayerUseCase(currentPlayer);
+//        this.playerManager = new PlayerUseCase(currentPlayer);
 
         // create a new CardUseCase as the cardManager.
         this.cardManager = new DeckUseCase();
@@ -72,6 +72,7 @@ public class Controller {
         // if winFlag is true, it means the winner appears and the while loop exits.
         while (!winFlag) {
 
+            System.out.println();
             System.out.println("Current player: " + playerManager.getPlayers()[currentPlayerIndex]);
 
             // Get the cards that the current player can play.
@@ -80,10 +81,12 @@ public class Controller {
             // If no cards can play, draw a card, otherwise play a card. If the player type three times
             // wrong card to play, the player will be punished to draw a card automatically.
             if (currentCardsPlayerCanPlay.isEmpty()) {
-                System.out.println("You cannot play a card!");
+                System.out.println("You cannot play a card! You need to draw one more card");
                 Card c = cardManager.drawCardFromUnusedDeck();
                 if (!cardManager.compareNew(c)){
                     playerManager.playerDrawCard(currentPlayerIndex, c);
+                    System.out.println("The card you drew is " + c);
+                    System.out.println();
                 }
             } else {
                 Scanner keyboard = new Scanner(System.in);
@@ -121,6 +124,7 @@ public class Controller {
                     Card c = cardManager.drawCardFromUnusedDeck();
                     if (!cardManager.compareNew(c)){
                         playerManager.playerDrawCard(currentPlayerIndex, c);
+                        System.out.println("The card you drew is " + c);
                     }
                 } else {
                     Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);

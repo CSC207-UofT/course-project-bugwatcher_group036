@@ -1,7 +1,7 @@
-package main.UseCase;
+package UseCase;
 
-import main.Entity.Card;
-import main.Entity.Deck;
+import Entity.Card;
+import Entity.Deck;
 import java.util.ArrayList;
 
 public class DeckUseCase {
@@ -34,8 +34,8 @@ public class DeckUseCase {
     public Card drawCardFromUnusedDeck() {
         if (d.getUnusedCardDeck().size() == 0) {
             boolean noCard = d.shuffleFromUsedToUnused();
-            if (!noCard) {
-                return new Card();
+            if  (!noCard) {
+                return new Card(); // shouldn't we throw exception here?
             }
         }
         return d.drawCardFromUnusedDeck();

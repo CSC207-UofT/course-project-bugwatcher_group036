@@ -1,9 +1,9 @@
-package main.UseCase;
+package UseCase;
 
 import java.util.ArrayList;
 
-import main.Entity.Card;
-import main.Entity.Player;
+import Entity.Card;
+import Entity.Player;
 
 /**
  * The player use case interact with card and player, and receive commands
@@ -42,8 +42,8 @@ public class PlayerUseCase{
      * @param position
      * @return
      */
-    public Player createPlayer(String id, int position) {
-        return new Player(id, position);
+    public void createPlayer(String id, int position) {
+        players[position] = new Player(id, position);
     }
 
     /**

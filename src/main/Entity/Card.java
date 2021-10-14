@@ -1,4 +1,4 @@
-package main.Entity;
+package Entity;
 
 public class Card {
     private String color;
