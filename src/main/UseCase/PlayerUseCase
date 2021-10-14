@@ -12,18 +12,25 @@ import Entity.Player;
 public class PlayerUseCase{
 
     private Player[] players;
-    private Card lastCard;
+    private Card lastCard = new Card();
 
     /**
      * Constructor of the PlayerUseCase class, with one attribute "Player"
      * needed to be initialized in upper level.
      *
-     * @param players the players are stored in player use case, and
+     * @param numOfPlayers the players are stored in player use case, and
      *                can be called using their indicies
      */
+    public PlayerUseCase(int numOfPlayers){
+        this.players = new Player[numOfPlayers];
+        for (int i = 0; i < numOfPlayers; i++){
+            players[i] = new Player(Integer.toString(i), i);
+        }
+        this.lastCard = new Card();
+    }
+
     public PlayerUseCase(Player[] players){
         this.players = players;
-        this.lastCard = new Card();
     }
 
     /**
@@ -119,5 +126,29 @@ public class PlayerUseCase{
      */
     public int getPlayerNum(){
         return players.length;
+    }
+
+    public Player createPlayer(String playerID, int i) {
+        return new Player(playerID, i);
+    }
+
+    /**
+     * return ArrayList of Card that can be played currently
+     * @param currentPlayerIndex indicate which player we want to get info
+     * @return ArrayList that contains all cards can be played.
+     */
+    public ArrayList<Card> CardsPlayerCanPlay(int currentPlayerIndex) {
+        Player p = players[currentPlayerIndex];
+        ArrayList<Card> handCard = p.getHandCard();
+        ArrayList<Card> res = new ArrayList<Card>();
+
+        for (Card c: handCard){
+            if (lastCard.equals(new Card()) ||
+                    (c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
+                    c.getColor().equals("black") ){
+                res.add(c);
+            }
+        }
+        return res;
     }
 }

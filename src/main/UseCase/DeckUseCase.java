@@ -44,5 +44,16 @@ public class DeckUseCase {
         return d.getUnused_card_deck().size() == 0;
     }
 
+    public Card findCard(ArrayList<Card> currentCardsPlayerCanPlay, String cardToPlayID) throws Exception {
 
+        for (Card c: currentCardsPlayerCanPlay){
+            if (c.getNumber() == null){
+                throw new Exception("Not comparing function card now, wait for implementation");
+            }
+            if ( (c.getColor() + Integer.toString((Integer) c.getNumber())) .equals(cardToPlayID)){
+                return c;
+            }
+        }
+        throw new Exception("No card found");
+    }
 }
