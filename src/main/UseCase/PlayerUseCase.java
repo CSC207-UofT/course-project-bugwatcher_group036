@@ -42,8 +42,8 @@ public class PlayerUseCase{
      * @param position
      * @return
      */
-    public Player createPlayer(String id, int position) {
-        return new Player(id, position);
+    public void createPlayer(String id, int position) {
+        players[position] = new Player(id, position);
     }
 
     /**

@@ -33,10 +33,10 @@ public class DeckUseCase {
     }
 
     public Card drawCardFromUnusedDeck() {
-        if (d.getUnused_card_deck().size() == 0) {
+        if (d.getUnused_card_deck().isEmpty()) {
             boolean noCard = d.shuffleFromUsedToUnused();
-            if (!noCard) {
-                return new Card();
+            if  (!noCard) {
+                return new Card(); // shouldn't we throw exception here?
             }
         }
         return d.drawCardFromUnusedDeck();
