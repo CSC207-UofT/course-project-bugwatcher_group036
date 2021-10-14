@@ -1,13 +1,13 @@
-package Controller;
+package main.Controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
-import Entity.Card;
-import Entity.Player;
-import UseCase.DeckUseCase;
-import UseCase.PlayerUseCase;
+import main.Entity.Card;
+import main.Entity.Player;
+import main.UseCase.PlayerUseCase;
+import main.UseCase.DeckUseCase;
 
 /**
  * The Controller to run a game.
@@ -32,7 +32,7 @@ public class Controller {
         // input players for given numbers of players and put it into the array.
         for (int i = 0; i < numberOfPlayers; i++) {
             Scanner keyboard = new Scanner(System.in);
-            System.out.println("enter a player name for player 1:");
+            System.out.println("enter a player name for player " + (i+1) + ":");
             String playerID = keyboard.nextLine();
             Player newPlayer = playerManager.createPlayer(playerID, i);
             currentPlayer[i] = newPlayer;
@@ -46,12 +46,21 @@ public class Controller {
 
     }
 
+    public void deal() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 7; j++) {
+                Card c = cardManager.drawCardFromUnusedDeck();
+                playerManager.playerDrawCard(i, c);
+            }
+        }
+    }
+
     /**
      * run the game and return the player that wins.
      * @return
      */
     public Player runGame() {
-        Player playerWins = null;
+        Player playerWins = null; //////////////////!!!!!!!!!!!
 
         // winFlag is used to indicate whether a winner appears.
         boolean winFlag = false;
@@ -62,6 +71,9 @@ public class Controller {
 
         // if winFlag is true, it means the winner appears and the while loop exits.
         while (!winFlag) {
+
+            System.out.println("Current player: " + playerManager.getPlayers()[currentPlayerIndex]);
+
             // Get the cards that the current player can play.
             ArrayList<Card> currentCardsPlayerCanPlay = playerManager.CardsPlayerCanPlay(currentPlayerIndex);
 
@@ -70,7 +82,9 @@ public class Controller {
             if (currentCardsPlayerCanPlay.isEmpty()) {
                 System.out.println("You cannot play a card!");
                 Card c = cardManager.drawCardFromUnusedDeck();
-                playerManager.playerDrawCard(currentPlayerIndex, c);
+                if (!cardManager.compareNew(c)){
+                    playerManager.playerDrawCard(currentPlayerIndex, c);
+                }
             } else {
                 Scanner keyboard = new Scanner(System.in);
 
@@ -79,7 +93,7 @@ public class Controller {
 
                 // cardToPlay is the card that the player wants to play.
                 // (cardToPlay is a right card to play)
-                Card cardToPlay = null;
+                Card cardToPlay;
 
                 // The number of times that the player type a wrong card.
                 int wrongTimes = 0;
@@ -87,14 +101,17 @@ public class Controller {
                 // Let the player type the card to play. If type a wrong card, type again,
                 // with maximum 3 times.
                 do {
+                    System.out.println("Last card: " + playerManager.getLastCard());
+                    System.out.println("The cards you have: " + playerManager.getHandCard(currentPlayerIndex));
+                    System.out.println("The cards you can play: " + currentCardsPlayerCanPlay);
                     System.out.println("Enter a card to play:");
                     String cardToPlayID = keyboard.nextLine();
-                    try {
-                        cardToPlay = cardManager.findCard(currentCardsPlayerCanPlay, cardToPlayID);
-                        rightCard = true;
-                    } catch (Exception e) {
+                    cardToPlay = cardManager.extractCard(currentCardsPlayerCanPlay, cardToPlayID);
+                    if (cardManager.compareNew(cardToPlay)) {
                         wrongTimes++;
                         rightCard = false;
+                    } else {
+                        rightCard = true;
                     }
                 } while (!rightCard && wrongTimes < 3);
 
@@ -102,15 +119,18 @@ public class Controller {
                 if (wrongTimes == 3) {
                     System.out.println("Enter too many times wrong cards! Draw a card for punishment.");
                     Card c = cardManager.drawCardFromUnusedDeck();
-                    playerManager.playerDrawCard(currentPlayerIndex, c);
+                    if (!cardManager.compareNew(c)){
+                        playerManager.playerDrawCard(currentPlayerIndex, c);
+                    }
                 } else {
-                    playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
+                    Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
+                    cardManager.putCardToUsedDeck(playedCard);
                 }
 
             }
 
             // Determine whether the player wins or not.
-            if (playerManager.winOrNot()) {
+            if (playerManager.winOrNot(currentPlayerIndex)) {
                 winFlag = true;
                 playerWins = playerManager.getPlayers()[currentPlayerIndex];
             }
@@ -126,6 +146,7 @@ public class Controller {
 
     public static void main(String[] args) {
         Controller newGameController = new Controller(4);
+        newGameController.deal();
         Player playerWins = newGameController.runGame();
         System.out.println(playerWins.getId() + " wins!");
     }

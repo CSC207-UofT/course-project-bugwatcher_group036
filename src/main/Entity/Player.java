@@ -1,6 +1,7 @@
-package Entity;
+package main.Entity;
 
 import java.util.ArrayList;
+
 
 public class Player {
 
@@ -42,5 +43,12 @@ public class Player {
 
     public int getPosition(){
         return position;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                '}';
     }
 }

@@ -1,59 +1,73 @@
-package UseCase;
+package main.UseCase;
 
-import Entity.Card;
-import Entity.Deck;
+import java.util.Random;
+import main.Entity.Card;
+import main.Entity.Deck;
 import java.util.ArrayList;
 
 public class DeckUseCase {
 
     private Deck d;
 
-    public DeckUseCase(){
+    public DeckUseCase() {
         this.d = new Deck();
     }
 
-    public int[] returnDeckInfo(){
+    public int[] returnDeckInfo() {
         int[] res = new int[2];
         res[0] = d.getUsed_card_deck().size();
         res[1] = d.getUnused_card_deck().size();
         return res;
     }
 
-    public void shuffleFromUsedToUnused(){
-        ArrayList<Card> temp;
-        temp = d.getUsed_card_deck();
-        d.setUnused_card_deck(temp);
-        d.setUsed_card_deck(new ArrayList<Card>());
+//    public void shuffleFromUsedToUnused() {
+//        ArrayList<Card> temp;
+//        temp = d.getUsed_card_deck();
+//        d.setUnused_card_deck(temp);
+//        d.setUsed_card_deck(new ArrayList<Card>());
+//    }
+
+    public void shuffleFromUsedToUnused() {
+        d.shuffleFromUsedToUnused();
     }
 
-    public void initializeCard(ArrayList<Card> cards){
+    public void initializeCard(ArrayList<Card> cards) {
         d.setUnused_card_deck(cards);
     }
 
-    public void putCardToUsedDeck(Card c){
-        d.getUsed_card_deck().add(c);
+//    public void putCardToUsedDeck(Card c) {
+//        d.getUsed_card_deck().add(c);
+//    }
+
+    public void putCardToUsedDeck(Card c) {
+        d.putCardToUsedDeck(c);
     }
 
-    public Card drawCardFromUnusedDeck(){
-        ArrayList<Card> unused = d.getUnused_card_deck();
-        int index = (int)(Math.random() * unused.size());
-        return unused.remove(index);
+    public Card drawCardFromUnusedDeck() {
+        if (d.getUnused_card_deck().size() == 0) {
+            boolean noCard = d.shuffleFromUsedToUnused();
+            if (!noCard) {
+                return new Card();
+            }
+        }
+        return d.drawCardFromUnusedDeck();
     }
 
-    public boolean checkShuffle(){
+    public boolean checkShuffle() {
         return d.getUnused_card_deck().size() == 0;
     }
 
-    public Card findCard(ArrayList<Card> currentCardsPlayerCanPlay, String cardToPlayID) throws Exception {
-
-        for (Card c: currentCardsPlayerCanPlay){
-            if (c.getNumber() == null){
-                throw new Exception("Not comparing function card now, wait for implementation");
-            }
-            if ( (c.getColor() + Integer.toString((Integer) c.getNumber())) .equals(cardToPlayID)){
+    public Card extractCard(ArrayList<Card> cards, String id) {
+        for (Card c : cards) {
+            if (c.getId().equals(id)) {
                 return c;
             }
         }
-        throw new Exception("No card found");
+        return new Card();
     }
+
+    public boolean compareNew(Card c) {
+        return c.getColor().equals("black");
+    }
+
 }

@@ -1,4 +1,4 @@
-package Entity;
+package main.Entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,7 @@ public class Card {
     private String color;
     private int number;
     private String function;
+    private String id;
 
     /**
      * Construct the individual card with info implemented in UNO card game.
@@ -19,16 +20,21 @@ public class Card {
      * @param number   The card's number <0~9, -1>
      * @param function    The card's function <switch, reverse, skip, plustwo, plusfour, null>
      */
-    public Card(String color, int number, String function){
+    public Card(String color, int number, String function, String id){
         this.color = color;
         this.number = number;
         this.function = function;
+        this.id = id;
     }
 
+    /**
+     * Construct a default card, just a replacement of normal cards but have no effects.
+     */
     public Card(){
         this.color = "black";
         this.number = -1;
-        this.function = null;
+        this.function = "nullfunc";
+        this.id = "nullid";
     }
 
     /**
@@ -50,6 +56,15 @@ public class Card {
             return null;
         }
         return function;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" + "id=" + id + '}';
     }
 
     // test code

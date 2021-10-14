@@ -1,9 +1,9 @@
-package UseCase;
+package main.UseCase;
 
 import java.util.ArrayList;
 
-import Entity.Card;
-import Entity.Player;
+import main.Entity.Card;
+import main.Entity.Player;
 
 /**
  * The player use case interact with card and player, and receive commands
@@ -12,25 +12,38 @@ import Entity.Player;
 public class PlayerUseCase{
 
     private Player[] players;
-    private Card lastCard = new Card();
+    private Card lastCard;
 
     /**
-     * Constructor of the PlayerUseCase class, with one attribute "Player"
+     * Constructor of the PlayerUseCase class, with given a ArrayList of Players
      * needed to be initialized in upper level.
      *
-     * @param numOfPlayers the players are stored in player use case, and
-     *                can be called using their indicies
+     * @param players the players are stored in player use case, and
+     *                can be called using their indices.
      */
-    public PlayerUseCase(int numOfPlayers){
-        this.players = new Player[numOfPlayers];
-        for (int i = 0; i < numOfPlayers; i++){
-            players[i] = new Player(Integer.toString(i), i);
-        }
+    public PlayerUseCase(Player[] players){
+        this.players = players;
         this.lastCard = new Card();
     }
 
-    public PlayerUseCase(Player[] players){
-        this.players = players;
+    /**
+     * Constructor of the PlayerUseCase class, with the number of players, numberOfPlayers.
+     * needed to be initialized in upper level.
+     * @param numberOfPlayers
+     */
+    public PlayerUseCase(int numberOfPlayers) {
+        this.players = new Player[numberOfPlayers];
+        this.lastCard = new Card();
+    }
+
+    /**
+     * Create and return a new player with the given id and position.
+     * @param id
+     * @param position
+     * @return
+     */
+    public Player createPlayer(String id, int position) {
+        return new Player(id, position);
     }
 
     /**
@@ -54,13 +67,15 @@ public class PlayerUseCase{
      * @param playerCount the index that indicate to which player's action it is
      * @param c the card needed to be played
      */
-    public void playerPlayCard(int playerCount, Card c){
+    public Card playerPlayCard(int playerCount, Card c){
         try{  // if 0 <= playerCount <= 3, there would be no error reported
             lastCard = players[playerCount].playCard(c);
         }
         catch (Exception e){
             System.out.println("abnormal player count!");
+            throw e;
         }
+        return lastCard;
     }
 
     /**
@@ -79,6 +94,16 @@ public class PlayerUseCase{
     }
 
     /**
+     * Return true if the player with the given index wins.
+     * @param playerCount
+     * @return
+     */
+    public boolean winOrNot(int playerCount){
+
+        return (players[playerCount].getCardNum() == 0);
+    }
+
+    /**
      * Determine whether a player has playable card in his/her hand.
      *
      * @param playerCount to indicate which player we want to check
@@ -91,14 +116,41 @@ public class PlayerUseCase{
         for (Card c: handCard){
             // pass if it's default card or match the condition (either color or number matches)
             // or the card color is black
-            if (lastCard.equals(new Card()) ||
-                    (c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
-                    c.getColor().equals("black") ){
+            if ((c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
+                    lastCard.getColor().equals("black") ){
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Return the ArrayList of Cards that the given player could player in the current tound.
+     * @param playerCount
+     * @return
+     */
+    public ArrayList<Card> CardsPlayerCanPlay(int playerCount) {
+        Player p = players[playerCount];
+        ArrayList<Card> handCard = p.getHandCard();
+        ArrayList<Card> CardsCanPlay = new ArrayList<Card>();
+        for (Card c: handCard) {
+            // pass if it's default card or match the condition (either color or number matches)
+            // or the card color is black
+            if ((c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
+                    lastCard.getColor().equals("black")) {
+                CardsCanPlay.add(c);
+            }
+        }
+        return CardsCanPlay;
+    }
+
+    /**
+     * Renew the last card with the given card c.
+     * @param c
+     */
+    public void renewLastCard(Card c) {
+        lastCard = c;
     }
 
     /**
@@ -128,27 +180,8 @@ public class PlayerUseCase{
         return players.length;
     }
 
-    public Player createPlayer(String playerID, int i) {
-        return new Player(playerID, i);
+    public ArrayList<Card> getHandCard(int playerCount) {
+        return players[playerCount].getHandCard();
     }
 
-    /**
-     * return ArrayList of Card that can be played currently
-     * @param currentPlayerIndex indicate which player we want to get info
-     * @return ArrayList that contains all cards can be played.
-     */
-    public ArrayList<Card> CardsPlayerCanPlay(int currentPlayerIndex) {
-        Player p = players[currentPlayerIndex];
-        ArrayList<Card> handCard = p.getHandCard();
-        ArrayList<Card> res = new ArrayList<Card>();
-
-        for (Card c: handCard){
-            if (lastCard.equals(new Card()) ||
-                    (c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
-                    c.getColor().equals("black") ){
-                res.add(c);
-            }
-        }
-        return res;
-    }
 }
