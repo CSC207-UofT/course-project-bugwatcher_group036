@@ -3,11 +3,11 @@ package Entity;
 import Entity.Card;
 import org.junit.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class CardTest {
-    Card c1 = new Card("red", 7, "noFunc", "red7");;
+    Card c1 = new Card("red", 7, "noFunc", "red7");
     Card c2 = new Card();
 //    Card c1;
 //    Card c2;
