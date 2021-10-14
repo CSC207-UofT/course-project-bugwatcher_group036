@@ -1,7 +1,7 @@
 package Entity;
 
 import java.util.*;
-
+import Entity.*;
 public class Deck {
 
     private ArrayList<Card> used;
