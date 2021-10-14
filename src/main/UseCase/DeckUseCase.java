@@ -1,8 +1,8 @@
-package main.UseCase;
+package UseCase;
 
 import java.util.Random;
-import main.Entity.Card;
-import main.Entity.Deck;
+import Entity.Card;
+import Entity.Deck;
 import java.util.ArrayList;
 
 public class DeckUseCase {
@@ -20,13 +20,6 @@ public class DeckUseCase {
         return res;
     }
 
-//    public void shuffleFromUsedToUnused() {
-//        ArrayList<Card> temp;
-//        temp = d.getUsed_card_deck();
-//        d.setUnused_card_deck(temp);
-//        d.setUsed_card_deck(new ArrayList<Card>());
-//    }
-
     public void shuffleFromUsedToUnused() {
         d.shuffleFromUsedToUnused();
     }
@@ -34,10 +27,6 @@ public class DeckUseCase {
     public void initializeCard(ArrayList<Card> cards) {
         d.setUnused_card_deck(cards);
     }
-
-//    public void putCardToUsedDeck(Card c) {
-//        d.getUsed_card_deck().add(c);
-//    }
 
     public void putCardToUsedDeck(Card c) {
         d.putCardToUsedDeck(c);

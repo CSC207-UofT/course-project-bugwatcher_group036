@@ -1,9 +1,10 @@
 package Test;
 
-import main.Entity.Card;
+import Entity.Card;
 import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class CardTest {
     Card c1 = new Card("red", 7, "noFunc", "red7");;
@@ -20,7 +21,7 @@ public class CardTest {
     @Test
     public void TestGetNumber(){
         assertEquals(7, c1.getNumber());
-        assertEquals(null, c2.getNumber());
+        assertNull(c2.getNumber());
     }
 
 

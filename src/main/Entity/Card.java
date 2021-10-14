@@ -1,4 +1,4 @@
-package main.Entity;
+package Entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,9 +52,6 @@ public class Card {
     }
 
     public Object getFunction() {
-        if (function == null) {
-            return null;
-        }
         return function;
     }
 

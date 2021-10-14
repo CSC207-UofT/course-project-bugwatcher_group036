@@ -1,13 +1,13 @@
-package main.Controller;
+package Controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
-import main.Entity.Card;
-import main.Entity.Player;
-import main.UseCase.PlayerUseCase;
-import main.UseCase.DeckUseCase;
+import Entity.Card;
+import Entity.Player;
+import UseCase.PlayerUseCase;
+import UseCase.DeckUseCase;
 
 /**
  * The Controller to run a game.

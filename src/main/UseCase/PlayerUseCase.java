@@ -1,9 +1,9 @@
-package main.UseCase;
+package UseCase;
 
 import java.util.ArrayList;
 
-import main.Entity.Card;
-import main.Entity.Player;
+import Entity.Card;
+import Entity.Player;
 
 /**
  * The player use case interact with card and player, and receive commands
