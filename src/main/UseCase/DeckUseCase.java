@@ -1,8 +1,7 @@
-package UseCase;
+package main.UseCase;
 
-import java.util.Random;
-import Entity.Card;
-import Entity.Deck;
+import main.Entity.Card;
+import main.Entity.Deck;
 import java.util.ArrayList;
 
 public class DeckUseCase {
@@ -15,8 +14,8 @@ public class DeckUseCase {
 
     public int[] returnDeckInfo() {
         int[] res = new int[2];
-        res[0] = d.getUsed_card_deck().size();
-        res[1] = d.getUnused_card_deck().size();
+        res[0] = d.getUsedCardDeck().size();
+        res[1] = d.getUnusedCardDeck().size();
         return res;
     }
 
@@ -25,7 +24,7 @@ public class DeckUseCase {
     }
 
     public void initializeCard(ArrayList<Card> cards) {
-        d.setUnused_card_deck(cards);
+        d.setUnusedCardDeck(cards);
     }
 
     public void putCardToUsedDeck(Card c) {
@@ -33,7 +32,7 @@ public class DeckUseCase {
     }
 
     public Card drawCardFromUnusedDeck() {
-        if (d.getUnused_card_deck().size() == 0) {
+        if (d.getUnusedCardDeck().size() == 0) {
             boolean noCard = d.shuffleFromUsedToUnused();
             if  (!noCard) {
                 return new Card(); // shouldn't we throw exception here?
@@ -43,7 +42,7 @@ public class DeckUseCase {
     }
 
     public boolean checkShuffle() {
-        return d.getUnused_card_deck().size() == 0;
+        return d.getUnusedCardDeck().size() == 0;
     }
 
     public Card extractCard(ArrayList<Card> cards, String id) {
