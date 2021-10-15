@@ -2,6 +2,8 @@ package UseCase;
 
 import Entity.Card;
 import Entity.Deck;
+import Entity.NumberCard;
+
 import java.util.ArrayList;
 
 public class DeckUseCase {
@@ -10,6 +12,13 @@ public class DeckUseCase {
 
     public DeckUseCase() {
         this.d = new Deck();
+        String[] colors = {"red", "green", "blue", "yellow"};
+        for (String color : colors) {
+            for (int i = 0; i < 10; i++) {
+                Card newCard = new NumberCard(color, i, color + i);
+                d.getUnusedCardDeck().add(newCard);
+            }
+        }
     }
 
     public int[] returnDeckInfo() {

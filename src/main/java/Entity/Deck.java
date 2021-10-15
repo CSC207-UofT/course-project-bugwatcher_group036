@@ -15,13 +15,13 @@ public class Deck {
         this.used = new ArrayList<Card>();
         this.unused = new ArrayList<Card>();
 
-        String[] colors = {"red", "green", "blue", "yellow"};
-        for (String color : colors) {
-            for (int i = 0; i < 10; i++) {
-                Card newCard = new NumberCard(color, i, color + i);
-                unused.add(newCard);
-            }
-        }
+//        String[] colors = {"red", "green", "blue", "yellow"};
+//        for (String color : colors) {
+//            for (int i = 0; i < 10; i++) {
+//                Card newCard = new NumberCard(color, i, color + i);
+//                unused.add(newCard);
+//            }
+//        }
 
     }
 
