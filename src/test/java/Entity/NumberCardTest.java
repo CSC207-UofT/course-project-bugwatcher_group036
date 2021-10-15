@@ -1,14 +1,13 @@
 package Entity;
 
-import Entity.Card;
-import org.junit.*;
+import Entity.NumberCard;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-public class CardTest {
-    Card c1 = new Card("red", 7, "noFunc", "red7");
-    Card c2 = new Card();
+public class NumberCardTest {
+    NumberCard c1 = new NumberCard("red", 7, "red7");
+    NumberCard c2 = new NumberCard();
 //    Card c1;
 //    Card c2;
 
@@ -21,7 +20,7 @@ public class CardTest {
     @Test
     public void TestGetNumber(){
         assertEquals(7, c1.getNumber());
-        assertNull(c2.getNumber());
+        assertEquals(-1, c2.getNumber());
     }
 
 

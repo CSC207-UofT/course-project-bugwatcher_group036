@@ -12,15 +12,7 @@ public class Card {
      * giving the card the given color, number, function
      *
      * @param color   The card's color <red, blue, yellow, green, black>
-     * @param number   The card's number <0~9, -1>
-     * @param function    The card's function <switch, reverse, skip, plustwo, plusfour, null>
      */
-    public Card(String color, int number, String function, String id){
-        this.color = color;
-        this.number = number;
-        this.function = function;
-        this.id = id;
-    }
 
     public Card(String color, String id){
         this.color = color;
@@ -32,7 +24,6 @@ public class Card {
      */
     public Card(){
         this.color = "black";
-        this.number = -1;
         this.function = "nullfunc";
         this.id = "nullid";
     }
@@ -44,16 +35,6 @@ public class Card {
         return color;
     }
 
-    public Object getNumber(){
-        if (number == -1){
-            return null;
-        }
-        return number;
-    }
-
-    public Object getFunction() {
-        return function;
-    }
 
     public String getId() {
         return id;

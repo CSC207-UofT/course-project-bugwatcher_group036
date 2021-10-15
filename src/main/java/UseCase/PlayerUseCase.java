@@ -3,6 +3,8 @@ package UseCase;
 import java.util.ArrayList;
 
 import Entity.Card;
+import Entity.NumberCard;
+import Entity.FunctionCard;
 import Entity.Player;
 
 /**
@@ -116,9 +118,22 @@ public class PlayerUseCase{
         for (Card c: handCard){
             // pass if it's default card or match the condition (either color or number matches)
             // or the card color is black
-            if ((c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
-                    lastCard.getColor().equals("black") ){
+            if (lastCard.getColor().equals("black")) {
                 return true;
+            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
+                if ((c.getColor().equals(lastCard.getColor()) ||
+                        ((NumberCard) c).getNumber() == ((NumberCard) lastCard).getNumber()) ||
+                        lastCard.getColor().equals("black") ){
+                    return true;
+            } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
+                if ((c.getColor().equals(lastCard.getColor()) ||
+                        ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction()) ||
+                        lastCard.getColor().equals("black") ){
+                    return true;
+                }
+            }
+
+
             }
         }
 
@@ -137,9 +152,18 @@ public class PlayerUseCase{
         for (Card c: handCard) {
             // pass if it's default card or match the condition (either color or number matches)
             // or the card color is black
-            if ((c.getColor().equals(lastCard.getColor()) || c.getNumber() == lastCard.getNumber()) ||
-                    lastCard.getColor().equals("black")) {
+            if (lastCard.getColor().equals("black")) {
                 CardsCanPlay.add(c);
+            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
+                if ((c.getColor().equals(lastCard.getColor()) ||
+                        ((NumberCard) c).getNumber() == ((NumberCard) lastCard).getNumber())) {
+                    CardsCanPlay.add(c);
+                } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
+                    if ((c.getColor().equals(lastCard.getColor()) ||
+                            ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction())) {
+                        CardsCanPlay.add(c);
+                    }
+                }
             }
         }
         return CardsCanPlay;
