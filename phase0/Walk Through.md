@@ -4,7 +4,7 @@ The controller gets the number of players in this game, and initializes one play
 
 **2 check what we can play to play cards**
 
-When a certain player meets his/her round, the controller will show the player’s hand cards and automatically select the cards into a list that the player can play. The player is required to choose a card from the list and play the card by typing the card’s id. If the player types a valid card, the card will be successfully played and put into the unused cards deck. the controller will update the last card record and turn the round to the player in the next position and do the same process.
+When a certain player meets his/her round, the controller will call the PlayerUseCase to show the player’s hand cards and automatically select the cards into a list that the player can play. The player is required to choose a card from the list and play the card by typing the card’s id. If the player types a valid card, the card will be successfully played and the controller will call CardUseCase to put the played card into the unused cards deck. The controller will call PlayerUseCase to update the last card record and the controller will turn the round to the player in the next position and do the same process.
 
 **3 no card playable and draw card**
 
