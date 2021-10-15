@@ -18,7 +18,7 @@ public class Deck {
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
-                Card newCard = new Card(color, i, "noFunc", color + i);
+                Card newCard = new NumberCard(color, i, color + i);
                 unused.add(newCard);
             }
         }
