@@ -20,13 +20,7 @@ public class Player {
     }
 
     public Card playCard(Card c){
-        try{
             return handCard.remove(handCard.indexOf(c));
-        }
-        catch (Exception e){
-            System.out.println("Error! The card player wants to play is not in player's hand.");
-            return new Card();
-        }
     }
 
     public int getCardNum(){

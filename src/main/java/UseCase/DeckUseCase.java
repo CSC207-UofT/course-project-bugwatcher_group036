@@ -2,6 +2,7 @@ package UseCase;
 
 import Entity.Card;
 import Entity.Deck;
+import Entity.FunctionCard;
 import Entity.NumberCard;
 
 import java.util.ArrayList;
@@ -65,6 +66,18 @@ public class DeckUseCase {
 
     public boolean compareNew(Card c) {
         return c.getColor().equals("black");
+    }
+
+    public String color(Card c){
+        return c.getColor();
+    }
+
+    public String function(FunctionCard c){
+        return c.getFunction();
+    }
+
+    public int num(NumberCard c){
+        return c.getNumber();
     }
 
 }
