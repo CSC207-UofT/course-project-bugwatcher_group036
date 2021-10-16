@@ -76,7 +76,7 @@ public class Controller {
             System.out.println("Current player: " + playerManager.getPlayers()[currentPlayerIndex]);
 
             // Get the cards that the current player can play.
-            ArrayList<Card> currentCardsPlayerCanPlay = playerManager.CardsPlayerCanPlay(currentPlayerIndex);
+            ArrayList<Card> currentCardsPlayerCanPlay = playerManager.CardsPlayerCanPlay(currentPlayerIndex, cardManager);
 
             // If no cards can play, draw a card, otherwise play a card. If the player type three times
             // wrong card to play, the player will be punished to draw a card automatically.

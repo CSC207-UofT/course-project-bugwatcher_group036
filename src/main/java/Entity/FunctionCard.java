@@ -19,7 +19,7 @@ public class FunctionCard extends Card{
         super();
     }
 
-    public Object getFunction() {
+    public String getFunction() {
         return function;
     }
 
