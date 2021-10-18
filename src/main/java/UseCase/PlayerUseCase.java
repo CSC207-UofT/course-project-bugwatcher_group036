@@ -105,70 +105,70 @@ public class PlayerUseCase{
         return (players[playerCount].getCardNum() == 0);
     }
 
-    /**
-     * Determine whether a player has playable card in his/her hand.
-     *
-     * @param playerCount to indicate which player we want to check
-     * @return boolean that indicates whether this player has playable card in hand
-     */
-    public boolean playerCanPlayCard(int playerCount, DeckUseCase d){
-        Player p = players[playerCount];
-        ArrayList<Card> handCard = p.getHandCard();
-
-        for (Card c: handCard){
-            // pass if it's default card or match the condition (either color or number matches)
-            // or the card color is black
-            if (d.color(lastCard).equals("black")) {
-                return true;
-            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
-                if ((d.color(c).equals(d.color(lastCard)) ||
-                        (d.num(((NumberCard)c)) == d.num((NumberCard) lastCard))||
-                        d.color(lastCard).equals("black") )){
-                    return true;
-//            } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
-//                if ((c.getColor().equals(d.color(lastCard)) ||
-//                        ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction()) ||
-//                        lastCard.getColor().equals("black") ){
+//    /**
+//     * Determine whether a player has playable card in his/her hand.
+//     *
+//     * @param playerCount to indicate which player we want to check
+//     * @return boolean that indicates whether this player has playable card in hand
+//     */
+//    public boolean playerCanPlayCard(int playerCount, DeckUseCase d){
+//        Player p = players[playerCount];
+//        ArrayList<Card> handCard = p.getHandCard();
+//
+//        for (Card c: handCard){
+//            // pass if it's default card or match the condition (either color or number matches)
+//            // or the card color is black
+//            if (d.color(lastCard).equals("black")) {
+//                return true;
+//            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
+//                if ((d.color(c).equals(d.color(lastCard)) ||
+//                        (d.num(((NumberCard)c)) == d.num((NumberCard) lastCard))||
+//                        d.color(lastCard).equals("black") )){
 //                    return true;
-//                }
-            }
-
-
-            }
-        }
-
-        return false;
-    }
+////            } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
+////                if ((c.getColor().equals(d.color(lastCard)) ||
+////                        ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction()) ||
+////                        lastCard.getColor().equals("black") ){
+////                    return true;
+////                }
+//            }
+//
+//
+//            }
+//        }
+//
+//        return false;
+//    }
 
     /**
      * Return the ArrayList of Cards that the given player could player in the current tound.
      * @param playerCount
      * @return
      */
-    public ArrayList<Card> CardsPlayerCanPlay(int playerCount, DeckUseCase d) {
-        Player p = players[playerCount];
-        ArrayList<Card> handCard = p.getHandCard();
-        ArrayList<Card> CardsCanPlay = new ArrayList<Card>();
-        for (Card c: handCard) {
-            // pass if it's default card or match the condition (either color or number matches)
-            // or the card color is black
-            if (d.color(lastCard).equals("black")) {
-                CardsCanPlay.add(c);
-            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
-                if ((d.color(c).equals(d.color(lastCard)) ||
-                        (d.num(((NumberCard)c)) == d.num((NumberCard) lastCard))||
-                        d.color(lastCard).equals("black") )){
-                    CardsCanPlay.add(c);
-//                } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
-//                    if ((c.getColor().equals(lastCard.getColor()) ||
-//                            ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction())) {
-//                        CardsCanPlay.add(c);
-//                    }
-                }
-            }
-        }
-        return CardsCanPlay;
-    }
+//    public ArrayList<Card> CardsPlayerCanPlay(int playerCount, String color, int number) {
+//        Player p = players[playerCount];
+//        ArrayList<Card> handCard = p.getHandCard();
+//        ArrayList<Card> CardsCanPlay = new ArrayList<Card>();
+//        for (Card c: handCard) {
+//            // pass if it's default card or match the condition (either color or number matches)
+//            // or the card color is black
+//            if (d.color(lastCard).equals("black")) {
+//                CardsCanPlay.add(c);
+//            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
+//                if ((d.color(c).equals(d.color(lastCard)) ||
+//                        (d.num(((NumberCard)c)) == d.num((NumberCard) lastCard))||
+//                        d.color(lastCard).equals("black") )){
+//                    CardsCanPlay.add(c);
+////                } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
+////                    if ((c.getColor().equals(lastCard.getColor()) ||
+////                            ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction())) {
+////                        CardsCanPlay.add(c);
+////                    }
+//                }
+//            }
+//        }
+//        return CardsCanPlay;
+//    }
 
     /**
      * Renew the last card with the given card c.
