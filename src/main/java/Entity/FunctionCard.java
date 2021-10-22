@@ -25,7 +25,7 @@ public class FunctionCard extends Card{
 
     @Override
     public String toString() {
-        return this.getColor() + " " +this.function;
+        return this.getColor() + " " + this.function;
     }
 
 
