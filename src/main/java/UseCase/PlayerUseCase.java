@@ -1,6 +1,8 @@
 package UseCase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import Entity.Card;
 import Entity.NumberCard;
@@ -11,7 +13,7 @@ import Entity.Player;
  * The player use case interact with card and player, and receive commands
  * from controller level.
  */
-public class PlayerUseCase{
+public class PlayerUseCase implements Iterable<Player>{
 
     private Player[] players;
     private Card lastCard;
@@ -36,6 +38,33 @@ public class PlayerUseCase{
     public PlayerUseCase(int numberOfPlayers) {
         this.players = new Player[numberOfPlayers];
         this.lastCard = new Card();
+    }
+
+    @Override
+    public Iterator<Player> iterator(){
+        return new playerIterator();
+    }
+
+    private class playerIterator implements Iterator<Player>{
+        int current = 0;
+
+        @Override
+        public boolean hasNext(){
+            return current < players.length;
+        }
+
+        @Override
+        public Player next(){
+            Player res;
+
+            try{
+                res = players[current];
+            } catch (IndexOutOfBoundsException e){
+                throw new NoSuchElementException();
+            }
+            current += 1;
+            return res;
+        }
     }
 
     /**
@@ -111,22 +140,22 @@ public class PlayerUseCase{
      * @param playerCount to indicate which player we want to check
      * @return boolean that indicates whether this player has playable card in hand
      */
-    public boolean playerCanPlayCard(int playerCount, DeckUseCase d){
+    public boolean playerCanPlayCard(int playerCount, DeckUseCase deck){
         Player p = players[playerCount];
-        ArrayList<Card> handCard = p.getHandCard();
+        //ArrayList<Card> handCard = p.getHandCard();
 
-        for (Card c: handCard){
+        for (Card c: p){
             // pass if it's default card or match the condition (either color or number matches)
             // or the card color is black
-            if (d.color(lastCard).equals("black")) {
+            if (deck.color(lastCard).equals("black")) {
                 return true;
             } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
-                if ((d.color(c).equals(d.color(lastCard)) ||
-                        (d.num(((NumberCard)c)) == d.num((NumberCard) lastCard))||
-                        d.color(lastCard).equals("black") )){
+                if ((deck.color(c).equals(deck.color(lastCard)) ||
+                        (deck.num(((NumberCard)c)) == deck.num((NumberCard) lastCard))||
+                        deck.color(lastCard).equals("black") )){
                     return true;
 //            } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
-//                if ((c.getColor().equals(d.color(lastCard)) ||
+//                if ((c.getColor().equals(deck.color(lastCard)) ||
 //                        ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction()) ||
 //                        lastCard.getColor().equals("black") ){
 //                    return true;
@@ -145,19 +174,19 @@ public class PlayerUseCase{
      * @param playerCount
      * @return
      */
-    public ArrayList<Card> CardsPlayerCanPlay(int playerCount, DeckUseCase d) {
+    public ArrayList<Card> CardsPlayerCanPlay(int playerCount, DeckUseCase deck) {
         Player p = players[playerCount];
-        ArrayList<Card> handCard = p.getHandCard();
+        //ArrayList<Card> handCard = p.getHandCard();
         ArrayList<Card> CardsCanPlay = new ArrayList<Card>();
-        for (Card c: handCard) {
+        for (Card c: p) {
             // pass if it's default card or match the condition (either color or number matches)
             // or the card color is black
-            if (d.color(lastCard).equals("black")) {
+            if (deck.color(lastCard).equals("black")) {
                 CardsCanPlay.add(c);
             } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
-                if ((d.color(c).equals(d.color(lastCard)) ||
-                        (d.num(((NumberCard)c)) == d.num((NumberCard) lastCard))||
-                        d.color(lastCard).equals("black") )){
+                if ((deck.color(c).equals(deck.color(lastCard)) ||
+                        (deck.num(((NumberCard)c)) == deck.num((NumberCard) lastCard))||
+                        deck.color(lastCard).equals("black") )){
                     CardsCanPlay.add(c);
 //                } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
 //                    if ((c.getColor().equals(lastCard.getColor()) ||
@@ -206,7 +235,11 @@ public class PlayerUseCase{
     }
 
     public ArrayList<Card> getHandCard(int playerCount) {
-        return players[playerCount].getHandCard();
+        ArrayList<Card> res = new ArrayList<Card>();
+        for (Card c: players[playerCount]){
+            res.add(c);
+        }
+        return res;
     }
 
 }
