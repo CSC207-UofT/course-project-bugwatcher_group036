@@ -23,5 +23,10 @@ public class FunctionCard extends Card{
         return function;
     }
 
+    @Override
+    public String toString() {
+        return this.getColor() + " " +this.function;
+    }
+
 
 }
