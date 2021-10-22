@@ -23,6 +23,12 @@ public class CardTest {
         assertEquals("nullid", c2.getId());
     }
 
+    @Test
+    public void TesttoString(){
+        assertEquals("Id:25", c1.toString());
+        assertEquals("Id:nullid", c2.toString());
+    }
+
 
 
 }

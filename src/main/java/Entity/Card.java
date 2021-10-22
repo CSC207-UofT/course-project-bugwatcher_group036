@@ -37,6 +37,10 @@ public class Card {
         return id;
     }
 
+    public String toString() {
+        return "Id:" + id;
+    }
+
     // test code
 //    public static void main(String[] args){
 //        Card c1 = new Card("red", 2, null);
