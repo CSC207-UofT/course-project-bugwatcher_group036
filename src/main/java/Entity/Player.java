@@ -1,9 +1,12 @@
 package Entity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import Entity.Card;
 
-public class Player {
+public class Player implements Iterable<Card>{
 
     private String id;
     private int position;
@@ -37,6 +40,33 @@ public class Player {
 
     public int getPosition(){
         return position;
+    }
+
+    @Override
+    public Iterator<Card> iterator() {
+        return new PlayerHandCardIterator();
+    }
+
+    private class PlayerHandCardIterator implements Iterator<Card>{
+        private int current = 0;
+
+        @Override
+        public boolean hasNext(){
+            return current < handCard.size();
+        }
+
+        @Override
+        public Card next(){
+            Card res;
+
+            try{
+                res = handCard.get(current);
+            } catch (IndexOutOfBoundsException e){
+                throw new NoSuchElementException();
+            }
+            current += 1;
+            return res;
+        }
     }
 
     @Override
