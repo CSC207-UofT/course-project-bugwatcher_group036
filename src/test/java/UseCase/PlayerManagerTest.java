@@ -4,22 +4,20 @@ import Entity.Card;
 import Entity.Player;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlayerUseCaseTest {
+public class PlayerManagerTest {
 
     @Test
     public void testgetPlayers(){
-        PlayerUseCase pManager = new PlayerUseCase(4);
+        PlayerManager pManager = new PlayerManager(4);
         Player[] p = pManager.getPlayers();
         assertEquals(4, p.length);
     }
 
     @Test
     public void testCreatePlayer(){
-        PlayerUseCase pManager = new PlayerUseCase(4);
+        PlayerManager pManager = new PlayerManager(4);
         for (int i = 0; i < 4; i++){
             pManager.createPlayer(Integer.toString(i), i);
         }
@@ -28,7 +26,7 @@ public class PlayerUseCaseTest {
 
     @Test
     public void testPlayerDrawCard(){
-        PlayerUseCase pManager = new PlayerUseCase(4);
+        PlayerManager pManager = new PlayerManager(4);
         for (int i = 0; i < 4; i++){
             pManager.createPlayer(Integer.toString(i), i);
         }
@@ -38,7 +36,7 @@ public class PlayerUseCaseTest {
 
     @Test
     public void testPlayerPlayCard(){
-        PlayerUseCase pManager = new PlayerUseCase(4);
+        PlayerManager pManager = new PlayerManager(4);
         for (int i = 0; i < 4; i++){
             pManager.createPlayer(Integer.toString(i), i);
         }

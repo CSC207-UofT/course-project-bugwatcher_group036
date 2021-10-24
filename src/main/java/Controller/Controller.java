@@ -6,16 +6,16 @@ import java.util.Random;
 
 import Entity.Card;
 import Entity.Player;
-import UseCase.PlayerUseCase;
-import UseCase.DeckUseCase;
+import UseCase.PlayerManager;
+import UseCase.DeckManager;
 
 /**
  * The main.Controller to run a game.
  */
 public class Controller {
 
-    private PlayerUseCase playerManager;
-    private DeckUseCase cardManager;
+    private PlayerManager playerManager;
+    private DeckManager cardManager;
 
     /**
      * Construct a main.Controller with a given number of players.
@@ -24,7 +24,7 @@ public class Controller {
     public Controller(int numberOfPlayers) {
 
         // create and assign the PlayerUseCase to attribute playerManager.
-        this.playerManager = new PlayerUseCase(numberOfPlayers);
+        this.playerManager = new PlayerManager(numberOfPlayers);
 
         // create an Array of Players which is wait to be assigned with input players.
         Player[] currentPlayer = new Player[numberOfPlayers];
@@ -42,7 +42,7 @@ public class Controller {
 //        this.playerManager = new PlayerUseCase(currentPlayer);
 
         // create a new CardUseCase as the cardManager.
-        this.cardManager = new DeckUseCase();
+        this.cardManager = new DeckManager();
 
     }
 

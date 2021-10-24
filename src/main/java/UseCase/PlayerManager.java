@@ -6,14 +6,13 @@ import java.util.NoSuchElementException;
 
 import Entity.Card;
 import Entity.NumberCard;
-import Entity.FunctionCard;
 import Entity.Player;
 
 /**
  * The player use case interact with card and player, and receive commands
  * from controller level.
  */
-public class PlayerUseCase implements Iterable<Player>{
+public class PlayerManager implements Iterable<Player>{
 
     private Player[] players;
     private Card lastCard;
@@ -25,7 +24,7 @@ public class PlayerUseCase implements Iterable<Player>{
      * @param players the players are stored in player use case, and
      *                can be called using their indices.
      */
-    public PlayerUseCase(Player[] players){
+    public PlayerManager(Player[] players){
         this.players = players;
         this.lastCard = new Card();
     }
@@ -35,7 +34,7 @@ public class PlayerUseCase implements Iterable<Player>{
      * needed to be initialized in upper level.
      * @param numberOfPlayers
      */
-    public PlayerUseCase(int numberOfPlayers) {
+    public PlayerManager(int numberOfPlayers) {
         this.players = new Player[numberOfPlayers];
         this.lastCard = new Card();
     }
@@ -140,7 +139,7 @@ public class PlayerUseCase implements Iterable<Player>{
      * @param playerCount to indicate which player we want to check
      * @return boolean that indicates whether this player has playable card in hand
      */
-    public boolean playerCanPlayCard(int playerCount, DeckUseCase deck){
+    public boolean playerCanPlayCard(int playerCount, DeckManager deck){
         Player p = players[playerCount];
         //ArrayList<Card> handCard = p.getHandCard();
 
@@ -174,7 +173,7 @@ public class PlayerUseCase implements Iterable<Player>{
      * @param playerCount
      * @return
      */
-    public ArrayList<Card> CardsPlayerCanPlay(int playerCount, DeckUseCase deck) {
+    public ArrayList<Card> CardsPlayerCanPlay(int playerCount, DeckManager deck) {
         Player p = players[playerCount];
         //ArrayList<Card> handCard = p.getHandCard();
         ArrayList<Card> CardsCanPlay = new ArrayList<Card>();
