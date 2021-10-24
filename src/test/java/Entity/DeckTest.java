@@ -12,21 +12,15 @@ public class DeckTest {
     @Test
     public void TestisEmpty() {
         Deck d1 = new Deck();
-        assertTrue(d1.isEmpty());
+        assertFalse(d1.isEmpty());
+        assertTrue(d1.getUsedCardDeck().isEmpty());
 
     }
 
     @Test
     public void TestnumOfCards() {
         Deck d1 = new Deck();
-        String[] colors = {"red", "green", "blue", "yellow"};
-        for (String color : colors) {
-            for (int i = 0; i < 10; i++) {
-                Card newCard = new NumberCard(color, i, color + i);
-                d1.getUnusedCardDeck().add(newCard);
-            }
-        }
-        assertEquals(40, d1.numOfCards(d1.getUnusedCardDeck()));
+        assertEquals(108, d1.numOfCards(d1.getUnusedCardDeck()));
     }
 
     @Test

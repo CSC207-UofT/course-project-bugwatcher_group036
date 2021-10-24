@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FunctionCardTest {
     Player p1 = new Player("player1", 1);
-    FunctionCard c1 = new FunctionCard("yellow", "id", "switch");
+    FunctionCard c1 = new FunctionCard("yellow", "switch", "id");
 
     @Test
     public void TestGetColor() {

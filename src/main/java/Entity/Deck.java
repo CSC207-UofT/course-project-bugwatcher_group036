@@ -1,5 +1,6 @@
 package Entity;
 
+import java.io.*;
 import java.util.*;
 
 public class Deck {
@@ -14,6 +15,30 @@ public class Deck {
     public Deck(){
         this.used = new ArrayList<Card>();
         this.unused = new ArrayList<Card>();
+        File testFile = new File("");
+        try {
+            BufferedReader numberfile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/numbercards.txt"));
+            BufferedReader functionfile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/functioncards.txt"));
+            String numberline = numberfile.readLine();
+            String functionline = functionfile.readLine();
+            while (numberline != null){
+                String[] numbersplit = numberline.split(" ");
+                Card numcard = new NumberCard(numbersplit[0], Integer.parseInt(numbersplit[1]), numbersplit[2]);
+                unused.add(numcard);
+                numberline = numberfile.readLine();
+            }
+            while (functionline != null){
+                String[] functionsplit = functionline.split(" ");
+                Card funcard = new FunctionCard(functionsplit[0], functionsplit[1], functionsplit[2]);
+                unused.add(funcard);
+                functionline = functionfile.readLine();
+            }
+        }
+        catch (FileNotFoundException filemissing){
+            System.out.println("Card file not found. Check directory.");
+
+        }
+        catch (IOException ignored) {} // wise: don't know how to handle this case
 
 //        String[] colors = {"red", "green", "blue", "yellow"};
 //        for (String color : colors) {

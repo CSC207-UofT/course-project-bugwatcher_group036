@@ -7,11 +7,11 @@ import Entity.NumberCard;
 
 import java.util.ArrayList;
 
-public class DeckUseCase {
+public class DeckManager {
 
     private Deck d;
 
-    public DeckUseCase() {
+    public DeckManager() {
         this.d = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
