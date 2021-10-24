@@ -13,28 +13,28 @@ public class Deck {
      *
      */
     public Deck(){
-        this.used = new ArrayList<Card>();
-        this.unused = new ArrayList<Card>();
+        this.used = new ArrayList<>();
+        this.unused = new ArrayList<>();
         File testFile = new File("");
         try {
-            BufferedReader numberfile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/numbercards.txt"));
-            BufferedReader functionfile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/functioncards.txt"));
-            String numberline = numberfile.readLine();
-            String functionline = functionfile.readLine();
-            while (numberline != null){
-                String[] numbersplit = numberline.split(" ");
-                Card numcard = new NumberCard(numbersplit[0], Integer.parseInt(numbersplit[1]), numbersplit[2]);
-                unused.add(numcard);
-                numberline = numberfile.readLine();
+            BufferedReader numberFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/numbercards.txt"));
+            BufferedReader functionFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/functioncards.txt"));
+            String numberLine = numberFile.readLine();
+            String functionLine = functionFile.readLine();
+            while (numberLine != null){
+                String[] numberSplit = numberLine.split(" ");
+                Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]), numberSplit[2]);
+                unused.add(numCard);
+                numberLine = numberFile.readLine();
             }
-            while (functionline != null){
-                String[] functionsplit = functionline.split(" ");
-                Card funcard = new FunctionCard(functionsplit[0], functionsplit[1], functionsplit[2]);
-                unused.add(funcard);
-                functionline = functionfile.readLine();
+            while (functionLine != null){
+                String[] functionSplit = functionLine.split(" ");
+                Card funCard = new FunctionCard(functionSplit[0], functionSplit[1], functionSplit[2]);
+                unused.add(funCard);
+                functionLine = functionFile.readLine();
             }
         }
-        catch (FileNotFoundException filemissing){
+        catch (FileNotFoundException fileMissing){
             System.out.println("Card file not found. Check directory.");
 
         }
