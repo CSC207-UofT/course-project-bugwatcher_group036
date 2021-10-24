@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
 
+    Player p1 = new Player("player1", 1);
+    Card c1 = new NumberCard("yellow", 6, "1");
+
     @Test
     public void TestdrawCard() {
         Player p1 = new Player("player1", 1);

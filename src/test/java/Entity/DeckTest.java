@@ -10,7 +10,7 @@ public class DeckTest {
 
 
     @Test
-    public void TestisEmpty() {
+    public void testIsEmpty() {
         Deck d1 = new Deck();
         assertFalse(d1.isEmpty());
         assertTrue(d1.getUsedCardDeck().isEmpty());
@@ -18,20 +18,20 @@ public class DeckTest {
     }
 
     @Test
-    public void TestnumOfCards() {
+    public void testNumOfCards() {
         Deck d1 = new Deck();
         assertEquals(108, d1.numOfCards(d1.getUnusedCardDeck()));
     }
 
     @Test
-    public void TestgetUsedCardDeck() {
+    public void testGetUsedCardDeck() {
         Deck d1 = new Deck();
         ArrayList<Card> a1 = new ArrayList<>();
         assertEquals(a1, d1.getUsedCardDeck());
     }
 
     @Test
-    public void TestsetUsedCardDeck() {
+    public void testSetUsedCardDeck() {
         Deck d1 = new Deck();
         ArrayList<Card> a1 = new ArrayList<>();
         Deck d2 = new Deck();
@@ -40,7 +40,7 @@ public class DeckTest {
     }
 
     @Test
-    public void TestgetUnusedCardDeck() {
+    public void testGetUnusedCardDeck() {
         Deck d1 = new Deck();
         ArrayList<Card> a1 = d1.getUnusedCardDeck();
         assertEquals(a1, d1.getUnusedCardDeck());
@@ -48,7 +48,7 @@ public class DeckTest {
     }
 
     @Test
-    public void TestsetUnusedCardDeck() {
+    public void testSetUnusedCardDeck() {
         Deck d1 = new Deck();
         ArrayList<Card> a1 = new ArrayList<>();
         d1.setUnusedCardDeck(a1);
@@ -56,7 +56,7 @@ public class DeckTest {
     }
 
     @Test
-    public void TestdrawCardFromUnusedDeck() {
+    public void testDrawCardFromUnusedDeck() {
         Deck d1 = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
@@ -70,13 +70,13 @@ public class DeckTest {
     }
 
     @Test
-    public void TestshuffleFromUsedToUnused() {
+    public void testShuffleFromUsedToUnused() {
         Deck d1 = new Deck();
         assertFalse(d1.shuffleFromUsedToUnused());
     }
 
     @Test
-    public void putCardToUsedDeck() {
+    public void testPutCardToUsedDeck() {
         Deck d1 = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
