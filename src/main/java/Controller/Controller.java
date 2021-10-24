@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.Random;
 
 import Entity.Card;
+import Entity.NumberCard;
 import Entity.Player;
 import UseCase.PlayerUseCase;
 import UseCase.DeckUseCase;
@@ -75,8 +76,26 @@ public class Controller {
             System.out.println();
             System.out.println("Current player: " + playerManager.getPlayers()[currentPlayerIndex]);
 
+            String lastColor = cardManager.color(playerManager.getLastCard());
+
+            Player p = playerManager.getPlayers()[currentPlayerIndex];
+            ArrayList<Card> currentHandCard = playerManager.getHandCard(currentPlayerIndex);
+            ArrayList<Card> currentCardsPlayerCanPlay = new ArrayList<Card>();
+            for (Card c: currentHandCard) {
+                if (lastColor.equals("black")) {
+                    currentCardsPlayerCanPlay.add(c);
+                } else if (playerManager.getLastCard() instanceof NumberCard && c instanceof NumberCard) {
+                    if ((lastColor.equals(cardManager.color(c)) ||
+                            (cardManager.num(((NumberCard) playerManager.getLastCard())) ==
+                                    (cardManager.num((NumberCard) c))))) {
+                        currentCardsPlayerCanPlay.add(c);
+                    }
+                }
+            }
+
             // Get the cards that the current player can play.
-            ArrayList<Card> currentCardsPlayerCanPlay = playerManager.CardsPlayerCanPlay(currentPlayerIndex, cardManager);
+//            ArrayList<Card> currentCardsPlayerCanPlay = playerManager.CardsPlayerCanPlay(currentPlayerIndex,
+//                    cardManager);
 
             // If no cards can play, draw a card, otherwise play a card. If the player type three times
             // wrong card to play, the player will be punished to draw a card automatically.
