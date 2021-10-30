@@ -3,7 +3,7 @@ package Entity;
 import java.io.*;
 import java.util.*;
 
-public class Deck {
+public class Deck implements Serializable{
 
     private ArrayList<Card> used;
     private ArrayList<Card> unused;
@@ -15,30 +15,30 @@ public class Deck {
     public Deck(){
         this.used = new ArrayList<>();
         this.unused = new ArrayList<>();
-        File testFile = new File("");
-        try {
-            BufferedReader numberFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/numbercards.txt"));
-            BufferedReader functionFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/functioncards.txt"));
-            String numberLine = numberFile.readLine();
-            String functionLine = functionFile.readLine();
-            while (numberLine != null){
-                String[] numberSplit = numberLine.split(" ");
-                Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]), numberSplit[2]);
-                unused.add(numCard);
-                numberLine = numberFile.readLine();
-            }
-            while (functionLine != null){
-                String[] functionSplit = functionLine.split(" ");
-                Card funCard = new FunctionCard(functionSplit[0], functionSplit[1], functionSplit[2]);
-                unused.add(funCard);
-                functionLine = functionFile.readLine();
-            }
-        }
-        catch (FileNotFoundException fileMissing){
-            System.out.println("Card file not found. Check directory.");
-
-        }
-        catch (IOException ignored) {} // wise: don't know how to handle this case
+//        File testFile = new File("");
+//        try {
+//            BufferedReader numberFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/resources/numbercards.txt"));
+//            BufferedReader functionFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/resources/functioncards.txt"));
+//            String numberLine = numberFile.readLine();
+//            String functionLine = functionFile.readLine();
+//            while (numberLine != null){
+//                String[] numberSplit = numberLine.split(" ");
+//                Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]), numberSplit[2]);
+//                unused.add(numCard);
+//                numberLine = numberFile.readLine();
+//            }
+//            while (functionLine != null){
+//                String[] functionSplit = functionLine.split(" ");
+//                Card funCard = new FunctionCard(functionSplit[0], functionSplit[1], functionSplit[2]);
+//                unused.add(funCard);
+//                functionLine = functionFile.readLine();
+//            }
+//        }
+//        catch (FileNotFoundException fileMissing){
+//            System.out.println("Card file not found. Check directory.");
+//
+//        }
+//        catch (IOException ignored) {} // wise: don't know how to handle this case
 
 //        String[] colors = {"red", "green", "blue", "yellow"};
 //        for (String color : colors) {
@@ -69,13 +69,13 @@ public class Deck {
 //    }
 
 
-//    /**
-//     * To add a card into the used_card_deck.
-//     *
-//     */
-//    public void add_card(Card card) {
-//        used_card_deck.add(card);
-//    }
+    /**
+     * To add a card into the used_card_deck.
+     *
+     */
+    public void addcard(Card card) {
+        unused.add(card);
+    }
 
     /**
      * To return the numbers of card in a card deck.
