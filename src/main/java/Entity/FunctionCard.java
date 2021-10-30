@@ -6,11 +6,11 @@ public class FunctionCard extends Card{
 
     /**
      *
-     * @param color
-     * @param id
+     * @param color       The color of the function card <red, blue, green, yellow, black>
+     * @param id          The id of the function card
      * @param function    The card's function <switch, reverse, skip, plustwo, plusfour, null>
      */
-    public FunctionCard(String color, String id, String function) {
+    public FunctionCard(String color, String function, String id) {
         super(color ,id);
         this.function = function;
     }
@@ -25,7 +25,7 @@ public class FunctionCard extends Card{
 
     @Override
     public String toString() {
-        return this.getColor() + " " +this.function;
+        return this.getColor() + " " + this.function;
     }
 
 

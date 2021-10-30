@@ -23,5 +23,10 @@ public class NumberCardTest {
         assertEquals(-1, c2.getNumber());
     }
 
+    public void TesttoString(){
+        assertEquals("red7", c1.toString());
+        assertEquals("black-1", c2.toString());
+    }
+
 
 }

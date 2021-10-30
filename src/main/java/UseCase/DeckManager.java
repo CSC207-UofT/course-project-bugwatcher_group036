@@ -7,52 +7,52 @@ import Entity.NumberCard;
 
 import java.util.ArrayList;
 
-public class DeckUseCase {
+public class DeckManager {
 
-    private Deck deck;
+    private Deck d;
 
-    public DeckUseCase() {
-        this.deck = new Deck();
+    public DeckManager() {
+        this.d = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
                 Card newCard = new NumberCard(color, i, color + i);
-                deck.getUnusedCardDeck().add(newCard);
+                d.getUnusedCardDeck().add(newCard);
             }
         }
     }
 
     public int[] returnDeckInfo() {
         int[] res = new int[2];
-        res[0] = deck.getUsedCardDeck().size();
-        res[1] = deck.getUnusedCardDeck().size();
+        res[0] = d.getUsedCardDeck().size();
+        res[1] = d.getUnusedCardDeck().size();
         return res;
     }
 
     public void shuffleFromUsedToUnused() {
-        deck.shuffleFromUsedToUnused();
+        d.shuffleFromUsedToUnused();
     }
 
     public void initializeCard(ArrayList<Card> cards) {
-        deck.setUnusedCardDeck(cards);
+        d.setUnusedCardDeck(cards);
     }
 
     public void putCardToUsedDeck(Card c) {
-        deck.putCardToUsedDeck(c);
+        d.putCardToUsedDeck(c);
     }
 
     public Card drawCardFromUnusedDeck() {
-        if (deck.getUnusedCardDeck().size() == 0) {
-            boolean noCard = deck.shuffleFromUsedToUnused();
+        if (d.getUnusedCardDeck().size() == 0) {
+            boolean noCard = d.shuffleFromUsedToUnused();
             if  (!noCard) {
                 return new Card(); // shouldn't we throw exception here?
             }
         }
-        return deck.drawCardFromUnusedDeck();
+        return d.drawCardFromUnusedDeck();
     }
 
     public boolean checkShuffle() {
-        return deck.getUnusedCardDeck().size() == 0;
+        return d.getUnusedCardDeck().size() == 0;
     }
 
     public Card extractCard(ArrayList<Card> cards, String id) {

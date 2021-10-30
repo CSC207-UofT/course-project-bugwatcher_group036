@@ -2,7 +2,6 @@ package Entity;
 
 public class Card {
     private String color;
-    private String function;
     private String id;
 
     /**
@@ -23,7 +22,6 @@ public class Card {
      */
     public Card(){
         this.color = "black";
-        this.function = "nullfunc";
         this.id = "nullid";
     }
 
@@ -39,9 +37,8 @@ public class Card {
         return id;
     }
 
-    @Override
     public String toString() {
-        return "Card{" + "id=" + id + '}';
+        return "Id:" + id;
     }
 
     // test code
