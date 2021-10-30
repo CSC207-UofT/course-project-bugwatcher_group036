@@ -1,25 +1,29 @@
 package UseCase;
 
+import Controller.*;
 import Entity.Card;
 import Entity.Deck;
 import Entity.FunctionCard;
 import Entity.NumberCard;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DeckManager {
 
     private Deck d;
-
-    public DeckManager() {
-        this.d = new Deck();
-        String[] colors = {"red", "green", "blue", "yellow"};
-        for (String color : colors) {
-            for (int i = 0; i < 10; i++) {
-                Card newCard = new NumberCard(color, i, color + i);
-                d.getUnusedCardDeck().add(newCard);
-            }
-        }
+    Readfile readfile = new Cardreadfile();
+    public DeckManager(){
+        this.d = readfile.readFromFile("src/main/resources/numbercards.txt",
+                "src/main/resources/functioncards.txt"); //wise: I am not sure whether the directory should be in the Use Case or in the Gateway Class.
+        //wise: From the clean architecture login demo, the directory was in the Use Case Class but I think we can directly put it in the gateway class.
+//        String[] colors = {"red", "green", "blue", "yellow"};
+//        for (String color : colors) {
+//            for (int i = 0; i < 10; i++) {
+//                Card newCard = new NumberCard(color, i, color + i);
+//                d.getUnusedCardDeck().add(newCard);
+//            }
+//        }
     }
 
     public int[] returnDeckInfo() {
