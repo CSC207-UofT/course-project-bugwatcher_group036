@@ -1,7 +1,6 @@
 package UseCase;
 
-import Controller.Cardreadfile;
-import Controller.Readfile;
+import Controller.*;
 import Entity.Card;
 import Entity.Deck;
 import Entity.FunctionCard;
