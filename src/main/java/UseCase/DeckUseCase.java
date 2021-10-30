@@ -9,50 +9,50 @@ import java.util.ArrayList;
 
 public class DeckUseCase {
 
-    private Deck d;
+    private Deck deck;
 
     public DeckUseCase() {
-        this.d = new Deck();
+        this.deck = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
                 Card newCard = new NumberCard(color, i, color + i);
-                d.getUnusedCardDeck().add(newCard);
+                deck.getUnusedCardDeck().add(newCard);
             }
         }
     }
 
     public int[] returnDeckInfo() {
         int[] res = new int[2];
-        res[0] = d.getUsedCardDeck().size();
-        res[1] = d.getUnusedCardDeck().size();
+        res[0] = deck.getUsedCardDeck().size();
+        res[1] = deck.getUnusedCardDeck().size();
         return res;
     }
 
     public void shuffleFromUsedToUnused() {
-        d.shuffleFromUsedToUnused();
+        deck.shuffleFromUsedToUnused();
     }
 
     public void initializeCard(ArrayList<Card> cards) {
-        d.setUnusedCardDeck(cards);
+        deck.setUnusedCardDeck(cards);
     }
 
     public void putCardToUsedDeck(Card c) {
-        d.putCardToUsedDeck(c);
+        deck.putCardToUsedDeck(c);
     }
 
     public Card drawCardFromUnusedDeck() {
-        if (d.getUnusedCardDeck().size() == 0) {
-            boolean noCard = d.shuffleFromUsedToUnused();
+        if (deck.getUnusedCardDeck().size() == 0) {
+            boolean noCard = deck.shuffleFromUsedToUnused();
             if  (!noCard) {
                 return new Card(); // shouldn't we throw exception here?
             }
         }
-        return d.drawCardFromUnusedDeck();
+        return deck.drawCardFromUnusedDeck();
     }
 
     public boolean checkShuffle() {
-        return d.getUnusedCardDeck().size() == 0;
+        return deck.getUnusedCardDeck().size() == 0;
     }
 
     public Card extractCard(ArrayList<Card> cards, String id) {
