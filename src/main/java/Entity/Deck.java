@@ -17,8 +17,8 @@ public class Deck implements Serializable{
         this.unused = new ArrayList<>();
 //        File testFile = new File("");
 //        try {
-//            BufferedReader numberFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/resources/numbercards.txt"));
-//            BufferedReader functionFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/resources/functioncards.txt"));
+//            BufferedReader numberFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/resources/numberCards.txt"));
+//            BufferedReader functionFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/resources/functionCards.txt"));
 //            String numberLine = numberFile.readLine();
 //            String functionLine = functionFile.readLine();
 //            while (numberLine != null){
