@@ -36,13 +36,15 @@ public class Cardreadfile implements Readfile {
             String functionLine = functionFile.readLine();
             while (numberLine != null){
                 String[] numberSplit = numberLine.split(" ");
-                Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]), numberSplit[2]);
+                Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]),
+                        numberSplit[0]+numberSplit[1]);
                 d.addcard(numCard);
                 numberLine = numberFile.readLine();
             }
             while (functionLine != null){
                 String[] functionSplit = functionLine.split(" ");
-                Card funCard = new FunctionCard(functionSplit[0], functionSplit[1], functionSplit[2]);
+                Card funCard = new FunctionCard(functionSplit[0], functionSplit[1],
+                        functionSplit[0]+functionSplit[1]);
                 d.addcard(funCard);
                 functionLine = functionFile.readLine();
             }
