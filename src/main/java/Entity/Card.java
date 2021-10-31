@@ -43,6 +43,10 @@ public class Card implements Serializable {
         return "Id:" + id;
     }
 
+    public String getFeature(){
+        return "nullfeature";
+    }
+
     // test code
 //    public static void main(String[] args){
 //        Card c1 = new Card("red", 2, null);
