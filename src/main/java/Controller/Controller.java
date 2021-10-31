@@ -18,45 +18,6 @@ public class Controller {
     private DeckManager cardManager;
 
     /**
-     * Construct a main.Controller with a given number of players.
-     * @param numberOfPlayers
-     */
-    public Controller(int numberOfPlayers) {
-
-        // create and assign the PlayerUseCase to attribute playerManager.
-        this.playerManager = new PlayerManager(numberOfPlayers);
-
-        // create an Array of Players which is wait to be assigned with input players.
-        Player[] currentPlayer = new Player[numberOfPlayers];
-
-        // input players for given numbers of players and put it into the array.
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Scanner keyboard = new Scanner(System.in);
-            System.out.println("enter a player name for player " + (i+1) + ":");
-            String playerID = keyboard.nextLine();
-            playerManager.createPlayer(playerID, i);
-        }
-        currentPlayer = playerManager.getPlayers(); //zhuyuezx: simplified this part.
-
-        // create a new PlayerUseCase with the array of players as the playManager.
-//        this.playerManager = new PlayerUseCase(currentPlayer);
-
-        // create a new CardUseCase as the cardManager.
-
-        this.cardManager = new DeckManager();
-
-    }
-
-    public void deal() {
-        for (int i = 0; i < 7; i++) {
-            for (Player p: playerManager) {
-                Card c = cardManager.drawCardFromUnusedDeck();
-                p.drawCard(c);
-            }
-        }
-    }
-
-    /**
      * run the game and return the player that wins.
      * @return
      */
@@ -149,9 +110,19 @@ public class Controller {
         return playerWins;
     }
 
+    public void setPlayerManager(PlayerManager playerManager) {
+        this.playerManager = playerManager;
+    }
+
+    public void setCardManager(DeckManager cardManager) {
+        this.cardManager = cardManager;
+    }
+
+
     public static void main(String[] args) {
-        Controller newGameController = new Controller(4);
-        newGameController.deal();
+        ControllerBuilder controllerBuilder = new ControllerBuilder(4);
+        Controller newGameController = controllerBuilder.buildUnoController();
+
         Player playerWins = newGameController.runGame();
         System.out.println(playerWins.getId() + " wins!");
     }
