@@ -133,6 +133,10 @@ public class PlayerManager implements Iterable<Player>{
         return (players[playerCount].getCardNum() == 0);
     }
 
+    public boolean oneCardLeft(int playerCount) {
+        return (players[playerCount].getCardNum() == 1);
+    }
+
     /**
      * Determine whether a player has playable card in his/her hand.
      *
