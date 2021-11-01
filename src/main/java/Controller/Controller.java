@@ -20,52 +20,6 @@ public class Controller {
     private ArrayList<String> num;
     private ArrayList<String> colors;
 
-    /**
-     * Construct a main.Controller with a given number of players.
-     * @param numberOfPlayers
-     */
-    public Controller(int numberOfPlayers) {
-
-        // create and assign the PlayerUseCase to attribute playerManager.
-        this.playerManager = new PlayerManager(numberOfPlayers);
-
-        // create an Array of Players which is wait to be assigned with input players.
-        Player[] currentPlayer = new Player[numberOfPlayers];
-
-        // input players for given numbers of players and put it into the array.
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Scanner keyboard = new Scanner(System.in);
-            System.out.println("enter a player name for player " + (i+1) + ":");
-            String playerID = keyboard.nextLine();
-            playerManager.createPlayer(playerID, i);
-        }
-        currentPlayer = playerManager.getPlayers(); //zhuyuezx: simplified this part.
-
-        // create a new PlayerUseCase with the array of players as the playManager.
-//        this.playerManager = new PlayerUseCase(currentPlayer);
-
-        // create a new CardUseCase as the cardManager.
-
-        this.cardManager = new DeckManager();
-        Readfile readfile = new Cardreadfile();
-        this.colors = readfile.readFromFile("src/main/resources/numbercards.txt",
-                "src/main/resources/functioncards.txt", cardManager);
-        this.rand = new Random();
-        this.num = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            num.add(Integer.toString(i));
-        }
-
-    }
-
-    public void deal() {
-        for (int i = 0; i < 7; i++) {
-            for (Player p: playerManager) {
-                Card c = cardManager.drawCardFromUnusedDeck();
-                p.drawCard(c);
-            }
-        }
-    }
 
     public void drawCardWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay, int currentPlayerIndex) {
         if (currentCardsPlayerCanPlay.isEmpty()) {
@@ -169,36 +123,84 @@ public class Controller {
             }
     }
 
+    public void functionCardResponse(ControllerVariables vars, String feature){
+        switch (feature) {
+            case "skip":
+                vars.setSkip(true);
+                break;
+            case "reverse":
+                vars.setReverse(!vars.isReverse());
+                break;
+            case "plustwo":
+                vars.setPlus(vars.getPlus() + 2);
+                break;
+            case "switch": {
+                setColor(vars);
+                break;
+            }
+            default: {
+                vars.setPlus(vars.getPlus() + 4);
+                setColor(vars);
+                break;
+            }
+        }
+    }
 
+    public void setColor(ControllerVariables vars){
+        System.out.println("Type a color you want to set:");
+        String setColor = vars.getKeyboard().nextLine();
+        int wrongTimeCounter = 0;
 
+        while (wrongTimeCounter < 3){
+
+            if (!colors.contains(setColor) && wrongTimeCounter < 2) {
+                System.out.println("Wrong color! Type again:");
+                setColor = vars.getKeyboard().nextLine();
+            }
+            else if (!colors.contains(setColor) && wrongTimeCounter == 2) {
+                System.out.println("Wrong color 3 times! Color randomly chosen");
+                setColor = colors.get(rand.nextInt(colors.size()));
+            } else {
+                break;
+            }
+
+            wrongTimeCounter++;
+        }
+        playerManager.renewLastCard(cardManager.createColorCard(setColor));
+    }
+
+    public ArrayList<Card> getCurrentCardsPlayerCanPlayer(ControllerVariables vars){
+        // Get the cards that the current player can play.
+        // if the last card is skip, player only can play skip
+        if (vars.isSkip()) {
+            return cardManager.skipsPlayerCanPlay(playerManager.getHandCard(vars.getCurrentPlayerIndex()));
+        } else if (vars.getPlus() > 0){
+            // if the last card is plus2, player can play plus2 or plus4.
+            if (cardManager.feature(playerManager.getLastCard()).equals("plustwo")) {
+                return cardManager.plustwoPlayerCanPlay(playerManager.getHandCard(vars.getCurrentPlayerIndex()));
+            } else {
+                // if the last card is plus4, player can only play plus4.
+                return cardManager.plusfourPlayerCanPlay(playerManager.getHandCard(vars.getCurrentPlayerIndex()));
+            }
+        } else {
+            // get the cards that the current player can play normally
+            return cardManager.cardsPlayerCanPlay(
+                    playerManager.getHandCard(vars.getCurrentPlayerIndex()),
+                    playerManager.getLastCard());
+        }
+    }
 
     /**
      * run the game and return the player that wins.
-     * @return
+     * @return the player that wins.
      */
     public Player runGame() {
-        Scanner keyboard = new Scanner(System.in);
-
-        // The winner player
-        Player playerWins = null;
-
-        // whether reverse
-        boolean reverse = false;
-
-        // winFlag is used to indicate whether a winner appears.
-        boolean winFlag = false;
-
-        // Randomly select a player to play the first card.
-        int currentPlayerIndex = rand.nextInt(this.playerManager.getPlayerNum());
-
-        // whether the turn of player should be skipped
-        boolean skip = false;
-
-        //whether there are cards that needed to drawed for the player
-        int plus = 0;
+        // create a new class that stores all the variables, and
+        // we can use getter and setter methods to do corresponding operations.
+        ControllerVariables vars = new ControllerVariables(this.playerManager.getPlayerNum());
 
         // if winFlag is true, it means the winner appears and the while loop exits.
-        while (!winFlag) {
+        while (!vars.isWinFlag()) {
 //            // whether the player successfully plays a card
 //            boolean whetherPlayCard;
 
@@ -209,46 +211,21 @@ public class Controller {
             Card cardToPlay = cardManager.createNullCard();
             // show the current player
             System.out.println();
-            System.out.println("Current player: " + playerManager.getPlayers()[currentPlayerIndex]);
+            System.out.println("Current player: " + playerManager.getPlayers()[vars.getCurrentPlayerIndex()]);
 
-            ArrayList<Card> currentCardsPlayerCanPlay;
-
-
-//            ArrayList<Card> currentCardsPlayerCanPlay = playerManager.CardsPlayerCanPlay(currentPlayerIndex,
-//                    cardManager);
-
-            // Get the cards that the current player can play.
-            // if the last card is skip, player only can play skip
-            if (skip) {
-                currentCardsPlayerCanPlay =
-                        cardManager.skipsPlayerCanPlay(playerManager.getHandCard(currentPlayerIndex));
-            } else if (plus > 0){
-                // if the last card is plus2, player can play plus2 or plus4.
-                if (cardManager.feature(playerManager.getLastCard()).equals("plustwo")) {
-                    currentCardsPlayerCanPlay =
-                            cardManager.plustwoPlayerCanPlay(playerManager.getHandCard(currentPlayerIndex));
-                } else {
-                    // if the last card is plus4, player can only play plus4.
-                    currentCardsPlayerCanPlay =
-                            cardManager.plusfourPlayerCanPlay(playerManager.getHandCard(currentPlayerIndex));
-                }
-            } else {
-                // get the cards that the current player can play normally
-                currentCardsPlayerCanPlay = cardManager.cardsPlayerCanPlay(
-                        playerManager.getHandCard(currentPlayerIndex), playerManager.getLastCard()
-                );
-            }
+            // get cards player can play considering special cases of function cards
+            ArrayList<Card> currentCardsPlayerCanPlay = getCurrentCardsPlayerCanPlayer(vars);
 
             // If no cards can play, draw a card, otherwise play a card. If the player type three times
             // wrong card to play, the player will be punished to draw a card automatically.
             if (currentCardsPlayerCanPlay.isEmpty()) {
-                if (plus > 0) {
-                    plusManyNextPlayer(currentPlayerIndex, plus);
-                    plus = 0;
-                } else if (!cardManager.feature(playerManager.getLastCard()).equals("skip")||
-                        (cardManager.feature(playerManager.getLastCard()).equals("skip")| !skip)){
+                if (vars.getPlus() > 0) {
+                    plusManyNextPlayer(vars.getCurrentPlayerIndex(), vars.getPlus());
+                    vars.setPlus(0);
+                } else if (!cardManager.feature(playerManager.getLastCard()).equals("skip") ||
+                        (cardManager.feature(playerManager.getLastCard()).equals("skip") && !vars.isSkip())){
                     // draw a card when there is no valid card can play
-                    drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay, currentPlayerIndex);
+                    drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex());
                 }
             } else {
 
@@ -256,14 +233,14 @@ public class Controller {
 //                Card cardToPlay;
 
                 // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
-                cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, currentPlayerIndex);
+                cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex());
 
                 // If the player types 3 times wrong card, draw a card, otherwise play the card.
-                punishOrPlayCard(cardToPlay, currentPlayerIndex);
+                punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
             }
 
             // set the skip to false since the function skip has passed.
-            skip = false;
+            vars.setSkip(false);
 
             // if the player successfully play a card
             if (!cardManager.whetherNull(cardToPlay)) {
@@ -271,69 +248,52 @@ public class Controller {
                 // if the player plays a function card
                 if (!num.contains(feature)) {
                     // if it is the last card that the palyer plays is a function card, draw a card.
-                    if (playerManager.winOrNot(currentPlayerIndex)) {
+                    if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {
                         Card c = cardManager.drawCardFromUnusedDeck();
-                        playerManager.getPlayers()[currentPlayerIndex].drawCard(c);
+                        playerManager.getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);
                     }
-                    if (feature.equals("skip")) {
-                        skip = true;
-                    } else if (feature.equals("reverse")){
-                        reverse = !reverse;
-                    } else if (feature.equals("plustwo")){
-                        plus = plus + 2;
-                    } else if (feature.equals("switch")) {
-                        System.out.println("Type a color you want to set:");
-                        String setColor = keyboard.nextLine();
-                        if (!colors.contains(setColor)) {
-                            System.out.println("Wrong color! Type again:");
-                            setColor = keyboard.nextLine();
-                        };
-                        if (!colors.contains(setColor)) {
-                            System.out.println("Wrong color! Type again:");
-                            setColor = keyboard.nextLine();
-                        };
-                        if (!colors.contains(setColor)) {
-                            System.out.println("Wrong color 3 times! Color randomly chosen");
-                            setColor = colors.get(rand.nextInt(colors.size()));
-                        };
-                        playerManager.renewLastCard(cardManager.createColorCard(setColor));
-                    } else {
-                        plus = plus + 4;
-                        System.out.println("Type a color you want to set:");
-                        String setColor = keyboard.nextLine();
-                        if (!colors.contains(setColor)) {
-                            System.out.println("Wrong color! Type again:");
-                            setColor = keyboard.nextLine();
-                        };
-                        if (!colors.contains(setColor)) {
-                            System.out.println("Wrong color! Type again:");
-                            setColor = keyboard.nextLine();
-                        };
-                        if (!colors.contains(setColor)) {
-                            System.out.println("Wrong color 3 times! Color randomly chosen");
-                            setColor = colors.get(rand.nextInt(colors.size()));
-                        };
-                        playerManager.renewLastCard(cardManager.createColorCard(setColor));
-                    }
+
+                    functionCardResponse(vars, feature);
                 }
             }
 
             // Determine whether the player wins or not.
-            if (playerManager.winOrNot(currentPlayerIndex)) {
-                winFlag = true;
-                playerWins = playerManager.getPlayers()[currentPlayerIndex];
+            if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {
+                vars.setWinFlag(true);
+                vars.setPlayerWins(playerManager.getPlayers()[vars.getCurrentPlayerIndex()]);
             }
 
             // Move to the next player
-            currentPlayerIndex = moveToNextPlayer(currentPlayerIndex, reverse);
+            vars.setCurrentPlayerIndex(moveToNextPlayer(vars.getCurrentPlayerIndex(), vars.isReverse()));
         }
-        return playerWins;
+        return vars.getPlayerWins();
+    }
+
+    public void setCardManager(DeckManager cardManager) {
+        this.cardManager = cardManager;
+    }
+
+    public void setPlayerManager(PlayerManager playerManager) {
+        this.playerManager = playerManager;
+    }
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
+
+    public void setNum(ArrayList<String> num) {
+        this.num = num;
+    }
+
+    public void setColors(ArrayList<String> colors) {
+        this.colors = colors;
     }
 
     public static void main(String[] args) {
-        Controller newGameController = new Controller(4);
-        newGameController.deal();
+        ControllerBuilder unoBuilder = new ControllerBuilder(4);
+        Controller newGameController = unoBuilder.buildUnoController();
         Player playerWins = newGameController.runGame();
         System.out.println(playerWins.getId() + " wins!");
     }
+
 }
