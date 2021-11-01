@@ -5,6 +5,8 @@ import Entity.Player;
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ControllerBuilder implements Builder {
@@ -12,6 +14,9 @@ public class ControllerBuilder implements Builder {
     private PlayerManager playerManager;
     private DeckManager cardManager;
     private final int numberOfPlayers;
+    private Random rand;
+    private ArrayList<String> num;
+    private ArrayList<String> colors;
 
     public ControllerBuilder(int numberOfPlayers){
         this.numberOfPlayers = numberOfPlayers;
@@ -32,22 +37,46 @@ public class ControllerBuilder implements Builder {
         cardManager = new DeckManager();
     }
 
-    public Controller buildController(){
+    public void cardDeal(){
         for (int i = 0; i < 7; i++) {
             for (Player p: playerManager) {
                 Card c = cardManager.drawCardFromUnusedDeck();
                 p.drawCard(c);
             }
         }
-        Controller temp = new Controller();
-        temp.setCardManager(cardManager);
-        temp.setPlayerManager(playerManager);
-        return temp;
+    }
+
+    public void buildRand(){
+        this.rand = new Random();
+    }
+
+    public void buildNum(){
+        this.num = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            num.add(Integer.toString(i));
+        }
+    }
+
+    public void buildColors(){
+        Readfile readfile = new Cardreadfile();
+        this.colors = readfile.readFromFile("src/main/resources/numbercards.txt",
+                "src/main/resources/functioncards.txt", cardManager);
     }
 
     public Controller buildUnoController(){
         this.buildPlayerManager();
         this.buildDeckManager();
-        return this.buildController();
+        this.buildRand();
+        this.buildNum();
+        this.buildColors();
+        this.cardDeal();
+        Controller temp = new Controller();
+        temp.setCardManager(cardManager);
+        temp.setPlayerManager(playerManager);
+        temp.setRand(rand);
+        temp.setNum(num);
+        temp.setColors(colors);
+
+        return temp;
     }
 }
