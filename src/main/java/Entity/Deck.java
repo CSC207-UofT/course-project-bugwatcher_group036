@@ -15,39 +15,6 @@ public class Deck implements Serializable{
     public Deck(){
         this.used = new ArrayList<>();
         this.unused = new ArrayList<>();
-//        File testFile = new File("");
-//        try {
-//            BufferedReader numberFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/resources/numbercards.txt"));
-//            BufferedReader functionFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/resources/functioncards.txt"));
-//            String numberLine = numberFile.readLine();
-//            String functionLine = functionFile.readLine();
-//            while (numberLine != null){
-//                String[] numberSplit = numberLine.split(" ");
-//                Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]), numberSplit[2]);
-//                unused.add(numCard);
-//                numberLine = numberFile.readLine();
-//            }
-//            while (functionLine != null){
-//                String[] functionSplit = functionLine.split(" ");
-//                Card funCard = new FunctionCard(functionSplit[0], functionSplit[1], functionSplit[2]);
-//                unused.add(funCard);
-//                functionLine = functionFile.readLine();
-//            }
-//        }
-//        catch (FileNotFoundException fileMissing){
-//            System.out.println("Card file not found. Check directory.");
-//
-//        }
-//        catch (IOException ignored) {} // wise: don't know how to handle this case
-
-//        String[] colors = {"red", "green", "blue", "yellow"};
-//        for (String color : colors) {
-//            for (int i = 0; i < 10; i++) {
-//                Card newCard = new NumberCard(color, i, color + i);
-//                unused.add(newCard);
-//            }
-//        }
-
     }
 
     /**
@@ -58,16 +25,6 @@ public class Deck implements Serializable{
     public boolean isEmpty(){
         return unused.isEmpty();
         }
-
-//    /**
-//     * To remove a card from the unused card deck.
-//     *
-//     * @return Card that is removed from the unused card deck
-//     */
-//    public Card remove_card() {
-//        return unused_card_deck.remove(0);
-//    }
-
 
     /**
      * To add a card into the used_card_deck.

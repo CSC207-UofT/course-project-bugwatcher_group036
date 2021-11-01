@@ -6,7 +6,13 @@ public interface Builder {
 
     void buildDeckManager();
 
-    Controller buildController();
+    void buildRand();
+
+    void buildNum();
+
+    void buildColors();
+
+    void cardDeal();
 
     Controller buildUnoController();
 }
