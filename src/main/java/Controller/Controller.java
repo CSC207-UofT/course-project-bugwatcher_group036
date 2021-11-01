@@ -129,7 +129,7 @@ public class Controller {
                 vars.setSkip(true);
                 break;
             case "reverse":
-                vars.setSkip(!vars.isSkip());
+                vars.setReverse(!vars.isReverse());
                 break;
             case "plustwo":
                 vars.setPlus(vars.getPlus() + 2);

@@ -42,10 +42,6 @@ public class ControllerVariables {
         return keyboard;
     }
 
-    public void setKeyboard(Scanner keyboard) {
-        this.keyboard = keyboard;
-    }
-
     public Player getPlayerWins() {
         return playerWins;
     }
