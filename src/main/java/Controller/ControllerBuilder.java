@@ -17,6 +17,8 @@ public class ControllerBuilder implements Builder {
     private Random rand;
     private ArrayList<String> num;
     private ArrayList<String> colors;
+    private EachRound eachRound;
+    private FunctionPlayed functionPlayed;
 
     public ControllerBuilder(int numberOfPlayers){
         this.numberOfPlayers = numberOfPlayers;
@@ -63,6 +65,14 @@ public class ControllerBuilder implements Builder {
                 "src/main/resources/functioncards.txt", cardManager);
     }
 
+    public void buildEachRound() {
+        this.eachRound = new EachRound(playerManager, cardManager, num, colors);
+    }
+
+    public void buildFunctionPlayed() {
+        this.functionPlayed = new FunctionPlayed(playerManager, cardManager, num, colors);
+    }
+
     public Controller buildUnoController(){
         this.buildPlayerManager();
         this.buildDeckManager();
@@ -70,12 +80,16 @@ public class ControllerBuilder implements Builder {
         this.buildNum();
         this.buildColors();
         this.cardDeal();
+        this.buildEachRound();
+        this.buildFunctionPlayed();
         Controller temp = new Controller();
         temp.setCardManager(cardManager);
         temp.setPlayerManager(playerManager);
         temp.setRand(rand);
         temp.setNum(num);
         temp.setColors(colors);
+        temp.setEachRound(eachRound);
+        temp.setFunctionPlayed(functionPlayed);
 
         return temp;
     }
