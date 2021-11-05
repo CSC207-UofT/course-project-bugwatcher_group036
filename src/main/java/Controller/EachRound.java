@@ -60,7 +60,7 @@ public class EachRound {
         // Let the player type the card to play. If type a wrong card, type again,
         // with maximum 3 times.
         do {
-            System.out.println("Enter a card to play:");
+            System.out.println("Enter a card to play or type draw to draw card:");
 
             // let the player type the card to play
             String cardToPlayID = keyboard.nextLine();
@@ -168,42 +168,20 @@ public class EachRound {
             drawCardToPlay = operationsWhenNoCardToPlay(vars, currentCardsPlayerCanPlay);
         }
         if (!getCurrentCardsPlayerCanPlayer(vars).isEmpty()) {
-            int wrongTime = 0;
 
             if (!drawCardToPlay) {
                 // print all the information
                 System.out.println("Last card: " + playerManager.getLastCard());
                 System.out.println("The cards you have: " + playerManager.getHandCard(vars.getCurrentPlayerIndex()));
                 System.out.println("The cards you can play: " + getCurrentCardsPlayerCanPlayer(vars));
-                while (wrongTime < 3) {
-                    System.out.println("Choose to play a card or draw a card:");
-                    String option = keyboard.nextLine();
-                    if (option.equals("draw")) {
-                        drawCard(vars);
-                        wrongTime = 4;
-                    } else if (option.equals("play")) {
-                        // cardToPlay is the card that the player wants to play.
-//                Card cardToPlay;
+                // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
+                cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex(), vars);
 
-                        // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
-                        cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex(), vars);
-
-                        // If the player types 3 times wrong card, draw a card, otherwise play the card.
-                        punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
-                        wrongTime = 4;
-                    } else {
-                        wrongTime ++;
-                    }
-                }
-                if (wrongTime == 3) {
-                    drawCard(vars);
+                // If the player types 3 times wrong card, draw a card, otherwise play the card.
+                punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
                 }
 
             }
-
-
-//
-        }
         return cardToPlay;
     }
 
