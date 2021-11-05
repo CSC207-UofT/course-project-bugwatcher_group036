@@ -60,7 +60,7 @@ public class EachRound {
         // Let the player type the card to play. If type a wrong card, type again,
         // with maximum 3 times.
         do {
-            System.out.println("Enter a card to play:");
+            System.out.println("Choose to play a card or type draw to draw a card:");
 
             // let the player type the card to play
             String cardToPlayID = keyboard.nextLine();
@@ -68,6 +68,11 @@ public class EachRound {
             // extract the card to play from the hand card
             cardToPlay = cardManager.extractCard(currentCardsPlayerCanPlay, cardToPlayID);
 
+            if (cardToPlayID.equals("draw")) {
+                drawCard(vars);
+                wrongTimes = 4;
+                cardToPlay = cardManager.createColorCard("white");
+            }
             // if the card chose is null, count the wrong time
             if (cardManager.whetherNull(cardToPlay)) {
                 wrongTimes++;
@@ -92,7 +97,7 @@ public class EachRound {
                 playerManager.playerDrawCard(currentPlayerIndex, c);
                 System.out.println("The card you drew is " + c);
             }
-        } else {
+        } else if (!cardManager.color(cardToPlay).equals("white")) {
             // if the played card is valid, play the card
             Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
             // put the played into the used deck
@@ -162,42 +167,27 @@ public class EachRound {
 
     public Card operationsForPlayer(ControllerVariables vars, Card cardToPlay,
                                     ArrayList<Card> currentCardsPlayerCanPlay) {
-        Scanner keyboard = new Scanner(System.in);
         boolean drawCardToPlay = false;
         if (currentCardsPlayerCanPlay.isEmpty()) {
             drawCardToPlay = operationsWhenNoCardToPlay(vars, currentCardsPlayerCanPlay);
         }
         if (!getCurrentCardsPlayerCanPlayer(vars).isEmpty()) {
-            int wrongTime = 0;
 
             if (!drawCardToPlay) {
                 // print all the information
                 System.out.println("Last card: " + playerManager.getLastCard());
                 System.out.println("The cards you have: " + playerManager.getHandCard(vars.getCurrentPlayerIndex()));
                 System.out.println("The cards you can play: " + getCurrentCardsPlayerCanPlayer(vars));
-                while (wrongTime < 3) {
-                    System.out.println("Choose to play a card or draw a card:");
-                    String option = keyboard.nextLine();
-                    if (option.equals("draw")) {
-                        drawCard(vars);
-                        wrongTime = 4;
-                    } else if (option.equals("play")) {
-                        // cardToPlay is the card that the player wants to play.
+
+                // cardToPlay is the card that the player wants to play.
 //                Card cardToPlay;
 
-                        // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
-                        cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex(), vars);
+                // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
+                cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex(), vars);
 
-                        // If the player types 3 times wrong card, draw a card, otherwise play the card.
-                        punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
-                        wrongTime = 4;
-                    } else {
-                        wrongTime ++;
-                    }
-                }
-                if (wrongTime == 3) {
-                    drawCard(vars);
-                }
+                // If the player types 3 times wrong card, draw a card, otherwise play the card.
+                punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
+
 
             }
 
@@ -220,7 +210,7 @@ public class EachRound {
 
     public void effectsAfterPunishOrPlayCard(ControllerVariables vars, Card cardToPlay) {
         // if the player successfully play a card
-        if (!cardManager.whetherNull(cardToPlay)) {
+        if (!cardManager.whetherNull(cardToPlay) && !cardManager.color(cardToPlay).equals("white")) {
             String feature = cardManager.feature(cardToPlay);
             // if the player plays a function card
             if (!num.contains(feature)) {
