@@ -32,7 +32,7 @@ public class PlayerManager implements Iterable<Player>{
     /**
      * Constructor of the PlayerUseCase class, with the number of players, numberOfPlayers.
      * needed to be initialized in upper level.
-     * @param numberOfPlayers
+     * @param numberOfPlayers Number of players that play the card.
      */
     public PlayerManager(int numberOfPlayers) {
         this.players = new Player[numberOfPlayers];
@@ -68,9 +68,8 @@ public class PlayerManager implements Iterable<Player>{
 
     /**
      * Create and return a new player with the given id and position.
-     * @param id
-     * @param position
-     * @return
+     * @param id Id of the player.
+     * @param position Position of the player in the game(clockwise).
      */
     public void createPlayer(String id, int position) {
         players[position] = new Player(id, position);
@@ -221,7 +220,7 @@ public class PlayerManager implements Iterable<Player>{
 
     /**
      * getter method for lastCard
-     *
+
      * @return attribute lastCard
      */
     public Card getLastCard(){
