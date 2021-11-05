@@ -144,6 +144,7 @@ public class EachRound {
         if (vars.getPlus() > 0) {
             functionCardPlayed.plusManyNextPlayer(vars.getCurrentPlayerIndex(), vars.getPlus());
             vars.setPlus(0);
+            drawCard = true;
         } else if (!cardManager.feature(playerManager.getLastCard()).equals("skip") ||
                 (cardManager.feature(playerManager.getLastCard()).equals("skip") && !vars.isSkip())){
             // draw a card when there is no valid card can play
