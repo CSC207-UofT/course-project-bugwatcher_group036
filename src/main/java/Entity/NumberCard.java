@@ -28,4 +28,9 @@ public class NumberCard extends Card {
     public String toString() {
         return this.getColor()  + number;
     }
+
+    @Override
+    public String getFeature() {
+        return Integer.toString(number);
+    }
 }
