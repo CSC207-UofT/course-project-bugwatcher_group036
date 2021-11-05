@@ -1,8 +1,10 @@
 package Controller;
 
 import Entity.*;
+import UseCase.DeckManager;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Cardreadfile implements Readfile {
 // gateway class
@@ -18,7 +20,7 @@ public class Cardreadfile implements Readfile {
 //        output.close();
 //    }
 
-    public Deck readFromFile(String numfilePath, String funfilepath){
+    public ArrayList<String> readFromFile(String numfilePath, String funfilepath, DeckManager deckManager){
 
 //        InputStream file = new FileInputStream(filePath);
 //        InputStream buffer = new BufferedInputStream(file);
@@ -29,6 +31,8 @@ public class Cardreadfile implements Readfile {
 //        input.close();
         Deck d = new Deck();
 
+        ArrayList<String> colors = new ArrayList<>();
+
         try {
             BufferedReader numberFile = new BufferedReader(new FileReader(numfilePath));
             BufferedReader functionFile = new BufferedReader(new FileReader(funfilepath));
@@ -38,14 +42,17 @@ public class Cardreadfile implements Readfile {
                 String[] numberSplit = numberLine.split(" ");
                 Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]),
                         numberSplit[0]+numberSplit[1]);
-                d.addcard(numCard);
+                deckManager.addCard(numCard);
                 numberLine = numberFile.readLine();
             }
             while (functionLine != null){
                 String[] functionSplit = functionLine.split(" ");
                 Card funCard = new FunctionCard(functionSplit[0], functionSplit[1],
-                        functionSplit[0]+functionSplit[1]);
-                d.addcard(funCard);
+                        functionSplit[0]+" "+functionSplit[1]);
+                deckManager.addCard(funCard);
+                if (!colors.contains(functionSplit[0])) {
+                    colors.add(functionSplit[0]);
+                }
                 functionLine = functionFile.readLine();
             }
         }
@@ -54,6 +61,6 @@ public class Cardreadfile implements Readfile {
 
         }
         catch (IOException ignored) {}
-        return d;
+        return colors;
     }
 }

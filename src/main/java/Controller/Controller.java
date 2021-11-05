@@ -16,143 +16,92 @@ public class Controller {
 
     private PlayerManager playerManager;
     private DeckManager cardManager;
+    private Random rand;
+    private ArrayList<String> num;
+    private ArrayList<String> colors;
+    private EachRound eachRound;
+    private FunctionPlayed functionPlayed;
 
-    /**
-     * Construct a main.Controller with a given number of players.
-     * @param numberOfPlayers
-     */
-    public Controller(int numberOfPlayers) {
-
-        // create and assign the PlayerUseCase to attribute playerManager.
-        this.playerManager = new PlayerManager(numberOfPlayers);
-
-        // create an Array of Players which is wait to be assigned with input players.
-        Player[] currentPlayer = new Player[numberOfPlayers];
-
-        // input players for given numbers of players and put it into the array.
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Scanner keyboard = new Scanner(System.in);
-            System.out.println("enter a player name for player " + (i+1) + ":");
-            String playerID = keyboard.nextLine();
-            playerManager.createPlayer(playerID, i);
-        }
-        currentPlayer = playerManager.getPlayers(); //zhuyuezx: simplified this part.
-
-        // create a new PlayerUseCase with the array of players as the playManager.
-//        this.playerManager = new PlayerUseCase(currentPlayer);
-
-        // create a new CardUseCase as the cardManager.
-
-        this.cardManager = new DeckManager();
-
-    }
-
-    public void deal() {
-        for (int i = 0; i < 7; i++) {
-            for (Player p: playerManager) {
-                Card c = cardManager.drawCardFromUnusedDeck();
-                p.drawCard(c);
-            }
-        }
-    }
 
     /**
      * run the game and return the player that wins.
-     * @return
+     * @return the player that wins.
      */
     public Player runGame() {
-        Player playerWins = null; //////////////////!!!!!!!!!!!
-
-        // winFlag is used to indicate whether a winner appears.
-        boolean winFlag = false;
-
-        // Randomly select a player to play the first card.
-        Random rand = new Random();
-        int currentPlayerIndex = rand.nextInt(this.playerManager.getPlayerNum());
+        // create a new class that stores all the variables, and
+        // we can use getter and setter methods to do corresponding operations.
+        ControllerVariables vars = new ControllerVariables(this.playerManager.getPlayerNum());
 
         // if winFlag is true, it means the winner appears and the while loop exits.
-        while (!winFlag) {
+        while (!vars.isWinFlag()) {
+//            // whether the player successfully plays a card
+//            boolean whetherPlayCard;
 
+            // whether skip the next player
+
+
+            // cardToPlay is the card that the player wants to play.
+            Card cardToPlay = cardManager.createNullCard();
+            // show the current player
             System.out.println();
-            System.out.println("Current player: " + playerManager.getPlayers()[currentPlayerIndex]);
+            System.out.println("Current player: " + playerManager.getPlayers()[vars.getCurrentPlayerIndex()]);
 
-            // Get the cards that the current player can play.
-            ArrayList<Card> currentCardsPlayerCanPlay = playerManager.CardsPlayerCanPlay(currentPlayerIndex, cardManager);
+            // get cards player can play considering special cases of function cards
+            ArrayList<Card> currentCardsPlayerCanPlay = eachRound.getCurrentCardsPlayerCanPlayer(vars);
 
             // If no cards can play, draw a card, otherwise play a card. If the player type three times
             // wrong card to play, the player will be punished to draw a card automatically.
-            if (currentCardsPlayerCanPlay.isEmpty()) {
-                System.out.println("You cannot play a card! You need to draw one more card");
-                Card c = cardManager.drawCardFromUnusedDeck();
-                if (!cardManager.compareNew(c)){
-                    playerManager.playerDrawCard(currentPlayerIndex, c);
-                    System.out.println("The card you drew is " + c);
-                    System.out.println();
-                }
-            } else {
-                Scanner keyboard = new Scanner(System.in);
+            cardToPlay = eachRound.operationsForPlayer(vars, cardToPlay, currentCardsPlayerCanPlay);
 
-                // rightCard indicates whether the play type a right card to play.
-                boolean rightCard = true;
+            // set the skip to false since the function skip has passed.
+            vars.setSkip(false);
 
-                // cardToPlay is the card that the player wants to play.
-                // (cardToPlay is a right card to play)
-                Card cardToPlay;
-
-                // The number of times that the player type a wrong card.
-                int wrongTimes = 0;
-
-                // Let the player type the card to play. If type a wrong card, type again,
-                // with maximum 3 times.
-                do {
-                    System.out.println("Last card: " + playerManager.getLastCard());
-                    System.out.println("The cards you have: " + playerManager.getHandCard(currentPlayerIndex));
-                    System.out.println("The cards you can play: " + currentCardsPlayerCanPlay);
-                    System.out.println("Enter a card to play:");
-                    String cardToPlayID = keyboard.nextLine();
-                    cardToPlay = cardManager.extractCard(currentCardsPlayerCanPlay, cardToPlayID);
-                    if (cardManager.compareNew(cardToPlay)) {
-                        wrongTimes++;
-                        rightCard = false;
-                    } else {
-                        rightCard = true;
-                    }
-                } while (!rightCard && wrongTimes < 3);
-
-                // If the player types 3 times wrong card, draw a card, otherwise play the card.
-                if (wrongTimes == 3) {
-                    System.out.println("Enter too many times wrong cards! Draw a card for punishment.");
-                    Card c = cardManager.drawCardFromUnusedDeck();
-                    if (!cardManager.compareNew(c)){
-                        playerManager.playerDrawCard(currentPlayerIndex, c);
-                        System.out.println("The card you drew is " + c);
-                    }
-                } else {
-                    Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
-                    cardManager.putCardToUsedDeck(playedCard);
-                }
-
-            }
+            // The outcome after the player plays a card or get punished.
+            eachRound.effectsAfterPunishOrPlayCard(vars, cardToPlay);
 
             // Determine whether the player wins or not.
-            if (playerManager.winOrNot(currentPlayerIndex)) {
-                winFlag = true;
-                playerWins = playerManager.getPlayers()[currentPlayerIndex];
-            }
+            eachRound.winOrNotInThisRound(vars);
 
             // Move to the next player
-            currentPlayerIndex++;
-            if (currentPlayerIndex == playerManager.getPlayerNum()) {
-                currentPlayerIndex = 0;
-            }
+            vars.setCurrentPlayerIndex(eachRound.moveToNextPlayer(vars.getCurrentPlayerIndex(), vars.isReverse()));
         }
-        return playerWins;
+        return vars.getPlayerWins();
+    }
+
+
+    public void setCardManager(DeckManager cardManager) {
+        this.cardManager = cardManager;
+    }
+
+    public void setPlayerManager(PlayerManager playerManager) {
+        this.playerManager = playerManager;
+    }
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
+
+    public void setNum(ArrayList<String> num) {
+        this.num = num;
+    }
+
+    public void setColors(ArrayList<String> colors) {
+        this.colors = colors;
+    }
+
+    public void setEachRound(EachRound eachRound) {
+        this.eachRound = eachRound;
+    }
+
+    public void setFunctionPlayed(FunctionPlayed functionPlayed) {
+        this.functionPlayed = functionPlayed;
     }
 
     public static void main(String[] args) {
-        Controller newGameController = new Controller(4);
-        newGameController.deal();
+        ControllerBuilder unoBuilder = new ControllerBuilder(4);
+        Controller newGameController = unoBuilder.buildUnoController();
         Player playerWins = newGameController.runGame();
         System.out.println(playerWins.getId() + " wins!");
     }
+
 }
