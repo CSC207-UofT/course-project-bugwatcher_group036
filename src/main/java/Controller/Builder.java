@@ -6,8 +6,6 @@ public interface Builder {
 
     void buildDeckManager();
 
-    void buildRand();
-
     void buildNum();
 
     void buildColors();
