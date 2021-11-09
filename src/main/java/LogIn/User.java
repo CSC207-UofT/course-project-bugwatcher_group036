@@ -1,4 +1,4 @@
-package login;
+package LogIn;
 
 public class User {
 
@@ -24,6 +24,10 @@ public class User {
 
     public void setPassword(String newPassword){
         this.password = newPassword;
+    }
+
+    public boolean equal(User user0){
+        return this.username == user0.username && this.password == user0.password;
     }
 
     public String toString(){
