@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlayerManagerTest {
 
     @Test
-    public void testgetPlayers(){
+    public void testGetPlayers(){
         PlayerManager pManager = new PlayerManager(4);
         Player[] p = pManager.getPlayers();
         assertEquals(4, p.length);

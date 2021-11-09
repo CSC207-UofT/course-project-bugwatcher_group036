@@ -17,6 +17,7 @@ public class FunctionCard extends Card{
 
     public FunctionCard(){
         super();
+        this.function = "nullfunction";
     }
 
     public String getFunction() {
@@ -28,5 +29,8 @@ public class FunctionCard extends Card{
         return this.getColor() + " " + this.function;
     }
 
-
+    @Override
+    public String getFeature() {
+        return function;
+    }
 }
