@@ -103,18 +103,14 @@ public class Controller {
             if (currentCardsPlayerCanPlay.isEmpty()) {
                 drawCardToPlay = operationsWhenNoCardToPlay(currentCardsPlayerCanPlay);
             }
-            ArrayList<Card> playableCards = basicOperations.getCardsCurrentPlayerCanPlay
-                    (playerManager.getPlayers()[vars.getCurrentPlayerIndex()]);
-            if (!playableCards.isEmpty()) {
-
-                if (!drawCardToPlay) {
-                    // print all the information
+            else {
+                // print all the information
                     System.out.println("Last card: " + playerManager.getLastCard());
                     System.out.println("The cards you have: " + playerManager.getHandCard(vars.getCurrentPlayerIndex()));
-                    System.out.println("The cards you can play: " + playableCards);
+                    System.out.println("The cards you can play: " + currentCardsPlayerCanPlay);
 
                     // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
-                    cardToPlay = letPlayerPlayCard(playableCards, vars.getCurrentPlayerIndex());
+                    cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex());
 
                     // If the player types 3 times wrong card, draw a card, otherwise play the card.
                     dealer.punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
@@ -124,7 +120,6 @@ public class Controller {
                         // update the last card stored in gameBoard
                         basicOperations.getGameBoard().setLastCard(cardToPlay);
                     }
-                }
             }
 
             // set the skip to false since the function skip has passed.

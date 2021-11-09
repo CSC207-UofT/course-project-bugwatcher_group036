@@ -68,7 +68,7 @@ public class Dealer {
         Status vars = basicOperations.getVars();
 
         // create the arrayList for all possible number features
-        ArrayList<String> num = new ArrayList<String>();
+        ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
         // if the player successfully plays a card
