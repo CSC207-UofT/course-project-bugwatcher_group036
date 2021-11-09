@@ -98,6 +98,7 @@ public class Controller {
         } else if (!cardManager.color(cardToPlay).equals("white")) {
             // if the played card is valid, play the card
             Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
+            // update the last card stored in gameBoard
             basicOperations.getGameBoard().setLastCard(playedCard);
             // put the played into the used deck
             cardManager.putCardToUsedDeck(playedCard);
@@ -114,23 +115,6 @@ public class Controller {
             return true;
         }
         return false;
-    }
-
-    public int moveToNextPlayer(int currentPlayerIndex, boolean reverse) {
-        // Move to the next player
-        if (!reverse){
-            currentPlayerIndex++;
-            if (currentPlayerIndex == playerManager.getPlayerNum()) {
-                currentPlayerIndex = 0;
-            }
-            return currentPlayerIndex;
-        } else {
-            currentPlayerIndex--;
-            if (currentPlayerIndex == -1) {
-                currentPlayerIndex = playerManager.getPlayerNum() - 1;
-            }
-            return currentPlayerIndex;
-        }
     }
 
     public void plusManyNextPlayer(int currentPlayerIndex, int num) {
@@ -150,12 +134,6 @@ public class Controller {
         Status vars = basicOperations.getVars();
         // if winFlag is true, it means the winner appears and the while loop exits.
         while (!vars.isWinFlag()) {
-//            // whether the player successfully plays a card
-//            boolean whetherPlayCard;
-
-            // whether skip the next player
-
-
             // cardToPlay is the card that the player wants to play.
             Card cardToPlay = cardManager.createNullCard();
             // show the current player
@@ -183,9 +161,6 @@ public class Controller {
                     System.out.println("The cards you have: " + playerManager.getHandCard(vars.getCurrentPlayerIndex()));
                     System.out.println("The cards you can play: " + playableCards);
 
-                    // cardToPlay is the card that the player wants to play.
-//                Card cardToPlay;
-
                     // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
                     cardToPlay = letPlayerPlayCard(playableCards, vars.getCurrentPlayerIndex());
 
@@ -207,7 +182,6 @@ public class Controller {
                         Card c = cardManager.drawCardFromUnusedDeck();
                         playerManager.getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);
                     }
-
                     basicOperations.functionCardResponse(vars, feature);
                 }
             }
@@ -219,7 +193,8 @@ public class Controller {
             }
 
             // Move to the next player
-            vars.setCurrentPlayerIndex(moveToNextPlayer(vars.getCurrentPlayerIndex(), vars.isReverse()));
+            vars.setCurrentPlayerIndex(
+                    basicOperations.getGameBoard().moveToNextPlayer(vars.isReverse()));
         }
         return vars.getPlayerWins();
     }
