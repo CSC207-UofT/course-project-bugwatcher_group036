@@ -12,8 +12,8 @@ public class ControllerBuilder implements Builder {
     private PlayerManager playerManager;
     private DeckManager cardManager;
     private final int numberOfPlayers;
-    private ArrayList<String> num;
     private ArrayList<String> colors;
+    private Dealer dealer;
     private BasicOperations basicOperations;
 
     public ControllerBuilder(int numberOfPlayers){
@@ -44,17 +44,14 @@ public class ControllerBuilder implements Builder {
         }
     }
 
-    public void buildNum(){
-        this.num = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            num.add(Integer.toString(i));
-        }
-    }
-
     public void buildColors(){
         Readfile readfile = new Cardreadfile();
         this.colors = readfile.readFromFile("src/main/resources/numbercards.txt",
                 "src/main/resources/functioncards.txt", cardManager);
+    }
+
+    public void buildDealer(){
+        this.dealer = new Dealer(playerManager, cardManager);
     }
 
     public void buildBasicOperations(){
@@ -66,14 +63,14 @@ public class ControllerBuilder implements Builder {
     public Controller buildUnoController(){
         this.buildPlayerManager();
         this.buildDeckManager();
-        this.buildNum();
         this.buildColors();
         this.cardDeal();
+        this.buildDealer();
         this.buildBasicOperations();
         Controller temp = new Controller();
         temp.setCardManager(cardManager);
         temp.setPlayerManager(playerManager);
-        temp.setNum(num);
+        temp.setDealer(dealer);
         temp.setBasicOperations(basicOperations);
 
         return temp;

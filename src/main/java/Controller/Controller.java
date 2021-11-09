@@ -17,19 +17,8 @@ public class Controller {
 
     private PlayerManager playerManager;
     private DeckManager cardManager;
-    private ArrayList<String> num;
+    private Dealer dealer;
     private BasicOperations basicOperations;
-
-
-    public boolean drawCardWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay, int currentPlayerIndex) {
-        boolean drawCard = false;
-        if (currentCardsPlayerCanPlay.isEmpty()) {
-            System.out.println("You cannot play a card! You need to draw one more card");
-            // draw a card from the deck
-            drawCard = drawCard(currentPlayerIndex);
-        }
-        return drawCard;
-    }
 
     public Card letPlayerPlayCard(ArrayList<Card> currentCardsPlayerCanPlay,
                                   int currentPlayerIndex) {
@@ -56,7 +45,7 @@ public class Controller {
             cardToPlay = cardManager.extractCard(currentCardsPlayerCanPlay, cardToPlayID);
 
             if (cardToPlayID.equals("draw")) {
-                drawCard(currentPlayerIndex);
+                dealer.drawCard(currentPlayerIndex);
                 wrongTimes = 4;
                 cardToPlay = cardManager.createColorCard("white");
             }
@@ -75,7 +64,7 @@ public class Controller {
     public boolean operationsWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay) {
         boolean drawCard = false;
         if (basicOperations.getVars().getPlus() > 0) {
-            plusManyNextPlayer(basicOperations.getVars().getCurrentPlayerIndex(),
+            dealer.plusManyNextPlayer(basicOperations.getVars().getCurrentPlayerIndex(),
                     basicOperations.getVars().getPlus());
             basicOperations.getVars().setPlus(0);
             drawCard = true;
@@ -83,47 +72,10 @@ public class Controller {
                 (cardManager.feature(playerManager.getLastCard()).equals("skip") &&
                         !basicOperations.getVars().isSkip())){
             // draw a card when there is no valid card can play
-            drawCard = drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay,
+            drawCard = dealer.drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay,
                     basicOperations.getVars().getCurrentPlayerIndex());
         }
         return drawCard;
-    }
-
-    public void punishOrPlayCard(Card cardToPlay, int currentPlayerIndex) {
-        // return false for punishment, true for play a card
-        // If the player types 3 times wrong card, draw a card, otherwise play the card.
-        if (cardManager.whetherNull(cardToPlay)) {
-            System.out.println("Enter too many times wrong cards! Draw a card for punishment.");
-            drawCard(currentPlayerIndex);
-        } else if (!cardManager.color(cardToPlay).equals("white")) {
-            // if the played card is valid, play the card
-            Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
-            // update the last card stored in gameBoard
-            basicOperations.getGameBoard().setLastCard(playedCard);
-            // put the played into the used deck
-            cardManager.putCardToUsedDeck(playedCard);
-        }
-    }
-
-    private boolean drawCard(int currentPlayerIndex) {
-        Card c = cardManager.drawCardFromUnusedDeck();
-        // if the drawn card is not null
-        if (!cardManager.whetherNull(c)){
-            // give the card to the player
-            playerManager.playerDrawCard(currentPlayerIndex, c);
-            System.out.println("The card you drew is " + c);
-            return true;
-        }
-        return false;
-    }
-
-    public void plusManyNextPlayer(int currentPlayerIndex, int num) {
-        for (int i = 0; i < num; i++) {
-            Card drawedCard = cardManager.drawCardFromUnusedDeck();
-            if (!cardManager.whetherNull(drawedCard)) {
-                playerManager.getPlayers()[currentPlayerIndex].drawCard(drawedCard);
-            }
-        }
     }
 
     /**
@@ -165,26 +117,20 @@ public class Controller {
                     cardToPlay = letPlayerPlayCard(playableCards, vars.getCurrentPlayerIndex());
 
                     // If the player types 3 times wrong card, draw a card, otherwise play the card.
-                    punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
+                    dealer.punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
+                    //extract this part from PunishOrPlayCard to extract method to other class
+                    if (!cardManager.color(cardToPlay).equals("white") &&
+                            !cardManager.whetherNull(cardToPlay)){
+                        // update the last card stored in gameBoard
+                        basicOperations.getGameBoard().setLastCard(cardToPlay);
+                    }
                 }
             }
 
             // set the skip to false since the function skip has passed.
             vars.setSkip(false);
 
-            // if the player successfully play a card
-            if (!cardManager.whetherNull(cardToPlay) && !cardManager.color(cardToPlay).equals("white")) {
-                String feature = cardManager.feature(cardToPlay);
-                // if the player plays a function card
-                if (!num.contains(feature)) {
-                    // if it is the last card that the palyer plays is a function card, draw a card.
-                    if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {
-                        Card c = cardManager.drawCardFromUnusedDeck();
-                        playerManager.getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);
-                    }
-                    basicOperations.functionCardResponse(vars, feature);
-                }
-            }
+            dealer.checkLastCard(cardToPlay, basicOperations);
 
             // Determine whether the player wins or not.
             if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {
@@ -207,11 +153,11 @@ public class Controller {
         this.playerManager = playerManager;
     }
 
-    public void setNum(ArrayList<String> num) {
-        this.num = num;
-    }
-
     public void setBasicOperations(BasicOperations basicOperations) {
         this.basicOperations = basicOperations;
+    }
+
+    public void setDealer(Dealer dealer) {
+        this.dealer = dealer;
     }
 }
