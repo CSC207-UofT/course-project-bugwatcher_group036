@@ -74,7 +74,6 @@ public class ControllerBuilder implements Builder {
         temp.setCardManager(cardManager);
         temp.setPlayerManager(playerManager);
         temp.setNum(num);
-        temp.setColors(colors);
         temp.setBasicOperations(basicOperations);
 
         return temp;
