@@ -26,14 +26,7 @@ public class Controller {
         if (currentCardsPlayerCanPlay.isEmpty()) {
             System.out.println("You cannot play a card! You need to draw one more card");
             // draw a card from the deck
-            Card c = cardManager.drawCardFromUnusedDeck();
-            // If the card drwan is not null
-            if (!cardManager.whetherNull(c)) {
-                //give the card to the player.
-                playerManager.playerDrawCard(currentPlayerIndex, c);
-                System.out.println("The card you drew is " + c);
-                System.out.println();
-            }
+            drawCardNotification(currentPlayerIndex, cardManager.drawCardFromUnusedDeck());
         }
     }
 
@@ -82,19 +75,22 @@ public class Controller {
         // If the player types 3 times wrong card, draw a card, otherwise play the card.
         if (cardManager.whetherNull(cardToPlay)) {
             System.out.println("Enter too many times wrong cards! Draw a card for punishment.");
-            Card c = cardManager.drawCardFromUnusedDeck();
-            // if the drawn card is not null
-            if (!cardManager.whetherNull(c)){
-                // give the card to the player
-                playerManager.playerDrawCard(currentPlayerIndex, c);
-                System.out.println("The card you drew is " + c);
-            }
+            drawCardNotification(currentPlayerIndex, cardManager.drawCardFromUnusedDeck());
         } else {
             // if the played card is valid, play the card
             Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
             basicOperations.getGameBoard().setLastCard(cardToPlay);
             // put the played into the used deck
             cardManager.putCardToUsedDeck(playedCard);
+        }
+    }
+
+    private void drawCardNotification(int currentPlayerIndex, Card c) {
+        // if the drawn card is not null
+        if (!cardManager.whetherNull(c)){
+            // give the card to the player
+            playerManager.playerDrawCard(currentPlayerIndex, c);
+            System.out.println("The card you drew is " + c);
         }
     }
 
@@ -218,12 +214,4 @@ public class Controller {
     public void setBasicOperations(BasicOperations basicOperations) {
         this.basicOperations = basicOperations;
     }
-
-    public static void main(String[] args) {
-        ControllerBuilder unoBuilder = new ControllerBuilder(4);
-        Controller newGameController = unoBuilder.buildUnoController();
-        Player playerWins = newGameController.runGame();
-        System.out.println(playerWins.getId() + " wins!");
-    }
-
 }
