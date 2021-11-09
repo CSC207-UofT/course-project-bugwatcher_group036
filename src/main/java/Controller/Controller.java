@@ -98,6 +98,7 @@ public class Controller {
         } else if (!cardManager.color(cardToPlay).equals("white")) {
             // if the played card is valid, play the card
             Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
+            basicOperations.getGameBoard().setLastCard(playedCard);
             // put the played into the used deck
             cardManager.putCardToUsedDeck(playedCard);
         }
