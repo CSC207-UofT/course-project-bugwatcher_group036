@@ -37,7 +37,7 @@ public class Controller {
 
             // Move to the next player
             vars.setCurrentPlayerIndex(
-                    basicOperations.getGameBoard().moveToNextPlayer(vars.isReverse()));
+                    basicOperations.getVars().moveToNextPlayer(vars.isReverse()));
         }
         return vars.getPlayerWins();
     }
