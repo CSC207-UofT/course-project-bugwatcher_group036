@@ -1,21 +1,11 @@
-package Controller;
+package UseCase;
 
 import Entity.Player;
 
 import java.util.Random;
-import java.util.Scanner;
 
-/**
- * This is the class that helps initialize and store all the variables in controller.
- *
- * With the help of this class, we can extract methods from controller easier and
- * also save the space of initializing and storing variables locally.
- */
-public class ControllerVariables {
+public class Status {
 
-    private Scanner keyboard = new Scanner(System.in);
-
-    // The winner player
     private Player playerWins = null;
 
     // whether reverse
@@ -34,12 +24,8 @@ public class ControllerVariables {
     //whether there are cards that needed to drawed for the player
     private int plus = 0;
 
-    public ControllerVariables(int numberOfPlayers){
+    public Status(int numberOfPlayers){
         this.currentPlayerIndex = rand.nextInt(numberOfPlayers);
-    }
-
-    public Scanner getKeyboard() {
-        return keyboard;
     }
 
     public Player getPlayerWins() {
