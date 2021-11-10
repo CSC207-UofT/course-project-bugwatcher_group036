@@ -24,7 +24,10 @@ public class Status {
     //whether there are cards that needed to drawed for the player
     private int plus = 0;
 
+    private final int numberOfPlayers;
+
     public Status(int numberOfPlayers){
+        this.numberOfPlayers = numberOfPlayers;
         this.currentPlayerIndex = rand.nextInt(numberOfPlayers);
     }
 
@@ -57,12 +60,28 @@ public class Status {
     }
 
     public void setCurrentPlayerIndex(int currentPlayerIndex) {
-        if (currentPlayerIndex <= 4) {
-            this.currentPlayerIndex = currentPlayerIndex;
+        this.currentPlayerIndex = currentPlayerIndex;
+    }
+
+    /**
+     * Extracted from controller, which control position change after each turn.
+     * @param reverse whether reverse sequence or not
+     * @return next corresponding position
+     */
+    public int moveToNextPlayer(boolean reverse) {
+        // Move to the next player
+        if (!reverse){
+            currentPlayerIndex++;
+            if (currentPlayerIndex == numberOfPlayers) {
+                currentPlayerIndex = 0;
+            }
+        } else {
+            currentPlayerIndex--;
+            if (currentPlayerIndex == -1) {
+                currentPlayerIndex = numberOfPlayers - 1;
+            }
         }
-        else {
-            this.currentPlayerIndex = currentPlayerIndex % 4;
-        }
+        return currentPlayerIndex;
     }
 
     public boolean isSkip() {

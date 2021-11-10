@@ -27,27 +27,6 @@ public class GameBoard {
         colors.add("red"); colors.add("blue"); colors.add("green"); colors.add("yellow");
     }
 
-    /**
-     * Extracted from controller, which control position change after each turn.
-     * @param reverse whether reverse sequence or not
-     * @return next corresponding position
-     */
-    public int moveToNextPlayer(boolean reverse) {
-        // Move to the next player
-        if (!reverse){
-            currentPlayer++;
-            if (currentPlayer == numberOfPlayers) {
-                currentPlayer = 0;
-            }
-        } else {
-            currentPlayer--;
-            if (currentPlayer == -1) {
-                currentPlayer = numberOfPlayers - 1;
-            }
-        }
-        return currentPlayer;
-    }
-
     public String getColor() {
         return color;
     }
