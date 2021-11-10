@@ -41,4 +41,9 @@ public class FunctionCard extends Card{
     public String getFeature() {
         return function;
     }
+
+    @Override
+    public Card copy() {
+        return new FunctionCard(this.getColor(), function, this.getId());
+    }
 }

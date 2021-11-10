@@ -20,7 +20,7 @@ public class Cardreadfile implements Readfile {
 //        output.close();
 //    }
 
-    public ArrayList<String> readFromFile(String numfilePath, String funfilepath, DeckManager deckManager){
+    public ArrayList<String> readFromFile(String numfilePath, String funfilepath, DeckManagerData deckManagerData){
 
 //        InputStream file = new FileInputStream(filePath);
 //        InputStream buffer = new BufferedInputStream(file);
@@ -40,16 +40,18 @@ public class Cardreadfile implements Readfile {
             String functionLine = functionFile.readLine();
             while (numberLine != null){
                 String[] numberSplit = numberLine.split(" ");
-                Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]),
+                Card numCard = deckManagerData.getDeckManager().createNumberCard(
+                        numberSplit[0], Integer.parseInt(numberSplit[1]),
                         numberSplit[0]+numberSplit[1]);
-                deckManager.addCard(numCard);
+                deckManagerData.getDeckManager().addCard(numCard);
                 numberLine = numberFile.readLine();
             }
             while (functionLine != null){
                 String[] functionSplit = functionLine.split(" ");
-                Card funCard = new FunctionCard(functionSplit[0], functionSplit[1],
+                Card funCard = deckManagerData.getDeckManager().createFunctionCard(
+                        functionSplit[0], functionSplit[1],
                         functionSplit[0]+" "+functionSplit[1]);
-                deckManager.addCard(funCard);
+                deckManagerData.getDeckManager().addCard(funCard);
                 if (!colors.contains(functionSplit[0])) {
                     colors.add(functionSplit[0]);
                 }

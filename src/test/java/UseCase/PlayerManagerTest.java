@@ -10,14 +10,14 @@ public class PlayerManagerTest {
 
     @Test
     public void testGetPlayers(){
-        PlayerManager pManager = new PlayerManager(4);
+        PlayerManager pManager = new PlayerManager(4, new Card());
         Player[] p = pManager.getPlayers();
         assertEquals(4, p.length);
     }
 
     @Test
     public void testCreatePlayer(){
-        PlayerManager pManager = new PlayerManager(4);
+        PlayerManager pManager = new PlayerManager(4, new Card());
         for (int i = 0; i < 4; i++){
             pManager.createPlayer(Integer.toString(i), i);
         }
@@ -26,7 +26,7 @@ public class PlayerManagerTest {
 
     @Test
     public void testPlayerDrawCard(){
-        PlayerManager pManager = new PlayerManager(4);
+        PlayerManager pManager = new PlayerManager(4, new Card());
         for (int i = 0; i < 4; i++){
             pManager.createPlayer(Integer.toString(i), i);
         }
@@ -36,7 +36,7 @@ public class PlayerManagerTest {
 
     @Test
     public void testPlayerPlayCard(){
-        PlayerManager pManager = new PlayerManager(4);
+        PlayerManager pManager = new PlayerManager(4, new Card());
         for (int i = 0; i < 4; i++){
             pManager.createPlayer(Integer.toString(i), i);
         }
