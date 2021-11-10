@@ -26,7 +26,7 @@ public class Card implements Serializable {
      */
     public Card(){
         this.color = "black";
-        this.id = "nullid";
+        this.id = "null";
     }
 
     /**
@@ -42,11 +42,11 @@ public class Card implements Serializable {
     }
 
     public String toString() {
-        return "Id:" + id;
+        return "Id: " + id;
     }
 
     public String getFeature(){
-        return "nullfeature";
+        return "null";
     }
     // test code
 //    public static void main(String[] args){

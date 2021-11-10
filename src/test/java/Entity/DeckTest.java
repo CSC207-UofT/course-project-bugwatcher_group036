@@ -7,11 +7,12 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
+    private static Deck d1 = new Deck();
+    private static ArrayList<Card> a1 = new ArrayList<>();
 
 
     @Test
     public void testIsEmpty() {
-        Deck d1 = new Deck();
         assertTrue(d1.isEmpty());
         assertTrue(d1.getUsedCardDeck().isEmpty());
 
@@ -25,18 +26,13 @@ public class DeckTest {
 
     @Test
     public void testGetUsedCardDeck() {
-        Deck d1 = new Deck();
-        ArrayList<Card> a1 = new ArrayList<>();
-        assertEquals(a1, d1.getUsedCardDeck());
+        assertTrue(d1.getUsedCardDeck().isEmpty());
     }
 
     @Test
     public void testSetUsedCardDeck() {
-        Deck d1 = new Deck();
-        ArrayList<Card> a1 = new ArrayList<>();
-        Deck d2 = new Deck();
         d1.setUsedCardDeck(a1);
-        assertEquals(a1, d1.getUsedCardDeck());
+        assertTrue(d1.getUsedCardDeck().isEmpty());
     }
 
     @Test

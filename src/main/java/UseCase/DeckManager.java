@@ -2,7 +2,6 @@ package UseCase;
 
 import Entity.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class DeckManager {
@@ -95,6 +94,6 @@ public class DeckManager {
     }
 
     public void addCard(Card c) {
-        d.addcard(c);
+        d.addCard(c);
     }
 }

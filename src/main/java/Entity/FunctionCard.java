@@ -17,7 +17,7 @@ public class FunctionCard extends Card{
 
     public FunctionCard(){
         super();
-        this.function = "nullfunction";
+        this.function = "null";
     }
 
     public String getFunction() {

@@ -30,7 +30,7 @@ public class Deck implements Serializable{
      * To add a card into the used_card_deck.
      *
      */
-    public void addcard(Card card) {
+    public void addCard(Card card) {
         unused.add(card);
     }
 
@@ -93,8 +93,8 @@ public class Deck implements Serializable{
 
     }
 
-    public void putCardToUsedDeck(Card c) {
-        used.add(c);
+    public void putCardToUsedDeck(Card card) {
+        used.add(card);
     }
 
 }
