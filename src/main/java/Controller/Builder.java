@@ -14,5 +14,7 @@ public interface Builder {
 
     void buildBasicOperations();
 
+    void buildEachRound();
+
     Controller buildUnoController();
 }

@@ -14,6 +14,7 @@ public class ControllerBuilder implements Builder {
     private final int numberOfPlayers;
     private ArrayList<String> colors;
     private Dealer dealer;
+    private EachRound eachRound;
     private BasicOperations basicOperations;
 
     public ControllerBuilder(int numberOfPlayers){
@@ -60,6 +61,10 @@ public class ControllerBuilder implements Builder {
         this.basicOperations = new BasicOperations(status, gameBoard);
     }
 
+    public void buildEachRound(){
+        this.eachRound = new EachRound(playerManager, cardManager, dealer, basicOperations);
+    }
+
     public Controller buildUnoController(){
         this.buildPlayerManager();
         this.buildDeckManager();
@@ -67,11 +72,10 @@ public class ControllerBuilder implements Builder {
         this.cardDeal();
         this.buildDealer();
         this.buildBasicOperations();
+        this.buildEachRound();
         Controller temp = new Controller();
-        temp.setCardManager(cardManager);
-        temp.setPlayerManager(playerManager);
-        temp.setDealer(dealer);
         temp.setBasicOperations(basicOperations);
+        temp.setEachRound(eachRound);
 
         return temp;
     }

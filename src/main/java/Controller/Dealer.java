@@ -19,14 +19,12 @@ public class Dealer {
         this.cardManager = cardManager;
     }
 
-    public boolean drawCardWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay, int currentPlayerIndex) {
-        boolean drawCard = false;
+    public void drawCardWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay, int currentPlayerIndex) {
         if (currentCardsPlayerCanPlay.isEmpty()) {
             System.out.println("You cannot play a card! You need to draw one more card");
             // draw a card from the deck
-            drawCard = drawCard(currentPlayerIndex);
+            drawCard(currentPlayerIndex);
         }
-        return drawCard;
     }
 
     public void punishOrPlayCard(Card cardToPlay, int currentPlayerIndex) {
@@ -43,16 +41,14 @@ public class Dealer {
         }
     }
 
-    protected boolean drawCard(int currentPlayerIndex) {
+    protected void drawCard(int currentPlayerIndex) {
         Card c = cardManager.drawCardFromUnusedDeck();
         // if the drawn card is not null
         if (!cardManager.whetherNull(c)){
             // give the card to the player
             playerManager.playerDrawCard(currentPlayerIndex, c);
             System.out.println("The card you drew is " + c);
-            return true;
         }
-        return false;
     }
 
     public void plusManyNextPlayer(int currentPlayerIndex, int num) {
@@ -84,7 +80,21 @@ public class Dealer {
                 basicOperations.functionCardResponse(vars, feature);
             }
         }
+    }
 
+    public void operationsWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay,
+                                           BasicOperations basicOperations) {
+        if (basicOperations.getVars().getPlus() > 0) {
+            plusManyNextPlayer(basicOperations.getVars().getCurrentPlayerIndex(),
+                    basicOperations.getVars().getPlus());
+            basicOperations.getVars().setPlus(0);
+        } else if (!cardManager.feature(playerManager.getLastCard()).equals("skip") ||
+                (cardManager.feature(playerManager.getLastCard()).equals("skip") &&
+                        !basicOperations.getVars().isSkip())){
+            // draw a card when there is no valid card can play
+            drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay,
+                    basicOperations.getVars().getCurrentPlayerIndex());
+        }
     }
 
 }
