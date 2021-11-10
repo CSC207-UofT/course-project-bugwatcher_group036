@@ -73,6 +73,7 @@ public class BasicOperations {
                     player.getHandCard(),
                     gameBoard.getLastCard());
         }
+
     }
 
     public ArrayList<Card> skipsPlayerCanPlay(ArrayList<Card> cards) {
