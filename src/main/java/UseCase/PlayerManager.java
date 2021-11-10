@@ -156,12 +156,6 @@ public class PlayerManager implements Iterable<Player>{
                         (deck.num(((NumberCard)c)) == deck.num((NumberCard) lastCard))||
                         deck.color(lastCard).equals("black") )){
                     return true;
-//            } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
-//                if ((c.getColor().equals(deck.color(lastCard)) ||
-//                        ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction()) ||
-//                        lastCard.getColor().equals("black") ){
-//                    return true;
-//                }
             }
 
 
@@ -190,10 +184,6 @@ public class PlayerManager implements Iterable<Player>{
                         (deck.num(((NumberCard)c)) == deck.num((NumberCard) lastCard))||
                         deck.color(lastCard).equals("black") )){
                     CardsCanPlay.add(c);
-//                } else if (lastCard instanceof FunctionCard && c instanceof FunctionCard) {
-//                    if ((c.getColor().equals(lastCard.getColor()) ||
-//                            ((FunctionCard) c).getFunction() == ((FunctionCard) lastCard).getFunction())) {
-//                        CardsCanPlay.add(c);
 //                    }
                 }
             }
