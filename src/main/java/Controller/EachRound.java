@@ -11,10 +11,10 @@ import java.util.Scanner;
 
 public class EachRound {
 
-    private PlayerManager playerManager;
-    private DeckManager cardManager;
-    private Dealer dealer;
-    private BasicOperations basicOperations;
+    private final PlayerManager playerManager;
+    private final DeckManager cardManager;
+    private final Dealer dealer;
+    private final BasicOperations basicOperations;
 
     public EachRound(PlayerManager playerManager, DeckManager cardManager,
                      Dealer dealer, BasicOperations basicOperations) {
@@ -28,6 +28,12 @@ public class EachRound {
         return cardManager.createNullCard();
     }
 
+    /**
+     * core of player play card process
+     * @param currentCardsPlayerCanPlay the cards current player can play
+     * @param currentPlayerIndex indicate the position of current player
+     * @return the card player would play
+     */
     public Card letPlayerPlayCard(ArrayList<Card> currentCardsPlayerCanPlay,
                                   int currentPlayerIndex) {
         Scanner keyboard = new Scanner(System.in);
@@ -69,6 +75,10 @@ public class EachRound {
         return cardToPlay;
     }
 
+    /**
+     * Set up things before each player's stage.
+     * @return Cards player can play in this round
+     */
     public ArrayList<Card> beginStage(){
         Status vars = basicOperations.getVars();
         // show the current player
@@ -81,6 +91,12 @@ public class EachRound {
                 (playerManager.getPlayers()[vars.getCurrentPlayerIndex()]);
     }
 
+    /**
+     * The stage where player play cards can do corresponding reactions
+     * @param currentCardsPlayerCanPlay playable cards we get from begin stage
+     * @param cardToPlay The card player would play
+     * @return the updated cardToPlay player has played
+     */
     public Card playStage(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay){
         Status vars = basicOperations.getVars();
         if (currentCardsPlayerCanPlay.isEmpty()) {
@@ -107,6 +123,10 @@ public class EachRound {
         return cardToPlay;
     }
 
+    /**
+     * Corresponding response after card is played in each turn
+     * @param cardToPlay the card player has played this turn
+     */
     public void endStage(Card cardToPlay){
         Status vars = basicOperations.getVars();
 

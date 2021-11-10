@@ -5,13 +5,17 @@ import Entity.Card;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Gameboard stores playCount and controls current position, color, and lastCard played.
+ * This will be embedded in the controller.
+ */
 public class GameBoard {
 
-    private int numberOfPlayers;
+    private final int numberOfPlayers;
     private String color;
     private int currentPlayer;
     private Card lastCard;
-    private Scanner keyBoard;
+    private final Scanner keyBoard;
     private final ArrayList<String> colors = new ArrayList<String>();
 
     public GameBoard(int numberOfPlayers){
@@ -23,6 +27,11 @@ public class GameBoard {
         colors.add("red"); colors.add("blue"); colors.add("green"); colors.add("yellow");
     }
 
+    /**
+     * Extracted from controller, which control position change after each turn.
+     * @param reverse whether reverse sequence or not
+     * @return next corresponding position
+     */
     public int moveToNextPlayer(boolean reverse) {
         // Move to the next player
         if (!reverse){
@@ -47,6 +56,9 @@ public class GameBoard {
         this.color = color;
     }
 
+    /**
+     * Set color based on scanner input.
+     */
     public void typeSetColor() {
         System.out.println("Type a color you want to set:");
         String setColor = keyBoard.nextLine();

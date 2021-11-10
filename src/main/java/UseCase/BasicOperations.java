@@ -7,16 +7,25 @@ import java.util.ArrayList;
 
 import static UseCase.DeckManager.compareTwoCardsHaveSameFeature;
 
+/**
+ * Contains the basic operations and game status variables,
+ * which are extracted from controller
+ */
 public class BasicOperations {
 
-    private Status vars;
-    private GameBoard gameBoard;
+    private final Status vars;
+    private final GameBoard gameBoard;
 
     public BasicOperations(Status statVars, GameBoard gameBoard){
         this.vars = statVars;
         this.gameBoard = gameBoard;
     }
 
+    /**
+     * Extracted from controller
+     * @param vars the variables, will be changed correspondingly
+     * @param feature feature of the played function card
+     */
     public void functionCardResponse(Status vars, String feature){
         switch (feature) {
             case "skip":
@@ -40,6 +49,11 @@ public class BasicOperations {
         }
     }
 
+    /**
+     * Extracted from controller
+     * @param player the player whose handcard need to be checked
+     * @return the cards player can play given the last card played
+     */
     public ArrayList<Card> getCardsCurrentPlayerCanPlay(Player player){
         // Get the cards that the current player can play.
         // if the last card is skip, player only can play skip
