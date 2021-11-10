@@ -62,6 +62,11 @@ public class Card implements Serializable {
     public String getFeature(){
         return "nullfeature";
     }
+
+    public Card copy() {
+        return new Card();
+    }
+
     // test code
 //    public static void main(String[] args){
 //        Card c1 = new Card("red", 2, null);

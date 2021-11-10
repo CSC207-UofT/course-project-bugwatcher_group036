@@ -17,21 +17,23 @@ public class GameBoard {
     private Card lastCard;
     private final Scanner keyBoard;
     private final ArrayList<String> colors = new ArrayList<String>();
+    private DeckManager deckManager;
 
-    public GameBoard(int numberOfPlayers){
+    public GameBoard(int numberOfPlayers, DeckManager deckManager){
         this.numberOfPlayers = numberOfPlayers;
         this.color = "black";
         this.currentPlayer = (int)(Math.random() * numberOfPlayers);
-        this.lastCard = new Card();
+        this.lastCard = deckManager.createNullCard();
         this.keyBoard = new Scanner(System.in);
         colors.add("red"); colors.add("blue"); colors.add("green"); colors.add("yellow");
+        this.deckManager = deckManager;
     }
 
     public String getColor() {
         return color;
     }
 
-    public void setColor(){
+    public void setColor(String color){
         this.color = color;
     }
 

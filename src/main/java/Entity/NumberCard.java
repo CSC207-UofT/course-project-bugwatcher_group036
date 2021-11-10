@@ -41,4 +41,9 @@ public class NumberCard extends Card {
     public String getFeature() {
         return Integer.toString(number);
     }
+
+    @Override
+    public Card copy() {
+        return new NumberCard(this.getColor(), number, this.getId());
+    }
 }
