@@ -11,17 +11,17 @@ public class FunctionCardTest {
     FunctionCard c1 = new FunctionCard("yellow", "switch", "id");
 
     @Test
-    public void TestGetColor() {
+    public void testGetColor() {
         assertEquals("yellow", c1.getColor());
     }
 
     @Test
-    public void TestgetFunction() {
+    public void testGetFunction() {
         assertEquals("switch", c1.getFunction());
     }
 
     @Test
-    public void TesttoString() {
+    public void testToString() {
         assertEquals("yellow switch", c1.toString());
     }
 }

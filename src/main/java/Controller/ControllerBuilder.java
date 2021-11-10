@@ -60,7 +60,7 @@ public class ControllerBuilder implements Builder {
     }
 
     public void buildColors(){
-        Readfile readfile = new Cardreadfile();
+        Readfile readfile = new cardreadfile();
         this.colors = readfile.readFromFile("src/main/resources/numbercards.txt",
                 "src/main/resources/functioncards.txt", cardManager);
     }

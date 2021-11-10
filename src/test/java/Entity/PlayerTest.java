@@ -13,7 +13,7 @@ public class PlayerTest {
     Card c1 = new NumberCard("yellow", 6, "1");
 
     @Test
-    public void TestdrawCard() {
+    public void testDrawCard() {
         Player p1 = new Player("player1", 1);
         Card c1 = new NumberCard("yellow", 6, "1");
         p1.drawCard(c1);
@@ -21,7 +21,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void TestplayCard() {
+    public void testPlayCard() {
         Player p1 = new Player("player1", 1);
         Card c1 = new NumberCard("yellow", 6, "1");
         p1.drawCard(c1);
@@ -31,7 +31,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void TestgetCardNum() {
+    public void testGetCardNum() {
         Player p1 = new Player("player1", 1);
         Card c1 = new NumberCard("yellow", 6, "1");
         assertEquals(0, p1.getCardNum());
@@ -40,26 +40,26 @@ public class PlayerTest {
     }
 
     @Test
-    public void TestgetHandCard() {
+    public void testGetHandCard() {
         Player p1 = new Player("player1", 1);
         assertEquals(0, p1.getHandCard().size());
         assertTrue(p1.getHandCard().isEmpty());
     }
 
     @Test
-    public void TestgetID() {
+    public void testGetID() {
         Player p1 = new Player("player1", 1);
         assertEquals("player1", p1.getId());
     }
 
     @Test
-    public void TestgetPosition() {
+    public void testGetPosition() {
         Player p1 = new Player("player1", 1);
         assertEquals(1, p1.getPosition());
     }
 
     @Test
-    public void TestTBD(){
+    public void testTBD(){
 
     }
 

@@ -12,18 +12,19 @@ public class NumberCardTest {
 //    Card c2;
 
     @Test
-    public void TestGetColor() {
+    public void testGetColor() {
         assertEquals("red", c1.getColor());
         assertEquals("black", c2.getColor());
     }
 
     @Test
-    public void TestGetNumber(){
+    public void testGetNumber(){
         assertEquals(7, c1.getNumber());
         assertEquals(-1, c2.getNumber());
     }
 
-    public void TesttoString(){
+    @Test
+    public void testToString(){
         assertEquals("red7", c1.toString());
         assertEquals("black-1", c2.toString());
     }
