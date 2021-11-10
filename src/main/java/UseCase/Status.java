@@ -1,21 +1,11 @@
-package Controller;
+package UseCase;
 
 import Entity.Player;
 
 import java.util.Random;
-import java.util.Scanner;
 
-/**
- * This is the class that helps initialize and store all the variables in controller.
- *
- * With the help of this class, we can extract methods from controller easier and
- * also save the space of initializing and storing variables locally.
- */
-public class ControllerVariables {
+public class Status {
 
-    private Scanner keyboard = new Scanner(System.in);
-
-    // The winner player
     private Player playerWins = null;
 
     // whether reverse
@@ -34,12 +24,11 @@ public class ControllerVariables {
     //whether there are cards that needed to drawed for the player
     private int plus = 0;
 
-    public ControllerVariables(int numberOfPlayers){
-        this.currentPlayerIndex = rand.nextInt(numberOfPlayers);
-    }
+    private final int numberOfPlayers;
 
-    public Scanner getKeyboard() {
-        return keyboard;
+    public Status(int numberOfPlayers){
+        this.numberOfPlayers = numberOfPlayers;
+        this.currentPlayerIndex = rand.nextInt(numberOfPlayers);
     }
 
     public Player getPlayerWins() {
@@ -71,12 +60,28 @@ public class ControllerVariables {
     }
 
     public void setCurrentPlayerIndex(int currentPlayerIndex) {
-        if (currentPlayerIndex <= 4) {
-            this.currentPlayerIndex = currentPlayerIndex;
+        this.currentPlayerIndex = currentPlayerIndex;
+    }
+
+    /**
+     * Extracted from controller, which control position change after each turn.
+     * @param reverse whether reverse sequence or not
+     * @return next corresponding position
+     */
+    public int moveToNextPlayer(boolean reverse) {
+        // Move to the next player
+        if (!reverse){
+            currentPlayerIndex++;
+            if (currentPlayerIndex == numberOfPlayers) {
+                currentPlayerIndex = 0;
+            }
+        } else {
+            currentPlayerIndex--;
+            if (currentPlayerIndex == -1) {
+                currentPlayerIndex = numberOfPlayers - 1;
+            }
         }
-        else {
-            this.currentPlayerIndex = currentPlayerIndex % 4;
-        }
+        return currentPlayerIndex;
     }
 
     public boolean isSkip() {

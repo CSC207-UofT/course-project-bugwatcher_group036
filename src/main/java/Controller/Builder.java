@@ -6,13 +6,15 @@ public interface Builder {
 
     void buildDeckManager();
 
-    void buildRand();
-
-    void buildNum();
-
     void buildColors();
 
+    void buildDealer();
+
     void cardDeal();
+
+    void buildBasicOperations();
+
+    void buildEachRound();
 
     Controller buildUnoController();
 }
