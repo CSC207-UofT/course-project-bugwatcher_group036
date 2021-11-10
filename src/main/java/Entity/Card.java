@@ -13,7 +13,8 @@ public class Card implements Serializable {
      *
      * giving the card the given color, number, function
      *
-     * @param color   The card's color <red, blue, yellow, green, black>
+     * @param color   The card's color <red, blue, yellow, green, black>.
+     * @param id The card's id, for distinguish different cards of the same number and color.
      */
 
     public Card(String color, String id){
@@ -30,21 +31,34 @@ public class Card implements Serializable {
     }
 
     /**
-     *  Variety of getter functions that returns the param of the card accordingly
+     *  Variety of getter functions that returns the param of the card accordingly.
      */
     public String getColor(){
         return color;
     }
 
 
+    /**
+     * Get the id of the card.
+     *
+     * @return A string respond to the id of the card.
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     *  String representation for the Card.
+     */
     public String toString() {
         return "Id: " + id;
     }
 
+    /**
+     * declare the card is not a funcion card.
+     *
+     * @return String "nullfeature", which means the card is a normal card, not a function card.
+     */
     public String getFeature(){
         return "null";
     }
