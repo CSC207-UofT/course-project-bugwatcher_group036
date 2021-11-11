@@ -102,4 +102,22 @@ public class Deck implements Serializable{
         used.add(c);
     }
 
+    /**
+     * This method is added for test, which return a deck contains 40 cards.
+     *
+      * @return a deck contain 40 cards.
+     */
+    private Deck setDefaultDeck(){
+        Deck d1 = new Deck();
+        String[] colors = {"red", "green", "blue", "yellow"};
+        for (String color : colors) {
+            for (int i = 0; i < 10; i++) {
+                Card newCard = new NumberCard(color, i, color + i);
+                d1.getUnusedCardDeck().add(newCard);
+            }
+        }
+
+        return d1;
+    }
+
 }
