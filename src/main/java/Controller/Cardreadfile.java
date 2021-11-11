@@ -7,28 +7,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Cardreadfile implements Readfile {
-// gateway class
-//    @Override
-//    public void saveToFile(String filepath, Object users) throws IOException {
-//
-//        OutputStream file = new FileOutputStream(filepath);
-//        OutputStream buffer = new BufferedOutputStream(file);
-//        ObjectOutput output = new ObjectOutputStream(buffer);
-//
-//        // serialize the Map
-//        output.writeObject(users);
-//        output.close();
-//    }
 
     public ArrayList<String> readFromFile(String numfilePath, String funfilepath, DeckManager deckManager){
-
-//        InputStream file = new FileInputStream(filePath);
-//        InputStream buffer = new BufferedInputStream(file);
-//        ObjectInput input = new ObjectInputStream(buffer);
-
-        // serialize the Map
-//        Deck users = (Deck) input.readObject();
-//        input.close();
         Deck d = new Deck();
 
         ArrayList<String> colors = new ArrayList<>();
