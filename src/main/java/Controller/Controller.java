@@ -12,17 +12,20 @@ import UseCase.Status;
  */
 public class Controller {
 
-    private BasicOperations basicOperations;
+//    private BasicOperations basicOperations;
+    private BasicOperationsData basicOperationsData;
     private EachRound eachRound;
 
     /**
      * run the game and return the player that wins.
      * @return the player that wins.
      */
-    public String runGame() {
-        Status vars = basicOperations.getVars();
+    public Player runGame(boolean pvp) {
+        StatusData varsData = new StatusData(basicOperationsData.getBasicOperations().getVars());
+
+
         // if winFlag is true, it means the winner appears and the while loop exits.
-        while (!vars.isWinFlag()) {
+        while (!varsData.getStatus().isWinFlag()) {
             // cardToPlay is the card that the player wants to play.
             Card cardToPlay = eachRound.createNullCard();
 
@@ -31,19 +34,32 @@ public class Controller {
 
             // If no cards can play, draw a card, otherwise play a card. If the player type three times
             // wrong card to play, the player will be punished to draw a card automatically.
-            cardToPlay = eachRound.playStage(currentCardsPlayerCanPlay, cardToPlay);
+            if (pvp) {
+                cardToPlay = eachRound.playStage(currentCardsPlayerCanPlay, cardToPlay);
+            } else {
+                cardToPlay = eachRound.playStageForComputer(currentCardsPlayerCanPlay, cardToPlay);
+            }
 
-            eachRound.endStage(cardToPlay);
+            if (pvp) {
+                eachRound.endStage(cardToPlay);
+            } else {
+                if (varsData.getStatus().getCurrentPlayerIndex() != 0) {
+                    eachRound.endStageForComputer(cardToPlay);
+                } else {
+                    eachRound.endStage(cardToPlay);
+                }
+            }
 
             // Move to the next player
-            vars.setCurrentPlayerIndex(
-                    basicOperations.getVars().moveToNextPlayer(vars.isReverse()));
+            varsData.getStatus().setCurrentPlayerIndex(
+                    basicOperationsData.getBasicOperations().getVars().moveToNextPlayer(
+                            varsData.getStatus().isReverse()));
         }
-        return vars.getPlayerWins().getId();
+        return varsData.getStatus().getPlayerWins();
     }
 
-    public void setBasicOperations(BasicOperations basicOperations) {
-        this.basicOperations = basicOperations;
+    public void setBasicOperationsData(BasicOperationsData basicOperationsData) {
+        this.basicOperationsData = basicOperationsData;
     }
 
     public void setEachRound(EachRound eachRound) {

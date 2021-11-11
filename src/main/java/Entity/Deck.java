@@ -75,6 +75,11 @@ public class Deck implements Serializable{
         unused = replacement;
     }
 
+    /**
+     * In the game, we have two decks, wh
+     *
+     * @return The card that drawn from unused deck.
+     */
     public Card drawCardFromUnusedDeck() {
         Random rand = new Random();
         int index = rand.nextInt(unused.size());
