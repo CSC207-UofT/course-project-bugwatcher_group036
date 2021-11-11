@@ -12,18 +12,17 @@ import UseCase.Status;
  */
 public class Controller {
 
-//    private BasicOperations basicOperations;
-    private BasicOperationsData basicOperationsData;
+    private BasicOperations basicOperations;
     private EachRound eachRound;
 
     /**
      * run the game and return the player that wins.
      * @return the player that wins.
      */
-    public Player runGame() {
-        StatusData varsData = new StatusData(basicOperationsData.getBasicOperations().getVars());
+    public String runGame() {
+        Status vars = basicOperations.getVars();
         // if winFlag is true, it means the winner appears and the while loop exits.
-        while (!varsData.getStatus().isWinFlag()) {
+        while (!vars.isWinFlag()) {
             // cardToPlay is the card that the player wants to play.
             Card cardToPlay = eachRound.createNullCard();
 
@@ -37,15 +36,14 @@ public class Controller {
             eachRound.endStage(cardToPlay);
 
             // Move to the next player
-            varsData.getStatus().setCurrentPlayerIndex(
-                    basicOperationsData.getBasicOperations().getVars().moveToNextPlayer(
-                            varsData.getStatus().isReverse()));
+            vars.setCurrentPlayerIndex(
+                    basicOperations.getVars().moveToNextPlayer(vars.isReverse()));
         }
-        return varsData.getStatus().getPlayerWins();
+        return vars.getPlayerWins().getId();
     }
 
-    public void setBasicOperationsData(BasicOperationsData basicOperationsData) {
-        this.basicOperationsData = basicOperationsData;
+    public void setBasicOperations(BasicOperations basicOperations) {
+        this.basicOperations = basicOperations;
     }
 
     public void setEachRound(EachRound eachRound) {

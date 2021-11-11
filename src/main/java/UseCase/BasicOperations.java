@@ -1,6 +1,5 @@
 package UseCase;
 
-import Controller.Dealer;
 import Entity.Card;
 import Entity.Player;
 
@@ -16,15 +15,10 @@ public class BasicOperations {
 
     private final Status vars;
     private final GameBoard gameBoard;
-    private final PlayerManager playerManager;
-    private final DeckManager deckManager;
 
-    public BasicOperations(Status statVars, GameBoard gameBoard, PlayerManager playerManager,
-                           DeckManager deckManager){
+    public BasicOperations(Status statVars, GameBoard gameBoard){
         this.vars = statVars;
         this.gameBoard = gameBoard;
-        this.deckManager = deckManager;
-        this.playerManager = playerManager;
     }
 
     /**
@@ -64,19 +58,19 @@ public class BasicOperations {
         // Get the cards that the current player can play.
         // if the last card is skip, player only can play skip
         if (vars.isSkip()) {
-            return skipsPlayerCanPlay(playerManager.getHandCard(player));
+            return skipsPlayerCanPlay(player.getHandCard());
         } else if (vars.getPlus() > 0){
             // if the last card is plus2, player can play plus2 or plus4.
-            if (deckManager.feature(gameBoard.getLastCard()).equals("plustwo")) {
-                return plustwoPlayerCanPlay(playerManager.getHandCard(player));
+            if (gameBoard.getLastCard().getFeature().equals("plustwo")) {
+                return plustwoPlayerCanPlay(player.getHandCard());
             } else {
                 // if the last card is plus4, player can only play plus4.
-                return plusfourPlayerCanPlay(playerManager.getHandCard(player));
+                return plusfourPlayerCanPlay(player.getHandCard());
             }
         } else {
             // get the cards that the current player can play normally
             return cardsPlayerCanPlay(
-                    playerManager.getHandCard(player),
+                    player.getHandCard(),
                     gameBoard.getLastCard());
         }
 
@@ -85,7 +79,7 @@ public class BasicOperations {
     public ArrayList<Card> skipsPlayerCanPlay(ArrayList<Card> cards) {
         ArrayList<Card> skips = new ArrayList<>();
         for (Card c: cards) {
-            if (deckManager.feature(c).equals("skip")) {
+            if (c.getFeature().equals("skip")) {
                 skips.add(c);
             }
         }
@@ -95,7 +89,7 @@ public class BasicOperations {
     public ArrayList<Card> plustwoPlayerCanPlay(ArrayList<Card> cards) {
         ArrayList<Card> skips = new ArrayList<>();
         for (Card c: cards) {
-            if (deckManager.feature(c).equals("plustwo")||deckManager.feature(c).equals("plusfour")) {
+            if (c.getFeature().equals("plustwo")||c.getFeature().equals("plusfour")) {
                 skips.add(c);
             }
         }
@@ -105,7 +99,7 @@ public class BasicOperations {
     public ArrayList<Card> plusfourPlayerCanPlay(ArrayList<Card> cards) {
         ArrayList<Card> skips = new ArrayList<>();
         for (Card c: cards) {
-            if (deckManager.feature(c).equals("plusfour")) {
+            if (c.getFeature().equals("plusfour")) {
                 skips.add(c);
             }
         }
@@ -115,15 +109,12 @@ public class BasicOperations {
     public ArrayList<Card> cardsPlayerCanPlay(ArrayList<Card> cards, Card lastCard) {
         ArrayList<Card> cardsCanPlay = new ArrayList<Card>();
 
-        if (deckManager.id(lastCard).equals("nullid")) {
-            for (Card c: cards) {
-                cardsCanPlay.add(deckManager.copyCard(c));
-            }
-            return cardsCanPlay;
+        if (lastCard.getId().equals("nullid")) {
+            return (ArrayList<Card>) cards.clone();
         }
         for (Card c: cards) {
-            if (compareTwoCardsHaveSameFeature(lastCard, c, getColor())||deckManager.feature(c).equals("switch")||
-                    deckManager.feature(c).equals("plusfour")) {
+            if (compareTwoCardsHaveSameFeature(lastCard, c, getColor())||c.getFeature().equals("switch")||
+                    c.getFeature().equals("plusfour")) {
                 cardsCanPlay.add(c);
             }
         }

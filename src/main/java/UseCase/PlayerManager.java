@@ -24,9 +24,9 @@ public class PlayerManager implements Iterable<Player>{
      * @param players the players are stored in player use case, and
      *                can be called using their indices.
      */
-    public PlayerManager(Player[] players, Card c) {
+    public PlayerManager(Player[] players){
         this.players = players;
-        this.lastCard = c;
+        this.lastCard = new Card();
     }
 
     /**
@@ -34,9 +34,9 @@ public class PlayerManager implements Iterable<Player>{
      * needed to be initialized in upper level.
      * @param numberOfPlayers Number of players that play the card.
      */
-    public PlayerManager(int numberOfPlayers, Card c) {
+    public PlayerManager(int numberOfPlayers) {
         this.players = new Player[numberOfPlayers];
-        this.lastCard = c;
+        this.lastCard = new Card();
     }
 
     @Override
@@ -229,14 +229,6 @@ public class PlayerManager implements Iterable<Player>{
     public ArrayList<Card> getHandCard(int playerCount) {
         ArrayList<Card> res = new ArrayList<Card>();
         for (Card c: players[playerCount]){
-            res.add(c);
-        }
-        return res;
-    }
-
-    public ArrayList<Card> getHandCard(Player player) {
-        ArrayList<Card> res = new ArrayList<Card>();
-        for (Card c: player){
             res.add(c);
         }
         return res;
