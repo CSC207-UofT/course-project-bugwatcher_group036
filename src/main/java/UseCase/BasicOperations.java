@@ -3,6 +3,7 @@ package UseCase;
 import Controller.Dealer;
 import Entity.Card;
 import Entity.Player;
+import UI.UI;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class BasicOperations {
 
     private final Status vars;
     private final GameBoard gameBoard;
+    private UI ui;
     private final PlayerManager playerManager;
     private final DeckManager deckManager;
 
@@ -53,6 +55,7 @@ public class BasicOperations {
                 break;
             }
         }
+        setUI(ui);
     }
 
     public void functionCardResponseForComputer(Status vars, String feature){
@@ -163,5 +166,8 @@ public class BasicOperations {
 
     public String getColor(){
         return gameBoard.getColor();
+    }
+    public void setUI(UI ui) {
+        this.ui = ui;
     }
 }

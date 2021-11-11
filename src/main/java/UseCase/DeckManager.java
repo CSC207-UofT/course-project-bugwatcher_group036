@@ -116,7 +116,5 @@ public class DeckManager {
         return c.copy();
     }
 
-    public Deck getD() {
-        return d;
-    }
+    public Deck getD(){return d;}
 }
