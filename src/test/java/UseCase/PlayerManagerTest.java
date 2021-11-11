@@ -1,6 +1,8 @@
 package UseCase;
 
 import Entity.Card;
+import Entity.FunctionCard;
+import Entity.NumberCard;
 import Entity.Player;
 import org.junit.jupiter.api.Test;
 
@@ -16,9 +18,23 @@ public class PlayerManagerTest {
     }
 
     @Test
+    public void testGetLastCard(){
+        PlayerManager pManager = new PlayerManager(4);
+        Card c1 = new FunctionCard("red", "skip", "1");
+        for (int i = 0; i < 4; i++){
+            pManager.createPlayer(Integer.toString(i), i);
+        }
+
+        pManager.playerDrawCard(0, c1);
+        pManager.playerPlayCard(0, c1);
+        Card expected = pManager.getLastCard();
+        assertSame(expected, c1);
+    }
+
+    @Test
     public void testCreatePlayer(){
         PlayerManager pManager = new PlayerManager(4);
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             pManager.createPlayer(Integer.toString(i), i);
         }
         assertEquals("3", pManager.getPlayers()[3].getId());
@@ -27,11 +43,12 @@ public class PlayerManagerTest {
     @Test
     public void testPlayerDrawCard(){
         PlayerManager pManager = new PlayerManager(4);
+        Card c1 = new FunctionCard("red", "skip", "1");
         for (int i = 0; i < 4; i++){
             pManager.createPlayer(Integer.toString(i), i);
         }
-        pManager.playerDrawCard(0, new Card("red", "red6"));
-        assertEquals(pManager.getPlayers()[0].getHandCard().get(0).getId(), "red6");
+        pManager.playerDrawCard(0, c1);
+        assertSame(pManager.getPlayers()[0].getHandCard().get(0), c1);
     }
 
     @Test
@@ -44,5 +61,20 @@ public class PlayerManagerTest {
         pManager.playerDrawCard(0, toPlayed);
         Card played = pManager.playerPlayCard(0, toPlayed);
         assertEquals(played, toPlayed);
+    }
+
+    @Test
+    public void testWinOrNot(){
+        PlayerManager pManager = new PlayerManager(4);
+        Card toDraw = new Card();
+        for (int i = 0; i < 4; i++){
+            pManager.createPlayer(Integer.toString(i), i);
+            toDraw = new NumberCard("red", i, Integer.toString(i));
+            pManager.playerDrawCard(i, toDraw);
+        }
+        assertFalse(pManager.winOrNot());
+        pManager.playerPlayCard(3, toDraw);
+        assertFalse(pManager.winOrNot(0));
+        assertTrue(pManager.winOrNot(3));
     }
 }
