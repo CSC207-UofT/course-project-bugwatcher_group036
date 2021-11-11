@@ -35,6 +35,21 @@ public class ControllerBuilder implements Builder {
         }
     }
 
+    public void buildPlayerManagerForComputer(){
+        playerManagerData = new PlayerManagerData(numberOfPlayers, deckManagerData.getDeckManager().createNullCard());
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("enter a player name for you:");
+        String playerID = keyboard.nextLine();
+        playerManagerData.getPlayerManager().createPlayer(playerID, 0);
+
+        for (int i = 1; i < numberOfPlayers; i++) {
+
+            System.out.println("enter a player name for player " + (i+1) + ":");
+            playerID = keyboard.nextLine();
+            playerManagerData.getPlayerManager().createPlayer(playerID, i);
+        }
+    }
+
     public void buildDeckManager(){
         deckManagerData = new DeckManagerData();
     }
@@ -74,6 +89,21 @@ public class ControllerBuilder implements Builder {
     public Controller buildUnoController(){
         this.buildDeckManager();
         this.buildPlayerManager();
+        this.buildColors();
+        this.cardDeal();
+        this.buildDealer();
+        this.buildBasicOperations();
+        this.buildEachRound();
+        Controller temp = new Controller();
+        temp.setBasicOperationsData(basicOperationsData);
+        temp.setEachRound(eachRound);
+
+        return temp;
+    }
+
+    public Controller buildUnoControllerForComputer(){
+        this.buildDeckManager();
+        this.buildPlayerManagerForComputer();
         this.buildColors();
         this.cardDeal();
         this.buildDealer();

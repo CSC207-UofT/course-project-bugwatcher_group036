@@ -53,6 +53,24 @@ public class Dealer {
         }
     }
 
+    public void punishOrPlayCardForComputer(Card cardToPlay, int currentPlayerIndex) {
+        if (currentPlayerIndex != 0) {
+            // return false for punishment, true for play a card
+            // If the player types 3 times wrong card, draw a card, otherwise play the card.
+            if (deckManagerData.getDeckManager().whetherNull(cardToPlay)) {
+                drawCard(currentPlayerIndex);
+            } else if (!deckManagerData.getDeckManager().color(cardToPlay).equals("white")) {
+                // if the played card is valid, play the card
+                Card playedCard = playerManagerData.getPlayerManager().playerPlayCard(currentPlayerIndex, cardToPlay);
+                // put the played into the used deck
+                deckManagerData.getDeckManager().putCardToUsedDeck(playedCard);
+            }
+        } else {
+            punishOrPlayCard(cardToPlay, currentPlayerIndex);
+        }
+
+    }
+
     /**
      * let indicated player draw card
      * @param currentPlayerIndex indicate current position of the player

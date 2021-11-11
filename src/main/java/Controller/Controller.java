@@ -20,8 +20,10 @@ public class Controller {
      * run the game and return the player that wins.
      * @return the player that wins.
      */
-    public Player runGame() {
+    public Player runGame(boolean pvp) {
         StatusData varsData = new StatusData(basicOperationsData.getBasicOperations().getVars());
+
+
         // if winFlag is true, it means the winner appears and the while loop exits.
         while (!varsData.getStatus().isWinFlag()) {
             // cardToPlay is the card that the player wants to play.
@@ -32,7 +34,11 @@ public class Controller {
 
             // If no cards can play, draw a card, otherwise play a card. If the player type three times
             // wrong card to play, the player will be punished to draw a card automatically.
-            cardToPlay = eachRound.playStage(currentCardsPlayerCanPlay, cardToPlay);
+            if (pvp) {
+                cardToPlay = eachRound.playStage(currentCardsPlayerCanPlay, cardToPlay);
+            } else {
+                cardToPlay = eachRound.playStageForComputer(currentCardsPlayerCanPlay, cardToPlay);
+            }
 
             eachRound.endStage(cardToPlay);
 
@@ -42,6 +48,9 @@ public class Controller {
                             varsData.getStatus().isReverse()));
         }
         return varsData.getStatus().getPlayerWins();
+
+
+
     }
 
     public void setBasicOperationsData(BasicOperationsData basicOperationsData) {
