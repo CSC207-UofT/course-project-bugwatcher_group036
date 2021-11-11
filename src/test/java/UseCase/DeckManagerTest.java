@@ -39,5 +39,79 @@ public class DeckManagerTest {
         assertEquals(deckManager0.getDeck().getUnusedCardDeck(), deckManager1.getDeck().getUnusedCardDeck());
     }
 
+    @Test
+    public void testPutCardToUsedDeck(){
+        Card c1 = new Card("yellow", "25");
+        deckManager0.putCardToUsedDeck(c1);
+        Deck curDeck = deckManager0.getDeck();
+        ArrayList<Card> used = curDeck.getUsedCardDeck();
+        assertEquals(c1, used.get(0));
+    }
+
+    @Test
+    public void testDrawCardFromUnusedDeck(){
+
+    }
+
+    @Test
+    public void testCheckShuffle(){
+
+    }
+
+    @Test
+    public void testExtractCard(){
+
+    }
+
+    @Test
+    public void testWhetherNull(){
+
+    }
+
+    @Test
+    public void testColor(){
+
+    }
+
+    @Test
+    public void testFunction(){
+
+    }
+
+    @Test
+    public void testNum(){
+
+    }
+
+    @Test
+    public void testCompareTwoCardsHaveSameFeature(){
+
+    }
+
+    @Test
+    public void testCompareTwoCardsHaveSameColor(){
+
+    }
+
+    @Test
+    public void testCreateNullCard(){
+
+    }
+
+    @Test
+    public void testCreateColorCard(){
+
+    }
+
+    @Test
+    public void testFeature(){
+
+    }
+
+    @Test
+    public void testAddCard(){
+
+    }
+
 
 }
