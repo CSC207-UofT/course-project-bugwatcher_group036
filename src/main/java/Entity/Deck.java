@@ -107,7 +107,7 @@ public class Deck implements Serializable{
      *
       * @return a deck contain 40 cards.
      */
-    private Deck setDefaultDeck(){
+    public Deck setDefaultDeck(){
         Deck d1 = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
