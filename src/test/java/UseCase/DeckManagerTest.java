@@ -30,7 +30,6 @@ public class DeckManagerTest {
         Deck d2 = deckManager1.getDeck();
         assertFalse(d1.shuffleFromUsedToUnused());
         assertFalse(d2.shuffleFromUsedToUnused());
-        assertTrue(d2.shuffleFromUsedToUnused());
     }
 
     @Test
