@@ -97,4 +97,6 @@ public class DeckManager {
     public void addCard(Card c) {
         d.addcard(c);
     }
+
+    public Deck getD(){return d;}
 }

@@ -2,6 +2,7 @@ package UseCase;
 
 import Entity.Card;
 import Entity.Player;
+import UI.UI;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ public class BasicOperations {
 
     private final Status vars;
     private final GameBoard gameBoard;
+    private UI ui;
 
     public BasicOperations(Status statVars, GameBoard gameBoard){
         this.vars = statVars;
@@ -44,9 +46,11 @@ public class BasicOperations {
             default: {
                 vars.setPlus(vars.getPlus() + 4);
                 gameBoard.typeSetColor();
+
                 break;
             }
         }
+        setUI(ui);
     }
 
     /**
@@ -131,5 +135,8 @@ public class BasicOperations {
 
     public String getColor(){
         return gameBoard.getColor();
+    }
+    public void setUI(UI ui) {
+        this.ui = ui;
     }
 }

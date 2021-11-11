@@ -1,11 +1,13 @@
 package Controller;
 
 import Entity.Card;
+import UI.UI;
 import UseCase.BasicOperations;
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
 import UseCase.Status;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,6 +15,7 @@ public class Dealer {
 
     private final PlayerManager playerManager;
     private final DeckManager cardManager;
+    private UI ui;
 
     public Dealer(PlayerManager playerManager, DeckManager cardManager){
         this.playerManager = playerManager;
@@ -27,6 +30,10 @@ public class Dealer {
     public void drawCardWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay, int currentPlayerIndex) {
         if (currentCardsPlayerCanPlay.isEmpty()) {
             System.out.println("You cannot play a card! You need to draw one more card");
+            UIManager.put("OptionPane.okButtonText", "next");
+            JOptionPane.showMessageDialog(null, "You cannot play a card!");
+
+
             // draw a card from the deck
             drawCard(currentPlayerIndex);
         }
@@ -61,7 +68,9 @@ public class Dealer {
         if (!cardManager.whetherNull(c)){
             // give the card to the player
             playerManager.playerDrawCard(currentPlayerIndex, c);
-            System.out.println("The card you drew is " + c);
+            System.out.println("The card you draw is " + c);
+            UIManager.put("OptionPane.okButtonText", "next");
+            JOptionPane.showMessageDialog(null, "You draw one more card."+" The card you draw is " + c);
         }
     }
 
@@ -71,12 +80,19 @@ public class Dealer {
      * @param num the number of cards to draw
      */
     public void plusManyNextPlayer(int currentPlayerIndex, int num) {
+        StringBuilder drawcardname = new StringBuilder();
         for (int i = 0; i < num; i++) {
             Card drawedCard = cardManager.drawCardFromUnusedDeck();
+
             if (!cardManager.whetherNull(drawedCard)) {
                 playerManager.getPlayers()[currentPlayerIndex].drawCard(drawedCard);
+                drawcardname.append(drawedCard.getId());
+            }
+            if (i != num - 1) {
+                drawcardname.append(", ");
             }
         }
+        JOptionPane.showMessageDialog(null, "You draw " + num + " cards. The card you draw are " + drawcardname + ".");
     }
 
     /**
@@ -123,7 +139,10 @@ public class Dealer {
             // draw a card when there is no valid card can play
             drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay,
                     basicOperations.getVars().getCurrentPlayerIndex());
+            setUI(ui);
         }
     }
-
+    public void setUI(UI ui) {
+        this.ui = ui;
+    }
 }

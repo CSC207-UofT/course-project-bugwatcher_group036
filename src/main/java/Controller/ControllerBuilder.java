@@ -4,6 +4,7 @@ import Entity.Card;
 import Entity.Player;
 import UseCase.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,7 +28,8 @@ public class ControllerBuilder implements Builder {
         for (int i = 0; i < numberOfPlayers; i++) {
             Scanner keyboard = new Scanner(System.in);
             System.out.println("enter a player name for player " + (i+1) + ":");
-            String playerID = keyboard.nextLine();
+//            String playerID = keyboard.nextLine();
+            String playerID = JOptionPane.showInputDialog("enter a player name for player " + (i+1) + ":");
             playerManager.createPlayer(playerID, i);
         }
     }

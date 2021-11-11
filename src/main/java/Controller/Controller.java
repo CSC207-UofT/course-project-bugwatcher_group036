@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import Entity.Card;
 import Entity.Player;
+import UI.UI;
 import UseCase.BasicOperations;
 import UseCase.Status;
+
+import javax.swing.*;
 
 /**
  * The main.Controller to run a game.
@@ -14,12 +17,13 @@ public class Controller {
 
     private BasicOperations basicOperations;
     private EachRound eachRound;
+    private UI ui;
 
     /**
      * run the game and return the player that wins.
      * @return the player that wins.
      */
-    public String runGame() {
+    public Player runGame() {
         Status vars = basicOperations.getVars();
         // if winFlag is true, it means the winner appears and the while loop exits.
         while (!vars.isWinFlag()) {
@@ -39,7 +43,9 @@ public class Controller {
             vars.setCurrentPlayerIndex(
                     basicOperations.getVars().moveToNextPlayer(vars.isReverse()));
         }
-        return vars.getPlayerWins().getId();
+        JOptionPane.showMessageDialog(null, vars.getPlayerWins().getId() + " wins!");
+
+        return vars.getPlayerWins();
     }
 
     public void setBasicOperations(BasicOperations basicOperations) {
@@ -49,4 +55,13 @@ public class Controller {
     public void setEachRound(EachRound eachRound) {
         this.eachRound = eachRound;
     }
+
+    public void setUI(UI ui) {
+        eachRound.ui = ui;
+    }
+
+    public EachRound getEachRound() {
+        return eachRound;
+    }
+    public BasicOperations getBasicOperations() {return basicOperations;}
 }
