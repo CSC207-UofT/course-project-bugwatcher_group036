@@ -48,9 +48,6 @@ public class Controller {
                             varsData.getStatus().isReverse()));
         }
         return varsData.getStatus().getPlayerWins();
-
-
-
     }
 
     public void setBasicOperationsData(BasicOperationsData basicOperationsData) {

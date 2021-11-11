@@ -11,12 +11,14 @@ import java.util.Collections;
 
 public class Dealer {
 
-    private final PlayerManager playerManager;
-    private final DeckManager cardManager;
+//    private final PlayerManager playerManager;
+//    private final DeckManager deckManager;
+    private final PlayerManagerData playerManagerData;
+    private final DeckManagerData deckManagerData;
 
-    public Dealer(PlayerManager playerManager, DeckManager cardManager){
-        this.playerManager = playerManager;
-        this.cardManager = cardManager;
+    public Dealer(PlayerManagerData playerManagerData, DeckManagerData deckManagerData){
+        this.playerManagerData = playerManagerData;
+        this.deckManagerData = deckManagerData;
     }
 
     /**
@@ -40,19 +42,21 @@ public class Dealer {
     public void punishOrPlayCard(Card cardToPlay, int currentPlayerIndex) {
         // return false for punishment, true for play a card
         // If the player types 3 times wrong card, draw a card, otherwise play the card.
-        if (cardManager.whetherNull(cardToPlay)) {
+        if (deckManagerData.getDeckManager().whetherNull(cardToPlay)) {
             System.out.println("Enter too many times wrong cards! Draw a card for punishment.");
             drawCard(currentPlayerIndex);
-        } else if (!cardManager.color(cardToPlay).equals("white")) {
+        } else if (!deckManagerData.getDeckManager().color(cardToPlay).equals("white")) {
             // if the played card is valid, play the card
-            Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
+            Card playedCard = playerManagerData.getPlayerManager().playerPlayCard(currentPlayerIndex, cardToPlay);
             // put the played into the used deck
-            cardManager.putCardToUsedDeck(playedCard);
+            deckManagerData.getDeckManager().putCardToUsedDeck(playedCard);
         }
     }
 
     public void punishOrPlayCardForComputer(Card cardToPlay, int currentPlayerIndex) {
-        if (currentPlayerIndex != 0) {
+        if (currentPlayerIndex == 0) {
+            punishOrPlayCard(cardToPlay, currentPlayerIndex);
+        } else {
             // return false for punishment, true for play a card
             // If the player types 3 times wrong card, draw a card, otherwise play the card.
             if (deckManagerData.getDeckManager().whetherNull(cardToPlay)) {
@@ -63,8 +67,6 @@ public class Dealer {
                 // put the played into the used deck
                 deckManagerData.getDeckManager().putCardToUsedDeck(playedCard);
             }
-        } else {
-            punishOrPlayCard(cardToPlay, currentPlayerIndex);
         }
 
     }
@@ -74,11 +76,11 @@ public class Dealer {
      * @param currentPlayerIndex indicate current position of the player
      */
     protected void drawCard(int currentPlayerIndex) {
-        Card c = cardManager.drawCardFromUnusedDeck();
+        Card c = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
         // if the drawn card is not null
-        if (!cardManager.whetherNull(c)){
+        if (!deckManagerData.getDeckManager().whetherNull(c)){
             // give the card to the player
-            playerManager.playerDrawCard(currentPlayerIndex, c);
+            playerManagerData.getPlayerManager().playerDrawCard(currentPlayerIndex, c);
             System.out.println("The card you drew is " + c);
         }
     }
@@ -90,9 +92,9 @@ public class Dealer {
      */
     public void plusManyNextPlayer(int currentPlayerIndex, int num) {
         for (int i = 0; i < num; i++) {
-            Card drawedCard = cardManager.drawCardFromUnusedDeck();
-            if (!cardManager.whetherNull(drawedCard)) {
-                playerManager.getPlayers()[currentPlayerIndex].drawCard(drawedCard);
+            Card drawedCard = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
+            if (!deckManagerData.getDeckManager().whetherNull(drawedCard)) {
+                playerManagerData.getPlayerManager().getPlayers()[currentPlayerIndex].drawCard(drawedCard);
             }
         }
     }
@@ -110,14 +112,16 @@ public class Dealer {
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
         // if the player successfully plays a card
-        if (!cardManager.whetherNull(cardToPlay) && !cardManager.color(cardToPlay).equals("white")) {
-            String feature = cardManager.feature(cardToPlay);
+        if (!deckManagerData.getDeckManager().whetherNull(cardToPlay) &&
+                !deckManagerData.getDeckManager().color(cardToPlay).equals("white")) {
+            String feature = deckManagerData.getDeckManager().feature(cardToPlay);
+            System.out.println("The card " + cardToPlay.getId() + " is played.");
             // if the player plays a function card
             if (!num.contains(feature)) {
                 // if it is the last card that the palyer plays is a function card, draw a card.
-                if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {
-                    Card c = cardManager.drawCardFromUnusedDeck();
-                    playerManager.getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);
+                if (playerManagerData.getPlayerManager().winOrNot(vars.getCurrentPlayerIndex())) {
+                    Card c = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
+                    playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);
                 }
                 basicOperations.functionCardResponse(vars, feature);
             }
@@ -135,8 +139,10 @@ public class Dealer {
             plusManyNextPlayer(basicOperations.getVars().getCurrentPlayerIndex(),
                     basicOperations.getVars().getPlus());
             basicOperations.getVars().setPlus(0);
-        } else if (!cardManager.feature(playerManager.getLastCard()).equals("skip") ||
-                (cardManager.feature(playerManager.getLastCard()).equals("skip") &&
+        } else if (!deckManagerData.getDeckManager().feature(playerManagerData.getPlayerManager().getLastCard()).
+                equals("skip") ||
+                (deckManagerData.getDeckManager().feature(playerManagerData.getPlayerManager().getLastCard()).
+                        equals("skip") &&
                         !basicOperations.getVars().isSkip())){
             // draw a card when there is no valid card can play
             drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay,
