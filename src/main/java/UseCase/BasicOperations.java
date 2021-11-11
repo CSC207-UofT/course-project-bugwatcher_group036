@@ -23,26 +23,26 @@ public class BasicOperations {
 
     /**
      * Extracted from controller
-     * @param vars the variables, will be changed correspondingly
+     * @param status the status, will be changed correspondingly
      * @param feature feature of the played function card
      */
-    public void functionCardResponse(Status vars, String feature){
+    public void functionCardResponse(Status status, String feature){
         switch (feature) {
             case "skip":
-                vars.setSkip(true);
+                status.setSkip(true);
                 break;
             case "reverse":
-                vars.setReverse(!vars.isReverse());
+                status.setReverse(!status.isReverse());
                 break;
             case "plustwo":
-                vars.setPlus(vars.getPlus() + 2);
+                status.setPlus(status.getPlus() + 2);
                 break;
             case "switch": {
                 gameBoard.typeSetColor();
                 break;
             }
             default: {
-                vars.setPlus(vars.getPlus() + 4);
+                status.setPlus(status.getPlus() + 4);
                 gameBoard.typeSetColor();
                 break;
             }
@@ -109,7 +109,7 @@ public class BasicOperations {
     public ArrayList<Card> cardsPlayerCanPlay(ArrayList<Card> cards, Card lastCard) {
         ArrayList<Card> cardsCanPlay = new ArrayList<Card>();
 
-        if (lastCard.getId().equals("nullid")) {
+        if (lastCard.getId().equals("null")) {
             return (ArrayList<Card>) cards.clone();
         }
         for (Card c: cards) {

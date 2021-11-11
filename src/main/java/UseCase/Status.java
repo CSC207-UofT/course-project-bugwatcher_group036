@@ -66,6 +66,7 @@ public class Status {
     /**
      * Extracted from controller, which control position change after each turn.
      * @param reverse whether reverse sequence or not
+     *
      * @return next corresponding position
      */
     public int moveToNextPlayer(boolean reverse) {

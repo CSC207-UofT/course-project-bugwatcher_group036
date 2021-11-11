@@ -6,7 +6,7 @@ import UseCase.DeckManager;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Cardreadfile implements Readfile {
+public class cardreadfile implements Readfile {
 // gateway class
 //    @Override
 //    public void saveToFile(String filepath, Object users) throws IOException {
@@ -20,7 +20,7 @@ public class Cardreadfile implements Readfile {
 //        output.close();
 //    }
 
-    public ArrayList<String> readFromFile(String numfilePath, String funfilepath, DeckManager deckManager){
+    public ArrayList<String> readFromFile(String numFilePath, String funFilePath, DeckManager deckManager){
 
 //        InputStream file = new FileInputStream(filePath);
 //        InputStream buffer = new BufferedInputStream(file);
@@ -34,8 +34,8 @@ public class Cardreadfile implements Readfile {
         ArrayList<String> colors = new ArrayList<>();
 
         try {
-            BufferedReader numberFile = new BufferedReader(new FileReader(numfilePath));
-            BufferedReader functionFile = new BufferedReader(new FileReader(funfilepath));
+            BufferedReader numberFile = new BufferedReader(new FileReader(numFilePath));
+            BufferedReader functionFile = new BufferedReader(new FileReader(funFilePath));
             String numberLine = numberFile.readLine();
             String functionLine = functionFile.readLine();
             while (numberLine != null){

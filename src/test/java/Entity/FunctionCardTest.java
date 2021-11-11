@@ -7,21 +7,24 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class FunctionCardTest {
-    Player p1 = new Player("player1", 1);
-    FunctionCard c1 = new FunctionCard("yellow", "switch", "id");
+    private static FunctionCard c1 = new FunctionCard("yellow", "switch", "id");
+    private static FunctionCard c2 = new FunctionCard();
 
     @Test
-    public void TestGetColor() {
+    public void testGetColor() {
         assertEquals("yellow", c1.getColor());
+        assertEquals("black", c2.getColor());
     }
 
     @Test
-    public void TestgetFunction() {
+    public void testGetFunction() {
         assertEquals("switch", c1.getFunction());
+        assertEquals("null", c2.getFunction());
     }
 
     @Test
-    public void TesttoString() {
+    public void testToString() {
         assertEquals("yellow switch", c1.toString());
+        assertEquals("black null", c2.toString());
     }
 }
