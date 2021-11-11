@@ -40,7 +40,15 @@ public class Controller {
                 cardToPlay = eachRound.playStageForComputer(currentCardsPlayerCanPlay, cardToPlay);
             }
 
-            eachRound.endStage(cardToPlay);
+            if (pvp) {
+                eachRound.endStage(cardToPlay);
+            } else {
+                if (varsData.getStatus().getCurrentPlayerIndex() != 0) {
+                    eachRound.endStageForComputer(cardToPlay);
+                } else {
+                    eachRound.endStage(cardToPlay);
+                }
+            }
 
             // Move to the next player
             varsData.getStatus().setCurrentPlayerIndex(

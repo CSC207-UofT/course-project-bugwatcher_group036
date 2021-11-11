@@ -215,4 +215,19 @@ public class EachRound {
             vars.setPlayerWins(playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()]);
         }
     }
+
+    public void endStageForComputer(Card cardToPlay){
+        Status vars = basicOperationsData.getBasicOperations().getVars();
+
+        // set the skip to false since the function skip has passed.
+        vars.setSkip(false);
+
+        dealer.checkLastCardForComputer(cardToPlay, basicOperationsData.getBasicOperations());
+
+        // Determine whether the player wins or not.
+        if (playerManagerData.getPlayerManager().winOrNot(vars.getCurrentPlayerIndex())) {
+            vars.setWinFlag(true);
+            vars.setPlayerWins(playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()]);
+        }
+    }
 }

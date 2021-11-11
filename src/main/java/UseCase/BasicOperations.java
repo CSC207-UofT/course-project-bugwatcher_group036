@@ -55,6 +55,29 @@ public class BasicOperations {
         }
     }
 
+    public void functionCardResponseForComputer(Status vars, String feature){
+        switch (feature) {
+            case "skip":
+                vars.setSkip(true);
+                break;
+            case "reverse":
+                vars.setReverse(!vars.isReverse());
+                break;
+            case "plustwo":
+                vars.setPlus(vars.getPlus() + 2);
+                break;
+            case "switch": {
+                gameBoard.typeSetColorForComputer();
+                break;
+            }
+            default: {
+                vars.setPlus(vars.getPlus() + 4);
+                gameBoard.typeSetColorForComputer();
+                break;
+            }
+        }
+    }
+
     /**
      * Extracted from controller
      * @param player the player whose handcard need to be checked

@@ -3,7 +3,10 @@ package UseCase;
 import Entity.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 import java.util.Scanner;
+
 
 /**
  * Gameboard stores playCount and controls current position, color, and lastCard played.
@@ -61,6 +64,17 @@ public class GameBoard {
             wrongTimeCounter++;
         }
         this.color = setColor;
+        System.out.println("Color " + setColor + " is set.");
+    }
+
+    public void typeSetColorForComputer() {
+        Random rand = new Random();
+        int indx = rand.nextInt(4);
+        ArrayList<String> co = new ArrayList<>();
+        Collections.addAll(co, "red", "green", "blue", "yellow");
+        String setColor = co.get(indx);
+        this.color = setColor;
+        System.out.println("Color " + setColor + " is set.");
     }
 
     public String getRandColor(){

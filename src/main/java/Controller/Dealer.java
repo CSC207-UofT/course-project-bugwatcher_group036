@@ -128,6 +128,30 @@ public class Dealer {
         }
     }
 
+    public void checkLastCardForComputer(Card cardToPlay, BasicOperations basicOperations){
+        Status vars = basicOperations.getVars();
+
+        // create the arrayList for all possible number features
+        ArrayList<String> num = new ArrayList<>();
+        Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+
+        // if the player successfully plays a card
+        if (!deckManagerData.getDeckManager().whetherNull(cardToPlay) &&
+                !deckManagerData.getDeckManager().color(cardToPlay).equals("white")) {
+            String feature = deckManagerData.getDeckManager().feature(cardToPlay);
+            System.out.println("The card " + cardToPlay.getId() + " is played.");
+            // if the player plays a function card
+            if (!num.contains(feature)) {
+                // if it is the last card that the palyer plays is a function card, draw a card.
+                if (playerManagerData.getPlayerManager().winOrNot(vars.getCurrentPlayerIndex())) {
+                    Card c = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
+                    playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);
+                }
+                basicOperations.functionCardResponseForComputer(vars, feature);
+            }
+        }
+    }
+
     /**
      * Operations when current player has no card to play
      * @param currentCardsPlayerCanPlay cards can be played
