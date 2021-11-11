@@ -9,7 +9,7 @@ public class Deck implements Serializable{
     private ArrayList<Card> unused;
 
     /**
-     * Construct the Deck in UNO card game.
+     * Construct a empty deck in UNO card game.
      *
      */
     public Deck(){
@@ -18,7 +18,7 @@ public class Deck implements Serializable{
     }
 
     /**
-     * To check whether the unused_card_deck is empty.
+     * Check whether the unused_card_deck is empty.
      *
      * If the card deck is empty, Placed all the used card into the card deck.
      */
@@ -27,7 +27,7 @@ public class Deck implements Serializable{
         }
 
     /**
-     * To add a card into the used_card_deck.
+     * Add a card into the used_card_deck.
      *
      */
     public void addCard(Card card) {
@@ -35,48 +35,52 @@ public class Deck implements Serializable{
     }
 
     /**
-     * To return the numbers of card in a card deck.
+     * Get the numbers of card in a card deck.
      *
-     * @return the numbers of card in a card deck.
+     * @return The number of card in a card deck.
      */
     public int numOfCards(ArrayList<Card> deck) {
         return deck.size();
     }
 
     /**
-     * getter
-     * @return unsed_card_deck
+     * Get the number of used card in the deck.
+     *
+     * @return Number of used card in the deck.
      */
     public ArrayList<Card> getUsedCardDeck(){
         return used;
     }
 
     /**
-     * setter
-     * @param replacement the new deck to replace the old one
+     * Set the used card deck.
+     *
+     * @param replacement the new deck to replace the old one.
      */
     public void setUsedCardDeck(ArrayList<Card> replacement){
         used = replacement;
     }
 
     /**
-     * getter
-     * @return unused_card_deck
+     * Get the number of unused card in the deck.
+     *
+     * @return umber of unused card in the deck.
      */
     public ArrayList<Card> getUnusedCardDeck(){
         return unused;
     }
 
     /**
-     * setter
-     * @param replacement the new deck to replace the old one
+     * Set the unused card deck.
+     *
+     * @param replacement the new deck to replace the old one.
      */
     public void setUnusedCardDeck(ArrayList<Card> replacement){
         unused = replacement;
     }
 
     /**
-     * In the game, we have two decks, wh
+     * Draw card form the unused card deck.
      *
      * @return The card that drawn from unused deck.
      */
@@ -86,6 +90,11 @@ public class Deck implements Serializable{
         return unused.remove(index);
     }
 
+    /**
+     * Shuffle the card from the used card deck to the unused card deck.
+     *
+     * @return Whether successful or not.
+     */
     public boolean shuffleFromUsedToUnused() {
         if (used.isEmpty()) {
             return false;
@@ -98,6 +107,11 @@ public class Deck implements Serializable{
 
     }
 
+    /**
+     * Put card in to the used Card deck.
+     *
+     * @param card The card that will be put.
+     */
     public void putCardToUsedDeck(Card card) {
         used.add(card);
     }

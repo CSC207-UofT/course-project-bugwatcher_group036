@@ -5,10 +5,11 @@ public class NumberCard extends Card {
     private int number;
 
     /**
+     * Construct a number card.
      *
-     * @param color The color of the card <red, yellow, green, blue>
-     * @param number   The card's number <0~9, -1>
-     * @param id    The if of the card.
+     * @param color The color of the card <red, yellow, green, blue>.
+     * @param number The card's number <0~9, -1>.
+     * @param id The id of the card.
      */
     public NumberCard(String color, int number, String id) {
         super(color, id);
@@ -16,7 +17,7 @@ public class NumberCard extends Card {
     }
 
     /**
-     * The default value for number card.
+     * Construct a number card with default value.
      */
     public NumberCard() {
         super();
@@ -26,7 +27,7 @@ public class NumberCard extends Card {
     /**
      * Get the number of this card.
      *
-     * @return An int represent the number of the card.
+     * @return Number of the card.
      */
     public int getNumber(){
         return number;

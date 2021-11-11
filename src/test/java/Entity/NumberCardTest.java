@@ -6,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class NumberCardTest {
-    NumberCard c1 = new NumberCard("red", 7, "red7");
-    NumberCard c2 = new NumberCard();
-//    Card c1;
-//    Card c2;
+    private static NumberCard c1 = new NumberCard("red", 7, "red7");
+    private static NumberCard c2 = new NumberCard();
 
     @Test
     public void testGetColor() {

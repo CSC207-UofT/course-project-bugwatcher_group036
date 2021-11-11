@@ -96,7 +96,7 @@ public class Dealer {
             String feature = cardManager.feature(cardToPlay);
             // if the player plays a function card
             if (!num.contains(feature)) {
-                // if it is the last card that the palyer plays is a function card, draw a card.
+                // if it is the last card that the player plays is a function card, draw a card.
                 if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {
                     Card c = cardManager.drawCardFromUnusedDeck();
                     playerManager.getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);

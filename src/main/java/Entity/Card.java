@@ -11,7 +11,7 @@ public class Card implements Serializable {
     /**
      * Construct the individual card with info implemented in UNO card game.
      *
-     * giving the card the given color, number, function
+     * Giving the card the given color, number, function
      *
      * @param color   The card's color <red, blue, yellow, green, black>.
      * @param id The card's id, for distinguish different cards of the same number and color.
@@ -48,23 +48,20 @@ public class Card implements Serializable {
     }
 
     /**
-     *  String representation for the Card.
+     * String representation for the Card.
      */
     public String toString() {
         return "Id: " + id;
     }
 
     /**
-     * declare the card is not a funcion card.
+     * Feature of the card.
      *
-     * @return String "nullfeature", which means the card is a normal card, not a function card.
+     * @return String "null", which means the card is a default card.
+     * Number for a number card and function for a function card.
      */
     public String getFeature(){
         return "null";
     }
-    // test code
-//    public static void main(String[] args){
-//        Card c1 = new Card("red", 2, null);
-//        System.out.println(c1.getColor());
-//    }
 }
+

@@ -5,10 +5,11 @@ public class FunctionCard extends Card{
     private String function;
 
     /**
+     * Construct a function card.
      *
-     * @param color       The color of the function card <red, blue, green, yellow, black>
-     * @param id          The id of the function card
-     * @param function    The card's function <switch, reverse, skip, plustwo, plusfour, null>
+     * @param color The color of the function card <red, blue, green, yellow, black>.
+     * @param id The id of the function card.
+     * @param function The card's function <switch, reverse, skip, plusTwo, plusFour, null>.
      */
     public FunctionCard(String color, String function, String id) {
         super(color ,id);
@@ -16,7 +17,7 @@ public class FunctionCard extends Card{
     }
 
     /**
-     * The default value for a function card.
+     * Construct a function card with default value.
      */
     public FunctionCard(){
         super();
@@ -26,7 +27,7 @@ public class FunctionCard extends Card{
     /**
      * Get the function.
      *
-     * @return what function the card can do.
+     * @return Function the card can do.
      */
     public String getFunction() {
         return function;

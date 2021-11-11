@@ -18,11 +18,11 @@ public class DeckTest {
 
     }
 
-//    @Test
-//    public void testNumOfCards() {
-//        Deck d1 = new Deck();
-//        assertEquals(108, d1.numOfCards(d1.getUnusedCardDeck()));
-//    }
+    @Test
+    public void testNumOfCards() {
+        Deck d1 = new Deck();
+        assertEquals(0, d1.numOfCards(d1.getUnusedCardDeck()));
+    }
 
     @Test
     public void testGetUsedCardDeck() {
@@ -37,18 +37,14 @@ public class DeckTest {
 
     @Test
     public void testGetUnusedCardDeck() {
-        Deck d1 = new Deck();
-        ArrayList<Card> a1 = d1.getUnusedCardDeck();
-        assertEquals(a1, d1.getUnusedCardDeck());
+        assertTrue(d1.getUnusedCardDeck().isEmpty());
     // Need to implement ToCompare
     }
 
     @Test
     public void testSetUnusedCardDeck() {
-        Deck d1 = new Deck();
-        ArrayList<Card> a1 = new ArrayList<>();
         d1.setUnusedCardDeck(a1);
-        assertEquals(a1, d1.getUnusedCardDeck());
+        assertTrue(d1.getUnusedCardDeck().isEmpty());
     }
 
     @Test
@@ -63,6 +59,7 @@ public class DeckTest {
         }
         Card c1 = d1.drawCardFromUnusedDeck();
         assertFalse(d1.getUnusedCardDeck().contains(c1));
+        //Need further changing.
     }
 
     @Test
@@ -84,5 +81,6 @@ public class DeckTest {
         Card c1 = d1.drawCardFromUnusedDeck();
         d1.putCardToUsedDeck(c1);
         assertTrue(d1.getUsedCardDeck().contains(c1));
+        //Need further changing.
     }
 }

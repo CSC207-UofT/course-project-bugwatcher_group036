@@ -6,40 +6,40 @@ import java.util.ArrayList;
 
 public class DeckManager {
 
-    private Deck d;
+    private Deck deck;
 
     public DeckManager() {
-        this.d = new Deck();
+        this.deck = new Deck();
     }
 
-    public DeckManager(Deck d) {
-        this.d = d;
+    public DeckManager(Deck deck) {
+        this.deck = deck;
     }
 
     public void shuffleFromUsedToUnused() {
-        d.shuffleFromUsedToUnused();
+        deck.shuffleFromUsedToUnused();
     }
 
     public void initializeCard(ArrayList<Card> cards) {
-        d.setUnusedCardDeck(cards);
+        deck.setUnusedCardDeck(cards);
     }
 
     public void putCardToUsedDeck(Card c) {
-        d.putCardToUsedDeck(c);
+        deck.putCardToUsedDeck(c);
     }
 
     public Card drawCardFromUnusedDeck() {
-        if (d.getUnusedCardDeck().size() == 0) {
-            boolean noCard = d.shuffleFromUsedToUnused();
+        if (deck.getUnusedCardDeck().size() == 0) {
+            boolean noCard = deck.shuffleFromUsedToUnused();
             if  (!noCard) {
                 return new Card(); // shouldn't we throw exception here?
             }
         }
-        return d.drawCardFromUnusedDeck();
+        return deck.drawCardFromUnusedDeck();
     }
 
     public boolean checkShuffle() {
-        return d.getUnusedCardDeck().size() == 0;
+        return deck.getUnusedCardDeck().size() == 0;
     }
 
     public Card extractCard(ArrayList<Card> cards, String id) {
@@ -52,7 +52,7 @@ public class DeckManager {
     }
 
     public boolean whetherNull(Card c) {
-        return c.getId().equals("nullid");
+        return c.getId().equals("null");
     }
 
     public String color(Card c){
@@ -74,7 +74,7 @@ public class DeckManager {
                     c2.getColor().equals(currentColor);
         }
         return lastCard.getFeature().equals(c2.getFeature())|| lastCard.getColor().equals(c2.getColor())
-        || c2.getId().equals("nullid");
+        || c2.getId().equals("null");
     }
 
     public boolean compareTwoCardsHaveSameColor(Card c1, Card c2) {
@@ -94,6 +94,6 @@ public class DeckManager {
     }
 
     public void addCard(Card c) {
-        d.addCard(c);
+        deck.addCard(c);
     }
 }
