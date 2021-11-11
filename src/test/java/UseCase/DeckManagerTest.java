@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 
 public class DeckManagerTest {
     DeckManager deckManager0 = new DeckManager();
-    Deck deck = new Deck().setDefaultDeck();
+    Deck deck0 = new Deck();
+    ArrayList<Card> cards = deck0.setDefaultDeck();
+    Deck deck = new Deck(cards);
     DeckManager deckManager1 = new DeckManager(deck);
 
 
@@ -30,6 +32,11 @@ public class DeckManagerTest {
         assertTrue(d2.shuffleFromUsedToUnused());
     }
 
+    @Test
+    public void testInitializeCard(){
+        deckManager0.initializeCard(deck.getUnusedCardDeck());
+        assertEquals(deckManager0.getDeck().getUnusedCardDeck(), deck.getUsedCardDeck());
+    }
 
 
 }

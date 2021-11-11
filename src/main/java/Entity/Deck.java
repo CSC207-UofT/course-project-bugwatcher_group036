@@ -16,6 +16,14 @@ public class Deck implements Serializable{
         this.used = new ArrayList<>();
         this.unused = new ArrayList<>();
     }
+    /**
+     * Construct the Deck in UNO card game with given arraylist of cards.
+     *
+     */
+    public Deck(ArrayList<Card> cards){
+        this.used = new ArrayList<>();
+        this.unused = cards;
+    }
 
     /**
      * To check whether the unused_card_deck is empty.
@@ -107,17 +115,16 @@ public class Deck implements Serializable{
      *
       * @return a deck contain 40 cards.
      */
-    public Deck setDefaultDeck(){
-        Deck d1 = new Deck();
+    public ArrayList<Card> setDefaultDeck(){
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
                 Card newCard = new NumberCard(color, i, color + i);
-                d1.getUnusedCardDeck().add(newCard);
+                unused.add(newCard);
             }
         }
 
-        return d1;
+        return unused;
     }
 
 }
