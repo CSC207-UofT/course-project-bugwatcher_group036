@@ -26,7 +26,7 @@ public class Player implements Iterable<Card>{
 
     /**
      * Draw a card from deck.
-     * @param c Drawn card。
+     * @param c Drawn card
      */
     public void drawCard(Card c){
         handCard.add(c);
@@ -39,7 +39,15 @@ public class Player implements Iterable<Card>{
      * @return the card which is removed from our hand.
      */
     public Card playCard(Card c){
-            return handCard.remove(handCard.indexOf(c));
+        Card wanted = new Card();
+        for (int i = 0; i < handCard.size();){
+            if (handCard.get(i).getId().equals(c.getId())){
+                wanted =  handCard.remove(i);
+                i--;
+            }
+            i++;
+        }
+        return wanted;
     }
 
     /**

@@ -72,8 +72,8 @@ public class ControllerBuilder implements Builder {
     }
 
     public Controller buildUnoController(){
-        this.buildPlayerManager();
         this.buildDeckManager();
+        this.buildPlayerManager();
         this.buildColors();
         this.cardDeal();
         this.buildDealer();
