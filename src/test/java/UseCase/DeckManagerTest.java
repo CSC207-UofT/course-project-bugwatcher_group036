@@ -13,7 +13,22 @@ public class DeckManagerTest {
     DeckManager deckManager1 = new DeckManager(deck);
 
 
+    @Test
+    public void testGetDeck(){
+        Deck d1 = deckManager0.getDeck();
+        Deck d2 = deckManager1.getDeck();
+        assertTrue(d1.isEmpty());
+        assertEquals(deck, d2);
 
+    }
+
+    @Test
+    public void testShuffleFromUsedToUnused(){
+        Deck d1 = deckManager0.getDeck();
+        Deck d2 = deckManager1.getDeck();
+        assertFalse(d1.shuffleFromUsedToUnused());
+        assertTrue(d2.shuffleFromUsedToUnused());
+    }
 
 
 
