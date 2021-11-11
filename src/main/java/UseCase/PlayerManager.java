@@ -132,72 +132,72 @@ public class PlayerManager implements Iterable<Player>{
         return (players[playerCount].getCardNum() == 0);
     }
 
-    public boolean oneCardLeft(int playerCount) {
-        return (players[playerCount].getCardNum() == 1);
-    }
-
-    /**
-     * Determine whether a player has playable card in his/her hand.
-     *
-     * @param playerCount to indicate which player we want to check
-     * @return boolean that indicates whether this player has playable card in hand
-     */
-    public boolean playerCanPlayCard(int playerCount, DeckManager deck){
-        Player p = players[playerCount];
-        //ArrayList<Card> handCard = p.getHandCard();
-
-        for (Card c: p){
-            // pass if it's default card or match the condition (either color or number matches)
-            // or the card color is black
-            if (deck.color(lastCard).equals("black")) {
-                return true;
-            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
-                if ((deck.color(c).equals(deck.color(lastCard)) ||
-                        (deck.num(((NumberCard)c)) == deck.num((NumberCard) lastCard))||
-                        deck.color(lastCard).equals("black") )){
-                    return true;
-            }
-
-
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Return the ArrayList of Cards that the given player could player in the current tound.
-     * @param playerCount
-     * @return
-     */
-    public ArrayList<Card> CardsPlayerCanPlay(int playerCount, DeckManager deck) {
-        Player p = players[playerCount];
-        //ArrayList<Card> handCard = p.getHandCard();
-        ArrayList<Card> CardsCanPlay = new ArrayList<Card>();
-        for (Card c: p) {
-            // pass if it's default card or match the condition (either color or number matches)
-            // or the card color is black
-            if (deck.color(lastCard).equals("black")) {
-                CardsCanPlay.add(c);
-            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
-                if ((deck.color(c).equals(deck.color(lastCard)) ||
-                        (deck.num(((NumberCard)c)) == deck.num((NumberCard) lastCard))||
-                        deck.color(lastCard).equals("black") )){
-                    CardsCanPlay.add(c);
-//                    }
-                }
-            }
-        }
-        return CardsCanPlay;
-    }
-
-    /**
-     * Renew the last card with the given card c.
-     * @param c
-     */
-    public void renewLastCard(Card c) {
-        lastCard = c;
-    }
+//    public boolean oneCardLeft(int playerCount) {
+//        return (players[playerCount].getCardNum() == 1);
+//    }
+//
+//    /**
+//     * Determine whether a player has playable card in his/her hand.
+//     *
+//     * @param playerCount to indicate which player we want to check
+//     * @return boolean that indicates whether this player has playable card in hand
+//     */
+//    public boolean playerCanPlayCard(int playerCount, DeckManager deck){
+//        Player p = players[playerCount];
+//        //ArrayList<Card> handCard = p.getHandCard();
+//
+//        for (Card c: p){
+//            // pass if it's default card or match the condition (either color or number matches)
+//            // or the card color is black
+//            if (deck.color(lastCard).equals("black")) {
+//                return true;
+//            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
+//                if ((deck.color(c).equals(deck.color(lastCard)) ||
+//                        (deck.num(((NumberCard)c)) == deck.num((NumberCard) lastCard))||
+//                        deck.color(lastCard).equals("black") )){
+//                    return true;
+//            }
+//
+//
+//            }
+//        }
+//
+//        return false;
+//    }
+//
+//    /**
+//     * Return the ArrayList of Cards that the given player could player in the current tound.
+//     * @param playerCount
+//     * @return
+//     */
+//    public ArrayList<Card> CardsPlayerCanPlay(int playerCount, DeckManager deck) {
+//        Player p = players[playerCount];
+//        //ArrayList<Card> handCard = p.getHandCard();
+//        ArrayList<Card> CardsCanPlay = new ArrayList<Card>();
+//        for (Card c: p) {
+//            // pass if it's default card or match the condition (either color or number matches)
+//            // or the card color is black
+//            if (deck.color(lastCard).equals("black")) {
+//                CardsCanPlay.add(c);
+//            } else if (lastCard instanceof NumberCard && c instanceof NumberCard) {
+//                if ((deck.color(c).equals(deck.color(lastCard)) ||
+//                        (deck.num(((NumberCard)c)) == deck.num((NumberCard) lastCard))||
+//                        deck.color(lastCard).equals("black") )){
+//                    CardsCanPlay.add(c);
+////                    }
+//                }
+//            }
+//        }
+//        return CardsCanPlay;
+//    }
+//
+//    /**
+//     * Renew the last card with the given card c.
+//     * @param c
+//     */
+//    public void renewLastCard(Card c) {
+//        lastCard = c;
+//    }
 
     /**
      * getter method for players

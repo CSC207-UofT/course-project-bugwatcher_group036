@@ -19,7 +19,7 @@ public class Controller {
      * run the game and return the player that wins.
      * @return the player that wins.
      */
-    public Player runGame() {
+    public String runGame() {
         Status vars = basicOperations.getVars();
         // if winFlag is true, it means the winner appears and the while loop exits.
         while (!vars.isWinFlag()) {
@@ -39,7 +39,7 @@ public class Controller {
             vars.setCurrentPlayerIndex(
                     basicOperations.getVars().moveToNextPlayer(vars.isReverse()));
         }
-        return vars.getPlayerWins();
+        return vars.getPlayerWins().getId();
     }
 
     public void setBasicOperations(BasicOperations basicOperations) {
