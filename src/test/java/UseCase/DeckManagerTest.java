@@ -29,13 +29,14 @@ public class DeckManagerTest {
         Deck d1 = deckManager0.getDeck();
         Deck d2 = deckManager1.getDeck();
         assertFalse(d1.shuffleFromUsedToUnused());
+        assertFalse(d2.shuffleFromUsedToUnused());
         assertTrue(d2.shuffleFromUsedToUnused());
     }
 
     @Test
     public void testInitializeCard(){
         deckManager0.initializeCard(deck.getUnusedCardDeck());
-        assertEquals(deckManager0.getDeck().getUnusedCardDeck(), deck.getUsedCardDeck());
+        assertEquals(deckManager0.getDeck().getUnusedCardDeck(), deckManager1.getDeck().getUnusedCardDeck());
     }
 
 
