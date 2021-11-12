@@ -49,7 +49,6 @@ public class DeckTest {
 
     @Test
     public void testDrawCardFromUnusedDeck() {
-        Deck d1 = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
@@ -64,13 +63,11 @@ public class DeckTest {
 
     @Test
     public void testShuffleFromUsedToUnused() {
-        Deck d1 = new Deck();
         assertFalse(d1.shuffleFromUsedToUnused());
     }
 
     @Test
     public void testPutCardToUsedDeck() {
-        Deck d1 = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
@@ -81,6 +78,5 @@ public class DeckTest {
         Card c1 = d1.drawCardFromUnusedDeck();
         d1.putCardToUsedDeck(c1);
         assertTrue(d1.getUsedCardDeck().contains(c1));
-        //Need further changing.
     }
 }

@@ -1,10 +1,10 @@
 package Controller;
 
 import Entity.Card;
-import UseCase.BasicOperations;
+import UseCase.FunctionManager;
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
-import UseCase.Status;
+import UseCase.GameStatusManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,10 +82,10 @@ public class Dealer {
     /**
      * Check whether the last card played is valid
      * @param cardToPlay the card player would play
-     * @param basicOperations variables and settings
+     * @param functionManager variables and settings
      */
-    public void checkLastCard(Card cardToPlay, BasicOperations basicOperations){
-        Status vars = basicOperations.getVars();
+    public void checkLastCard(Card cardToPlay, FunctionManager functionManager){
+        GameStatusManager vars = functionManager.getGameStatusManager();
 
         // create the arrayList for all possible number features
         ArrayList<String> num = new ArrayList<>();
@@ -101,7 +101,7 @@ public class Dealer {
                     Card c = cardManager.drawCardFromUnusedDeck();
                     playerManager.getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);
                 }
-                basicOperations.functionCardResponse(vars, feature);
+                functionManager.functionCardResponse(vars, feature);
             }
         }
     }
@@ -109,20 +109,20 @@ public class Dealer {
     /**
      * Operations when current player has no card to play
      * @param currentCardsPlayerCanPlay cards can be played
-     * @param basicOperations variables and settings
+     * @param functionManager variables and settings
      */
     public void operationsWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay,
-                                           BasicOperations basicOperations) {
-        if (basicOperations.getVars().getPlus() > 0) {
-            plusManyNextPlayer(basicOperations.getVars().getCurrentPlayerIndex(),
-                    basicOperations.getVars().getPlus());
-            basicOperations.getVars().setPlus(0);
+                                           FunctionManager functionManager) {
+        if (functionManager.getGameStatusManager().getPlus() > 0) {
+            plusManyNextPlayer(functionManager.getGameStatusManager().getCurrentPlayerIndex(),
+                    functionManager.getGameStatusManager().getPlus());
+            functionManager.getGameStatusManager().setPlus(0);
         } else if (!cardManager.feature(playerManager.getLastCard()).equals("skip") ||
                 (cardManager.feature(playerManager.getLastCard()).equals("skip") &&
-                        !basicOperations.getVars().isSkip())){
+                        !functionManager.getGameStatusManager().isSkip())){
             // draw a card when there is no valid card can play
             drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay,
-                    basicOperations.getVars().getCurrentPlayerIndex());
+                    functionManager.getGameStatusManager().getCurrentPlayerIndex());
         }
     }
 

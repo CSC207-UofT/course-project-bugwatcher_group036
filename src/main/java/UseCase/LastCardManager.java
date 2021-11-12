@@ -9,19 +9,15 @@ import java.util.Scanner;
  * Gameboard stores playCount and controls current position, color, and lastCard played.
  * This will be embedded in the controller.
  */
-public class GameBoard {
+public class LastCardManager {
 
-    private final int numberOfPlayers;
     private String color;
-    private int currentPlayer;
     private Card lastCard;
     private final Scanner keyBoard;
     private final ArrayList<String> colors = new ArrayList<String>();
 
-    public GameBoard(int numberOfPlayers){
-        this.numberOfPlayers = numberOfPlayers;
+    public LastCardManager(){
         this.color = "black";
-        this.currentPlayer = (int)(Math.random() * numberOfPlayers);
         this.lastCard = new Card();
         this.keyBoard = new Scanner(System.in);
         colors.add("red"); colors.add("blue"); colors.add("green"); colors.add("yellow");
@@ -63,10 +59,6 @@ public class GameBoard {
 
     public String getRandColor(){
         return colors.get((int)(Math.random() * colors.size()));
-    }
-
-    public int getCurrentPlayer() {
-        return currentPlayer;
     }
 
     public Card getLastCard() {

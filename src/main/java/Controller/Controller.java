@@ -3,16 +3,15 @@ package Controller;
 import java.util.ArrayList;
 
 import Entity.Card;
-import Entity.Player;
-import UseCase.BasicOperations;
-import UseCase.Status;
+import UseCase.FunctionManager;
+import UseCase.GameStatusManager;
 
 /**
  * The main.Controller to run a game.
  */
 public class Controller {
 
-    private BasicOperations basicOperations;
+    private FunctionManager functionManager;
     private EachRound eachRound;
 
     /**
@@ -20,7 +19,7 @@ public class Controller {
      * @return the player that wins.
      */
     public String runGame() {
-        Status vars = basicOperations.getVars();
+        GameStatusManager vars = functionManager.getGameStatusManager();
         // if winFlag is true, it means the winner appears and the while loop exits.
         while (!vars.isWinFlag()) {
             // cardToPlay is the card that the player wants to play.
@@ -37,13 +36,13 @@ public class Controller {
 
             // Move to the next player
             vars.setCurrentPlayerIndex(
-                    basicOperations.getVars().moveToNextPlayer(vars.isReverse()));
+                    functionManager.getGameStatusManager().moveToNextPlayer(vars.isReverse()));
         }
         return vars.getPlayerWins().getId();
     }
 
-    public void setBasicOperations(BasicOperations basicOperations) {
-        this.basicOperations = basicOperations;
+    public void setBasicOperations(FunctionManager functionManager) {
+        this.functionManager = functionManager;
     }
 
     public void setEachRound(EachRound eachRound) {

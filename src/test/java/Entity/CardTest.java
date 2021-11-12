@@ -25,7 +25,7 @@ public class CardTest {
 
     @Test
     public void testToString(){
-        assertEquals("Id: 25", c1.toString());
-        assertEquals("Id: null", c2.toString());
+        assertEquals("Id:25", c1.toString());
+        assertEquals("Id:null", c2.toString());
     }
 }

@@ -11,39 +11,39 @@ import static UseCase.DeckManager.compareTwoCardsHaveSameFeature;
  * Contains the basic operations and game status variables,
  * which are extracted from controller
  */
-public class BasicOperations {
+public class FunctionManager {
 
-    private final Status vars;
-    private final GameBoard gameBoard;
+    private final GameStatusManager gameStatusManager;
+    private final LastCardManager lastCardManager;
 
-    public BasicOperations(Status statVars, GameBoard gameBoard){
-        this.vars = statVars;
-        this.gameBoard = gameBoard;
+    public FunctionManager(GameStatusManager gameStatusManager, LastCardManager lastCardManager){
+        this.gameStatusManager = gameStatusManager;
+        this.lastCardManager = lastCardManager;
     }
 
     /**
      * Extracted from controller
-     * @param status the status, will be changed correspondingly
+     * @param gameStatusManager the status, will be changed correspondingly
      * @param feature feature of the played function card
      */
-    public void functionCardResponse(Status status, String feature){
+    public void functionCardResponse(GameStatusManager gameStatusManager, String feature){
         switch (feature) {
             case "skip":
-                status.setSkip(true);
+                gameStatusManager.setSkip(true);
                 break;
             case "reverse":
-                status.setReverse(!status.isReverse());
+                gameStatusManager.setReverse(!gameStatusManager.isReverse());
                 break;
             case "plustwo":
-                status.setPlus(status.getPlus() + 2);
+                gameStatusManager.setPlus(gameStatusManager.getPlus() + 2);
                 break;
             case "switch": {
-                gameBoard.typeSetColor();
+                lastCardManager.typeSetColor();
                 break;
             }
             default: {
-                status.setPlus(status.getPlus() + 4);
-                gameBoard.typeSetColor();
+                gameStatusManager.setPlus(gameStatusManager.getPlus() + 4);
+                lastCardManager.typeSetColor();
                 break;
             }
         }
@@ -57,11 +57,11 @@ public class BasicOperations {
     public ArrayList<Card> getCardsCurrentPlayerCanPlay(Player player){
         // Get the cards that the current player can play.
         // if the last card is skip, player only can play skip
-        if (vars.isSkip()) {
+        if (gameStatusManager.isSkip()) {
             return skipsPlayerCanPlay(player.getHandCard());
-        } else if (vars.getPlus() > 0){
+        } else if (gameStatusManager.getPlus() > 0){
             // if the last card is plus2, player can play plus2 or plus4.
-            if (gameBoard.getLastCard().getFeature().equals("plustwo")) {
+            if (lastCardManager.getLastCard().getFeature().equals("plustwo")) {
                 return plustwoPlayerCanPlay(player.getHandCard());
             } else {
                 // if the last card is plus4, player can only play plus4.
@@ -71,7 +71,7 @@ public class BasicOperations {
             // get the cards that the current player can play normally
             return cardsPlayerCanPlay(
                     player.getHandCard(),
-                    gameBoard.getLastCard());
+                    lastCardManager.getLastCard());
         }
 
     }
@@ -121,15 +121,15 @@ public class BasicOperations {
         return cardsCanPlay;
     }
 
-    public Status getVars() {
-        return vars;
+    public GameStatusManager getGameStatusManager() {
+        return gameStatusManager;
     }
 
-    public GameBoard getGameBoard() {
-        return gameBoard;
+    public LastCardManager getGameBoard() {
+        return lastCardManager;
     }
 
     public String getColor(){
-        return gameBoard.getColor();
+        return lastCardManager.getColor();
     }
 }

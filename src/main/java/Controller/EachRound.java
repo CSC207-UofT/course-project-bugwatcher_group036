@@ -1,10 +1,10 @@
 package Controller;
 
 import Entity.Card;
-import UseCase.BasicOperations;
+import UseCase.FunctionManager;
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
-import UseCase.Status;
+import UseCase.GameStatusManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,14 +14,14 @@ public class EachRound {
     private final PlayerManager playerManager;
     private final DeckManager cardManager;
     private final Dealer dealer;
-    private final BasicOperations basicOperations;
+    private final FunctionManager functionManager;
 
     public EachRound(PlayerManager playerManager, DeckManager cardManager,
-                     Dealer dealer, BasicOperations basicOperations) {
+                     Dealer dealer, FunctionManager functionManager) {
         this.playerManager = playerManager;
         this.cardManager = cardManager;
         this.dealer = dealer;
-        this.basicOperations = basicOperations;
+        this.functionManager = functionManager;
     }
 
     public Card createNullCard(){
@@ -80,14 +80,14 @@ public class EachRound {
      * @return Cards player can play in this round
      */
     public ArrayList<Card> beginStage(){
-        Status vars = basicOperations.getVars();
+        GameStatusManager vars = functionManager.getGameStatusManager();
         // show the current player
         System.out.println();
         System.out.println("Current player: " + playerManager.getPlayers()[vars.getCurrentPlayerIndex()]);
 
         // get cards player can play considering special cases of function cards
 
-        return basicOperations.getCardsCurrentPlayerCanPlay
+        return functionManager.getCardsCurrentPlayerCanPlay
                 (playerManager.getPlayers()[vars.getCurrentPlayerIndex()]);
     }
 
@@ -98,9 +98,9 @@ public class EachRound {
      * @return the updated cardToPlay player has played
      */
     public Card playStage(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay){
-        Status vars = basicOperations.getVars();
+        GameStatusManager vars = functionManager.getGameStatusManager();
         if (currentCardsPlayerCanPlay.isEmpty()) {
-            dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, basicOperations);
+            dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, functionManager);
         }
         else {
             // print all the information
@@ -117,7 +117,7 @@ public class EachRound {
             if (!cardManager.color(cardToPlay).equals("white") &&
                     !cardManager.whetherNull(cardToPlay)){
                 // update the last card stored in gameBoard
-                basicOperations.getGameBoard().setLastCard(cardToPlay);
+                functionManager.getGameBoard().setLastCard(cardToPlay);
             }
         }
         return cardToPlay;
@@ -128,12 +128,12 @@ public class EachRound {
      * @param cardToPlay the card player has played this turn
      */
     public void endStage(Card cardToPlay){
-        Status vars = basicOperations.getVars();
+        GameStatusManager vars = functionManager.getGameStatusManager();
 
         // set the skip to false since the function skip has passed.
         vars.setSkip(false);
 
-        dealer.checkLastCard(cardToPlay, basicOperations);
+        dealer.checkLastCard(cardToPlay, functionManager);
 
         // Determine whether the player wins or not.
         if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {

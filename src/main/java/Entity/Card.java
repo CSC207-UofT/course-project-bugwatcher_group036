@@ -51,7 +51,7 @@ public class Card implements Serializable {
      * String representation for the Card.
      */
     public String toString() {
-        return "Id: " + id;
+        return "Id:" + id;
     }
 
     /**
