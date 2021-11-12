@@ -17,9 +17,9 @@ public class BasicOperations {
 
     private final Status vars;
     private final GameBoard gameBoard;
-    private UI ui;
     private final PlayerManager playerManager;
     private final DeckManager deckManager;
+    private UI ui;
 
     public BasicOperations(Status statVars, GameBoard gameBoard, PlayerManager playerManager,
                            DeckManager deckManager){

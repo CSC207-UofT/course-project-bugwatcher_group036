@@ -22,8 +22,8 @@ public class GameBoard {
     private Card lastCard;
     private final Scanner keyBoard;
     private final ArrayList<String> colors = new ArrayList<String>();
-    private UI ui;
     private DeckManager deckManager;
+    private UI ui;
 
     public GameBoard(int numberOfPlayers, DeckManager deckManager){
         this.numberOfPlayers = numberOfPlayers;

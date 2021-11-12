@@ -262,20 +262,14 @@ public class EachRound {
             vars.setWinFlag(true);
             vars.setPlayerWins(playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()]);
         }
-        sleep(2000);
-        
-    }
-    public PlayerManagerData getPlayerManager(){
-        return playerManagerData;
-    }
-    public void setUI(UI ui) {
-        this.ui = ui;
-    }
-
-    public DeckManagerData getCardManager() {
-        return deckManagerData;
 
         //sleep for one second to read what card computer has played
+        sleep(2000);
+    }
 
+    public PlayerManagerData getPlayerManagerData(){return playerManagerData;}
+
+    public void setUI(UI ui) {
+        this.ui = ui;
     }
 }

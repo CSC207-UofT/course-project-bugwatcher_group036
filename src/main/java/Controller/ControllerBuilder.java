@@ -31,7 +31,7 @@ public class ControllerBuilder implements Builder {
         for (int i = 0; i < numberOfPlayers; i++) {
             Scanner keyboard = new Scanner(System.in);
             System.out.println("enter a player name for player " + (i+1) + ":");
-//            String playerID = keyboard.nextLine();
+            //            String playerID = keyboard.nextLine();
             String playerID = JOptionPane.showInputDialog("enter a player name for player " + (i+1) + ":");
             playerManagerData.getPlayerManager().createPlayer(playerID, i);
         }
@@ -41,6 +41,7 @@ public class ControllerBuilder implements Builder {
         playerManagerData = new PlayerManagerData(numberOfPlayers, deckManagerData.getDeckManager().createNullCard());
         Scanner keyboard = new Scanner(System.in);
         System.out.println("enter a player name for you:");
+
         String playerID = keyboard.nextLine();
         playerManagerData.getPlayerManager().createPlayer(playerID, 0);
 
@@ -115,5 +116,5 @@ public class ControllerBuilder implements Builder {
         temp.setEachRound(eachRound);
 
         return temp;
-
+    }
 }

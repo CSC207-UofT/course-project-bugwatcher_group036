@@ -46,7 +46,7 @@ public class UI extends JFrame{
         initialize();
         EventQueue.invokeLater(()->{
             initGame();
-            Player winner = newGameController.runGame();
+            Player winner = newGameController.runGame(true);
 //            playGame();//first player to play
             if(vars.isWinFlag()){
                 System.out.println(vars.getPlayerWins().getId() + " wins!");
@@ -65,7 +65,7 @@ public class UI extends JFrame{
         ControllerBuilder unoBuilder = new ControllerBuilder(num);
         newGameController = unoBuilder.buildUnoController();
         newGameController.setUI(this);//bind the ui
-        vars = new Status(newGameController.getEachRound().getPlayerManager().getPlayerNum());
+        vars = new Status(newGameController.getEachRound().getPlayerManagerData().getPlayerManager().getPlayerNum());
 
 
     }
@@ -177,20 +177,21 @@ public class UI extends JFrame{
     public void displayCard(Card lastCard, ArrayList<Card> handCard,
                             ArrayList<Card> remaining) {
         if (lastCard.getColor().equals("black")){
-            card.setText(newGameController.getBasicOperations().getColor());
+            card.setText(newGameController.getBasicOperationsData().getBasicOperations().getColor());
         }
         else {card.setText(lastCard.getId());}
 
         cardHas.removeAll();
         handCard.stream().forEach(c->{
             JButton button = new JButton(c.toString());
-            if (newGameController.getBasicOperations().cardsPlayerCanPlay(handCard, lastCard).contains(c)) {
+            if (newGameController.getBasicOperationsData().getBasicOperations().cardsPlayerCanPlay(handCard, lastCard).contains(c)) {
                 button.setEnabled(true);}
             else {button.setEnabled(false);}
             cardHas.add(button);
         });
-        id.setText("ID: " + newGameController.getEachRound().getPlayerManager().getPlayers()[newGameController.getBasicOperations().getVars().getCurrentPlayerIndex()]);
+        id.setText("ID: " + newGameController.getEachRound().getPlayerManagerData().getPlayerManager().getPlayers()[newGameController.getBasicOperationsData().getBasicOperations().getVars().getCurrentPlayerIndex()]);
         cardHas.repaint();
         quantity.setText("Remaining Cards:" + remaining.size());
     }
+
 }
