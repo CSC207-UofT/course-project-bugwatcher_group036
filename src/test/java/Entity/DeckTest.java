@@ -72,7 +72,11 @@ public class DeckTest {
     @Test
     public void testShuffleFromUsedToUnused() {
         Deck d1 = new Deck();
+        Card c1 = new Card("yellow", "25");
+        Deck d2 = new Deck();
+        d2.putCardToUsedDeck(c1);
         assertFalse(d1.shuffleFromUsedToUnused());
+        assertTrue(d2.shuffleFromUsedToUnused());
     }
 
     @Test

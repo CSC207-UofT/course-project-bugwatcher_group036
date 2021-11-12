@@ -1,51 +1,46 @@
 package Controller;
 
 import Entity.Card;
+import UseCase.BasicOperations;
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
+import UseCase.Status;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// This class contains methods for each round of game
+import static java.lang.Thread.sleep;
+
 public class EachRound {
 
-    private PlayerManager playerManager;
-    private DeckManager cardManager;
-    private ArrayList<String> num;
-    private ArrayList<String> colors;
-    private FunctionPlayed functionCardPlayed;
+    //    private final PlayerManager playerManager;
+//    private final DeckManager deckManager;
+    private final PlayerManagerData playerManagerData;
+    private final DeckManagerData deckManagerData;
+    private final Dealer dealer;
+    //    private final BasicOperations basicOperations;
+    private BasicOperationsData basicOperationsData;
 
-    public EachRound(PlayerManager playerManager, DeckManager cardManager, ArrayList<String> num,
-                          ArrayList<String> colors) {
-        this.playerManager = playerManager;
-        this.cardManager = cardManager;
-        this.num = num;
-        this.colors = colors;
-        this.functionCardPlayed = new FunctionPlayed(playerManager, cardManager, num, colors);
+    public EachRound(PlayerManagerData playerManagerData, DeckManagerData deckManagerData,
+                     Dealer dealer, BasicOperationsData basicOperationsData) {
+        this.playerManagerData = playerManagerData;
+        this.deckManagerData = deckManagerData;
+        this.dealer = dealer;
+        this.basicOperationsData = basicOperationsData;
     }
 
-    public boolean drawCardWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay, int currentPlayerIndex,
-                                         ControllerVariables vars) {
-        boolean drawCard = false;
-        if (currentCardsPlayerCanPlay.isEmpty()) {
-            System.out.println("You cannot play a card! You need to draw one more card");
-            // draw a card from the deck
-            Card c = cardManager.drawCardFromUnusedDeck();
-            // If the card drwan is not null
-            if (!cardManager.whetherNull(c)) {
-                //give the card to the player.
-                playerManager.playerDrawCard(currentPlayerIndex, c);
-                System.out.println("The card you drew is " + c);
-                drawCard = true;
-            }
-        }
-        return drawCard;
+    public Card createNullCard(){
+        return deckManagerData.getDeckManager().createNullCard();
     }
 
-
+    /**
+     * core of player play card process
+     * @param currentCardsPlayerCanPlay the cards current player can play
+     * @param currentPlayerIndex indicate the position of current player
+     * @return the card player would play
+     */
     public Card letPlayerPlayCard(ArrayList<Card> currentCardsPlayerCanPlay,
-                                  int currentPlayerIndex, ControllerVariables vars) {
+                                  int currentPlayerIndex) {
         Scanner keyboard = new Scanner(System.in);
 
         // The card that the player wants to play
@@ -66,15 +61,15 @@ public class EachRound {
             String cardToPlayID = keyboard.nextLine();
 
             // extract the card to play from the hand card
-            cardToPlay = cardManager.extractCard(currentCardsPlayerCanPlay, cardToPlayID);
+            cardToPlay = deckManagerData.getDeckManager().extractCard(currentCardsPlayerCanPlay, cardToPlayID);
 
             if (cardToPlayID.equals("draw")) {
-                drawCard(vars);
+                dealer.drawCard(currentPlayerIndex);
                 wrongTimes = 4;
-                cardToPlay = cardManager.createColorCard("white");
+                cardToPlay = deckManagerData.getDeckManager().createColorCard("white");
             }
             // if the card chose is null, count the wrong time
-            if (cardManager.whetherNull(cardToPlay)) {
+            if (deckManagerData.getDeckManager().whetherNull(cardToPlay)) {
                 wrongTimes++;
                 rightCard = false;
             } else {
@@ -85,144 +80,167 @@ public class EachRound {
         return cardToPlay;
     }
 
-    public void punishOrPlayCard(Card cardToPlay, int currentPlayerIndex) {
-        // return false for punishment, true for play a card
-        // If the player types 3 times wrong card, draw a card, otherwise play the card.
-        if (cardManager.whetherNull(cardToPlay)) {
-            System.out.println("Enter too many times wrong cards! Draw a card for punishment.");
-            Card c = cardManager.drawCardFromUnusedDeck();
-            // if the drawn card is not null
-            if (!cardManager.whetherNull(c)){
-                // give the card to the player
-                playerManager.playerDrawCard(currentPlayerIndex, c);
-                System.out.println("The card you drew is " + c);
-            }
-        } else if (!cardManager.color(cardToPlay).equals("white")) {
-            // if the played card is valid, play the card
-            Card playedCard = playerManager.playerPlayCard(currentPlayerIndex, cardToPlay);
-            // put the played into the used deck
-            cardManager.putCardToUsedDeck(playedCard);
-        }
-    }
+    public Card letPlayerPlayCardForComputer(ArrayList<Card> currentCardsPlayerCanPlay,
+                                             int currentPlayerIndex) {
 
-    public int moveToNextPlayer(int currentPlayerIndex, boolean reverse) {
-        // Move to the next player
-        if (!reverse){
-            currentPlayerIndex++;
-            if (currentPlayerIndex == playerManager.getPlayerNum()) {
-                currentPlayerIndex = 0;
-            }
-            return currentPlayerIndex;
-        } else {
-            currentPlayerIndex--;
-            if (currentPlayerIndex == -1) {
-                currentPlayerIndex = playerManager.getPlayerNum() - 1;
-            }
-            return currentPlayerIndex;
+        if (currentPlayerIndex == 0) {
+            return letPlayerPlayCard( currentCardsPlayerCanPlay, currentPlayerIndex);
         }
 
-    }
+        // The card that the player wants to play
+        Card cardToPlay;
 
-    public ArrayList<Card> getCurrentCardsPlayerCanPlayer(ControllerVariables vars){
-        // Get the cards that the current player can play.
-        // if the last card is skip, player only can play skip
-        if (vars.isSkip()) {
-            return cardManager.skipsPlayerCanPlay(playerManager.getHandCard(vars.getCurrentPlayerIndex()));
-        } else if (vars.getPlus() > 0){
-            // if the last card is plus2, player can play plus2 or plus4.
-            if (cardManager.feature(playerManager.getLastCard()).equals("plustwo")) {
-                return cardManager.plustwoPlayerCanPlay(playerManager.getHandCard(vars.getCurrentPlayerIndex()));
+        // rightCard indicates whether the play type a right card to play.
+        boolean rightCard;
+
+        // The number of times that the player type a wrong card.
+        int wrongTimes = 0;
+
+        // Let the player type the card to play. If type a wrong card, type again,
+        // with maximum 3 times.
+        do {
+            String cardToPlayID = currentCardsPlayerCanPlay.get(0).getId();
+
+            // extract the card to play from the hand card
+            cardToPlay = deckManagerData.getDeckManager().extractCard(currentCardsPlayerCanPlay, cardToPlayID);
+
+            if (cardToPlayID.equals("draw")) {
+                dealer.drawCard(currentPlayerIndex);
+                wrongTimes = 4;
+                cardToPlay = deckManagerData.getDeckManager().createColorCard("white");
+            }
+            // if the card chose is null, count the wrong time
+            if (deckManagerData.getDeckManager().whetherNull(cardToPlay)) {
+                wrongTimes++;
+                rightCard = false;
             } else {
-                // if the last card is plus4, player can only play plus4.
-                return cardManager.plusfourPlayerCanPlay(playerManager.getHandCard(vars.getCurrentPlayerIndex()));
+                rightCard = true;
             }
-        } else {
-            // get the cards that the current player can play normally
-            return cardManager.cardsPlayerCanPlay(
-                    playerManager.getHandCard(vars.getCurrentPlayerIndex()),
-                    playerManager.getLastCard());
-        }
+        } while (!rightCard && wrongTimes < 3);
+        //exit when the player types the right class or wrong time exceed 3
+        return cardToPlay;
     }
 
-    public boolean operationsWhenNoCardToPlay(ControllerVariables vars, ArrayList<Card> currentCardsPlayerCanPlay) {
-        boolean drawCard = false;
-        if (vars.getPlus() > 0) {
-            functionCardPlayed.plusManyNextPlayer(vars.getCurrentPlayerIndex(), vars.getPlus());
-            vars.setPlus(0);
-            drawCard = true;
-        } else if (!cardManager.feature(playerManager.getLastCard()).equals("skip") ||
-                (cardManager.feature(playerManager.getLastCard()).equals("skip") && !vars.isSkip())){
-            // draw a card when there is no valid card can play
-            drawCard = drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex(), vars);
-        }
-        return drawCard;
+    /**
+     * Set up things before each player's stage.
+     * @return Cards player can play in this round
+     */
+    public ArrayList<Card> beginStage(){
+        StatusData varsData = new StatusData(basicOperationsData.getBasicOperations().getVars());
+        // show the current player
+        System.out.println();
+        System.out.println("Current player: " +
+                playerManagerData.getPlayerManager().getPlayers()[varsData.getStatus().getCurrentPlayerIndex()]);
+
+        // get cards player can play considering special cases of function cards
+
+        return basicOperationsData.getBasicOperations().getCardsCurrentPlayerCanPlay
+                (playerManagerData.getPlayerManager().getPlayers()[varsData.getStatus().getCurrentPlayerIndex()]);
     }
 
-    public void winOrNotInThisRound(ControllerVariables vars) {
-        if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {
-            vars.setWinFlag(true);
-            vars.setPlayerWins(playerManager.getPlayers()[vars.getCurrentPlayerIndex()]);
-        }
-    }
-
-    public Card operationsForPlayer(ControllerVariables vars, Card cardToPlay,
-                                    ArrayList<Card> currentCardsPlayerCanPlay) {
-        boolean drawCardToPlay = false;
+    /**
+     * The stage where player play cards can do corresponding reactions
+     * @param currentCardsPlayerCanPlay playable cards we get from begin stage
+     * @param cardToPlay The card player would play
+     * @return the updated cardToPlay player has played
+     */
+    public Card playStage(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay){
+        Status vars = basicOperationsData.getBasicOperations().getVars();
         if (currentCardsPlayerCanPlay.isEmpty()) {
-            drawCardToPlay = operationsWhenNoCardToPlay(vars, currentCardsPlayerCanPlay);
+            dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, basicOperationsData.getBasicOperations());
         }
-        if (!getCurrentCardsPlayerCanPlayer(vars).isEmpty()) {
+        else {
+            // print all the information
+            System.out.println("Last card: " + playerManagerData.getPlayerManager().getLastCard());
+            System.out.println("The cards you have: " +
+                    playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()));
+            System.out.println("The cards you can play: " + currentCardsPlayerCanPlay);
 
-            if (!drawCardToPlay) {
-                // print all the information
-                System.out.println("Last card: " + playerManager.getLastCard());
-                System.out.println("The cards you have: " + playerManager.getHandCard(vars.getCurrentPlayerIndex()));
-                System.out.println("The cards you can play: " + getCurrentCardsPlayerCanPlayer(vars));
+            // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
+            cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex());
 
-                // cardToPlay is the card that the player wants to play.
-//                Card cardToPlay;
-
-                // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
-                cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex(), vars);
-
-                // If the player types 3 times wrong card, draw a card, otherwise play the card.
-                punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
-
-
+            // If the player types 3 times wrong card, draw a card, otherwise play the card.
+            dealer.punishOrPlayCard(cardToPlay, vars.getCurrentPlayerIndex());
+            //extract this part from PunishOrPlayCard to extract method to other class
+            if (!deckManagerData.getDeckManager().color(cardToPlay).equals("white") &&
+                    !deckManagerData.getDeckManager().whetherNull(cardToPlay)){
+                // update the last card stored in gameBoard
+                basicOperationsData.getBasicOperations().getGameBoard().setLastCard(cardToPlay);
             }
-
-
-//
         }
         return cardToPlay;
     }
 
-    private void drawCard(ControllerVariables vars) {
-        // draw a card from the deck
-        Card c = cardManager.drawCardFromUnusedDeck();
-        // If the card drwan is not null
-        if (!cardManager.whetherNull(c)) {
-            //give the card to the player.
-            playerManager.playerDrawCard(vars.getCurrentPlayerIndex(), c);
-            System.out.println("The card you drew is " + c);
+    public Card playStageForComputer(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay)
+            throws InterruptedException {
+        Status vars = basicOperationsData.getBasicOperations().getVars();
+        // Normal play stage for human player
+        if (vars.getCurrentPlayerIndex() == 0){
+            return playStage(currentCardsPlayerCanPlay, cardToPlay);
         }
-    }
+        if (currentCardsPlayerCanPlay.isEmpty()) {
+            dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, basicOperationsData.getBasicOperations());
+        }
+        else {
+            // print all the information
+            System.out.println("Last card: " + playerManagerData.getPlayerManager().getLastCard());
 
-    public void effectsAfterPunishOrPlayCard(ControllerVariables vars, Card cardToPlay) {
-        // if the player successfully play a card
-        if (!cardManager.whetherNull(cardToPlay) && !cardManager.color(cardToPlay).equals("white")) {
-            String feature = cardManager.feature(cardToPlay);
-            // if the player plays a function card
-            if (!num.contains(feature)) {
-                // if it is the last card that the palyer plays is a function card, draw a card.
-                if (playerManager.winOrNot(vars.getCurrentPlayerIndex())) {
-                    Card c = cardManager.drawCardFromUnusedDeck();
-                    playerManager.getPlayers()[vars.getCurrentPlayerIndex()].drawCard(c);
-                }
+            // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
+            cardToPlay = letPlayerPlayCardForComputer(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex());
 
-                functionCardPlayed.functionCardResponse(vars, feature);
+            // If the player types 3 times wrong card, draw a card, otherwise play the card.
+            dealer.punishOrPlayCardForComputer(cardToPlay, vars.getCurrentPlayerIndex());
+            //extract this part from PunishOrPlayCard to extract method to other class
+            if (!deckManagerData.getDeckManager().color(cardToPlay).equals("white") &&
+                    !deckManagerData.getDeckManager().whetherNull(cardToPlay)){
+                // update the last card stored in gameBoard
+                basicOperationsData.getBasicOperations().getGameBoard().setLastCard(cardToPlay);
             }
         }
+        // print how many card computer has at the end (after card draw)
+        System.out.println("Computer " + (vars.getCurrentPlayerIndex() + 1) + " has " +
+                playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()).size() +
+                " cards");
+
+        // Sleep for one second to let player read infos
+        sleep(1000);
+        return cardToPlay;
     }
 
+    /**
+     * Corresponding response after card is played in each turn
+     * @param cardToPlay the card player has played this turn
+     */
+    public void endStage(Card cardToPlay){
+        Status vars = basicOperationsData.getBasicOperations().getVars();
+
+        // set the skip to false since the function skip has passed.
+        vars.setSkip(false);
+
+        dealer.checkLastCard(cardToPlay, basicOperationsData.getBasicOperations());
+
+        // Determine whether the player wins or not.
+        if (playerManagerData.getPlayerManager().winOrNot(vars.getCurrentPlayerIndex())) {
+            vars.setWinFlag(true);
+            vars.setPlayerWins(playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()]);
+        }
+    }
+
+    public void endStageForComputer(Card cardToPlay) throws InterruptedException {
+        Status vars = basicOperationsData.getBasicOperations().getVars();
+
+        // set the skip to false since the function skip has passed.
+        vars.setSkip(false);
+
+        dealer.checkLastCardForComputer(cardToPlay, basicOperationsData.getBasicOperations());
+
+        // Determine whether the player wins or not.
+        if (playerManagerData.getPlayerManager().winOrNot(vars.getCurrentPlayerIndex())) {
+            vars.setWinFlag(true);
+            vars.setPlayerWins(playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()]);
+        }
+
+        //sleep for one second to read what card computer has played
+        sleep(2000);
+    }
 }
