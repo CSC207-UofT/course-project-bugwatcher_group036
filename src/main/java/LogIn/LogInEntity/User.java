@@ -1,4 +1,4 @@
-package LogIn;
+package LogIn.LogInEntity;
 
 public class User {
 

@@ -17,6 +17,8 @@ public class DeckManager {
         this.d = d;
     }
 
+    public Deck getDeck(){return d;}
+
     public void shuffleFromUsedToUnused() {
         d.shuffleFromUsedToUnused();
     }
@@ -44,9 +46,9 @@ public class DeckManager {
     }
 
     public Card extractCard(ArrayList<Card> cards, String id) {
-        for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).getId().equals(id)) {
-                return cards.get(i);
+        for (Card card : cards) {
+            if (card.getId().equals(id)) {
+                return card;
             }
         }
         return new Card();
