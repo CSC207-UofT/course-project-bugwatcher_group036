@@ -23,5 +23,5 @@ public interface Readfile {
      * @param numfilepath number card location
      * @param funcfilepath function card location
      */
-    ArrayList<String> readFromFile(String numfilepath, String funcfilepath, DeckManagerData deckManagerData);
+    ArrayList<String> readFromFile(String numfilepath, String funcfilepath, DeckManager deckManager);
 }

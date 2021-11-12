@@ -6,28 +6,20 @@ public class NumberCard extends Card {
 
     /**
      *
-     * @param color The color of the card <red, yellow, green, blue>
+     * @param color
      * @param number   The card's number <0~9, -1>
-     * @param id    The if of the card.
+     * @param id
      */
     public NumberCard(String color, int number, String id) {
         super(color, id);
         this.number = number;
     }
 
-    /**
-     * The default value for number card.
-     */
     public NumberCard() {
         super();
         this.number = -1;
     }
 
-    /**
-     * Get the number of this card.
-     *
-     * @return An int represent the number of the card.
-     */
     public int getNumber(){
         return number;
     }
@@ -40,10 +32,5 @@ public class NumberCard extends Card {
     @Override
     public String getFeature() {
         return Integer.toString(number);
-    }
-
-    @Override
-    public Card copy() {
-        return new NumberCard(this.getColor(), number, this.getId());
     }
 }

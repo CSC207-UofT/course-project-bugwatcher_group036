@@ -2,115 +2,100 @@ package Controller;
 
 import Entity.Card;
 import Entity.Player;
-import UseCase.*;
+import UseCase.DeckManager;
+import UseCase.PlayerManager;
 
+import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ControllerBuilder implements Builder {
 
-//    private PlayerManager playerManager;
-//    private DeckManager deckManager;
-    private PlayerManagerData playerManagerData;
-    private DeckManagerData deckManagerData;
+    private PlayerManager playerManager;
+    private DeckManager cardManager;
     private final int numberOfPlayers;
+    private Random rand;
+    private ArrayList<String> num;
     private ArrayList<String> colors;
-    private Dealer dealer;
     private EachRound eachRound;
-//    private BasicOperations basicOperations;
-    private BasicOperationsData basicOperationsData;
+    private FunctionPlayed functionPlayed;
 
     public ControllerBuilder(int numberOfPlayers){
         this.numberOfPlayers = numberOfPlayers;
     }
 
     public void buildPlayerManager(){
-        playerManagerData = new PlayerManagerData(numberOfPlayers, deckManagerData.getDeckManager().createNullCard());
+        playerManager = new PlayerManager(numberOfPlayers);
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            Scanner keyboard = new Scanner(System.in);
-            System.out.println("enter a player name for player " + (i+1) + ":");
-            String playerID = keyboard.nextLine();
-            playerManagerData.getPlayerManager().createPlayer(playerID, i);
-        }
-    }
 
-    public void buildPlayerManagerForComputer(){
-        playerManagerData = new PlayerManagerData(numberOfPlayers, deckManagerData.getDeckManager().createNullCard());
-        Scanner keyboard = new Scanner(System.in);
-        System.out.println("enter a player name for you:");
-        String playerID = keyboard.nextLine();
-        playerManagerData.getPlayerManager().createPlayer(playerID, 0);
 
-        for (int i = 1; i < numberOfPlayers; i++) {
-            // Just use Computer1, 2, 3 to call AI players
-            playerManagerData.getPlayerManager().createPlayer
-                    ("Computer " + i, i);
+//            Scanner keyboard = new Scanner(System.in);
+//            System.out.println("enter a player name for player " + (i+1) + ":");
+//            String playerID = keyboard.nextLine();
+//            playerManager.createPlayer(playerID, i);
+            // show the dialog let player input
+            String playerID = JOptionPane.showInputDialog("enter a player name for player " + (i+1) + ":");
+            playerManager.createPlayer(playerID, i);
         }
     }
 
     public void buildDeckManager(){
-        deckManagerData = new DeckManagerData();
+        cardManager = new DeckManager();
     }
 
     public void cardDeal(){
         for (int i = 0; i < 7; i++) {
-            for (Player p: playerManagerData.getPlayerManager()) {
-                Card c = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
+            for (Player p: playerManager) {
+                Card c = cardManager.drawCardFromUnusedDeck();
                 p.drawCard(c);
             }
+        }
+    }
+
+    public void buildRand(){
+        this.rand = new Random();
+    }
+
+    public void buildNum(){
+        this.num = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            num.add(Integer.toString(i));
         }
     }
 
     public void buildColors(){
         Readfile readfile = new Cardreadfile();
         this.colors = readfile.readFromFile("src/main/resources/numbercards.txt",
-                "src/main/resources/functioncards.txt", deckManagerData);
+                "src/main/resources/functioncards.txt", cardManager);
     }
 
-    public void buildDealer(){
-        this.dealer = new Dealer(playerManagerData, deckManagerData);
+    public void buildEachRound() {
+        this.eachRound = new EachRound(playerManager, cardManager, num, colors);
     }
 
-    public void buildBasicOperations(){
-        StatusData statusData = new StatusData(numberOfPlayers);
-        Status status = statusData.getStatus();
-        GameBoard gameBoard = new GameBoard(numberOfPlayers, deckManagerData.getDeckManager());
-        this.basicOperationsData = new BasicOperationsData(status, gameBoard,
-                deckManagerData.getDeckManager(), playerManagerData.getPlayerManager());
-    }
-
-    public void buildEachRound(){
-        this.eachRound = new EachRound(playerManagerData,
-                deckManagerData, dealer, basicOperationsData);
+    public void buildFunctionPlayed() {
+        this.functionPlayed = new FunctionPlayed(playerManager, cardManager, num, colors);
     }
 
     public Controller buildUnoController(){
-        this.buildDeckManager();
         this.buildPlayerManager();
-        this.buildColors();
-        this.cardDeal();
-        this.buildDealer();
-        this.buildBasicOperations();
-        this.buildEachRound();
-        Controller temp = new Controller();
-        temp.setBasicOperationsData(basicOperationsData);
-        temp.setEachRound(eachRound);
-
-        return temp;
-    }
-
-    public Controller buildUnoControllerForComputer(){
         this.buildDeckManager();
-        this.buildPlayerManagerForComputer();
+        this.buildRand();
+        this.buildNum();
         this.buildColors();
         this.cardDeal();
-        this.buildDealer();
-        this.buildBasicOperations();
         this.buildEachRound();
+        this.buildFunctionPlayed();
         Controller temp = new Controller();
-        temp.setBasicOperationsData(basicOperationsData);
+        temp.setCardManager(cardManager);
+        temp.setPlayerManager(playerManager);
+        temp.setRand(rand);
+        temp.setNum(num);
+        temp.setColors(colors);
         temp.setEachRound(eachRound);
+        temp.setFunctionPlayed(functionPlayed);
 
         return temp;
     }
