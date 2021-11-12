@@ -113,4 +113,8 @@ public class DeckManager {
     public Card copyCard(Card c) {
         return c.copy();
     }
+
+    public Deck getD() {
+        return d;
+    }
 }
