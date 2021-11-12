@@ -92,31 +92,11 @@ public class DeckManager {
         return new Card(color, color);
     }
 
-    public NumberCard createNumberCard(String color, int number, String id) {
-        return new NumberCard(color, number, id);
-    }
-
-    public FunctionCard createFunctionCard(String color, String function, String id) {
-        return new FunctionCard(color, function, id);
-    }
-
     public String feature(Card c) {
         return c.getFeature();
     }
 
     public void addCard(Card c) {
         d.addcard(c);
-    }
-
-    public String id(Card c) {
-        return c.getId();
-    }
-
-    public Card copyCard(Card c) {
-        return c.copy();
-    }
-
-    public Deck getD() {
-        return d;
     }
 }

@@ -3,10 +3,7 @@ package UseCase;
 import Entity.Card;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 import java.util.Scanner;
-
 
 /**
  * Gameboard stores playCount and controls current position, color, and lastCard played.
@@ -20,23 +17,21 @@ public class GameBoard {
     private Card lastCard;
     private final Scanner keyBoard;
     private final ArrayList<String> colors = new ArrayList<String>();
-    private DeckManager deckManager;
 
-    public GameBoard(int numberOfPlayers, DeckManager deckManager){
+    public GameBoard(int numberOfPlayers){
         this.numberOfPlayers = numberOfPlayers;
         this.color = "black";
         this.currentPlayer = (int)(Math.random() * numberOfPlayers);
-        this.lastCard = deckManager.createNullCard();
+        this.lastCard = new Card();
         this.keyBoard = new Scanner(System.in);
         colors.add("red"); colors.add("blue"); colors.add("green"); colors.add("yellow");
-        this.deckManager = deckManager;
     }
 
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color){
+    public void setColor(){
         this.color = color;
     }
 
@@ -64,17 +59,6 @@ public class GameBoard {
             wrongTimeCounter++;
         }
         this.color = setColor;
-        System.out.println("Color " + setColor + " is set.");
-    }
-
-    public void typeSetColorForComputer() {
-        Random rand = new Random();
-        int indx = rand.nextInt(4);
-        ArrayList<String> co = new ArrayList<>();
-        Collections.addAll(co, "red", "green", "blue", "yellow");
-        String setColor = co.get(indx);
-        this.color = setColor;
-        System.out.println("Color " + setColor + " is set.");
     }
 
     public String getRandColor(){

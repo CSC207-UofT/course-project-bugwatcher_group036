@@ -4,8 +4,6 @@ public interface Builder {
 
     void buildPlayerManager();
 
-    void buildPlayerManagerForComputer();
-
     void buildDeckManager();
 
     void buildColors();
