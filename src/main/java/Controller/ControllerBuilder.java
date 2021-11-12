@@ -43,10 +43,9 @@ public class ControllerBuilder implements Builder {
         playerManagerData.getPlayerManager().createPlayer(playerID, 0);
 
         for (int i = 1; i < numberOfPlayers; i++) {
-
-            System.out.println("enter a player name for player " + (i+1) + ":");
-            playerID = keyboard.nextLine();
-            playerManagerData.getPlayerManager().createPlayer(playerID, i);
+            // Just use Computer1, 2, 3 to call AI players
+            playerManagerData.getPlayerManager().createPlayer
+                    ("Computer " + i, i);
         }
     }
 

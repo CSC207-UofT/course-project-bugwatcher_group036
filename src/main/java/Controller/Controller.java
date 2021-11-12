@@ -37,14 +37,18 @@ public class Controller {
             if (pvp) {
                 cardToPlay = eachRound.playStage(currentCardsPlayerCanPlay, cardToPlay);
             } else {
-                cardToPlay = eachRound.playStageForComputer(currentCardsPlayerCanPlay, cardToPlay);
+                try {
+                    cardToPlay = eachRound.playStageForComputer(currentCardsPlayerCanPlay, cardToPlay);
+                } catch (Exception ignored){} // wait one sec here
             }
 
             if (pvp) {
                 eachRound.endStage(cardToPlay);
             } else {
                 if (varsData.getStatus().getCurrentPlayerIndex() != 0) {
-                    eachRound.endStageForComputer(cardToPlay);
+                    try {
+                        eachRound.endStageForComputer(cardToPlay);
+                    } catch (Exception ignored){} // wait two sec here
                 } else {
                     eachRound.endStage(cardToPlay);
                 }

@@ -9,6 +9,8 @@ import UseCase.Status;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
+
 public class EachRound {
 
     //    private final PlayerManager playerManager;
@@ -169,18 +171,19 @@ public class EachRound {
         return cardToPlay;
     }
 
-    public Card playStageForComputer(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay){
-
+    public Card playStageForComputer(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay)
+            throws InterruptedException {
         Status vars = basicOperationsData.getBasicOperations().getVars();
+        // Normal play stage for human player
+        if (vars.getCurrentPlayerIndex() == 0){
+            return playStage(currentCardsPlayerCanPlay, cardToPlay);
+        }
         if (currentCardsPlayerCanPlay.isEmpty()) {
             dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, basicOperationsData.getBasicOperations());
         }
         else {
             // print all the information
             System.out.println("Last card: " + playerManagerData.getPlayerManager().getLastCard());
-            System.out.println("The cards you have: " +
-                    playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()));
-            System.out.println("The cards you can play: " + currentCardsPlayerCanPlay);
 
             // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
             cardToPlay = letPlayerPlayCardForComputer(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex());
@@ -194,6 +197,13 @@ public class EachRound {
                 basicOperationsData.getBasicOperations().getGameBoard().setLastCard(cardToPlay);
             }
         }
+        // print how many card computer has at the end (after card draw)
+        System.out.println("Computer " + (vars.getCurrentPlayerIndex() + 1) + " has " +
+                playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()).size() +
+                " cards");
+
+        // Sleep for one second to let player read infos
+        sleep(1000);
         return cardToPlay;
     }
 
@@ -216,7 +226,7 @@ public class EachRound {
         }
     }
 
-    public void endStageForComputer(Card cardToPlay){
+    public void endStageForComputer(Card cardToPlay) throws InterruptedException {
         Status vars = basicOperationsData.getBasicOperations().getVars();
 
         // set the skip to false since the function skip has passed.
@@ -229,5 +239,8 @@ public class EachRound {
             vars.setWinFlag(true);
             vars.setPlayerWins(playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()]);
         }
+
+        //sleep for one second to read what card computer has played
+        sleep(2000);
     }
 }

@@ -28,7 +28,7 @@ public class Dealer {
      */
     public void drawCardWhenNoCardToPlay(ArrayList<Card> currentCardsPlayerCanPlay, int currentPlayerIndex) {
         if (currentCardsPlayerCanPlay.isEmpty()) {
-            System.out.println("You cannot play a card! You need to draw one more card");
+            System.out.println("Cannot play a card! Draw one more card");
             // draw a card from the deck
             drawCard(currentPlayerIndex);
         }
