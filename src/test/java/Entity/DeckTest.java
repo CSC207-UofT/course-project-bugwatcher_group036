@@ -7,12 +7,11 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
-    private static Deck d1 = new Deck();
-    private static ArrayList<Card> a1 = new ArrayList<>();
 
 
     @Test
     public void testIsEmpty() {
+        Deck d1 = new Deck();
         assertTrue(d1.isEmpty());
         assertTrue(d1.getUsedCardDeck().isEmpty());
 
@@ -26,29 +25,36 @@ public class DeckTest {
 
     @Test
     public void testGetUsedCardDeck() {
+        Deck d1 = new Deck();
         assertTrue(d1.getUsedCardDeck().isEmpty());
     }
 
     @Test
     public void testSetUsedCardDeck() {
+        Deck d1 = new Deck();
+        ArrayList<Card> a1 = new ArrayList<>();
         d1.setUsedCardDeck(a1);
         assertTrue(d1.getUsedCardDeck().isEmpty());
     }
 
     @Test
     public void testGetUnusedCardDeck() {
+        Deck d1 = new Deck();
         assertTrue(d1.getUnusedCardDeck().isEmpty());
     // Need to implement ToCompare
     }
 
     @Test
     public void testSetUnusedCardDeck() {
+        Deck d1 = new Deck();
+        ArrayList<Card> a1 = new ArrayList<>();
         d1.setUnusedCardDeck(a1);
         assertTrue(d1.getUnusedCardDeck().isEmpty());
     }
 
     @Test
     public void testDrawCardFromUnusedDeck() {
+        Deck d1 = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
@@ -63,11 +69,13 @@ public class DeckTest {
 
     @Test
     public void testShuffleFromUsedToUnused() {
+        Deck d1 = new Deck();
         assertFalse(d1.shuffleFromUsedToUnused());
     }
 
     @Test
     public void testPutCardToUsedDeck() {
+        Deck d1 = new Deck();
         String[] colors = {"red", "green", "blue", "yellow"};
         for (String color : colors) {
             for (int i = 0; i < 10; i++) {
