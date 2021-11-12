@@ -15,19 +15,11 @@ public class FunctionCard extends Card{
         this.function = function;
     }
 
-    /**
-     * The default value for a function card.
-     */
     public FunctionCard(){
         super();
         this.function = "nullfunction";
     }
 
-    /**
-     * Get the function.
-     *
-     * @return what function the card can do.
-     */
     public String getFunction() {
         return function;
     }

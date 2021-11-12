@@ -10,7 +10,7 @@ public class GameStarter {
         System.out.println("How many players here? ");
         ControllerBuilder unoBuilder = new ControllerBuilder(input.nextInt());
         Controller newGameController = unoBuilder.buildUnoController();
-        Player playerWins = newGameController.runGame();
-        System.out.println(playerWins.getId() + " wins!");
+        String playerWhoWins = newGameController.runGame();
+        System.out.println(playerWhoWins + " wins!");
     }
 }
