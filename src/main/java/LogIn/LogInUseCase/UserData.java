@@ -1,8 +1,11 @@
-package LogIn;
+package LogIn.LogInUseCase;
+
+import LogIn.LogInEntity.User;
 
 import java.util.ArrayList;
 
-public class UserData implements UserOperation{
+
+public class UserData implements UserOperation {
     static ArrayList<User> users = new ArrayList<>();
 
     /**
