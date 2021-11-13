@@ -1,7 +1,9 @@
 package UseCase;
 
 import Entity.Card;
+import UI.UI;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -21,6 +23,7 @@ public class GameBoard {
     private final Scanner keyBoard;
     private final ArrayList<String> colors = new ArrayList<String>();
     private DeckManager deckManager;
+    private UI ui;
 
     public GameBoard(int numberOfPlayers, DeckManager deckManager){
         this.numberOfPlayers = numberOfPlayers;
@@ -45,7 +48,10 @@ public class GameBoard {
      */
     public void typeSetColor() {
         System.out.println("Type a color you want to set:");
-        String setColor = keyBoard.nextLine();
+        String setColor;
+        UIManager.put("OptionPane.okButtonText", "Choose color");
+        setColor = (String) JOptionPane.showInputDialog(null, "Choose color", "Choose color", JOptionPane.INFORMATION_MESSAGE, null, colors.toArray(), null);
+        //String setColor = keyBoard.nextLine();
         int wrongTimeCounter = 0;
 
         while (wrongTimeCounter < 3){
@@ -64,6 +70,12 @@ public class GameBoard {
             wrongTimeCounter++;
         }
         this.color = setColor;
+        System.out.println("Color " + setColor + "is set,");
+        UIManager.put("OptionPane.okButtonText", "next");
+        JOptionPane.showMessageDialog(null, "Color " + setColor + " is set.");
+
+        setUI(ui);
+        
         System.out.println("Color " + setColor + " is set.");
     }
 
