@@ -32,8 +32,7 @@ public class GameStarter {
                     Player playerWins = newGameController.runGame(true);
                     System.out.println(playerWins.getId() + " wins!");
                     modeFlag = false;
-                }
-                else{
+                } else{
                     System.out.println("Please input a number, either 1 or 2");
                 }
             }
