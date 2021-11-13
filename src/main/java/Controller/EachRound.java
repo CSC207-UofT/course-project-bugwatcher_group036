@@ -198,7 +198,7 @@ public class EachRound {
             }
         }
         // print how many card computer has at the end (after card draw)
-        System.out.println("Computer " + (vars.getCurrentPlayerIndex() + 1) + " has " +
+        System.out.println("Computer " + (vars.getCurrentPlayerIndex()) + " has " +
                 playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()).size() +
                 " cards");
 

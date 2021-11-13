@@ -43,7 +43,7 @@ public class Player implements Iterable<Card>{
         for (int i = 0; i < handCard.size();){
             if (handCard.get(i).getId().equals(c.getId())){
                 wanted =  handCard.remove(i);
-                i--;
+                return wanted;
             }
             i++;
         }
