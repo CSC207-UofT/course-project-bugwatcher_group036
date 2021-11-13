@@ -10,10 +10,9 @@ public class GameStarter {
             boolean modeFlag = true;
             do {
                 System.out.println("Choose\n1.PVE\n2.PVP");
-                int mode = input.nextInt();
+                Object mode = input.nextLine();
 
-
-                if (mode == 1) {
+                if (mode.equals("1")) {
                     System.out.println("How many players here? ");
                     ControllerBuilder unoBuilder = new ControllerBuilder(input.nextInt());
                     Controller newGameController = unoBuilder.buildUnoControllerForComputer();
@@ -26,7 +25,7 @@ public class GameStarter {
                     }
                     modeFlag = false;
                 }
-                else if (mode == 2) {
+                else if (mode.equals("2")) {
                     System.out.println("How many players here? ");
                     ControllerBuilder unoBuilder = new ControllerBuilder(input.nextInt());
                     Controller newGameController = unoBuilder.buildUnoController();
