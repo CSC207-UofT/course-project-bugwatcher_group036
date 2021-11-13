@@ -1,11 +1,13 @@
 package Controller;
 
 import Entity.Card;
+import UI.UI;
 import UseCase.BasicOperations;
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
 import UseCase.Status;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,6 +20,7 @@ public class EachRound {
     private final PlayerManagerData playerManagerData;
     private final DeckManagerData deckManagerData;
     private final Dealer dealer;
+    public UI ui;
     //    private final BasicOperations basicOperations;
     private BasicOperationsData basicOperationsData;
 
@@ -58,8 +61,21 @@ public class EachRound {
             System.out.println("Choose to play a card or type draw to draw a card:");
 
             // let the player type the card to play
-            String cardToPlayID = keyboard.nextLine();
-
+//            String cardToPlayID = keyboard.nextLine();
+            String cardToPlayID;
+            if (ui != null) {
+                Object[] array = currentCardsPlayerCanPlay.stream().map(m->m.toString()).toArray();
+                // show the dialog let player choose card to play
+                UIManager.put("OptionPane.cancelButtonText", "draw");
+                UIManager.put("OptionPane.okButtonText", "play");
+                cardToPlayID = (String) JOptionPane.showInputDialog(null, "OK to play card or cancel to draw",
+                        playerManagerData.getPlayerManager().getPlayers()[currentPlayerIndex] + " Choose", JOptionPane.INFORMATION_MESSAGE, null, array, null);
+                if (cardToPlayID == null) {
+                    cardToPlayID = "draw";
+                }
+            }else{
+                cardToPlayID = keyboard.nextLine();
+            }
             // extract the card to play from the hand card
             cardToPlay = deckManagerData.getDeckManager().extractCard(currentCardsPlayerCanPlay, cardToPlayID);
 
@@ -146,6 +162,8 @@ public class EachRound {
      */
     public Card playStage(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay){
         Status vars = basicOperationsData.getBasicOperations().getVars();
+        ui.displayCard(playerManagerData.getPlayerManager().getLastCard(),playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()), deckManagerData.getDeckManager().getD().getUnusedCardDeck());
+        
         if (currentCardsPlayerCanPlay.isEmpty()) {
             dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, basicOperationsData.getBasicOperations());
         }
@@ -155,6 +173,7 @@ public class EachRound {
             System.out.println("The cards you have: " +
                     playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()));
             System.out.println("The cards you can play: " + currentCardsPlayerCanPlay);
+
 
             // Let the player type the card to play. If type a wrong card, type again with maximum 3 times.
             cardToPlay = letPlayerPlayCard(currentCardsPlayerCanPlay, vars.getCurrentPlayerIndex());
@@ -224,6 +243,9 @@ public class EachRound {
             vars.setWinFlag(true);
             vars.setPlayerWins(playerManagerData.getPlayerManager().getPlayers()[vars.getCurrentPlayerIndex()]);
         }
+        if (ui != null) {
+            ui.displayCard(playerManagerData.getPlayerManager().getLastCard(),playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()), deckManagerData.getDeckManager().getD().getUnusedCardDeck());
+        }
     }
 
     public void endStageForComputer(Card cardToPlay) throws InterruptedException {
@@ -242,5 +264,11 @@ public class EachRound {
 
         //sleep for one second to read what card computer has played
         sleep(2000);
+    }
+
+    public PlayerManagerData getPlayerManagerData(){return playerManagerData;}
+
+    public void setUI(UI ui) {
+        this.ui = ui;
     }
 }
