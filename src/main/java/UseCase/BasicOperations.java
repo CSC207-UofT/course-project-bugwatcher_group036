@@ -1,6 +1,7 @@
 package UseCase;
 
 import Controller.Dealer;
+import Controller.StatusData;
 import Entity.Card;
 import Entity.Player;
 import UI.UI;
