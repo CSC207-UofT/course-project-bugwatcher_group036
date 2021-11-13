@@ -74,7 +74,8 @@ public class DeckManager {
     public static boolean compareTwoCardsHaveSameFeature(Card lastCard, Card c2, String currentColor) {
         if (lastCard.getColor().equals("black")){
             return lastCard.getFeature().equals(c2.getFeature()) ||
-                    c2.getColor().equals(currentColor);
+                    c2.getColor().equals(currentColor) ||
+                    lastCard.getId().equals("null");
         }
         return lastCard.getFeature().equals(c2.getFeature())|| lastCard.getColor().equals(c2.getColor())
         || c2.getId().equals("nullid");
