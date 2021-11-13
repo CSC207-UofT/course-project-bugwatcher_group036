@@ -6,7 +6,7 @@ public class BasicOperationsData {
 
     private BasicOperations basicOperations;
 
-    public BasicOperationsData(StatusData vars, GameBoard gameBoard, DeckManager deckManager,
+    public BasicOperationsData(Status vars, GameBoard gameBoard, DeckManager deckManager,
                                PlayerManager playerManager) {
         this.basicOperations = new BasicOperations(vars, gameBoard, playerManager, deckManager);
     }
