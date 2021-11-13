@@ -20,12 +20,12 @@ public class CardTest {
     @Test
     public void testGetID(){
         assertEquals("25", c1.getId());
-        assertEquals("nullid", c2.getId());
+        assertEquals("null", c2.getId());
     }
 
     @Test
     public void testToString(){
         assertEquals("Id:25", c1.toString());
-        assertEquals("Id:nullid", c2.toString());
+        assertEquals("Id:null", c2.toString());
     }
 }

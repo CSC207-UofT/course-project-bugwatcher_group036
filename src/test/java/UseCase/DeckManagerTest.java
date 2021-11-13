@@ -51,8 +51,8 @@ public class DeckManagerTest {
     public void testDrawCardFromUnusedDeck(){
         Card card = deckManager0.drawCardFromUnusedDeck();
         Card card1 = deckManager1.drawCardFromUnusedDeck();
-        assertEquals(card.getId(), "nullid");
-        assertNotEquals("nullid", card1.getId());
+        assertEquals(card.getId(), "null");
+        assertNotEquals("null", card1.getId());
 
     }
 
@@ -119,7 +119,7 @@ public class DeckManagerTest {
     @Test
     public void testCreateNullCard(){
         Card card = deckManager1.createNullCard();
-        assertEquals(card.getId(), "nullid");
+        assertEquals(card.getId(), "null");
 
     }
 
@@ -141,7 +141,7 @@ public class DeckManagerTest {
     @Test
     public void testAddCard(){
         Card card0 = deckManager1.extractCard(deckManager1.getDeck().getUnusedCardDeck(), "yellow25");
-        assertEquals(card0.getId(), "nullid");
+        assertEquals(card0.getId(), "null");
         Card card = new Card("yellow", "25");
         deckManager1.addCard(card);
         Card card1 = deckManager1.extractCard(deckManager1.getDeck().getUnusedCardDeck(), "25");
