@@ -55,7 +55,7 @@ public class DeckManager {
     }
 
     public boolean whetherNull(Card c) {
-        return c.getId().equals("nullid");
+        return c.getId().equals("null");
     }
 
     public String color(Card c){
