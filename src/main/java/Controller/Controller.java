@@ -9,6 +9,8 @@ import UseCase.BasicOperations;
 import UseCase.Status;
 
 import javax.swing.*;
+import UseCase.BasicOperations;
+import UseCase.Status;
 
 /**
  * The main.Controller to run a game.
@@ -63,6 +65,11 @@ public class Controller {
                     basicOperationsData.getBasicOperations().getVars().moveToNextPlayer(
                             varsData.getStatus().isReverse()));
         }
+        return varsData.getStatus().getPlayerWins();
+    }
+
+    public void setBasicOperationsData(BasicOperationsData basicOperationsData) {
+        this.basicOperationsData = basicOperationsData;
         JOptionPane.showMessageDialog(null, varsData.getStatus().getPlayerWins().getId() + " wins!");
 
         return varsData.getStatus().getPlayerWins();

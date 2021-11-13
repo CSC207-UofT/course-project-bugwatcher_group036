@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Dealer {
-    
+
+
 //    private final PlayerManager playerManager;
 //    private final DeckManager deckManager;
     private final PlayerManagerData playerManagerData;
@@ -36,7 +37,7 @@ public class Dealer {
             JOptionPane.showMessageDialog(null, "You cannot play a card!");
 
 
-            
+
             // draw a card from the deck
             drawCard(currentPlayerIndex);
         }
