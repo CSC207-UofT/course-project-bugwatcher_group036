@@ -104,4 +104,6 @@ public class GameBoard {
     public void setLastCard(Card lastCard) {
         this.lastCard = lastCard;
     }
+    private void setUI(UI ui) {this.ui = ui;
+    }
 }
