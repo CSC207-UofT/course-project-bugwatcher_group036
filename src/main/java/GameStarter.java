@@ -12,7 +12,6 @@ public class GameStarter {
                 System.out.println("Choose\n1.PVE\n2.PVP");
                 int mode = input.nextInt();
 
-
                 if (mode == 1) {
                     System.out.println("How many players here? ");
                     ControllerBuilder unoBuilder = new ControllerBuilder(input.nextInt());
