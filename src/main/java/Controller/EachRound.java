@@ -179,7 +179,7 @@ public class EachRound {
             return playStage(currentCardsPlayerCanPlay, cardToPlay);
         }
         if (currentCardsPlayerCanPlay.isEmpty()) {
-            dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, basicOperationsData.getBasicOperations());
+            dealer.operationsWhenNoCardToPlayForComputer(currentCardsPlayerCanPlay, basicOperationsData.getBasicOperations());
         }
         else {
             // print all the information

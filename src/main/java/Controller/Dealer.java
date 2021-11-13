@@ -34,6 +34,14 @@ public class Dealer {
         }
     }
 
+    public void drawCardWhenNoCardToPlayForComputer(ArrayList<Card> currentCardsPlayerCanPlay, int currentPlayerIndex) {
+        if (currentCardsPlayerCanPlay.isEmpty()) {
+            System.out.println("Cannot play a card! Draw one more card");
+            // draw a card from the deck
+            drawCardForComputer(currentPlayerIndex);
+        }
+    }
+
     /**
      * Punish or play the card given the attribute of cardToPlay
      * @param cardToPlay the card player would play
@@ -82,6 +90,18 @@ public class Dealer {
             // give the card to the player
             playerManagerData.getPlayerManager().playerDrawCard(currentPlayerIndex, c);
             System.out.println("The card you drew is " + c);
+        }
+    }
+
+    protected void drawCardForComputer(int currentPlayerIndex) {
+        Card c = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
+        // if the drawn card is not null
+        if (!deckManagerData.getDeckManager().whetherNull(c)){
+            // give the card to the player
+            playerManagerData.getPlayerManager().playerDrawCard(currentPlayerIndex, c);
+            if (currentPlayerIndex == 0) {
+                System.out.println("The card you drew is " + c);
+            }
         }
     }
 
@@ -170,6 +190,23 @@ public class Dealer {
                         !basicOperations.getVars().isSkip())){
             // draw a card when there is no valid card can play
             drawCardWhenNoCardToPlay(currentCardsPlayerCanPlay,
+                    basicOperations.getVars().getCurrentPlayerIndex());
+        }
+    }
+
+    public void operationsWhenNoCardToPlayForComputer(ArrayList<Card> currentCardsPlayerCanPlay,
+                                           BasicOperations basicOperations) {
+        if (basicOperations.getVars().getPlus() > 0) {
+            plusManyNextPlayer(basicOperations.getVars().getCurrentPlayerIndex(),
+                    basicOperations.getVars().getPlus());
+            basicOperations.getVars().setPlus(0);
+        } else if (!deckManagerData.getDeckManager().feature(playerManagerData.getPlayerManager().getLastCard()).
+                equals("skip") ||
+                (deckManagerData.getDeckManager().feature(playerManagerData.getPlayerManager().getLastCard()).
+                        equals("skip") &&
+                        !basicOperations.getVars().isSkip())){
+            // draw a card when there is no valid card can play
+            drawCardWhenNoCardToPlayForComputer(currentCardsPlayerCanPlay,
                     basicOperations.getVars().getCurrentPlayerIndex());
         }
     }
