@@ -12,11 +12,17 @@ There are 5 different function card: Reverse, Skip, Switch Color, Plus Two Cards
 
 ## Our Current Progress
 
+As we implmented basic UNO setting that has only number cards and can be played normally. During phase 1, We accomplished great implementations on several aspects:
+* **Aspect of Basic Setting** We added function card to the deck and enabled function card interactions. Then, we enabled fiexible player-count that allows player to decide. We implemented PVE mode - one player and multiple computer players, with hidden card details. Finally, we added a txt file and reader class to store deck informations in txt. In this case, we can devise customized decks without changing the code.
+*  **Aspect of design pattern** We added iterator pattern to easier access handcards in player and all players in sequence
+We added builder pattern to standardize the initialization process and reduce controller complexity.
+We added facade pattern to maintain the SOLID principle and improve extensiblility.
+* **Aspect of GUI** We developed a GUI, which can be further perfected, and we'll do that in phase 2.
 ![139bb29f73dbd099cf2b4aeae5d7d88](https://user-images.githubusercontent.com/56620120/141606380-23530b3b-21fb-45ce-b96d-4233d28aee6d.png)
 
 ## Future Aspiration & What We Will Implement in Phase 2 
 
 Our directions are mainly on these *three aspects*:
-* **Optimizing basic settings**, including refining program structure and developing graphical User Interface to make it more user-friendly.
+* **Optimizing basic settings**, we will debug logical errors and implement login system and user info system using serialization.
 * **Implementing more rules**, like playing specific card would trigger special change, and adding extra function card into the deck.
-* **Developing more game mode**, like UNO AI and player-to-computer mode, where player can choose number of computers. Moreover, we may develope remote game-mode (In the case that we have extra time).
+* **Optimize code structure** With complexity of code increases, we will foucus on SOLID principles and clean architecture to make our codes more concise and effecitve with less potential bug.
