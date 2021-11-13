@@ -2,14 +2,14 @@ package LogIn.LogInEntity;
 
 public class User {
 
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     /**
-     * Construct an User.
+     * Construct a user.
      *
-     * @param username The name of a user, it can be any string.
-     * @param password The password used to log in.
+     * @param username The name of a user,  it can never be changed.
+     * @param password The password used to log in, it can never be changed.
      */
     public User(String username, String password){
         this.username = username;
@@ -17,7 +17,7 @@ public class User {
     }
 
     /**
-     * Construct a customer.
+     * Construct a default user.
      */
     public User(){
         this.username = "null";
@@ -34,15 +34,6 @@ public class User {
     }
 
     /**
-     * Set up a username.
-     *
-     * @param newUsername The new name the user wants to set.
-     */
-    public void setUsername(String newUsername){
-        this.username = newUsername;
-    }
-
-    /**
      * Get the password for the user.
      *
      * @return A string represent the password for the user.
@@ -52,22 +43,22 @@ public class User {
     }
 
     /**
-     * set up a password for the User.
+     * Decide if two users are same.
      *
-     * @param newPassword A string which is the password the user want ot use.
+     * @param other the another use used to compare.
+     * @return true if their username and password are same.
      */
-    public void setPassword(String newPassword){
-        this.password = newPassword;
+    public boolean equal(User other){
+        return this.username.equals(other.username) && this.password.equals(other.password);
     }
 
     /**
-     * Decide if two users are same.
-     *
-     * @param user0 the another use used to compare.
-     * @return true if their username and password are same.
+     * Decide whether the password matches the username.
+     * @param
+     * @return
      */
-    public boolean equal(User user0){
-        return this.username.equals(user0.username) && this.password.equals(user0.password);
+    public  boolean match(String password){
+        return this.password.equals(password);
     }
 
     @Override
