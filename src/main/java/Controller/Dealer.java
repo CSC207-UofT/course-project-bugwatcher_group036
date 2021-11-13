@@ -96,10 +96,10 @@ public class Dealer {
     protected void drawCardForComputer(int currentPlayerIndex) {
         Card c = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
         // if the drawn card is not null
-        if (!deckManagerData.getDeckManager().whetherNull(c)){
+        if (!deckManagerData.getDeckManager().whetherNull(c)) {
             // give the card to the player
             playerManagerData.getPlayerManager().playerDrawCard(currentPlayerIndex, c);
-            if (currentPlayerIndex == 0) {
+            if (currentPlayerIndex == 0){
                 System.out.println("The card you drew is " + c);
             }
         }
