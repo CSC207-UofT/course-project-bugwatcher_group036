@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Entity.Card;
 import Entity.Player;
+import UI.UI;
 import UseCase.BasicOperations;
 import UseCase.Status;
 
@@ -15,6 +16,7 @@ public class Controller {
 //    private BasicOperations basicOperations;
     private BasicOperationsData basicOperationsData;
     private EachRound eachRound;
+    private UI ui;
 
     /**
      * run the game and return the player that wins.
@@ -59,6 +61,7 @@ public class Controller {
                     basicOperationsData.getBasicOperations().getVars().moveToNextPlayer(
                             varsData.getStatus().isReverse()));
         }
+        JOptionPane.showMessageDialog(null, varsData.getStatus().getPlayerWins().getId() + " wins!");
         return varsData.getStatus().getPlayerWins();
     }
 
@@ -68,5 +71,13 @@ public class Controller {
 
     public void setEachRound(EachRound eachRound) {
         this.eachRound = eachRound;
+    }
+    
+    public EachRound getEachRound() {return eachRound;}
+
+    public BasicOperationsData getBasicOperationsData(){return basicOperationsData;}
+
+    public void setUI(UI ui) {
+        eachRound.ui = ui;
     }
 }
