@@ -12,7 +12,7 @@ There are 5 different function card: Reverse, Skip, Switch Color, Plus Two Cards
 
 ## Our Current Progress
 
-![Our current GUI](https://utoronto-my.sharepoint.com/personal/yuezhexuan_zhu_mail_utoronto_ca/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fyuezhexuan%5Fzhu%5Fmail%5Futoronto%5Fca%2FDocuments%2FUno%20GUI%2Epng&parent=%2Fpersonal%2Fyuezhexuan%5Fzhu%5Fmail%5Futoronto%5Fca%2FDocuments)
+![Our current GUI](https://utoronto-my.sharepoint.com/:i:/r/personal/yuezhexuan_zhu_mail_utoronto_ca/Documents/Uno%20GUI.png?csf=1&web=1&e=i1hmTj)
 
 ## Future Aspiration & What We Will Implement in Phase 2 
 
