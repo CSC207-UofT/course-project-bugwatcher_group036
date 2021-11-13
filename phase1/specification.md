@@ -1,4 +1,4 @@
-## Brief Introduction of our Project
+## 1 Brief Introduction of our Project
 
 We want to write a java project that **simulate Board-Game "UNO".** 
 
@@ -10,6 +10,11 @@ There are 5 different function card: Reverse, Skip, Switch Color, Plus Two Cards
 
 ![This is an example](https://i.insider.com/5cd062dcf067174d3f7c4d72?width=1000&format=jpeg&auto=webp)
 
+## Our Current Progress
+
+![Our current GUI](https://utoronto-my.sharepoint.com/personal/yuezhexuan_zhu_mail_utoronto_ca/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fyuezhexuan%5Fzhu%5Fmail%5Futoronto%5Fca%2FDocuments%2FUno%20GUI%2Epng&parent=%2Fpersonal%2Fyuezhexuan%5Fzhu%5Fmail%5Futoronto%5Fca%2FDocuments)
+
+## Future Aspiration & What We Will Implement in Phase 2 
 
 Our directions are mainly on these *three aspects*:
 * **Optimizing basic settings**, including refining program structure and developing graphical User Interface to make it more user-friendly.
