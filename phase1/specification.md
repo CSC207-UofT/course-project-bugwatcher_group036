@@ -17,7 +17,7 @@ As we implmented basic UNO setting that has only number cards and can be played 
 *  **Aspect of design pattern** We added iterator pattern to easier access handcards in player and all players in sequence
 We added builder pattern to standardize the initialization process and reduce controller complexity.
 We added facade pattern to maintain the SOLID principle and improve extensiblility.
-* **Aspect of GUI** We developed a GUI, which can be further perfected, and we'll do that in phase 2.
+* **Aspect of GUI** We developed a GUI, which can be further perfected, and we'll do that in phase 2. Here is our developed GUI:
 ![139bb29f73dbd099cf2b4aeae5d7d88](https://user-images.githubusercontent.com/56620120/141606380-23530b3b-21fb-45ce-b96d-4233d28aee6d.png)
 
 ## Future Aspiration & What We Will Implement in Phase 2 
