@@ -3,6 +3,7 @@ package Controller;
 import Entity.Card;
 import UI.UI;
 import UseCase.BasicOperations;
+
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
 import UseCase.Status;
@@ -13,7 +14,9 @@ import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
 
+// This class contains methods for each round of game
 public class EachRound {
+    private UI ui;
 
     //    private final PlayerManager playerManager;
 //    private final DeckManager deckManager;
@@ -163,7 +166,7 @@ public class EachRound {
     public Card playStage(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay){
         Status vars = basicOperationsData.getBasicOperations().getVars();
         ui.displayCard(playerManagerData.getPlayerManager().getLastCard(),playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()), deckManagerData.getDeckManager().getD().getUnusedCardDeck());
-        
+
         if (currentCardsPlayerCanPlay.isEmpty()) {
             dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, basicOperationsData.getBasicOperations());
         }
