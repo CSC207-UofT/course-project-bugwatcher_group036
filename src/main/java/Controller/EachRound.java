@@ -20,7 +20,6 @@ public class EachRound {
     private final PlayerManagerData playerManagerData;
     private final DeckManagerData deckManagerData;
     private final Dealer dealer;
-    private final BasicOperations basicOperations;
     public UI ui;
     //    private final BasicOperations basicOperations;
     private BasicOperationsData basicOperationsData;
