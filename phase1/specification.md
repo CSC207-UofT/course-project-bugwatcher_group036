@@ -10,7 +10,7 @@ There are 5 different function card: Reverse, Skip, Switch Color, Plus Two Cards
 
 ![This is an example](https://i.insider.com/5cd062dcf067174d3f7c4d72?width=1000&format=jpeg&auto=webp)
 
-## Our Current Progress
+## 2 Our Current Progress
 
 As we implmented basic UNO setting that has only number cards and can be played normally. During phase 1, We accomplished great implementations on several aspects:
 * **Aspect of Basic Setting** We added function card to the deck and enabled function card interactions. Then, we enabled fiexible player-count that allows player to decide. We implemented PVE mode - one player and multiple computer players, with hidden card details. Finally, we added a txt file and reader class to store deck informations in txt. In this case, we can devise customized decks without changing the code.
@@ -20,7 +20,7 @@ We added facade pattern to maintain the SOLID principle and improve extensiblili
 * **Aspect of GUI** We developed a GUI, which can be further perfected, and we'll do that in phase 2. Here is our developed GUI:
 ![139bb29f73dbd099cf2b4aeae5d7d88](https://user-images.githubusercontent.com/56620120/141606380-23530b3b-21fb-45ce-b96d-4233d28aee6d.png)
 
-## Future Aspiration & What We Will Implement in Phase 2 
+## 3 Future Aspiration & What We Will Implement in Phase 2 
 
 Our directions are mainly on these *three aspects*:
 * **Optimizing basic settings**, we will debug logical errors and implement login system and user info system using serialization.
