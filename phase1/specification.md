@@ -15,9 +15,9 @@ In phase 0, we determined the overall strucutre and realized the basic running o
 After phase 1, We accomplished great implementations on three aspects:
 * **Aspect of Basic Setting** We added function card to the deck and enabled function card interactions. Then, we enabled fiexible player-count that allows player to decide. We also implemented PVE mode - one player and multiple computer players, with hidden card details. Finally, we added a txt file and reader class to store deck informations in txt so that we can devise customized decks without altering the code.
 *  **Aspect of design pattern** 
-** We added iterator pattern to easier access handcards in player and all players in sequence.
-** We added builder pattern to standardize the initialization process and reduce controller complexity.
-** We added facade pattern to maintain the SOLID principle and improve extensiblility.
+  * We added iterator pattern to easier access handcards in player and all players in sequence.
+  * We added builder pattern to standardize the initialization process and reduce controller complexity.
+  * We added facade pattern to maintain the SOLID principle and improve extensiblility.
 * **Aspect of GUI** We developed a GUI, which can be further perfected, and we'll do that in phase 2. Here is our current GUI:
 ![139bb29f73dbd099cf2b4aeae5d7d88](https://user-images.githubusercontent.com/56620120/141606380-23530b3b-21fb-45ce-b96d-4233d28aee6d.png)
 
