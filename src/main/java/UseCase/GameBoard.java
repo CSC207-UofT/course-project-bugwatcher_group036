@@ -107,5 +107,6 @@ public class GameBoard {
 
     public void setUI(UI ui) {
         this.ui = ui;
+
     }
 }
