@@ -18,7 +18,6 @@ public class Controller {
 //    private BasicOperations basicOperations;
     private BasicOperationsData basicOperationsData;
     private EachRound eachRound;
-    private ICardDisplayer ui;
 
     /**
      * run the game and return the player that wins.
