@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.DeckManagerData;
 import Entity.Card;
 import UI.UI;
 
@@ -27,7 +28,8 @@ public class GameBoard {
         this.numberOfPlayers = numberOfPlayers;
         this.color = "black";
         this.currentPlayer = (int)(Math.random() * numberOfPlayers);
-        this.lastCard = new Card();
+        DeckManager deckManager = new DeckManager();
+        this.lastCard = deckManager.createNullCard();
         this.keyBoard = new Scanner(System.in);
         colors.add("red"); colors.add("blue"); colors.add("green"); colors.add("yellow");
     }

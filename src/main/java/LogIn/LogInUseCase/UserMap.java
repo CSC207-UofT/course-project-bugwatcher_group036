@@ -20,7 +20,8 @@ public class UserMap implements Serializable {
      * @param user the user to add
      */
     public void add(User user) {
-        users.put(user.getUsername(), user);
+        UserData userData = new UserData();
+        users.put(userData.getUserName(user), user);
     }
 
     /**

@@ -34,5 +34,9 @@ public class UserData implements UserOperation {
         return flag;
     }
 
+    public String getUserName(User user) {
+        return user.getUsername();
+    }
+
 
 }
