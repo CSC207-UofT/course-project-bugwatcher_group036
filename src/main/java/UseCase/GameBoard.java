@@ -22,17 +22,14 @@ public class GameBoard {
     private Card lastCard;
     private final Scanner keyBoard;
     private final ArrayList<String> colors = new ArrayList<String>();
-    private DeckManager deckManager;
-    private UI ui;
 
-    public GameBoard(int numberOfPlayers, DeckManager deckManager){
+    public GameBoard(int numberOfPlayers){
         this.numberOfPlayers = numberOfPlayers;
         this.color = "black";
         this.currentPlayer = (int)(Math.random() * numberOfPlayers);
-        this.lastCard = deckManager.createNullCard();
+        this.lastCard = new Card();
         this.keyBoard = new Scanner(System.in);
         colors.add("red"); colors.add("blue"); colors.add("green"); colors.add("yellow");
-        this.deckManager = deckManager;
     }
 
     public String getColor() {
@@ -73,8 +70,6 @@ public class GameBoard {
         System.out.println("Color " + setColor + "is set,");
         UIManager.put("OptionPane.okButtonText", "next");
         JOptionPane.showMessageDialog(null, "Color " + setColor + " is set.");
-
-        setUI(ui);
         
         System.out.println("Color " + setColor + " is set.");
     }
@@ -103,10 +98,5 @@ public class GameBoard {
 
     public void setLastCard(Card lastCard) {
         this.lastCard = lastCard;
-    }
-
-    public void setUI(UI ui) {
-        this.ui = ui;
-
     }
 }
