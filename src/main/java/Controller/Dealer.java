@@ -17,7 +17,6 @@ public class Dealer {
 //    private final DeckManager deckManager;
     private final PlayerManagerData playerManagerData;
     private final DeckManagerData deckManagerData;
-    private UI ui;
 
     public Dealer(PlayerManagerData playerManagerData, DeckManagerData deckManagerData){
         this.playerManagerData = playerManagerData;
@@ -125,6 +124,7 @@ public class Dealer {
             Card drawedCard = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
             if (!deckManagerData.getDeckManager().whetherNull(drawedCard)) {
                 playerManagerData.getPlayerManager().getPlayers()[currentPlayerIndex].drawCard(drawedCard);
+                drawcardname.append(drawedCard.getId());
             }
             if (i != num - 1) {
                 drawcardname.append(", ");
@@ -223,9 +223,6 @@ public class Dealer {
             drawCardWhenNoCardToPlayForComputer(currentCardsPlayerCanPlay,
                     basicOperations.getVars().getCurrentPlayerIndex());
         }
-    }
-    public void setUI(UI ui) {
-        this.ui = ui;
     }
 
 }

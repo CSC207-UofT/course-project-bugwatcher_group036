@@ -1,12 +1,11 @@
 package Controller;
 
 import Entity.Card;
-import UI.UI;
+import UI.ICardDisplayer;
 import UseCase.BasicOperations;
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
 import UseCase.Status;
-import UI.DisplayCard;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -16,13 +15,10 @@ import static java.lang.Thread.sleep;
 
 public class EachRound {
 
-    //    private final PlayerManager playerManager;
-//    private final DeckManager deckManager;
     private final PlayerManagerData playerManagerData;
     private final DeckManagerData deckManagerData;
     private final Dealer dealer;
-    public DisplayCard ui;
-//    public UI ui;
+    public ICardDisplayer ui;
     //    private final BasicOperations basicOperations;
     private BasicOperationsData basicOperationsData;
 

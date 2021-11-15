@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import Entity.Card;
 import Entity.Player;
-import UI.UI;
+import UI.ICardDisplayer;
 import UseCase.BasicOperations;
 import UseCase.Status;
-import UI.DisplayCard;
 
 import javax.swing.*;
 
@@ -19,7 +18,6 @@ public class Controller {
 //    private BasicOperations basicOperations;
     private BasicOperationsData basicOperationsData;
     private EachRound eachRound;
-    private UI ui;
 
     /**
      * run the game and return the player that wins.
@@ -80,7 +78,7 @@ public class Controller {
 
     public BasicOperationsData getBasicOperationsData(){return basicOperationsData;}
 
-    public void setUI(DisplayCard ui) {
+    public void setUI(ICardDisplayer ui) {
         eachRound.ui = ui;
     }
 }
