@@ -7,6 +7,7 @@ import Entity.Player;
 import UI.UI;
 import UseCase.BasicOperations;
 import UseCase.Status;
+import UI.DisplayCard;
 
 import javax.swing.*;
 
@@ -79,7 +80,7 @@ public class Controller {
 
     public BasicOperationsData getBasicOperationsData(){return basicOperationsData;}
 
-    public void setUI(UI ui) {
+    public void setUI(DisplayCard ui) {
         eachRound.ui = ui;
     }
 }

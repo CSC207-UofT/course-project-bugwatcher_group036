@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A map of username —> User object.
+ * A map of username -> User object.
  */
 // What do we gain by defining this class and storing an instance of it
 // in the LogInUseCase class, as opposed to just

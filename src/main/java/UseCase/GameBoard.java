@@ -79,6 +79,10 @@ public class GameBoard {
         System.out.println("Color " + setColor + " is set.");
     }
 
+    private void setUI(UI ui) {
+        this.ui = ui;
+    }
+
     public void typeSetColorForComputer() {
         Random rand = new Random();
         int indx = rand.nextInt(4);
@@ -104,8 +108,6 @@ public class GameBoard {
     public void setLastCard(Card lastCard) {
         this.lastCard = lastCard;
     }
-
-    public void setUI(UI ui) {
-        this.ui = ui;
-    }
+//    private void setUI(UI ui) {this.ui = ui;
+//    }
 }
