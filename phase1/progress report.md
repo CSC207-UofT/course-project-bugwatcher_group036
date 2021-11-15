@@ -22,7 +22,7 @@ In phase 0, we determined the overall structure and realized the basic running o
 After phase 1, We accomplished great implementations on three aspects:
 * **Aspect of Basic Setting** 
     * We added function card to the deck and enabled function card interactions. Then, we enabled flexible player-count that allows player to decide. We also implemented PVE mode - one player and multiple computer players, with hidden card details. Finally, we added a txt file and reader class to store deck information in txt so that we can devise customized decks without altering the code. 
-    * To reflect, we made great progresses on modifying basic setting and main body of the game UNO, we utilized realization, and we basically re-wrote the Controller system, and compared to Phase0, the game now owns almost all features as the original. 
+    * To reflect, we made great progresses on modifying basic setting and main body of the game UNO, we utilized Serialization, and we basically re-wrote the Controller system, and compared to Phase0, the game now owns almost all features as the original. 
     * But we do need to pay attention to the code smell, clean architecture and SOLID principles. We still need to balance the size of Controller packages with other branches. Meanwhile, we will need to add more innovative personalized features to the game.
 * **Aspect of design pattern**
     * We added iterator pattern to easier access HandCards in player and all players in sequence.
@@ -60,7 +60,7 @@ After phase 1, We accomplished great implementations on three aspects:
 
 ### Ben Wang (BenWXY - xyben.wang@mail.utoronto.ca)
 * Modified Controller class, wrote several more classes under Controller branch with various design pattern applied
-* Constructed PVE functionality for UNO with realization applied
+* Constructed PVE functionality for UNO with Serialization applied
 * Wrote tests for CardReadFile and ReadFile classes
 * Checked and fixed SOLID and clean architecture
 * Made UML diagram
