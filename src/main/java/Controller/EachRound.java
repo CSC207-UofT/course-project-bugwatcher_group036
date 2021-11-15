@@ -163,7 +163,9 @@ public class EachRound {
      */
     public Card playStage(ArrayList<Card> currentCardsPlayerCanPlay, Card cardToPlay){
         Status vars = basicOperationsData.getBasicOperations().getVars();
-        ui.displayCard(playerManagerData.getPlayerManager().getLastCard(),playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()), deckManagerData.getDeckManager().getD().getUnusedCardDeck());
+        ui.displayCard(playerManagerData.getPlayerManager().getLastCard(),
+                playerManagerData.getPlayerManager().getHandCard(vars.getCurrentPlayerIndex()),
+                deckManagerData.getDeckManager().getD().getUnusedCardDeck());
         if (currentCardsPlayerCanPlay.isEmpty()) {
             dealer.operationsWhenNoCardToPlay(currentCardsPlayerCanPlay, basicOperationsData.getBasicOperations());
         }

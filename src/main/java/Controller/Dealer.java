@@ -125,6 +125,7 @@ public class Dealer {
             Card drawedCard = deckManagerData.getDeckManager().drawCardFromUnusedDeck();
             if (!deckManagerData.getDeckManager().whetherNull(drawedCard)) {
                 playerManagerData.getPlayerManager().getPlayers()[currentPlayerIndex].drawCard(drawedCard);
+                drawcardname.append(drawedCard.getId());
             }
             if (i != num - 1) {
                 drawcardname.append(", ");

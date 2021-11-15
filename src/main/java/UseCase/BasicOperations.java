@@ -167,6 +167,7 @@ public class BasicOperations {
     public String getColor(){
         return gameBoard.getColor();
     }
+
     public void setUI(UI ui) {
         this.ui = ui;
     }
