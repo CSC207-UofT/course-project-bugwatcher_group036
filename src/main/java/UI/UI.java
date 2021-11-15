@@ -12,6 +12,7 @@ import javax.swing.border.LineBorder;
 
 import Controller.Controller;
 import Controller.ControllerBuilder;
+import Controller.StatusData;
 import Entity.Card;
 import Entity.Player;
 import UseCase.Status;
@@ -19,7 +20,7 @@ import UseCase.Status;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class UI extends JFrame{
+public class UI extends JFrame implements ICardDisplayer{
 
    private JFrame frame;
    JPanel cardHas;// the card panel
@@ -27,7 +28,7 @@ public class UI extends JFrame{
    JLabel card;// last card
    JLabel quantity; // remain card quantity in desk
    Controller newGameController;
-   Status vars;
+   StatusData vars;
 
 
    /**
@@ -48,8 +49,8 @@ public class UI extends JFrame{
            initGame();
            Player winner = newGameController.runGame(true);
 //            playGame();//first player to play
-           if(vars.isWinFlag()){
-               System.out.println(vars.getPlayerWins().getId() + " wins!");
+           if(vars.getStatus().isWinFlag()){
+               System.out.println(vars.getStatus().getPlayerWins().getId() + " wins!");
                JOptionPane.showMessageDialog(null, winner.getId() + " wins!");
            }
        });
@@ -65,7 +66,7 @@ public class UI extends JFrame{
        ControllerBuilder unoBuilder = new ControllerBuilder(num);
        newGameController = unoBuilder.buildUnoController();
        newGameController.setUI(this);//bind the ui
-       vars = new Status(newGameController.getEachRound().getPlayerManagerData().getPlayerManager().getPlayerNum());
+       vars = new StatusData(newGameController.getEachRound().getPlayerManagerData().getPlayerManager().getPlayerNum());
 
 
    }
@@ -194,4 +195,7 @@ public class UI extends JFrame{
        quantity.setText("Remaining Cards:" + remaining.size());
    }
 
+    public void setNewGameController(Controller newGameController) {
+        this.newGameController = newGameController;
+    }
 }

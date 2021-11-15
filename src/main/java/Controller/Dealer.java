@@ -17,7 +17,6 @@ public class Dealer {
 //    private final DeckManager deckManager;
     private final PlayerManagerData playerManagerData;
     private final DeckManagerData deckManagerData;
-    private UI ui;
 
     public Dealer(PlayerManagerData playerManagerData, DeckManagerData deckManagerData){
         this.playerManagerData = playerManagerData;
@@ -224,9 +223,6 @@ public class Dealer {
             drawCardWhenNoCardToPlayForComputer(currentCardsPlayerCanPlay,
                     basicOperations.getVars().getCurrentPlayerIndex());
         }
-    }
-    public void setUI(UI ui) {
-        this.ui = ui;
     }
 
 }

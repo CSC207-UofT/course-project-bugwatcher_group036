@@ -1,7 +1,7 @@
 package Controller;
 
 import Entity.Card;
-import UI.UI;
+import UI.ICardDisplayer;
 import UseCase.BasicOperations;
 import UseCase.DeckManager;
 import UseCase.PlayerManager;
@@ -15,12 +15,10 @@ import static java.lang.Thread.sleep;
 
 public class EachRound {
 
-    //    private final PlayerManager playerManager;
-//    private final DeckManager deckManager;
     private final PlayerManagerData playerManagerData;
     private final DeckManagerData deckManagerData;
     private final Dealer dealer;
-    public UI ui;
+    public ICardDisplayer ui;
     //    private final BasicOperations basicOperations;
     private BasicOperationsData basicOperationsData;
 
