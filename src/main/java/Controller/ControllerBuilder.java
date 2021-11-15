@@ -77,7 +77,8 @@ public class ControllerBuilder implements Builder {
     public void buildBasicOperations(){
         StatusData statusData = new StatusData(numberOfPlayers);
         Status status = statusData.getStatus();
-        GameBoard gameBoard = new GameBoard(numberOfPlayers);
+        GameBoardData gameBoardData = new GameBoardData(numberOfPlayers);
+        GameBoard gameBoard = gameBoardData.getGameBoard();
         this.basicOperationsData = new BasicOperationsData(status, gameBoard,
                 deckManagerData.getDeckManager(), playerManagerData.getPlayerManager());
     }

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A map of username —> User object.
+ * A map of username -> User object.
  */
 // What do we gain by defining this class and storing an instance of it
 // in the LogInUseCase class, as opposed to just
@@ -20,7 +20,8 @@ public class UserMap implements Serializable {
      * @param user the user to add
      */
     public void add(User user) {
-        users.put(user.getUsername(), user);
+        UserData userData = new UserData();
+        users.put(userData.getUserName(user), user);
     }
 
     /**
