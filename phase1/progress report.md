@@ -11,11 +11,17 @@ We want to demonstrate our understanding of clean architecture and design patter
 Our directions are mainly on these *three aspects*:
 * **Optimizing basic settings**, we will debug logical, style and fatal errors and implement login system and user info system using serialization. We may also dive into the field of client platform and try to implement online features. Furthermore, we may consider constructing android version as well as html web compatible with this game. Our GUI will definitely be optimized by adding more features, adjusting layouts, adding draw-shuffle-play card animation, and embellish with backgrounds and color blocks.
 * **Implementing more rules**, like playing specific card would trigger special change, and adding extra function cards into the deck. We may also add playable characters as a pool of options for players, each with specific unique active/passive skills. And we may construct in-app purchasing system. We will add AI with different difficulty levels in the future, and it's solid that we are writing tutorial stage implemented with GUI.
-* **Optimize code structure** With complexity of code increases, we will foucus on SOLID principles and clean architecture to make our codes more concise and effecitve with less potential bug. We will sniff for code smells and make relevant modifications in the future. Also, we will try to implement more design patterns into the code framework. 
+* **Optimize code structure** With complexity of code increases, we will focus on SOLID principles and clean architecture to make our codes more concise and effecitve with less potential bug. We will sniff for code smells and make relevant modifications in the future. Also, we will try to implement more design patterns into the code framework. 
 
 ## Reflection
 
 ## Our questions to TA
+
+* Are we still on the right track?
+* To what extent should we put effort on the GUI?
+* Is it preferable to have such a huge Controller folder? Shall we switch and re-allocate the content in Controller to other places?
+* Is there a better alternative to build GUI?
+* Shall we implement gson/json to generate cards instead of a huge deck class with several sub-classes?
 
 ## Contribution
 
