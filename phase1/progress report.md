@@ -15,6 +15,15 @@ Our directions are mainly on these *three aspects*:
 
 ## Reflection
 
+In phase 0, we determined the overall strucutre and realized the basic running of the game that only has number card with four colors.
+After phase 1, We accomplished great implementations on three aspects:
+* **Aspect of Basic Setting** We added function card to the deck and enabled function card interactions. Then, we enabled fiexible player-count that allows player to decide. We also implemented PVE mode - one player and multiple computer players, with hidden card details. Finally, we added a txt file and reader class to store deck informations in txt so that we can devise customized decks without altering the code.
+* **Aspect of design pattern**
+    * We added iterator pattern to easier access handcards in player and all players in sequence.
+    * We added builder pattern to standardize the initialization process and reduce controller complexity.
+    * We added facade pattern to maintain the SOLID principle and improve extensiblility.
+* **Aspect of GUI** We developed a GUI, which can be further perfected, and we'll do that in phase 2.
+
 ## Our questions to TA
 
 * Are we still on the right track?
@@ -33,6 +42,8 @@ Our directions are mainly on these *three aspects*:
 
 ### Wise Chua (wisechua - wise.chua@mail.utoronto.ca)
 * Contributed building and debugging / modification on GUI
+* Changed command line to GUI and implemented updates of GUI for each played hand
+* Implemented ReadFile class for reading card file
 
 ### Allen Chen (Ez4Allen - challen.chen@mail.utoronto.ca)
 * Contributed building the login system body
@@ -41,12 +52,15 @@ Our directions are mainly on these *three aspects*:
 
 ### Ben Wang (BenWXY - xyben.wang@mail.utoronto.ca)
 * Modified Controller class, wrote several more classes under Controller branch with various design pattern applied
-* Constructed PVE functionality for UNO with AI applied
+* Constructed PVE functionality for UNO with realization applied
 * Wrote tests for CardReadFile and ReadFile classes
+* Checked and fixed SOLID and clean architecture
+* Made UML diagram
 
 ### York Chen (zhumengzhiren - york.chen@mail.utoronto.ca)
 * Contributed building the login system entity
-* Constructed the LoginController
+* Constructed the Login System interact with file
+* wrote tests for Entity
 
 ### Yao Zhou (zhuyuezx - yaoo.zhou@mail.utoronto.ca)
 * Contributed building the whole GUI framework, and modified several places in Controller class for compatibility
