@@ -5,7 +5,6 @@ import Entity.Deck;
 import Entity.HandCard;
 import UseCase.Dealer;
 import UseCase.GameBoard;
-import UseCase.UseCaseTerminal;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -36,7 +35,7 @@ public class Controller {
             iEachRound.getTerminal().beginStage(currentPlayerIndex, ids);
             HandCard playableCards = iEachRound.beginStage();
 
-            iEachRound.getTerminal().playStage(iEachRound.getGameBoard(), iEachRound.getCardChecker());
+            iEachRound.getTerminal().playStage(iEachRound.getGameBoard(), iEachRound.getCardChecker(), playableCards);
             String toPlay = iEachRound.playStage(playableCards, currentPlayerIndex);
 
             iEachRound.endStage(toPlay);
@@ -51,10 +50,12 @@ public class Controller {
         ArrayList<String> ids = new ArrayList<>();
         System.out.println("How many players here? ");
         int numberOfPlayer = input.nextInt();
+        input.nextLine();
 
         for (int i = 0; i < numberOfPlayer; i++){
             System.out.println("Please enter id for player" + (i + 1));
-            ids.add(input.nextLine());
+            String id = input.nextLine();
+            ids.add(id);
         }
 
         return ids;

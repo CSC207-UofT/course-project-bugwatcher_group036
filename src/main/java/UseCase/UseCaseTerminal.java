@@ -1,6 +1,7 @@
 package UseCase;
 
 import Entity.CardChecker;
+import Entity.HandCard;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,11 +15,11 @@ public class UseCaseTerminal {
         System.out.println("Current Player:" + ids.get(currentPlayerIndex));
     }
 
-    public void playStage(GameBoard gameBoard, CardChecker cardChecker){
+    public void playStage(GameBoard gameBoard, CardChecker cardChecker, HandCard playableCards){
         int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
         System.out.println("Last Card: " + cardChecker.getLastCard());
         System.out.println("The cards you have: " + gameBoard.getHandCards(currentPlayerIndex));
-        System.out.println("The cards you");
+        System.out.println("The cards you can play: " + playableCards);
     }
 
     public String getCardToPlay(){

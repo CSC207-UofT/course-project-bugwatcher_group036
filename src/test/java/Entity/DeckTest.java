@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +27,5 @@ public class DeckTest {
 
     @Test
     public void testNull(){
-        String n = null;
-        assertTrue(n == null);
     }
 }

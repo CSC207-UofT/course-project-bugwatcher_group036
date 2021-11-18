@@ -12,6 +12,10 @@ public class GameBoard {
 
     public GameBoard(int numberOfPlayers){
         this.status = new Status(numberOfPlayers);
+        this.handCards = new HandCard[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++){
+            handCards[i] = new HandCard();
+        }
     }
 
     public Status getStatus() {
