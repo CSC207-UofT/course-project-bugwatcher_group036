@@ -5,8 +5,8 @@ import java.util.*;
 
 public class Deck {
 
-    private ArrayList<Card> used;
-    private ArrayList<Card> unused;
+    private ArrayList<String> used;
+    private ArrayList<String> unused;
 
     /**
      * Construct the Deck in UNO card game.
@@ -17,21 +17,11 @@ public class Deck {
         this.unused = new ArrayList<>();
         File testFile = new File("");
         try {
-            BufferedReader numberFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/numbercards.txt"));
-            BufferedReader functionFile = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/functioncards.txt"));
-            String numberLine = numberFile.readLine();
-            String functionLine = functionFile.readLine();
+            BufferedReader CardList = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/Cards.txt"));
+            String numberLine = CardList.readLine();
             while (numberLine != null){
-                String[] numberSplit = numberLine.split(" ");
-                Card numCard = new NumberCard(numberSplit[0], Integer.parseInt(numberSplit[1]), numberSplit[2]);
-                unused.add(numCard);
-                numberLine = numberFile.readLine();
-            }
-            while (functionLine != null){
-                String[] functionSplit = functionLine.split(" ");
-                Card funCard = new FunctionCard(functionSplit[0], functionSplit[1], functionSplit[2]);
-                unused.add(funCard);
-                functionLine = functionFile.readLine();
+                unused.add(numberLine);
+                numberLine = CardList.readLine();
             }
         }
         catch (FileNotFoundException fileMissing){
@@ -39,15 +29,6 @@ public class Deck {
 
         }
         catch (IOException ignored) {} // wise: don't know how to handle this case
-
-//        String[] colors = {"red", "green", "blue", "yellow"};
-//        for (String color : colors) {
-//            for (int i = 0; i < 10; i++) {
-//                Card newCard = new NumberCard(color, i, color + i);
-//                unused.add(newCard);
-//            }
-//        }
-
     }
 
     /**
@@ -82,7 +63,7 @@ public class Deck {
      *
      * @return the numbers of card in a card deck.
      */
-    public int numOfCards(ArrayList<Card> deck) {
+    public int numOfCards(ArrayList<String> deck) {
         return deck.size();
     }
 
@@ -90,7 +71,7 @@ public class Deck {
      * getter
      * @return unsed_card_deck
      */
-    public ArrayList<Card> getUsedCardDeck(){
+    public ArrayList<String> getUsedCardDeck(){
         return used;
     }
 
@@ -98,7 +79,7 @@ public class Deck {
      * setter
      * @param replacement the new deck to replace the old one
      */
-    public void setUsedCardDeck(ArrayList<Card> replacement){
+    public void setUsedCardDeck(ArrayList<String> replacement){
         used = replacement;
     }
 
@@ -106,7 +87,7 @@ public class Deck {
      * getter
      * @return unused_card_deck
      */
-    public ArrayList<Card> getUnusedCardDeck(){
+    public ArrayList<String> getUnusedCardDeck(){
         return unused;
     }
 
@@ -114,29 +95,25 @@ public class Deck {
      * setter
      * @param replacement the new deck to replace the old one
      */
-    public void setUnusedCardDeck(ArrayList<Card> replacement){
+    public void setUnusedCardDeck(ArrayList<String> replacement){
         unused = replacement;
     }
 
-    public Card drawCardFromUnusedDeck() {
+    public String drawCardFromUnusedDeck() {
+        if (unused.size() == 0) {
+            return null;
+        }
         Random rand = new Random();
         int index = rand.nextInt(unused.size());
         return unused.remove(index);
     }
 
-    public boolean shuffleFromUsedToUnused() {
-        if (used.isEmpty()) {
-            return false;
-        } else {
-            ArrayList<Card> temp = unused;
-            unused = used;
-            used = temp;
-            return true;
-        }
-
+    public void shuffleFromUsedToUnused() {
+        unused = used;
+        used = new ArrayList<>();
     }
 
-    public void putCardToUsedDeck(Card c) {
+    public void putCardToUsedDeck(String c) {
         used.add(c);
     }
 

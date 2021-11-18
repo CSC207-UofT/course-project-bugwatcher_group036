@@ -2,91 +2,31 @@ package Entity;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
 
-
     @Test
-    public void testIsEmpty() {
-        Deck d1 = new Deck();
-        assertFalse(d1.isEmpty());
-        assertTrue(d1.getUsedCardDeck().isEmpty());
-
+    public void testInitialization(){
+        Deck deck = new Deck();
+        assertEquals(deck.getUnusedCardDeck().size(), 108);
     }
 
     @Test
-    public void testNumOfCards() {
-        Deck d1 = new Deck();
-        assertEquals(108, d1.numOfCards(d1.getUnusedCardDeck()));
+    public void testDrawCardFromUnusedDeck(){
+        Deck deck = new Deck();
+        String card = deck.drawCardFromUnusedDeck();
+        ArrayList<String> colors = new ArrayList<>();
+        Collections.addAll(colors, "red", "green", "yellow", "blue");
+        assertTrue(colors.contains(card.split(" ")[0]));
     }
 
     @Test
-    public void testGetUsedCardDeck() {
-        Deck d1 = new Deck();
-        ArrayList<Card> a1 = new ArrayList<>();
-        assertEquals(a1, d1.getUsedCardDeck());
-    }
-
-    @Test
-    public void testSetUsedCardDeck() {
-        Deck d1 = new Deck();
-        ArrayList<Card> a1 = new ArrayList<>();
-        Deck d2 = new Deck();
-        d1.setUsedCardDeck(a1);
-        assertEquals(a1, d1.getUsedCardDeck());
-    }
-
-    @Test
-    public void testGetUnusedCardDeck() {
-        Deck d1 = new Deck();
-        ArrayList<Card> a1 = d1.getUnusedCardDeck();
-        assertEquals(a1, d1.getUnusedCardDeck());
-    // Need to implement ToCompare
-    }
-
-    @Test
-    public void testSetUnusedCardDeck() {
-        Deck d1 = new Deck();
-        ArrayList<Card> a1 = new ArrayList<>();
-        d1.setUnusedCardDeck(a1);
-        assertEquals(a1, d1.getUnusedCardDeck());
-    }
-
-    @Test
-    public void testDrawCardFromUnusedDeck() {
-        Deck d1 = new Deck();
-        String[] colors = {"red", "green", "blue", "yellow"};
-        for (String color : colors) {
-            for (int i = 0; i < 10; i++) {
-                Card newCard = new NumberCard(color, i, color + i);
-                d1.getUnusedCardDeck().add(newCard);
-            }
-        }
-        Card c1 = d1.drawCardFromUnusedDeck();
-        assertFalse(d1.getUnusedCardDeck().contains(c1));
-    }
-
-    @Test
-    public void testShuffleFromUsedToUnused() {
-        Deck d1 = new Deck();
-        assertFalse(d1.shuffleFromUsedToUnused());
-    }
-
-    @Test
-    public void testPutCardToUsedDeck() {
-        Deck d1 = new Deck();
-        String[] colors = {"red", "green", "blue", "yellow"};
-        for (String color : colors) {
-            for (int i = 0; i < 10; i++) {
-                Card newCard = new NumberCard(color, i, color + i);
-                d1.getUnusedCardDeck().add(newCard);
-            }
-        }
-        Card c1 = d1.drawCardFromUnusedDeck();
-        d1.putCardToUsedDeck(c1);
-        assertTrue(d1.getUsedCardDeck().contains(c1));
+    public void testNull(){
+        String n = null;
+        assertTrue(n == null);
     }
 }
