@@ -59,6 +59,9 @@ public class HandCard implements Iterable<String>{
     }
 
     public String toString(){
+        if (handcard.size() == 0){
+            return "{}";
+        }
         StringBuilder res = new StringBuilder("{");
         for (String card: handcard){
             res.append(card).append(", ");

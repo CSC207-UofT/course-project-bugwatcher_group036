@@ -37,7 +37,7 @@ public class EachRound implements IEachRound {
             return cardChecker.skipsPlayerCanPlay(toCheck);
         } else if (vars.getPlus() > 0){
             // if the last card is plus2, player can play plus2 or plus4.
-            if (cardChecker.getLastCard().equals("+4")) {
+            if (cardChecker.getLastCard().split(" ")[1].equals("+2")) {
                 return cardChecker.plusTwoPlayerCanPlay(toCheck);
             } else {
                 // if the last card is plus4, player can only play plus4.
@@ -62,7 +62,7 @@ public class EachRound implements IEachRound {
                 gameBoard.getHandCards(currentPlayeIndex).addCard(probablyDrawnCard);
             }
 
-            if (cardToPlay != null){
+            if (cardToPlay != null && !cardToPlay.equals("white -1")){
                 cardChecker.setLastCard(cardToPlay);
             }
         }
@@ -102,7 +102,7 @@ public class EachRound implements IEachRound {
                 cardToPlay = "white -1";
                 return cardToPlay;
             }
-            if (!playableCards.playCard(cardToPlayID)) {
+            if (!gameBoard.getHandCards(currentPlayerIndex).playCard(cardToPlayID)) {
                 wrongTimes++;
                 rightCard = false;
             } else {

@@ -81,6 +81,7 @@ public class CardChecker {
 
     public void setLastCard(String lastCard) {
         this.lastCard = lastCard;
+        currentColor = lastCard.split(" ")[0];
     }
 
     public String getCurrentColor() {
