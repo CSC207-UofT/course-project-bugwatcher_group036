@@ -9,10 +9,10 @@ import UseCase.UseCaseTerminal;
 
 public class EachRound implements IEachRound {
 
-    private GameBoard gameBoard;
-    private Dealer dealer;
-    private CardChecker cardChecker;
-    private UseCaseTerminal useCaseTerminal;
+    private final GameBoard gameBoard;
+    private final Dealer dealer;
+    private final CardChecker cardChecker;
+    private final UseCaseTerminal useCaseTerminal;
 
     public EachRound(GameBoard gameBoard, Dealer dealer, CardChecker cardChecker){
         this.gameBoard = gameBoard;

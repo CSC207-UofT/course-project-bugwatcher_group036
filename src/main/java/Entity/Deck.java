@@ -17,7 +17,8 @@ public class Deck {
         this.unused = new ArrayList<>();
         File testFile = new File("");
         try {
-            BufferedReader CardList = new BufferedReader(new FileReader(testFile.getAbsolutePath() + "/src/main/java/Constants/Cards.txt"));
+            BufferedReader CardList = new BufferedReader(new FileReader(testFile.getAbsolutePath() +
+                    "/src/main/java/Constants/Cards.txt"));
             String numberLine = CardList.readLine();
             while (numberLine != null){
                 unused.add(numberLine);
@@ -40,24 +41,6 @@ public class Deck {
         return unused.isEmpty();
         }
 
-//    /**
-//     * To remove a card from the unused card deck.
-//     *
-//     * @return Card that is removed from the unused card deck
-//     */
-//    public Card remove_card() {
-//        return unused_card_deck.remove(0);
-//    }
-
-
-//    /**
-//     * To add a card into the used_card_deck.
-//     *
-//     */
-//    public void add_card(Card card) {
-//        used_card_deck.add(card);
-//    }
-
     /**
      * To return the numbers of card in a card deck.
      *
@@ -69,34 +52,10 @@ public class Deck {
 
     /**
      * getter
-     * @return unsed_card_deck
-     */
-    public ArrayList<String> getUsedCardDeck(){
-        return used;
-    }
-
-    /**
-     * setter
-     * @param replacement the new deck to replace the old one
-     */
-    public void setUsedCardDeck(ArrayList<String> replacement){
-        used = replacement;
-    }
-
-    /**
-     * getter
      * @return unused_card_deck
      */
     public ArrayList<String> getUnusedCardDeck(){
         return unused;
-    }
-
-    /**
-     * setter
-     * @param replacement the new deck to replace the old one
-     */
-    public void setUnusedCardDeck(ArrayList<String> replacement){
-        unused = replacement;
     }
 
     public String drawCardFromUnusedDeck() {

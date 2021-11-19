@@ -3,12 +3,10 @@ package UseCase;
 import Entity.HandCard;
 import Entity.Status;
 
-import java.util.ArrayList;
-
 public class GameBoard {
 
-    private Status status;
-    private HandCard[] handCards;
+    private final Status status;
+    private final HandCard[] handCards;
 
     public GameBoard(int numberOfPlayers){
         this.status = new Status(numberOfPlayers);
@@ -33,9 +31,5 @@ public class GameBoard {
             }
         }
         return false;
-    }
-
-    public void setHandCards(HandCard[] handCards) {
-        this.handCards = handCards;
     }
 }

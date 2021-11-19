@@ -1,7 +1,5 @@
 package Entity;
 
-import java.util.ArrayList;
-
 public class CardChecker {
 
     private String lastCard;
@@ -82,9 +80,5 @@ public class CardChecker {
     public void setLastCard(String lastCard) {
         this.lastCard = lastCard;
         currentColor = lastCard.split(" ")[0];
-    }
-
-    public String getCurrentColor() {
-        return currentColor;
     }
 }

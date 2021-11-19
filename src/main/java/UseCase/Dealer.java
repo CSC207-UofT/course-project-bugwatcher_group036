@@ -7,8 +7,8 @@ import java.util.Collections;
 
 public class Dealer {
 
-    private Deck deck;
-    private EntityTerminal entityTerminal;
+    private final Deck deck;
+    private final EntityTerminal entityTerminal;
 
     public Dealer(Deck deck){
         this.deck = deck;
@@ -16,7 +16,7 @@ public class Dealer {
     }
 
     public String drawCard(){
-        if (deck.getUnusedCardDeck().size() == 0){
+        if (deck.isEmpty()){
             deck.shuffleFromUsedToUnused();
         }
         return deck.drawCardFromUnusedDeck();
@@ -86,9 +86,5 @@ public class Dealer {
                 cardChecker.functionCardResponse(feature, entityTerminal);
             }
         }
-    }
-
-    public Deck getDeck() {
-        return deck;
     }
 }
