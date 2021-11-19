@@ -4,6 +4,9 @@ public class GameStarter {
     public static void main(String[] args) {
         Controller UnoController = new Controller();
         UnoController.buildIEachRound();
-        System.out.println("Player \"" + UnoController.runGame() + "\" wins!");
+        String winner = UnoController.runGame();
+        if (winner != null) {
+            System.out.println("Player \"" + winner + "\" wins!");
+        }
     }
 }

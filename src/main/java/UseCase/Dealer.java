@@ -23,12 +23,14 @@ public class Dealer {
     }
 
     public String drawCardWithNotification(boolean noCard) {
+        // noCard represents whether the card draw is due to no card playable
         String drawn = drawCard();
         entityTerminal.drawCardNotification(drawn, noCard);
         return drawn;
     }
 
     public void plusManyNextPlayer(int currentPlayerIndex, GameBoard gameBoard) {
+        // draw multiple cards for given player and notify
         StringBuilder drawnCardName = new StringBuilder();
         int numToDraw = gameBoard.getStatus().getPlus();
         for (int i = 0; i < numToDraw; i++) {
@@ -49,9 +51,10 @@ public class Dealer {
         Status vars = gameBoard.getStatus();
         if (vars.getPlus() > 0){
             plusManyNextPlayer(currentPlayerIndex, gameBoard);
-            vars.setPlus(0);
+            vars.setPlus(0); // reset plus to zero
         } else if (!cardChecker.getLastCard().split(" ")[1].equals("skip") ||
                 (cardChecker.getLastCard().split(" ")[1].equals("skip") && !vars.isSkip())) {
+            // if really no card playable, let player draw card, with punish notification
             gameBoard.getHandCards(currentPlayerIndex).addCard(drawCardWithNotification(true));
         }
     }
@@ -59,8 +62,8 @@ public class Dealer {
     public String punishOrPlayCard(String cardToPlay) {
         if (cardToPlay == null) {
             entityTerminal.printString("Enter too many times wrong cards! Draw a card for punishment.");
-            return drawCardWithNotification(false);
-        } else if (!cardToPlay.equals("white -1")) {
+            return drawCardWithNotification(false); // not because no card playable
+        } else if (!cardToPlay.equals("white -1") && !cardToPlay.equals("quit")) { // if it is not voluntary draw
             deck.putCardToUsedDeck(cardToPlay);
         }
         return null;
@@ -71,17 +74,18 @@ public class Dealer {
         ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
-        if (toPlay != null && !toPlay.equals("white -1")) {
+        if (toPlay != null && !toPlay.equals("white -1") && !toPlay.equals("quit")) {
+            // if the player has played a card
             String feature = toPlay.split(" ")[1];
             entityTerminal.printString("The card " + toPlay + " is played.");
-            if (!num.contains(feature)) {
+            if (!num.contains(feature)) { // if function card is played
                 if (gameBoard.checkWinState()){
                     entityTerminal.printString("You played functioned card for last card, which is invalid.");
                     String punishCard = drawCardWithNotification(false);
                     gameBoard.getHandCards(gameBoard.getStatus().getCurrentPlayerIndex()).addCard(punishCard);
                 }
-                gameBoard.getStatus().functionCardResponse(feature);
-                cardChecker.functionCardResponse(feature, entityTerminal);
+                gameBoard.getStatus().functionCardResponse(feature); // respond according to features
+                cardChecker.functionCardResponse(feature, entityTerminal); // specific response for color change
             }
         }
     }

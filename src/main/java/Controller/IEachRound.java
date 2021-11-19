@@ -2,10 +2,12 @@ package Controller;
 
 import Entity.CardChecker;
 import Entity.HandCard;
-import UseCase.Dealer;
 import UseCase.GameBoard;
 import UseCase.UseCaseTerminal;
 
+/**
+ * Useed in controller, dependency injection purpose
+ */
 public interface IEachRound {
 
     void cardDeal(int numberOfPlayers);

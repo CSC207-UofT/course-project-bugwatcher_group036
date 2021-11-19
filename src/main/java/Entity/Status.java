@@ -39,6 +39,11 @@ public class Status {
         this.winFlag = winFlag;
     }
 
+    public void setQuit() {
+        winFlag = true;
+        currentPlayerIndex = -10;
+    }
+
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }

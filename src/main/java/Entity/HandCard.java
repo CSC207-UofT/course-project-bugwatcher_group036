@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Basically ArrayList of String, which represents cards
+ * and customize str method
+ */
 public class HandCard implements Iterable<String>{
 
-    private ArrayList<String> handcard;
-
-    public HandCard(ArrayList<String> handcard){
-        this.handcard = handcard;
-    }
+    private final ArrayList<String> handcard;
 
     public HandCard() {
-        this.handcard = new ArrayList<String>();
+        this.handcard = new ArrayList<>();
     }
 
     @Override
@@ -58,6 +58,7 @@ public class HandCard implements Iterable<String>{
         return handcard.isEmpty();
     }
 
+    @Override
     public String toString(){
         if (handcard.size() == 0){
             return "{}";

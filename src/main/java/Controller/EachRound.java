@@ -22,7 +22,7 @@ public class EachRound implements IEachRound {
     }
 
     public void cardDeal(int numberOfPlayers) {
-        for (int i = 0; i < 1; i++){
+        for (int i = 0; i < 7; i++){
             for (int j = 0; j < numberOfPlayers; j++){
                 gameBoard.getHandCards(j).addCard(dealer.drawCard());
             }
@@ -32,6 +32,7 @@ public class EachRound implements IEachRound {
     public HandCard beginStage() {
         Status vars = gameBoard.getStatus();
         int currentPlayerIndex = vars.getCurrentPlayerIndex();
+        // get the cards we need to check
         HandCard toCheck = gameBoard.getHandCards(currentPlayerIndex);
         if (vars.isSkip()) {
             return cardChecker.skipsPlayerCanPlay(toCheck);
@@ -55,15 +56,21 @@ public class EachRound implements IEachRound {
         if (playableCards.isEmpty()) {
             dealer.operationWhenNoPlayableCard(currentPlayeIndex, gameBoard, cardChecker);
         } else {
+            // if there's playable card, call play card method
             cardToPlay = letPlayerPlayCard(playableCards, currentPlayeIndex);
 
+            // return null if no punished card, and will pass the if statement
             String probablyDrawnCard = dealer.punishOrPlayCard(cardToPlay);
             if (probablyDrawnCard != null){
                 gameBoard.getHandCards(currentPlayeIndex).addCard(probablyDrawnCard);
             }
 
+            // if played card is valid, update last card
             if (cardToPlay != null && !cardToPlay.equals("white -1")){
                 cardChecker.setLastCard(cardToPlay);
+            }
+            if (cardToPlay != null && cardToPlay.equals("quit")) {
+                gameBoard.getStatus().setQuit();
             }
         }
         return cardToPlay;
@@ -74,12 +81,14 @@ public class EachRound implements IEachRound {
 
         vars.setSkip(false);
 
+        // last check for played card and update status
         dealer.checkLastCard(toPlay, gameBoard, cardChecker);
 
+        // check whether any player has no hand card, which means that player wins
         if(gameBoard.checkWinState()){
             vars.setWinFlag(true);
         }
-        //Move to the next player
+        // move to the next player
         vars.setCurrentPlayerIndex(vars.moveToNextPlayer());
     }
 
@@ -97,6 +106,10 @@ public class EachRound implements IEachRound {
         do {
             String cardToPlayID = useCaseTerminal.getCardToPlay();
 
+            if (cardToPlayID.equals("quit")) {
+                cardToPlay = "quit";
+                return cardToPlay;
+            }
             if (cardToPlayID.equals("draw")) {
                 gameBoard.getHandCards(currentPlayerIndex).addCard(dealer.drawCardWithNotification(false));
                 cardToPlay = "white -1";

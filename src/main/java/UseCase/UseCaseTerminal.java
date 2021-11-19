@@ -6,6 +6,11 @@ import Entity.HandCard;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Terminal used by eachRound.
+ * As eachRound is in controller level,
+ * this terminal is in UseCaseLevel for clean architecture.
+ */
 public class UseCaseTerminal {
 
     private Scanner input = new Scanner(System.in);
@@ -23,7 +28,7 @@ public class UseCaseTerminal {
     }
 
     public String getCardToPlay(){
-        System.out.println("Choose to play a card or type draw to draw a card:");
+        System.out.println("play a card, type \"draw\" to draw a card, or type \"quit\" to leave:");
         return input.nextLine();
     }
 }

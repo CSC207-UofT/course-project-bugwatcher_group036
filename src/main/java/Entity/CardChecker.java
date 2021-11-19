@@ -63,6 +63,7 @@ public class CardChecker {
     }
 
     public boolean singleCompare(String toCompare){
+        // check whether a single card is playable given the last card
         String toColor = toCompare.split(" ")[0];
         String toFeature = toCompare.split(" ")[1];
         String lastColor = lastCard.split(" ")[0];
