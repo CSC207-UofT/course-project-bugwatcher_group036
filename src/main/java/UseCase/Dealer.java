@@ -56,7 +56,7 @@ public class Dealer {
         }
     }
 
-    public String punishOrPlayCard(String cardToPlay, int currentPlayerIndex) {
+    public String punishOrPlayCard(String cardToPlay) {
         if (cardToPlay == null) {
             entityTerminal.printString("Enter too many times wrong cards! Draw a card for punishment.");
             return drawCardWithNotification(false);
@@ -67,8 +67,6 @@ public class Dealer {
     }
 
     public void checkLastCard(String toPlay, GameBoard gameBoard, CardChecker cardChecker) {
-        Status vars = gameBoard.getStatus();
-
         // create the arrayList for all possible number features
         ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");

@@ -57,7 +57,7 @@ public class EachRound implements IEachRound {
         } else {
             cardToPlay = letPlayerPlayCard(playableCards, currentPlayeIndex);
 
-            String probablyDrawnCard = dealer.punishOrPlayCard(cardToPlay, currentPlayeIndex);
+            String probablyDrawnCard = dealer.punishOrPlayCard(cardToPlay);
             if (probablyDrawnCard != null){
                 gameBoard.getHandCards(currentPlayeIndex).addCard(probablyDrawnCard);
             }
@@ -120,10 +120,6 @@ public class EachRound implements IEachRound {
 
     public UseCaseTerminal getTerminal() {
         return useCaseTerminal;
-    }
-
-    public Dealer getDealer() {
-        return dealer;
     }
 
     public CardChecker getCardChecker() {

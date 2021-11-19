@@ -27,10 +27,6 @@ public class Status {
         this.currentPlayerIndex = rand.nextInt(numberOfPlayers);
     }
 
-    public boolean isReverse() {
-        return reverse;
-    }
-
     public void changeReverseState() {
         this.reverse = !this.reverse;
     }
@@ -81,10 +77,6 @@ public class Status {
             case "+4":
                 setPlus(plus + 4);
         }
-    }
-
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
     }
 
     public int moveToNextPlayer() {

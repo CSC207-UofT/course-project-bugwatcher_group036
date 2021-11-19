@@ -42,15 +42,6 @@ public class Deck {
         }
 
     /**
-     * To return the numbers of card in a card deck.
-     *
-     * @return the numbers of card in a card deck.
-     */
-    public int numOfCards(ArrayList<String> deck) {
-        return deck.size();
-    }
-
-    /**
      * getter
      * @return unused_card_deck
      */

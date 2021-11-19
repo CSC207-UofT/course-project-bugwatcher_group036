@@ -22,7 +22,5 @@ public interface IEachRound {
 
     UseCaseTerminal getTerminal();
 
-    Dealer getDealer();
-
     CardChecker getCardChecker();
 }

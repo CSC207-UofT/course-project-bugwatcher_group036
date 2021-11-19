@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class Controller {
 
-    private ArrayList<String> ids;
-    private int numberOfPlayers;
+    private final ArrayList<String> ids;
+    private final int numberOfPlayers;
     private IEachRound iEachRound;
 
     public Controller(){
