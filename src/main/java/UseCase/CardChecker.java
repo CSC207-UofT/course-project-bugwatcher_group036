@@ -1,4 +1,7 @@
-package Entity;
+package UseCase;
+
+import Controller.ITerminal;
+import Entity.HandCard;
 
 public class CardChecker {
 
@@ -10,9 +13,9 @@ public class CardChecker {
         currentColor = null;
     }
 
-    public void functionCardResponse(String feature, EntityTerminal entityTerminal) {
+    public void functionCardResponse(String feature, ITerminal iTerminal) {
         if (feature.equals("+4") || feature.equals("switch")) {
-            currentColor = entityTerminal.typeSetColor();
+            currentColor = iTerminal.typeSetColor();
         }
     }
 

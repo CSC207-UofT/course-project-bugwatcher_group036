@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.ITerminal;
 import Entity.*;
 
 import java.util.ArrayList;
@@ -8,11 +9,10 @@ import java.util.Collections;
 public class Dealer {
 
     private final Deck deck;
-    private final EntityTerminal entityTerminal;
+    private ITerminal iTerminal;
 
     public Dealer(Deck deck){
         this.deck = deck;
-        this.entityTerminal = new EntityTerminal();
     }
 
     public String drawCard(){
@@ -25,43 +25,42 @@ public class Dealer {
     public String drawCardWithNotification(boolean noCard) {
         // noCard represents whether the card draw is due to no card playable
         String drawn = drawCard();
-        entityTerminal.drawCardNotification(drawn, noCard);
+        iTerminal.drawCardNotification(drawn, noCard);
         return drawn;
     }
 
-    public void plusManyNextPlayer(int currentPlayerIndex, GameBoard gameBoard) {
+    public void plusManyNextPlayer(Status vars, HandCard handCard) {
         // draw multiple cards for given player and notify
         StringBuilder drawnCardName = new StringBuilder();
-        int numToDraw = gameBoard.getStatus().getPlus();
+        int numToDraw = vars.getPlus();
         for (int i = 0; i < numToDraw; i++) {
             String drawnCard = drawCard();
             if (drawnCard != null) {
-                gameBoard.getHandCards(currentPlayerIndex).addCard(drawnCard);
+                handCard.addCard(drawnCard);
                 drawnCardName.append(drawnCard);
             }
             if (i != numToDraw - 1) {
                 drawnCardName.append(", ");
             }
         }
-        entityTerminal.printString("You draw " + numToDraw + " cards. The cards you've drawn are " +
+        iTerminal.printString("You draw " + numToDraw + " cards. The cards you've drawn are " +
                 drawnCardName + ".");
     }
 
-    public void operationWhenNoPlayableCard(int currentPlayerIndex, GameBoard gameBoard, CardChecker cardChecker) {
-        Status vars = gameBoard.getStatus();
+    public void operationWhenNoPlayableCard(Status vars, HandCard handCard, CardChecker cardChecker) {
         if (vars.getPlus() > 0){
-            plusManyNextPlayer(currentPlayerIndex, gameBoard);
+            plusManyNextPlayer(vars, handCard);
             vars.setPlus(0); // reset plus to zero
         } else if (!cardChecker.getLastCard().split(" ")[1].equals("skip") ||
                 (cardChecker.getLastCard().split(" ")[1].equals("skip") && !vars.isSkip())) {
             // if really no card playable, let player draw card, with punish notification
-            gameBoard.getHandCards(currentPlayerIndex).addCard(drawCardWithNotification(true));
+            handCard.addCard(drawCardWithNotification(true));
         }
     }
 
     public String punishOrPlayCard(String cardToPlay) {
         if (cardToPlay == null) {
-            entityTerminal.printString("Enter too many times wrong cards! Draw a card for punishment.");
+            iTerminal.printString("Enter too many times wrong cards! Draw a card for punishment.");
             return drawCardWithNotification(false); // not because no card playable
         } else if (!cardToPlay.equals("white -1") && !cardToPlay.equals("quit")) { // if it is not voluntary draw
             deck.putCardToUsedDeck(cardToPlay);
@@ -69,7 +68,7 @@ public class Dealer {
         return null;
     }
 
-    public void checkLastCard(String toPlay, GameBoard gameBoard, CardChecker cardChecker) {
+    public void checkLastCard(String toPlay, HandCard handCard, Status vars, CardChecker cardChecker) {
         // create the arrayList for all possible number features
         ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
@@ -77,16 +76,20 @@ public class Dealer {
         if (toPlay != null && !toPlay.equals("white -1") && !toPlay.equals("quit")) {
             // if the player has played a card
             String feature = toPlay.split(" ")[1];
-            entityTerminal.printString("The card " + toPlay + " is played.");
+            iTerminal.printString("The card " + toPlay + " is played.");
             if (!num.contains(feature)) { // if function card is played
-                if (gameBoard.checkWinState()){
-                    entityTerminal.printString("You played functioned card for last card, which is invalid.");
+                if (handCard.isEmpty()){
+                    iTerminal.printString("You played functioned card for last card, which is invalid.");
                     String punishCard = drawCardWithNotification(false);
-                    gameBoard.getHandCards(gameBoard.getStatus().getCurrentPlayerIndex()).addCard(punishCard);
+                    handCard.addCard(punishCard);
                 }
-                gameBoard.getStatus().functionCardResponse(feature); // respond according to features
-                cardChecker.functionCardResponse(feature, entityTerminal); // specific response for color change
+                vars.functionCardResponse(feature); // respond according to features
+                cardChecker.functionCardResponse(feature, iTerminal); // specific response for color change
             }
         }
+    }
+
+    public void setiTerminal(ITerminal iTerminal) {
+        this.iTerminal = iTerminal;
     }
 }

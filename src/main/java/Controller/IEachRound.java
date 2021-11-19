@@ -1,9 +1,8 @@
 package Controller;
 
-import Entity.CardChecker;
+import UseCase.CardChecker;
 import Entity.HandCard;
 import UseCase.GameBoard;
-import UseCase.UseCaseTerminal;
 
 /**
  * Useed in controller, dependency injection purpose
@@ -22,7 +21,7 @@ public interface IEachRound {
 
     GameBoard getGameBoard();
 
-    UseCaseTerminal getTerminal();
+    ITerminal getTerminal();
 
     CardChecker getCardChecker();
 }

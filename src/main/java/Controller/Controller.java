@@ -1,6 +1,6 @@
 package Controller;
 
-import Entity.CardChecker;
+import UseCase.CardChecker;
 import Entity.Deck;
 import Entity.HandCard;
 import UseCase.Dealer;

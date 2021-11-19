@@ -1,4 +1,8 @@
-package Entity;
+package Controller;
+
+import UseCase.CardChecker;
+import Entity.HandCard;
+import UseCase.GameBoard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,9 +13,26 @@ import java.util.Scanner;
  * As dealer is in use case level,
  * we put this terminal in entity level for clean architecture.
  */
-public class EntityTerminal {
+public class Terminal implements ITerminal {
 
     private Scanner input = new Scanner(System.in);
+
+    public void beginStage(int currentPlayerIndex, ArrayList<String> ids){
+        System.out.println();
+        System.out.println("Current Player:" + ids.get(currentPlayerIndex));
+    }
+
+    public void playStage(GameBoard gameBoard, CardChecker cardChecker, HandCard playableCards){
+        int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
+        System.out.println("Last Card: " + cardChecker.getLastCard());
+        System.out.println("The cards you have: " + gameBoard.getHandCards(currentPlayerIndex));
+        System.out.println("The cards you can play: " + playableCards);
+    }
+
+    public String getCardToPlay(){
+        System.out.println("play a card, type \"draw\" to draw a card, or type \"quit\" to leave:");
+        return input.nextLine();
+    }
 
     public void printString(String message){
         System.out.println(message); // print sentence message

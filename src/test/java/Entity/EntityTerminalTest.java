@@ -1,12 +1,13 @@
 package Entity;
 
+import Controller.Terminal;
 import org.junit.jupiter.api.Test;
 
 public class EntityTerminalTest {
 
     @Test
     public void testOutput(){
-        EntityTerminal e = new EntityTerminal();
+        Terminal e = new Terminal();
         e.printString("test");
         e.drawCardNotification("test", false);
         e.drawCardNotification("test", true);

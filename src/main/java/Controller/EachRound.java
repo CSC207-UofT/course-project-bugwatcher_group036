@@ -2,27 +2,27 @@ package Controller;
 
 import Entity.HandCard;
 import Entity.Status;
-import Entity.CardChecker;
+import UseCase.CardChecker;
 import UseCase.Dealer;
 import UseCase.GameBoard;
-import UseCase.UseCaseTerminal;
 
 public class EachRound implements IEachRound {
 
     private final GameBoard gameBoard;
     private final Dealer dealer;
     private final CardChecker cardChecker;
-    private final UseCaseTerminal useCaseTerminal;
+    private final ITerminal iTerminal;
 
     public EachRound(GameBoard gameBoard, Dealer dealer, CardChecker cardChecker){
         this.gameBoard = gameBoard;
         this.dealer = dealer;
         this.cardChecker = cardChecker;
-        this.useCaseTerminal = new UseCaseTerminal();
+        this.iTerminal = new Terminal();
+        dealer.setiTerminal(iTerminal);
     }
 
     public void cardDeal(int numberOfPlayers) {
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 1; i++){
             for (int j = 0; j < numberOfPlayers; j++){
                 gameBoard.getHandCards(j).addCard(dealer.drawCard());
             }
@@ -51,38 +51,41 @@ public class EachRound implements IEachRound {
         }
     }
 
-    public String playStage(HandCard playableCards, int currentPlayeIndex) {
+    public String playStage(HandCard playableCards, int currentPlayerIndex) {
         String cardToPlay = null;
         if (playableCards.isEmpty()) {
-            dealer.operationWhenNoPlayableCard(currentPlayeIndex, gameBoard, cardChecker);
+            dealer.operationWhenNoPlayableCard(gameBoard.getStatus(),
+                    gameBoard.getHandCards(currentPlayerIndex), cardChecker);
         } else {
             // if there's playable card, call play card method
-            cardToPlay = letPlayerPlayCard(playableCards, currentPlayeIndex);
+            cardToPlay = letPlayerPlayCard(playableCards, currentPlayerIndex);
 
             // return null if no punished card, and will pass the if statement
             String probablyDrawnCard = dealer.punishOrPlayCard(cardToPlay);
             if (probablyDrawnCard != null){
-                gameBoard.getHandCards(currentPlayeIndex).addCard(probablyDrawnCard);
+                gameBoard.getHandCards(currentPlayerIndex).addCard(probablyDrawnCard);
             }
 
             // if played card is valid, update last card
             if (cardToPlay != null && !cardToPlay.equals("white -1")){
                 cardChecker.setLastCard(cardToPlay);
             }
-            if (cardToPlay != null && cardToPlay.equals("quit")) {
-                gameBoard.getStatus().setQuit();
-            }
         }
         return cardToPlay;
     }
 
     public void endStage(String toPlay) {
+        if (toPlay != null && toPlay.equals("quit")) {
+            gameBoard.getStatus().setQuit();
+            return;
+        }
         Status vars = gameBoard.getStatus();
 
         vars.setSkip(false);
 
         // last check for played card and update status
-        dealer.checkLastCard(toPlay, gameBoard, cardChecker);
+        dealer.checkLastCard(toPlay,
+                gameBoard.getHandCards(vars.getCurrentPlayerIndex()), vars, cardChecker);
 
         // check whether any player has no hand card, which means that player wins
         if(gameBoard.checkWinState()){
@@ -104,7 +107,7 @@ public class EachRound implements IEachRound {
         // Let the player type the card to play. If type a wrong card, type again,
         // with maximum 3 times.
         do {
-            String cardToPlayID = useCaseTerminal.getCardToPlay();
+            String cardToPlayID = iTerminal.getCardToPlay();
 
             if (cardToPlayID.equals("quit")) {
                 cardToPlay = "quit";
@@ -131,8 +134,8 @@ public class EachRound implements IEachRound {
         return gameBoard;
     }
 
-    public UseCaseTerminal getTerminal() {
-        return useCaseTerminal;
+    public ITerminal getTerminal() {
+        return iTerminal;
     }
 
     public CardChecker getCardChecker() {
