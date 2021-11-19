@@ -22,7 +22,7 @@ public class EachRound implements IEachRound {
     }
 
     public void cardDeal(int numberOfPlayers) {
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 1; i++){
             for (int j = 0; j < numberOfPlayers; j++){
                 gameBoard.getHandCards(j).addCard(dealer.drawCard());
             }

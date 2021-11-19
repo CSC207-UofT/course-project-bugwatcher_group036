@@ -80,6 +80,7 @@ public class Dealer {
                 if (gameBoard.checkWinState()){
                     entityTerminal.printString("You played functioned card for last card, which is invalid.");
                     String punishCard = drawCardWithNotification(false);
+                    gameBoard.getHandCards(gameBoard.getStatus().getCurrentPlayerIndex()).addCard(punishCard);
                 }
                 gameBoard.getStatus().functionCardResponse(feature);
                 cardChecker.functionCardResponse(feature, entityTerminal);
