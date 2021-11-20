@@ -1,33 +1,39 @@
 package Entity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
-public class Deck implements Serializable{
+public class Deck {
 
-    private ArrayList<Card> used;
-    private ArrayList<Card> unused;
+    private ArrayList<String> used;
+    private ArrayList<String> unused;
 
     /**
-     * Construct a empty deck in UNO card game.
+     * Construct the Deck in UNO card game.
      *
      */
     public Deck(){
         this.used = new ArrayList<>();
         this.unused = new ArrayList<>();
-    }
-    /**
-     * Construct the Deck in UNO card game with given arraylist of cards.
-     *
-     */
-    public Deck(ArrayList<Card> cards){
-        this.used = new ArrayList<>();
-        this.unused = cards;
+        File testFile = new File("");
+        try {
+            BufferedReader CardList = new BufferedReader(new FileReader(testFile.getAbsolutePath() +
+                    "/src/main/java/Constants/Cards.txt"));
+            String numberLine = CardList.readLine();
+            while (numberLine != null){
+                unused.add(numberLine);
+                numberLine = CardList.readLine();
+            }
+        }
+        catch (FileNotFoundException fileMissing){
+            System.out.println("Card file not found. Check directory.");
+
+        }
+        catch (IOException ignored) {} // wise: don't know how to handle this case
     }
 
     /**
-     * Check whether the unused_card_deck is empty.
+     * To check whether the unused_card_deck is empty.
      *
      * If the card deck is empty, Placed all the used card into the card deck.
      */
@@ -36,110 +42,29 @@ public class Deck implements Serializable{
         }
 
     /**
-     * Add a card into the used_card_deck.
-     *
+     * getter
+     * @return unused_card_deck
      */
-    public void addcard(Card card) {
-        unused.add(card);
-    }
-
-    /**
-     * Get the used card in the deck.
-     *
-     * @return Used card in the deck.
-     */
-    public int numOfCards(ArrayList<Card> deck) {
-        return deck.size();
-    }
-
-    /**
-     * Get the number of used card in the deck.
-     *
-     * @return Number of used card in the deck.
-     */
-    public ArrayList<Card> getUsedCardDeck(){
-        return used;
-    }
-
-    /**
-     * Set the used card deck.
-     *
-     * @param replacement the new deck to replace the old one.
-     */
-    public void setUsedCardDeck(ArrayList<Card> replacement){
-        used = replacement;
-    }
-
-    /**
-     * Get the unused card in the deck.
-     *
-     * @return Unused card in the deck.
-     */
-    public ArrayList<Card> getUnusedCardDeck(){
+    public ArrayList<String> getUnusedCardDeck(){
         return unused;
     }
 
-    /**
-     * Set the unused card in the deck.
-     *
-     * @param replacement the new deck to replace the old one
-     */
-    public void setUnusedCardDeck(ArrayList<Card> replacement){
-        unused = replacement;
-    }
-
-    /**
-     * Draw card form the unused card deck.
-     *
-     * @return The card that drawn from unused deck.
-     */
-    public Card drawCardFromUnusedDeck() {
+    public String drawCardFromUnusedDeck() {
+        if (unused.size() == 0) {
+            return null;
+        }
         Random rand = new Random();
         int index = rand.nextInt(unused.size());
         return unused.remove(index);
     }
 
-    /**
-     * Shuffle the card from the used card deck to the unused card deck.
-     *
-     * @return Whether successful or not.
-     */
-    public boolean shuffleFromUsedToUnused() {
-        if (used.isEmpty()) {
-            return false;
-        } else {
-            ArrayList<Card> temp = unused;
-            unused = used;
-            used = temp;
-            return true;
-        }
-
+    public void shuffleFromUsedToUnused() {
+        unused = used;
+        used = new ArrayList<>();
     }
 
-    /**
-     * Put card in to the used Card deck.
-     *
-     * @param card The card that will be put.
-     */
-    public void putCardToUsedDeck(Card card) {
-        used.add(card);
-    }
-
-    /**
-     * This method is added for test, which return a deck contains 40 cards.
-     *
-      * @return A deck contain 40 cards.
-     */
-    public ArrayList<Card> setDefaultDeck(){
-        String[] colors = {"red", "green", "blue", "yellow"};
-        for (String color : colors) {
-            for (int i = 0; i < 10; i++) {
-                Card newCard = new NumberCard(color, i, color + i);
-                unused.add(newCard);
-            }
-        }
-
-        return unused;
+    public void putCardToUsedDeck(String c) {
+        used.add(c);
     }
 
 }
