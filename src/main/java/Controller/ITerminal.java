@@ -14,9 +14,13 @@ public interface ITerminal {
 
     String typeSetColor();
 
+    String typeSetColorForComputer();
+
     void beginStage(int currentPlayerIndex, ArrayList<String> ids);
 
     void playStage(GameBoard gameBoard, CardChecker cardChecker, HandCard playableCards);
 
     String getCardToPlay();
+
+    void getCardToPlayForComputer();
 }

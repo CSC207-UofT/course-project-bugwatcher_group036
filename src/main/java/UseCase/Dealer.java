@@ -54,7 +54,8 @@ public class Dealer {
         } else if (!cardChecker.getLastCard().split(" ")[1].equals("skip") ||
                 (cardChecker.getLastCard().split(" ")[1].equals("skip") && !vars.isSkip())) {
             // if really no card playable, let player draw card, with punish notification
-            handCard.addCard(drawCardWithNotification(true));
+            String drawnCardName = drawCardWithNotification(true);
+            handCard.addCard(drawnCardName);
         }
     }
 
@@ -85,6 +86,27 @@ public class Dealer {
                 }
                 vars.functionCardResponse(feature); // respond according to features
                 cardChecker.functionCardResponse(feature, iTerminal); // specific response for color change
+            }
+        }
+    }
+
+    public void checkLastCardForComputer(String toPlay, HandCard handCard, Status vars, CardChecker cardChecker) {
+        // create the arrayList for all possible number features
+        ArrayList<String> num = new ArrayList<>();
+        Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+
+        if (toPlay != null && !toPlay.equals("white -1") && !toPlay.equals("quit")) {
+            // if the player has played a card
+            String feature = toPlay.split(" ")[1];
+            iTerminal.printString("The card " + toPlay + " is played.");
+            if (!num.contains(feature)) { // if function card is played
+                if (handCard.isEmpty()){
+                    iTerminal.printString("You played functioned card for last card, which is invalid.");
+                    String punishCard = drawCardWithNotification(false);
+                    handCard.addCard(punishCard);
+                }
+                vars.functionCardResponse(feature); // respond according to features
+                cardChecker.functionCardResponseForComputer(feature, iTerminal); // specific response for color change
             }
         }
     }

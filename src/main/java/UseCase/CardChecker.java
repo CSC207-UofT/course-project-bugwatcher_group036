@@ -3,6 +3,10 @@ package UseCase;
 import Controller.ITerminal;
 import Entity.HandCard;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
 public class CardChecker {
 
     private String lastCard;
@@ -16,6 +20,12 @@ public class CardChecker {
     public void functionCardResponse(String feature, ITerminal iTerminal) {
         if (feature.equals("+4") || feature.equals("switch")) {
             currentColor = iTerminal.typeSetColor();
+        }
+    }
+
+    public void functionCardResponseForComputer(String feature, ITerminal iTerminal) {
+        if (feature.equals("+4") || feature.equals("switch")) {
+            currentColor = iTerminal.typeSetColorForComputer();
         }
     }
 

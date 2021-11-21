@@ -6,6 +6,7 @@ import UseCase.GameBoard;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -32,6 +33,10 @@ public class Terminal implements ITerminal {
     public String getCardToPlay(){
         System.out.println("play a card, type \"draw\" to draw a card, or type \"quit\" to leave:");
         return input.nextLine();
+    }
+
+    public void getCardToPlayForComputer(){
+        System.out.println("play a card, type \"draw\" to draw a card, or type \"quit\" to leave:");
     }
 
     public void printString(String message){
@@ -67,5 +72,15 @@ public class Terminal implements ITerminal {
         }
         System.out.println("Color " + setColor + " is set.");
         return setColor;
+    }
+
+    public String typeSetColorForComputer() {
+        ArrayList<String> colors = new ArrayList<>();
+        Collections.addAll(colors, "red", "blue", "yellow", "green");
+        Random rand = new Random();
+        String color = colors.get(rand.nextInt(4));
+
+        System.out.println("Color " + color + " is set.");
+        return color;
     }
 }

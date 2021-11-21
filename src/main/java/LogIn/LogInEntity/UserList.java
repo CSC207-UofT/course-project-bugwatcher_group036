@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A map of username —> User object.
+ * A map of username -> User object.
  */
 public class UserList implements Serializable {
 

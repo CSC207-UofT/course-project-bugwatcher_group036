@@ -6,6 +6,9 @@ import UseCase.CardChecker;
 import UseCase.Dealer;
 import UseCase.GameBoard;
 
+import java.util.concurrent.TimeUnit;
+import static java.lang.Thread.sleep;
+
 public class EachRound implements IEachRound {
 
     private final GameBoard gameBoard;
@@ -74,6 +77,28 @@ public class EachRound implements IEachRound {
         return cardToPlay;
     }
 
+    public String playStageForComputer(HandCard playableCards, int currentPlayerIndex) throws InterruptedException {
+        if (currentPlayerIndex == 0) {
+            return playStage(playableCards, currentPlayerIndex);
+        }
+        String cardToPlay = null;
+        if (playableCards.isEmpty()) {
+            dealer.operationWhenNoPlayableCard(gameBoard.getStatus(),
+                    gameBoard.getHandCards(currentPlayerIndex), cardChecker);
+            sleep(1300);
+        } else {
+            // if there's playable card, call play card method
+            cardToPlay = letPlayerPlayCardForComputer(playableCards, currentPlayerIndex);
+
+            // if played card is valid, update last card
+            if (cardToPlay != null && !cardToPlay.equals("white -1")){
+                cardChecker.setLastCard(cardToPlay);
+            }
+            sleep(1300);
+        }
+        return cardToPlay;
+    }
+
     public void endStage(String toPlay) {
         if (toPlay != null && toPlay.equals("quit")) {
             gameBoard.getStatus().setQuit();
@@ -93,6 +118,29 @@ public class EachRound implements IEachRound {
         }
         // move to the next player
         vars.setCurrentPlayerIndex(vars.moveToNextPlayer());
+    }
+
+    public void endStageForComputer(String toPlay, int currentPlayerIndex) throws InterruptedException {
+        if (currentPlayerIndex == 0) {
+            endStage(toPlay);
+        } else {
+            Status vars = gameBoard.getStatus();
+
+            vars.setSkip(false);
+
+            // last check for played card and update status
+            dealer.checkLastCardForComputer(toPlay,
+                    gameBoard.getHandCards(vars.getCurrentPlayerIndex()), vars, cardChecker);
+
+            // check whether any player has no hand card, which means that player wins
+            if(gameBoard.checkWinState()){
+                vars.setWinFlag(true);
+            }
+            sleep(1300);
+            // move to the next player
+            vars.setCurrentPlayerIndex(vars.moveToNextPlayer());
+        }
+
     }
 
     public String letPlayerPlayCard(HandCard playableCards, int currentPlayerIndex) {
@@ -127,6 +175,14 @@ public class EachRound implements IEachRound {
             }
         } while (!rightCard && wrongTimes < 3);
         //exit when the player types the right class or wrong time exceed 3
+        return cardToPlay;
+    }
+
+    public String letPlayerPlayCardForComputer(HandCard playableCards, int currentPlayerIndex) {
+        String cardToPlay = null;
+
+        cardToPlay = playableCards.playCardWithIndex(0);
+
         return cardToPlay;
     }
 
