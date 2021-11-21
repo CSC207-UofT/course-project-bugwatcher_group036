@@ -67,4 +67,7 @@ public class Deck {
         used.add(c);
     }
 
+    public void setUnused(ArrayList<String> table) {
+        this.unused = table;
+    }
 }

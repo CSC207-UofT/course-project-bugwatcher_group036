@@ -12,14 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CardCheckerTest {
 
     @Test
-    public void testInitialization1(){
+    public void testInitialization(){
         CardChecker checker = new CardChecker();
         assertNull(checker.getLastCard());
-    }
-
-    @Test
-    public void testInitialization2(){
-        CardChecker checker = new CardChecker();
         assertNull(checker.getCurrentColor());
     }
 

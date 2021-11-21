@@ -89,6 +89,10 @@ public class Dealer {
         }
     }
 
+    public Deck getDeck() {
+        return this.deck;
+    }
+
     public void setiTerminal(ITerminal iTerminal) {
         this.iTerminal = iTerminal;
     }
