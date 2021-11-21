@@ -7,5 +7,5 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GameBoard {
+public class GameBoardTest {
 }
