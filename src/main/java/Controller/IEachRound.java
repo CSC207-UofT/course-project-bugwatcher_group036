@@ -15,7 +15,11 @@ public interface IEachRound {
 
     String playStage(HandCard playableCards, int currentPlayeIndex);
 
+    String playStageForComputer(HandCard playableCards, int currentPlayeIndex) throws InterruptedException;
+
     void endStage(String toPlay);
+
+    void endStageForComputer(String toPlay, int currentPlayerIndex) throws InterruptedException;
 
     String letPlayerPlayCard(HandCard playableCards, int currentPlayerIndex);
 
