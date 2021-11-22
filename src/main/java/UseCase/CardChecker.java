@@ -72,7 +72,7 @@ public class CardChecker {
         String lastColor = lastCard.split(" ")[0];
         String lastFeature = lastCard.split(" ")[1];
         if (lastColor.equals("black")) {
-            return lastFeature.equals(toFeature) || toColor.equals(currentColor);
+            return lastFeature.equals(toFeature) || toColor.equals(currentColor) || toColor.equals("black");
         }
         return lastFeature.equals(toFeature) || lastColor.equals(toColor);
     }
@@ -81,8 +81,16 @@ public class CardChecker {
         return lastCard;
     }
 
+    public String getCurrentColor() {
+        return currentColor;
+    }
+
     public void setLastCard(String lastCard) {
         this.lastCard = lastCard;
         currentColor = lastCard.split(" ")[0];
+    }
+
+    public void setCurrentColor(String color) {
+        this.currentColor = color;
     }
 }

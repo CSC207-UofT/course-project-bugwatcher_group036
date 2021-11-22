@@ -1,9 +1,8 @@
-package Entity;
+package Controller;
 
-import Controller.Terminal;
 import org.junit.jupiter.api.Test;
 
-public class EntityTerminalTest {
+public class TerminalTest {
 
     @Test
     public void testOutput(){

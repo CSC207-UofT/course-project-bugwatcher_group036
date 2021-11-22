@@ -18,7 +18,7 @@ public class Deck {
         File testFile = new File("");
         try {
             BufferedReader CardList = new BufferedReader(new FileReader(testFile.getAbsolutePath() +
-                    "/src/main/java/Constants/Cards.txt"));
+                    "/src/main/java/DataSet/Cards.txt"));
             String numberLine = CardList.readLine();
             while (numberLine != null){
                 unused.add(numberLine);
@@ -67,4 +67,7 @@ public class Deck {
         used.add(c);
     }
 
+    public void setUnused(ArrayList<String> table) {
+        this.unused = table;
+    }
 }
