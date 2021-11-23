@@ -18,23 +18,29 @@ public class EachRoundTest {
     CardChecker cardChecker;
     ITerminal iTerminal;
 
+    EachRound eachRound = new EachRound(gameBoard, dealer, cardChecker);
+
 
     @Test
     public void testInitialization(){
-        EachRound eachRound = new EachRound(gameBoard, dealer, cardChecker);
-        assertEquals(eachRound.getCardChecker(), cardChecker);
-
+        EachRound eachRound0 = new EachRound(gameBoard, dealer, cardChecker);
+        assertEquals(eachRound0.getCardChecker(), cardChecker);
+        assertEquals(eachRound0.getGameBoard(), gameBoard);
+        assertEquals(eachRound0.getTerminal(), iTerminal);
     }
 
     @Test
     public void testGetGameBoard() {
+        assertEquals(eachRound.getGameBoard(), gameBoard);
     }
 
     @Test
     public void testGetTerminal() {
+        assertEquals(eachRound.getTerminal(), iTerminal);
     }
 
     @Test
     public void testGetCardChecker() {
+        assertEquals(eachRound.getCardChecker(), cardChecker);
     }
 }
