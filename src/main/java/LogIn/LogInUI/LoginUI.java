@@ -76,6 +76,7 @@ public class LoginUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent button) {
         if (button.getSource() == loginButton){
             useCase = new LoginUseCase(false);
+            loginController = new LoginController(useCase);
             if (loginController.runLogin(usernameInput.getText(), passwordInput.getText())) {
                 System.out.println("Login success!");
                 this.dispose();
