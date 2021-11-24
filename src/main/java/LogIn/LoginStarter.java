@@ -3,12 +3,13 @@ package LogIn;
 import LogIn.LogInController.CmdLineUI;
 import LogIn.LogInController.LoginController;
 import LogIn.LogInUseCase.LoginUseCase;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Scanner;
 
 public class LoginStarter {
 
-    public static String login() {
+    public static @NotNull String login() {
         LoginUseCase useCase;
         String choice = loginInput();
         if (choice.equals("1")) {
