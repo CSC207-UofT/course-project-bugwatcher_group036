@@ -7,6 +7,7 @@ public class Status {
     private boolean reverse = false;
     // WinFlag is used to indicate whether a winner appears.
     private boolean winFlag = false;
+    // The index or position of the player for a certain turn.
     private int currentPlayerIndex;
     // Whether the current player need to skip the turn.
     private boolean skip = false;
