@@ -2,11 +2,11 @@ package Controller;
 
 import org.junit.jupiter.api.Test;
 
-public class TerminalTest {
+public class PresenterTest {
 
     @Test
     public void testOutput(){
-        Terminal e = new Terminal();
+        Presenter e = new Presenter();
         e.printString("test");
         e.drawCardNotification("test", false);
         e.drawCardNotification("test", true);
