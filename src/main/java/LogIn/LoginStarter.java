@@ -2,6 +2,7 @@ package LogIn;
 
 import LogIn.LogInController.CmdLineUI;
 import LogIn.LogInController.LoginController;
+import LogIn.LogInUI.LoginUI;
 import LogIn.LogInUseCase.LoginUseCase;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,5 +42,10 @@ public class LoginStarter {
             choice = input.nextLine();
         }
         return choice;
+    }
+
+    public static void main(String[] args) {
+        LoginUI ui = new LoginUI();
+
     }
 }

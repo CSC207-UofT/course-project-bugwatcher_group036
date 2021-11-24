@@ -1,27 +1,35 @@
 package LogIn.LogInUI;
+import LogIn.LogInController.LoginController;
+import LogIn.LogInUseCase.LoginInputBoundary;
+import LogIn.LogInUseCase.LoginUseCase;
+
 import javax.swing.*;
 
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class LoginUI extends JFrame implements ActionListener {
 
-    JLabel label = new JLabel();
+    JLabel Guide = new JLabel();
+    JLabel quitGuide = new JLabel();
     JLabel Username = new JLabel();
     JLabel Password = new JLabel();
-    JButton loginBT = new JButton();
-    JButton createBT = new JButton();
-    JTextField username = new JTextField();
-    JTextField password = new JTextField();
+    JButton loginButton = new JButton();
+    JButton registerButton = new JButton();
+    JTextField usernameInput = new JTextField();
+    JTextField passwordInput = new JTextField();
+    LoginUseCase useCase;
+    LoginController loginController = new LoginController(useCase);
 
-    LoginUI(){
+    public LoginUI(){
 
-        label.setText("Please login, or create an account if you don't have one.");
-        label.setVerticalAlignment(JLabel.TOP);
-        label.setBounds(0,0,400,20);
+        Guide.setText("Please login, or create an account if you don't have one.");
+//        Guide.setVerticalAlignment(JLabel.TOP);
+        Guide.setBounds(10,0,400,20);
+
+        quitGuide.setText("Otherwise, you can press the red X button to leave.");
+        quitGuide.setBounds(10,30,400,20);
 
         Username.setText("Username");
         Username.setBounds(10,100,100,20);
@@ -30,46 +38,56 @@ public class LoginUI extends JFrame implements ActionListener {
         Password.setBounds(10, 130, 100, 20);
 
 
-        loginBT.setText("Login");
-        loginBT.setBounds(50,250,100,50);
-        loginBT.addActionListener(this);
-        loginBT.setFocusable(false);
+        loginButton.setText("Login");
+        loginButton.setBounds(50,250,100,50);
+        loginButton.addActionListener(this);
+        loginButton.setFocusable(false);
 
 
-        createBT.setText("Create");
-        createBT.setBounds(250,250,100,50);
-        createBT.addActionListener(this);
-        createBT.setFocusable(false);
+        registerButton.setText("Register");
+        registerButton.setBounds(250,250,100,50);
+        registerButton.addActionListener(this);
+        registerButton.setFocusable(false);
 
-        username.addActionListener(this);
-        username.setBounds(100,100,200,20);
+        usernameInput.addActionListener(this);
+        usernameInput.setBounds(100,100,200,20);
 
-        password.addActionListener(this);
-        password.setBounds(100,130,200,20);
+        passwordInput.addActionListener(this);
+        passwordInput.setBounds(100,130,200,20);
 
-        this.setTitle("Login");
+        this.setTitle("Welcome to the game center!");
         this.setVisible(true);
         this.setLayout(null);
         this.setFocusable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400,400);
         this.setLocation(new Point( 500,200));
-        this.add(label);
+        this.add(Guide);
+        this.add(quitGuide);
         this.add(Username);
         this.add(Password);
-        this.add(loginBT);
-        this.add(createBT);
-        this.add(username);
-        this.add(password);
+        this.add(loginButton);
+        this.add(registerButton);
+        this.add(usernameInput);
+        this.add(passwordInput);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginBT){
+    public void actionPerformed(ActionEvent button) {
+        if (button.getSource() == loginButton){
+            useCase = new LoginUseCase(false);
+            if (loginController.runLogin(usernameInput.getText(), passwordInput.getText())) {
+                System.out.println("Login success!");
+                this.dispose();
+            } else {
+                System.out.println("The password is wrong or the user does not exist.");
+            }
 
 
         }
-        if (e.getSource() == createBT){
+        if (button.getSource() == registerButton){
+            useCase = new LoginUseCase(true);
+            System.out.println("Register success!");
             this.dispose();
 
         }
