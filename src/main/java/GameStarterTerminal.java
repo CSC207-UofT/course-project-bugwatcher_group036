@@ -34,16 +34,16 @@ public class GameStarterTerminal {
 
 
     public static void main(String[] args) throws InterruptedException {
-//        String loginResult = LoginStarter.login();
-//        while (loginResult.equals("F") || loginResult.equals("Q")) {
-//
-//            if (loginResult.equals("Q")) return;
-//
-//            System.out.println("Login Failed, please enter again or register an account");
-//            System.out.println();
-//            loginResult = LoginStarter.login();
-//        }
-//        System.out.println("Login Success, game will start soon.");
+        String loginResult = LoginStarter.login();
+        while (loginResult.equals("F") || loginResult.equals("Q")) {
+
+            if (loginResult.equals("Q")) return;
+
+            System.out.println("Login Failed, please enter again or register an account");
+            System.out.println();
+            loginResult = LoginStarter.login();
+        }
+        System.out.println("Login Success, game will start soon.");
 
         Scanner scanner = new Scanner(System.in);
         String winner;
