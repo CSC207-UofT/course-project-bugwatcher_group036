@@ -4,17 +4,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HandCardTest {
+public class CardHolderTest {
 
     @Test
     public void testInitialization(){
-        HandCard cards = new HandCard();
+        CardHolder cards = new CardHolder();
         assertEquals("{}", cards.toString());
     }
 
     @Test
     public void testAddCard(){
-        HandCard cards = new HandCard();
+        CardHolder cards = new CardHolder();
         cards.addCard("test");
         assertEquals(cards.toString(), "{test}");
         cards.addCard("wow!");
@@ -23,7 +23,7 @@ public class HandCardTest {
 
     @Test
     public void testIsEmpty(){
-        HandCard cards = new HandCard();
+        CardHolder cards = new CardHolder();
         assertTrue(cards.isEmpty());
         cards.addCard("test");
         assertFalse(cards.isEmpty());
@@ -31,7 +31,7 @@ public class HandCardTest {
 
     @Test
     public void testIterator(){
-        HandCard cards = new HandCard();
+        CardHolder cards = new CardHolder();
         for (int i = 0; i < 10; i++) {
             cards.addCard(Integer.toString(i));
         }
@@ -44,7 +44,7 @@ public class HandCardTest {
 
     @Test
     public void testPlayCard(){
-        HandCard cards = new HandCard();
+        CardHolder cards = new CardHolder();
         for (int i = 0; i < 10; i++) {
             cards.addCard(Integer.toString(i));
         }

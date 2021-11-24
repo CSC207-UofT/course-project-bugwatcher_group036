@@ -1,87 +1,109 @@
 package Controller;
 
-import UseCase.CardChecker;
-import Entity.Deck;
-import Entity.HandCard;
-import UseCase.Dealer;
-import UseCase.GameBoard;
+import Entity.CardHolder;
+import UseCase.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 import java.util.Scanner;
 
-/**
- * Core of the program
- */
 public class Controller {
 
-    private final ArrayList<String> ids;
-    private final int numberOfPlayers;
-    private IEachRound iEachRound; // interface of eachRound, use dependency injection for clean architecture
+    private Scanner input = new Scanner(System.in);
+    private Presenter presenter;
+    private IGameInput iGameInput;
+    private GameRequest gameRequest;
 
-    public Controller(){
-        this.ids = inputIDs(); // get player ids and number of players
-        this.numberOfPlayers = ids.size();
+    public Controller(Presenter presenter, GameRequest gameRequest) {
+        this.presenter = presenter;
+        this.gameRequest = gameRequest;
     }
 
-    public void buildIEachRound(){
-        this.iEachRound = new EachRound(new GameBoard(numberOfPlayers),
-                new Dealer(new Deck()), new CardChecker());
+    public void setiGameInput(IGameInput iGameInput) {
+        this.iGameInput = iGameInput;
     }
 
-    public String runGame(){
-        int currentPlayerIndex = -1; // just initialize with a value, will be updates once enter the loop
-        boolean winFlag = iEachRound.getGameBoard().getStatus().isWinFlag(); // initialize win flag
-        iEachRound.cardDeal(numberOfPlayers); // let players draw cards
+    public void getCardToPlay(){
+        String getCardToPlay = input.nextLine();
+        gameRequest.setGetCardToPlay(getCardToPlay);
+    }
 
-        while (!winFlag){
-            // update current position
-            currentPlayerIndex = iEachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
+    public void typeSetColor() {
+        ArrayList<String> colors = new ArrayList<>();
+        Collections.addAll(colors, "red", "blue", "yellow", "green");
 
-            // system output and checking for begin stage, get playable cards for currentPlayer
-            iEachRound.getTerminal().beginStage(currentPlayerIndex, ids);
-            HandCard playableCards = iEachRound.beginStage();
+        String setColor = input.nextLine();
+        int wrongTimeCounter = 0;
 
-            // system output and card-playing or punish based on status info and input
-            // get cards currentPlayer will play, only invalid playing would return null
-            iEachRound.getTerminal().playStage(iEachRound.getGameBoard(), iEachRound.getCardChecker(), playableCards);
-            String toPlay = iEachRound.playStage(playableCards, currentPlayerIndex);
-
-            // final check and preparation for next loop for end stage
-            iEachRound.endStage(toPlay);
-
-            // update winFlag after each round
-            winFlag = iEachRound.getGameBoard().getStatus().isWinFlag();
+        while (wrongTimeCounter < 3){
+            if (!colors.contains(setColor) && wrongTimeCounter < 2) {
+                presenter.wrongColor();
+                setColor = input.nextLine();
+            }
+            else if (!colors.contains(setColor) && wrongTimeCounter == 2) {
+                presenter.wrongThreeTimes();
+                setColor = colors.get((int)(Math.random() * colors.size()));
+            } else {
+                break;
+            }
+            wrongTimeCounter++;
         }
-
-        // Case the choice is quit
-        if (iEachRound.getGameBoard().getStatus().getCurrentPlayerIndex() < 0) {
-            return null;
-        }
-        return ids.get(currentPlayerIndex); // return winner's id from ids
+        gameRequest.setSetColor(setColor);
+        presenter.colorIsSet(setColor);
     }
 
-    /**
-     * Get player count and their ids
-     * @return players' ids in a arrayList
-     */
-    public ArrayList<String> inputIDs(){
+    public void typeSetColorForComputer() {
+        ArrayList<String> colors = new ArrayList<>();
+        Collections.addAll(colors, "red", "blue", "yellow", "green");
+        Random rand = new Random();
+        String color = colors.get(rand.nextInt(4));
+
+        gameRequest.setSetColorForComputer(color);
+    }
+
+    public void inputIDs(){
         Scanner input = new Scanner(System.in);
         ArrayList<String> ids = new ArrayList<>();
-        System.out.println("How many players here? ");
+        presenter.howManyPlayers();
         int numberOfPlayer = input.nextInt();
 
         if (numberOfPlayer < 1 || numberOfPlayer > 6) {
-            System.out.println("Sorry, we only support 1 player - 6 players, please re-enter player count.");
+            presenter.oneToSix();
             numberOfPlayer = input.nextInt();
         }
         input.nextLine(); // equals to "\n", otherwise would lead to bug for nextLine.
 
         for (int i = 0; i < numberOfPlayer; i++){
-            System.out.println("Please enter id for player" + (i + 1));
+            presenter.enterIDP(i);
             String id = input.nextLine();
             ids.add(id);
         }
 
-        return ids;
+        gameRequest.setIds(ids);
     }
+
+    public void inputIDsForComputer(){
+        Scanner input = new Scanner(System.in);
+        ArrayList<String> ids = new ArrayList<>();
+        presenter.howManyPlayers();
+        int numberOfPlayer = input.nextInt();
+
+        if (numberOfPlayer < 1 || numberOfPlayer > 6) {
+            presenter.oneToSix();
+            numberOfPlayer = input.nextInt();
+        }
+        input.nextLine(); // equals to "\n", otherwise would lead to bug for nextLine.
+
+        presenter.enterIDCom();
+        String playerID = input.nextLine();
+        ids.add(playerID);
+
+        for (int i = 1; i < numberOfPlayer; i++){
+            ids.add("Computer " + Integer.toString(i));
+        }
+
+        gameRequest.setIds(ids);
+    }
+
 }

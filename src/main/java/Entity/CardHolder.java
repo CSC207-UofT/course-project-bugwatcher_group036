@@ -8,13 +8,16 @@ import java.util.NoSuchElementException;
  * Basically ArrayList of String, which represents cards
  * and customize str method
  */
-public class HandCard implements Iterable<String>{
+public class CardHolder implements Iterable<String>{
 
     private final ArrayList<String> handcard;
 
-    public HandCard() {
+    public CardHolder() {
         this.handcard = new ArrayList<>();
     }
+
+
+    
 
     @Override
     public Iterator<String> iterator(){
@@ -43,10 +46,14 @@ public class HandCard implements Iterable<String>{
         }
     }
 
+
+
+
     public boolean playCard(String toPlay){
-        if (!handcard.contains(toPlay)){
-            return false;
-        }
+        return handcard.remove(toPlay);
+    }
+
+    public String playCardWithIndex(int toPlay){
         return handcard.remove(toPlay);
     }
 
@@ -70,5 +77,7 @@ public class HandCard implements Iterable<String>{
         return res.substring(0, res.length() - 2) + "}";
     }
 
-    public int getSize(){return this.handcard.size();}
+    public int getSize(){
+        return this.handcard.size();
+    }
 }

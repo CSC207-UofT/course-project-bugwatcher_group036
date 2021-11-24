@@ -1,6 +1,7 @@
 package Entity;
 
 import UseCase.CardChecker;
+import UseCase.GameCardHolders;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,11 +18,11 @@ public class CardCheckerTest {
     public void testSkip(){
         CardChecker checker = new CardChecker();
         checker.setLastCard("red skip");
-        HandCard toTest = new HandCard();
+        CardHolder toTest = new CardHolder();
         toTest.addCard("red skip");
         toTest.addCard("?> skip");
         toTest.addCard("ski p");
-        HandCard res = checker.skipsPlayerCanPlay(toTest);
+        CardHolder res = checker.skipsPlayerCanPlay(toTest, new GameCardHolders(4));
         assertEquals("{red skip, ?> skip}", res.toString());
     }
 
@@ -29,11 +30,11 @@ public class CardCheckerTest {
     public void testPlusTwo(){
         CardChecker checker = new CardChecker();
         checker.setLastCard("red +2");
-        HandCard toTest = new HandCard();
+        CardHolder toTest = new CardHolder();
         toTest.addCard("red +2");
         toTest.addCard("?> +4");
         toTest.addCard("red plustwo");
-        HandCard res = checker.plusTwoPlayerCanPlay(toTest);
+        CardHolder res = checker.plusTwoPlayerCanPlay(toTest, new GameCardHolders(2));
         assertEquals("{red +2, ?> +4}", res.toString());
     }
 
@@ -41,11 +42,11 @@ public class CardCheckerTest {
     public void testPlusFour(){
         CardChecker checker = new CardChecker();
         checker.setLastCard("black +4");
-        HandCard toTest = new HandCard();
+        CardHolder toTest = new CardHolder();
         toTest.addCard("red +2");
         toTest.addCard("?> +4");
         toTest.addCard("red plustwo");
-        HandCard res = checker.plusFourPlayerCanPlay(toTest);
+        CardHolder res = checker.plusFourPlayerCanPlay(toTest, new GameCardHolders(2));
         assertEquals("{?> +4}", res.toString());
     }
 
@@ -53,26 +54,26 @@ public class CardCheckerTest {
     public void testNormalCanPlay(){
         CardChecker checker = new CardChecker();
         checker.setLastCard("red 0");
-        HandCard toTest = new HandCard();
+        CardHolder toTest = new CardHolder();
         toTest.addCard("red +2");
         toTest.addCard("?> +4");
         toTest.addCard("red plustwo");
         toTest.addCard("yellow 0");
         toTest.addCard("test test");
-        HandCard res = checker.cardsPlayerCanPlay(toTest);
+        CardHolder res = checker.cardsPlayerCanPlay(toTest, new GameCardHolders(2));
         assertEquals("{red +2, ?> +4, red plustwo, yellow 0}", res.toString());
     }
 
     @Test
     public void testNormalCanPlayNull(){
         CardChecker checker = new CardChecker();
-        HandCard toTest = new HandCard();
+        CardHolder toTest = new CardHolder();
         toTest.addCard("red +2");
         toTest.addCard("?> +4");
         toTest.addCard("red plustwo");
         toTest.addCard("yellow 0");
         toTest.addCard("test test");
-        HandCard res = checker.cardsPlayerCanPlay(toTest);
+        CardHolder res = checker.cardsPlayerCanPlay(toTest,new GameCardHolders(2));
         assertEquals("{red +2, ?> +4, red plustwo, yellow 0, test test}",
                 res.toString());
     }
