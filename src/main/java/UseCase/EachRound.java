@@ -52,6 +52,7 @@ public class EachRound {
         String cardToPlay = null;
         if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
             gameBoard.operationWhenNoPlayableCard();
+            return null;
         } else {
             // if there's playable card, call play card method
             cardToPlay = letPlayerPlayCard(playableCards, currentPlayerIndex);

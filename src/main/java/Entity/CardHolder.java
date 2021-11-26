@@ -61,6 +61,8 @@ public class CardHolder implements Iterable<String>{
         handcard.add(card);
     }
 
+    public void addCards(ArrayList<String> card) { handcard.addAll(card); }
+
     public boolean isEmpty(){
         return handcard.isEmpty();
     }
