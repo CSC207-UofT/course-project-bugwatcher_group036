@@ -8,6 +8,8 @@ public class GameStatus {
     private final Status status;
     // The hand cards of the players with index is the corresponding position.
 
+    public GameStatus() {this.status = new Status();}
+
     public GameStatus(int numberOfPlayers){
         this.status = new Status(numberOfPlayers);
     }
