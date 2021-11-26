@@ -1,9 +1,9 @@
 package LogIn;
 
-import LogIn.LogInController.CmdLineUI;
-import LogIn.LogInController.LoginController;
-import LogIn.LogInUI.LoginUI;
-import LogIn.LogInUseCase.LoginUseCase;
+import LogIn.LoginController.CmdLineUI;
+import LogIn.LoginController.LoginController;
+import LogIn.LoginGUI.LoginUI;
+import LogIn.LoginUseCase.LoginUseCase;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Scanner;

@@ -1,7 +1,6 @@
-package LogIn.LogInUI;
-import LogIn.LogInController.LoginController;
-import LogIn.LogInUseCase.LoginInputBoundary;
-import LogIn.LogInUseCase.LoginUseCase;
+package LogIn.LoginGUI;
+import LogIn.LoginController.LoginController;
+import LogIn.LoginUseCase.LoginUseCase;
 
 import javax.swing.*;
 
@@ -24,7 +23,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
     public LoginUI(){
 
-        Guide.setText("Please login, or create an account if you don't have one.");
+        Guide.setText("Please login, or press Register if you don't have an account.");
 //        Guide.setVerticalAlignment(JLabel.TOP);
         Guide.setBounds(10,0,400,20);
 
@@ -74,21 +73,21 @@ public class LoginUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent button) {
-        if (button.getSource() == loginButton){
+        if (button.getSource() == loginButton) {
             useCase = new LoginUseCase(false);
             loginController = new LoginController(useCase);
+
             if (loginController.runLogin(usernameInput.getText(), passwordInput.getText())) {
                 System.out.println("Login success!");
+//               Need to connect to mainUI.
                 this.dispose();
             } else {
                 System.out.println("The password is wrong or the user does not exist.");
             }
-
-
         }
         if (button.getSource() == registerButton){
-            useCase = new LoginUseCase(true);
-            System.out.println("Register success!");
+            RegisterUI registerUI = new RegisterUI();
+//            useCase = new LoginUseCase(true);
             this.dispose();
 
         }

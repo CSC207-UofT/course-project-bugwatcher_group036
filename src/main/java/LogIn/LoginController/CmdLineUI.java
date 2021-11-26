@@ -1,4 +1,4 @@
-package LogIn.LogInController;
+package LogIn.LoginController;
 
 import java.util.Scanner;
 
