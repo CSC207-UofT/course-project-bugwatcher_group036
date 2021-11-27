@@ -1,9 +1,13 @@
 package Controller;
 
 import Entity.CardHolder;
-import UseCase.GameBoard;
-import UseCase.GameResponse;
-import UseCase.IPresenter;
+
+import UI.WinFrame;
+import UseCase.*;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Terminal used by dealer.
@@ -14,6 +18,11 @@ public class Presenter implements IPresenter {
 
     private Controller controller;
     private GameResponse gameResponse;
+    private GameRequest gameRequest;
+
+    public void setGameRequest(GameRequest gameRequest) {
+        this.gameRequest = gameRequest;
+    }
 
     public void setController(Controller controller) {
         this.controller = controller;
@@ -21,6 +30,10 @@ public class Presenter implements IPresenter {
 
     public void setGameResponse(GameResponse gameResponse) {
         this.gameResponse = gameResponse;
+    }
+
+    public GameResponse getGameResponse() {
+        return gameResponse;
     }
 
     public void beginStage(){
@@ -40,6 +53,11 @@ public class Presenter implements IPresenter {
         System.out.println("The cards you can play: " + playableCards);
     }
 
+    public CardHolder allhandcards(){
+        return gameResponse.getGameBoard().getGameCardHolders().getHandCards(gameResponse.
+                getGameBoard().getGameStatus().getCurrentPlayerIndex());
+    }
+
     public void getCardToPlay(){
         System.out.println("play a card, type \"draw\" to draw a card, or type \"quit\" to leave:");
         controller.getCardToPlay();
@@ -49,15 +67,37 @@ public class Presenter implements IPresenter {
         System.out.println(message); // print sentence message
     }
 
+    public void drawManyCard(int numToDraw, String drawnCardName) {
+        System.out.println("You draw " + numToDraw + " cards. The cards you've drawn are " +
+                drawnCardName + ".");
+        JOptionPane.showMessageDialog(null, "You draw " + numToDraw +
+                " cards. The cards you've drawn are " +
+                drawnCardName + ".");
+    }
+
     public void drawCardNotification(String drawn, boolean noCard){
         // only print this sentence when drawing due to no card playable
-        if (noCard) System.out.println("Cannot play a card! Draw one more card");
-        System.out.println("The card you draw is " + drawn);
+        if (noCard) {System.out.println("Cannot play a card! Draw one more card");
+            System.out.println("The card you draw is " + drawn);
+            JOptionPane.showMessageDialog(null,"Cannot play a card! Draw one more card \n The card you draw is " + drawn);
+        }
+        else {
+            System.out.println("The card you draw is " + drawn);
+            JOptionPane.showMessageDialog(null,"The card you draw is " + drawn);
+        }
     }
 
     public void setColor() {
         System.out.println("Type a color you want to set:");
         controller.typeSetColor();
+    }
+    public void setColorGUI() {
+        System.out.println("Type a color you want to set:");
+        ArrayList<String> colors = new ArrayList<>();
+        Collections.addAll(colors, "red", "blue", "yellow", "green");
+
+        String setColor = (String) JOptionPane.showInputDialog(null, "Choose color", "Choose color", JOptionPane.INFORMATION_MESSAGE, null, colors.toArray(), null);
+        controller.typeSetColorGUI(setColor);
     }
 
     public void setColorForComputer() {
@@ -73,8 +113,8 @@ public class Presenter implements IPresenter {
 
     public void colorIsSet(String color) {
         System.out.println("Color " + color + " is set.");
+        JOptionPane.showMessageDialog(null, "Color " + color + " is set.");
     }
-
     public void inputIDs() {
         controller.inputIDs();
     }
@@ -83,6 +123,20 @@ public class Presenter implements IPresenter {
         controller.inputIDsForComputer();
     }
 
+    public void inputIDsGUI(boolean computer, ArrayList<String> ids) {
+        controller.inputIDsGUI(computer, ids);
+    }
+
+    public void howManyPlayersGUI(boolean computer) {
+        System.out.println("How many players here? ");
+//        if (computer) {
+//            NumofPlayerComputerFrame frame = new NumofPlayerComputerFrame(this, controller, gameRequest, gameResponse);
+//        }
+//        else{
+//            NumofPlayerFrame frame = new NumofPlayerFrame(this, controller, gameRequest, gameResponse);
+//
+//        }
+    }
     public void howManyPlayers() {
         System.out.println("How many players here? ");
     }
@@ -99,5 +153,16 @@ public class Presenter implements IPresenter {
         System.out.println("Please enter id for player" + (i + 1));
     }
 
+    public String PlayerID() {
+        return gameResponse.getIds().get(
+                gameResponse.getGameBoard().getGameStatus().getCurrentPlayerIndex());
+    }
 
+    public String RemainingCards() {
+        return String.valueOf(gameResponse.getGameBoard().getDeck().getUnusedCardDeck().size());
+    }
+
+    public void WinFrame() {
+        WinFrame frame = new WinFrame();
+    }
 }

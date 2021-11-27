@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 public class GameStarterTerminal {
 
+
     public static String runPVP(IPresenter iPresenter, Controller controller,
                                 GameRequest gameRequest, GameResponse gameResponse) {
 
-        GameRunner unoGameRunner = new GameRunner(false, iPresenter, gameRequest, gameResponse);
+        GameRunner unoGameRunner = new GameRunner(false, iPresenter, gameRequest);
 
         controller.setiGameInput(unoGameRunner);
 
@@ -23,7 +24,7 @@ public class GameStarterTerminal {
             IPresenter iPresenter, Controller controller,
             GameRequest gameRequest, GameResponse gameResponse) throws InterruptedException {
 
-        GameRunner unoGameRunner = new GameRunner(true, iPresenter, gameRequest, gameResponse);
+        GameRunner unoGameRunner = new GameRunner(true, iPresenter, gameRequest);
 
         controller.setiGameInput(unoGameRunner);
 

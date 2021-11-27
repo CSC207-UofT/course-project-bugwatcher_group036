@@ -48,6 +48,26 @@ public class EachRound {
         }
     }
 
+    public void playStageGUI(CardHolder playableCards, int currentPlayerIndex, String cardToPlay) {
+        if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
+            gameBoard.operationWhenNoPlayableCard();
+        } else {
+            // if there's playable card, call play card method
+            cardToPlay = letPlayerPlayCardGUI(playableCards, currentPlayerIndex, cardToPlay);
+
+            // return null if no punished card, and will pass the if statement
+            String probablyDrawnCard = gameBoard.punishOrPlayCard(cardToPlay);
+            if (probablyDrawnCard != null){
+                gameBoard.getGameCardHolders().addCard(probablyDrawnCard, currentPlayerIndex);
+            }
+
+            // if played card is valid, update last card
+            if (cardToPlay != null && !cardToPlay.equals("white -1")){
+                gameBoard.getCardChecker().setLastCard(cardToPlay);
+            }
+        }
+    }
+
     public String playStage(CardHolder playableCards, int currentPlayerIndex) {
         String cardToPlay = null;
         if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
@@ -90,6 +110,25 @@ public class EachRound {
         }
         return cardToPlay;
     }
+    public void endStageGUI(String toPlay) {
+        if (toPlay != null && toPlay.equals("quit")) {
+            gameBoard.getGameStatus().setQuit();
+        }
+
+        gameBoard.getGameStatus().setSkip(false);
+
+        // last check for played card and update status
+        assert toPlay != null;
+        if (!toPlay.equals("draw") && !toPlay.equals("next")){
+            gameBoard.checkLastCardGUI(toPlay, gameRequest);}
+
+        // check whether any player has no hand card, which means that player wins
+        if(gameBoard.getGameCardHolders().checkWinState()){
+            gameBoard.getGameStatus().setWinFlag(true);
+        }
+        // move to the next player
+        gameBoard.getGameStatus().setCurrentPlayerIndex(gameBoard.getGameStatus().moveToNextPlayer());
+    }
 
     public void endStage(String toPlay) {
         if (toPlay != null && toPlay.equals("quit")) {
@@ -130,6 +169,42 @@ public class EachRound {
                     gameBoard.getGameStatus().moveToNextPlayer());
         }
 
+    }
+
+    public String letPlayerPlayCardGUI(CardHolder playableCards, int currentPlayerIndex, String cardToPlayID) {
+        String cardToPlay = null;
+
+        // rightCard indicates whether the play type a right card to play.
+        boolean rightCard;
+
+        // The number of times that the player type a wrong card.
+        int wrongTimes = 0;
+
+        // Let the player type the card to play. If type a wrong card, type again,
+        // with maximum 3 times.
+        do {
+//            iPresenter.getCardToPlay();
+
+            if (cardToPlayID.equals("quit")) {
+                cardToPlay = "quit";
+                return cardToPlay;
+            }
+            if (cardToPlayID.equals("draw")) {
+                gameBoard.getGameCardHolders().addCard(
+                        gameBoard.drawCardWithNotification(false), currentPlayerIndex);
+                cardToPlay = "white -1";
+                return cardToPlay;
+            }
+            if (!gameBoard.getGameCardHolders().playCard(cardToPlayID, currentPlayerIndex)) {
+                wrongTimes++;
+                rightCard = false;
+            } else {
+                rightCard = true;
+                cardToPlay = cardToPlayID;
+            }
+        } while (!rightCard && wrongTimes < 3);
+        //exit when the player types the right class or wrong time exceed 3
+        return cardToPlay;
     }
 
     public String letPlayerPlayCard(CardHolder playableCards, int currentPlayerIndex) {
