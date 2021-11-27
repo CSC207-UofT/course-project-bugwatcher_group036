@@ -67,7 +67,7 @@ public class Presenter implements IPresenter {
         System.out.println(message); // print sentence message
     }
 
-    public void drawManyCard(int numToDraw, String drawnCardName) {
+    public void drawManyCard(int numToDraw, StringBuilder drawnCardName) {
         System.out.println("You draw " + numToDraw + " cards. The cards you've drawn are " +
                 drawnCardName + ".");
         JOptionPane.showMessageDialog(null, "You draw " + numToDraw +
@@ -79,11 +79,11 @@ public class Presenter implements IPresenter {
         // only print this sentence when drawing due to no card playable
         if (noCard) {System.out.println("Cannot play a card! Draw one more card");
             System.out.println("The card you draw is " + drawn);
-            JOptionPane.showMessageDialog(null,"Cannot play a card! Draw one more card \n The card you draw is " + drawn);
+            JOptionPane.showMessageDialog(null,"Cannot play a card! Draw one more card \n The card you draw is " + drawn, "Draw Multiple Cards", JOptionPane.PLAIN_MESSAGE);
         }
         else {
             System.out.println("The card you draw is " + drawn);
-            JOptionPane.showMessageDialog(null,"The card you draw is " + drawn);
+            JOptionPane.showMessageDialog(null,"The card you draw is " + drawn, "Draw 1 Card", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
