@@ -15,10 +15,11 @@ public class GameRunner implements IGameInput {
     private EachRound eachRound; // interface of eachRound, use dependency injection for clean architecture
     private GameResponse gameResponse;
     private GameRequest gameRequest;
+    private IPresenter iPresenter;
 
-    public GameRunner(boolean computer, IPresenter iPresenter, GameRequest gameRequest, GameResponse gameResponse){
+    public GameRunner(boolean computer, IPresenter iPresenter, GameRequest gameRequest) {
         this.gameRequest = gameRequest;
-        this.gameResponse = gameResponse;
+        this.gameResponse = new GameResponse();
         if (computer) {
             iPresenter.inputIDsForComputer();
             this.ids = gameRequest.getIds(); // get player ids and number of players
@@ -26,6 +27,17 @@ public class GameRunner implements IGameInput {
             iPresenter.inputIDs();
             this.ids = gameRequest.getIds(); // get player ids and number of players
         }
+        this.numberOfPlayers = ids.size();
+        this.gameResponse.setIds(ids);
+        gameResponse.setGameBoard(new GameBoard(numberOfPlayers));
+
+    }
+    public GameRunner(boolean computer, IPresenter iPresenter, GameRequest gameRequest, ArrayList<String> ids) {
+        this.gameRequest = gameRequest;
+        this.gameResponse = new GameResponse();// get player ids and number of players
+        this.iPresenter = iPresenter;
+        this.ids = gameRequest.getIds(); // get player ids and number of players
+
         this.numberOfPlayers = ids.size();
         this.gameResponse.setIds(ids);
         gameResponse.setGameBoard(new GameBoard(numberOfPlayers));
@@ -47,14 +59,17 @@ public class GameRunner implements IGameInput {
         return gameRequest;
     }
 
+    public EachRound getEachRound() {return eachRound;}
+
     public void buildIEachRound(GameBoard gameBoard, IPresenter iPresenter, GameRequest gameRequest){
         this.eachRound = new EachRound(gameBoard, iPresenter, gameRequest);
+        eachRound.cardDeal(numberOfPlayers);
     }
 
     public String runGame(){
         int currentPlayerIndex = -1; // just initialize with a value, will be updates once enter the loop
         boolean winFlag = eachRound.getGameBoard().getGameStatus().isWinFlag(); // initialize win flag
-        eachRound.cardDeal(numberOfPlayers); // let players draw cards
+//        eachRound.cardDeal(numberOfPlayers); // let players draw cards
 
         while (!winFlag){
             // update current position
@@ -118,6 +133,30 @@ public class GameRunner implements IGameInput {
             return null;
         }
         return ids.get(currentPlayerIndex); // return winner's id from ids
+    }
+
+    public void runGameforGUI(String toPlay) {
+        // update current position
+        int currentPlayerIndex = eachRound.getGameBoard().getGameStatus().getCurrentPlayerIndex();
+
+        // system output and checking for begin stage, get playable cards for currentPlayer
+        CardHolder playableCards = eachRound.beginStage();
+
+        // system output and card-playing or punish based on status info and input
+        // get cards currentPlayer will play, only invalid playing would return null
+        gameResponse.setCardHolder(playableCards);
+//        eachRound.getTerminal().playStage();
+        eachRound.playStageGUI(playableCards, currentPlayerIndex, toPlay);
+
+        // final check and preparation for next loop for end stage
+        eachRound.endStageGUI(toPlay);
+        boolean winFlag = eachRound.getGameBoard().getGameStatus().isWinFlag();
+        if(winFlag) {
+            iPresenter.WinFrame();
+        }
+
+
+
     }
 
 }

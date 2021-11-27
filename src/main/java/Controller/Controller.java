@@ -1,8 +1,10 @@
 package Controller;
 
 import Entity.CardHolder;
+import UI.GameFrame;
 import UseCase.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -12,21 +14,47 @@ public class Controller {
 
     private Scanner input = new Scanner(System.in);
     private Presenter presenter;
-    private IGameInput iGameInput;
+    private GameRunner gameRunner;
     private GameRequest gameRequest;
 
+
     public Controller(Presenter presenter, GameRequest gameRequest) {
+
+        this.gameRunner = new GameRunner(false, presenter, gameRequest);
         this.presenter = presenter;
         this.gameRequest = gameRequest;
+
+    }
+    public Controller(Presenter presenter, ArrayList<String> ids) {
+        this.gameRequest = new GameRequest();
+        this.gameRunner = new GameRunner(false, presenter, gameRequest, ids);
+        this.presenter = presenter;
+        this.setiGameInput(gameRunner);
+        gameRunner.buildIEachRound(gameRunner.getGameResponse().getGameBoard(), presenter, gameRequest);
+        gameRunner.setGameResponse(gameRunner.getGameResponse());
+        setplayerID(ids);
+        presenter.setController(this);
+        presenter.setGameResponse(gameRunner.getGameResponse());
+        presenter.setGameRequest(gameRequest);
+
+    }
+    public GameRequest getGameRequest(){return gameRequest;}
+
+    public GameRunner getGameRunner() {
+        return gameRunner;
     }
 
-    public void setiGameInput(IGameInput iGameInput) {
-        this.iGameInput = iGameInput;
+    public void setiGameInput(GameRunner iGameInput) {
+        this.gameRunner = iGameInput;
     }
 
-    public void getCardToPlay(){
+    public void getCardToPlay() {
         String getCardToPlay = input.nextLine();
         gameRequest.setGetCardToPlay(getCardToPlay);
+    }
+    public void typeSetColorGUI(String setColor) {
+        gameRequest.setSetColor(setColor);
+        presenter.colorIsSet(setColor);
     }
 
     public void typeSetColor() {
@@ -36,14 +64,13 @@ public class Controller {
         String setColor = input.nextLine();
         int wrongTimeCounter = 0;
 
-        while (wrongTimeCounter < 3){
+        while (wrongTimeCounter < 3) {
             if (!colors.contains(setColor) && wrongTimeCounter < 2) {
                 presenter.wrongColor();
                 setColor = input.nextLine();
-            }
-            else if (!colors.contains(setColor) && wrongTimeCounter == 2) {
+            } else if (!colors.contains(setColor) && wrongTimeCounter == 2) {
                 presenter.wrongThreeTimes();
-                setColor = colors.get((int)(Math.random() * colors.size()));
+                setColor = colors.get((int) (Math.random() * colors.size()));
             } else {
                 break;
             }
@@ -62,7 +89,17 @@ public class Controller {
         gameRequest.setSetColorForComputer(color);
     }
 
-    public void inputIDs(){
+    public void setplayerID(ArrayList<String> ids) {
+        gameRequest.setIds(ids);
+    }
+
+    public void inputIDsGUI(boolean computer, ArrayList<String> ids) {
+
+        gameRequest.setIds(ids);
+        presenter.howManyPlayersGUI(computer);
+
+    }
+    public void inputIDs() {
         Scanner input = new Scanner(System.in);
         ArrayList<String> ids = new ArrayList<>();
         presenter.howManyPlayers();

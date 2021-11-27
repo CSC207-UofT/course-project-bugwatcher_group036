@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.Controller;
 import UseCase.CardChecker;
 import Entity.CardHolder;
 import UseCase.GameBoard;
@@ -13,6 +14,7 @@ public interface IPresenter {
     void drawCardNotification(String drawn, boolean noCard);
 
     void setColor();
+    void setGameRequest(GameRequest gameRequest);
 
     void setColorForComputer();
 
@@ -22,10 +24,27 @@ public interface IPresenter {
 
     void getCardToPlay();
 
-    void inputIDs();
+    void inputIDsGUI(boolean computer, ArrayList<String> ids);
+
+    String RemainingCards();
+
+    String PlayerID();
+
+    CardHolder allhandcards();
+
+    void setColorGUI();
+
+    void drawManyCard(int numToDraw, String drawnCardName);
+
+    void WinFrame();
 
     void inputIDsForComputer();
 
+    void inputIDs();
+
+    void setGameResponse(GameResponse gameResponse);
+
+    void setController(Controller controller);
 
 
 //    void getCardToPlayForComputer();

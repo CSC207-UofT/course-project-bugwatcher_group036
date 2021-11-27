@@ -18,6 +18,12 @@ public class CardChecker {
             currentColor = gameRequest.getSetColor();
         }
     }
+    public void functionCardResponseGUI(String feature, IPresenter iPresenter, GameRequest gameRequest) {
+        if (feature.equals("+4") || feature.equals("switch")) {
+            iPresenter.setColorGUI();
+            currentColor = gameRequest.getSetColor();
+        }
+    }
 
     public void functionCardResponseForComputer(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {

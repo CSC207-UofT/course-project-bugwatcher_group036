@@ -1,7 +1,9 @@
 package LogIn.LoginGUI;
 
 import LogIn.LoginController.LoginController;
+import LogIn.LoginStarter;
 import LogIn.LoginUseCase.LoginUseCase;
+import UI.ModeFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,6 +80,7 @@ public class RegisterUI extends JFrame implements ActionListener {
                 System.out.println("Register success!");
 //               Need to connect to mainUI.
                 this.dispose();
+                LoginUI frame = new LoginUI();
             } else {
                 System.out.println("The username already exists, please enter a new one.");
             }
