@@ -8,7 +8,7 @@ public class PresenterTest {
     public void testOutput(){
         Presenter e = new Presenter();
         e.printString("test");
-        e.drawCardNotification("test", false);
-        e.drawCardNotification("test", true);
+        //e.drawCardNotification("test", false);
+        //e.drawCardNotification("test", true);
     }
 }
