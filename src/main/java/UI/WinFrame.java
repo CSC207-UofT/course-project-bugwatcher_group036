@@ -23,19 +23,19 @@ public class WinFrame extends JFrame {
         Image img;
 
         public HomePanel() {
-            //存放在正在编写的项目的bin文件夹下的一个图片
+            //store one image in bin of executing program
             icon = new ImageIcon("src/main/java/UI/YouWinPic.png");
             img = icon.getImage();
         }
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            //下面这行是为了背景图片可以跟随窗口自行调整大小，可以自己设置成固定大小
+            //to let background picture adjust along with the size of the window
             g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
-    //返回大厅界面的Jpanel
+    //Jpanel to return to the starting page
     public JPanel startP() {
         JPanel p = new HomePanel();
         p.setLayout(null);
