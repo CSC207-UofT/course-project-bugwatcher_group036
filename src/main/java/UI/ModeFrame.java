@@ -45,7 +45,7 @@ public class ModeFrame extends JFrame implements ActionListener {
         this.add(panel);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        this.setSize(300, 200);
+        this.setSize(300, 120);
         this.setLocation(new Point(500, 200));
         this.setVisible(true);
 
