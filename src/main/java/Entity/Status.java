@@ -35,6 +35,8 @@ public class Status {
         this.reverse = !this.reverse;
     }
 
+    public boolean getReverseState() { return reverse;}
+
     public boolean isWinFlag() {
         return winFlag;
     }
