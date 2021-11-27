@@ -24,6 +24,12 @@ public class GameCardHolders {
         return cardHolders[index].playCard(toPlay);
     }
 
+    // Return how many players hold the card.
+    public int getHolderNumber() { return cardHolders.length;}
+
+    // Return the number of card a player holds.
+    public int getNumbersOfCardHolds(int index) { return cardHolders[index].getSize();}
+
     // Remove the given card from player of given index.
     public String playCardWithIndex(int toPlay, int index){
         return cardHolders[index].playCardWithIndex(toPlay);

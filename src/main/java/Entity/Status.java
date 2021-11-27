@@ -21,6 +21,7 @@ public class Status {
      *
      * @param numberOfPlayers Number of players.
      */
+
     public Status(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         // Randomly select a player to play the first card.
@@ -28,9 +29,13 @@ public class Status {
         this.currentPlayerIndex = rand.nextInt(numberOfPlayers);
     }
 
+    public Status() {this.numberOfPlayers = 0; }
+
     public void changeReverseState() {
         this.reverse = !this.reverse;
     }
+
+    public boolean getReverseState() { return reverse;}
 
     public boolean isWinFlag() {
         return winFlag;
@@ -68,6 +73,8 @@ public class Status {
     public void setPlus(int plus) {
         this.plus = plus;
     }
+
+    public int getNumberOfPlayers(){ return numberOfPlayers;}
 
     public void functionCardResponse(String feature){
         switch (feature) {

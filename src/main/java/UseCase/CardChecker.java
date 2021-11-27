@@ -1,6 +1,7 @@
 package UseCase;
 
 import Entity.CardHolder;
+import Entity.Status;
 
 public class CardChecker {
 
@@ -92,6 +93,7 @@ public class CardChecker {
         return currentColor;
     }
 
+    // This method has some problem, when we set a +2 card here, the status will not be changed.
     public void setLastCard(String lastCard) {
         this.lastCard = lastCard;
         currentColor = lastCard.split(" ")[0];
