@@ -3,12 +3,17 @@ package UI;
 import Controller.*;
 import Entity.CardHolder;
 import UseCase.*;
-
+import java.applet.*;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class PVPFrame extends JFrame implements ActionListener{
     Presenter presenter;
@@ -26,14 +31,14 @@ public class PVPFrame extends JFrame implements ActionListener{
     JButton draw = new JButton("draw");
     ButtonGroup buttonGroup = new ButtonGroup();
 
-    public PVPFrame(Presenter presenter, Controller controller) {
+    public PVPFrame(Presenter presenter, Controller controller){
         this.presenter = presenter;
         this.controller = controller;
 
         currentcard.setHorizontalAlignment(0);//Center the text
         currentcard.setBounds(450, 50, 144, 216);//set the location and size of JLabel
         currentcard.setText(presenter.getGameResponse().getGameBoard().getCardChecker().getLastCard());
-        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/"+ presenter.getGameResponse().getGameBoard().getCardChecker().getLastCard() +".png");
+        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/black.png");
         Image img1 = icon1.getImage();
         Image newImg1 = img1.getScaledInstance(144, 216,  java.awt.Image.SCALE_SMOOTH) ;
         icon1 = new ImageIcon(newImg1);
@@ -53,6 +58,16 @@ public class PVPFrame extends JFrame implements ActionListener{
         bottom.setBounds(28, 244, 680, 210);//set the location and size of JPanel
 
         bottom.add(label);
+        try {
+            AudioInputStream input = AudioSystem.getAudioInputStream(new File("src/main/java/DataSet/Background Music.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(input);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
+        }
+
 
         // add cardHas panel
 
