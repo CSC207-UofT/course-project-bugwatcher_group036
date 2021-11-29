@@ -61,8 +61,7 @@ public class GameBoard {
                 drawnCardName.append(", ");
             }
         }
-        iPresenter.printString("You draw " + numToDraw + " cards. The cards you've drawn are " +
-                drawnCardName + ".");
+        iPresenter.drawManyCard(numToDraw, drawnCardName);
     }
 
     public void operationWhenNoPlayableCard() {

@@ -1,9 +1,7 @@
 package UseCase;
 
 import Controller.Controller;
-import UseCase.CardChecker;
 import Entity.CardHolder;
-import UseCase.GameBoard;
 
 import java.util.ArrayList;
 
@@ -34,7 +32,7 @@ public interface IPresenter {
 
     void setColorGUI();
 
-    void drawManyCard(int numToDraw, String drawnCardName);
+    void drawManyCard(int numToDraw, StringBuilder drawnCardName);
 
     void WinFrame();
 
