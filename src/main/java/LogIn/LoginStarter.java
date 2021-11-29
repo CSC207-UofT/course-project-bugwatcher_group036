@@ -1,14 +1,16 @@
 package LogIn;
 
-import LogIn.LogInController.CmdLineUI;
-import LogIn.LogInController.LoginController;
-import LogIn.LogInUseCase.LoginUseCase;
+import LogIn.LoginController.CmdLineUI;
+import LogIn.LoginController.LoginController;
+import LogIn.LoginGUI.LoginUI;
+import LogIn.LoginUseCase.LoginUseCase;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Scanner;
 
 public class LoginStarter {
 
-    public static String login() {
+    public static @NotNull String login() {
         LoginUseCase useCase;
         String choice = loginInput();
         if (choice.equals("1")) {
@@ -40,5 +42,10 @@ public class LoginStarter {
             choice = input.nextLine();
         }
         return choice;
+    }
+
+    public static void main(String[] args) {
+        LoginUI ui = new LoginUI();
+
     }
 }

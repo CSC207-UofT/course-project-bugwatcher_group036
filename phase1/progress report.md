@@ -67,7 +67,7 @@ After phase 1, We accomplished great implementations on three aspects:
 
 ### York Chen (zhumengzhiren - york.chen@mail.utoronto.ca)
 * Contributed building the login system entity
-* Constructed the Login System interact with file
+* Constructed the LoginUI System interact with file
 * wrote tests for Entity
 
 ### Yao Zhou (zhuyuezx - yaoo.zhou@mail.utoronto.ca)

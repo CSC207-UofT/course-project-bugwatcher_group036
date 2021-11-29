@@ -61,6 +61,6 @@ public class StatusTest {
         assertTrue(s.isSkip());
         s.setCurrentPlayerIndex(s.moveToNextPlayer());
         assertTrue(curr - 1 == s.getCurrentPlayerIndex() ||
-                s.getCurrentPlayerIndex() == 4);
+                s.getCurrentPlayerIndex() == 3);
     }
 }

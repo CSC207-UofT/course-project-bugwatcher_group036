@@ -1,7 +1,7 @@
 package UseCase;
 
-import Controller.ITerminal;
-import Entity.HandCard;
+import Entity.CardHolder;
+import Entity.Status;
 
 public class CardChecker {
 
@@ -13,44 +13,58 @@ public class CardChecker {
         currentColor = null;
     }
 
-    public void functionCardResponse(String feature, ITerminal iTerminal) {
+    public void functionCardResponse(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {
-            currentColor = iTerminal.typeSetColor();
+            iPresenter.setColor();
+            currentColor = gameRequest.getSetColor();
+        }
+    }
+    public void functionCardResponseGUI(String feature, IPresenter iPresenter, GameRequest gameRequest) {
+        if (feature.equals("+4") || feature.equals("switch")) {
+            iPresenter.setColorGUI();
+            currentColor = gameRequest.getSetColor();
         }
     }
 
-    public HandCard skipsPlayerCanPlay(HandCard toCheck){
-        HandCard skips = new HandCard();
+    public void functionCardResponseForComputer(String feature, IPresenter iPresenter, GameRequest gameRequest) {
+        if (feature.equals("+4") || feature.equals("switch")) {
+            iPresenter.setColorForComputer();
+            currentColor = gameRequest.getSetColorForComputer();
+        }
+    }
+
+    public CardHolder skipsPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders){
+        CardHolder skips = gameCardHolders.createNewCardHolder();
         for (String card: toCheck){
             if (card.split(" ")[1].equals("skip")) {
-                skips.addCard(card);
+                gameCardHolders.addCard(card, skips);
             }
         }
         return skips;
     }
 
-    public HandCard plusTwoPlayerCanPlay(HandCard toCheck) {
-        HandCard plusTwo = new HandCard();
+    public CardHolder plusTwoPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders) {
+        CardHolder plusTwo = gameCardHolders.createNewCardHolder();
         for (String card: toCheck) {
             if (card.split(" ")[1].equals("+2") || card.split(" ")[1].equals("+4")) {
-                plusTwo.addCard(card);
+                gameCardHolders.addCard(card, plusTwo);
             }
         }
         return plusTwo;
     }
 
-    public HandCard plusFourPlayerCanPlay(HandCard toCheck) {
-        HandCard plusFour = new HandCard();
+    public CardHolder plusFourPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders) {
+        CardHolder plusFour = gameCardHolders.createNewCardHolder();
         for (String card: toCheck) {
             if (card.split(" ")[1].equals("+4")) {
-                plusFour.addCard(card);
+                gameCardHolders.addCard(card, plusFour);
             }
         }
         return plusFour;
     }
 
-    public HandCard cardsPlayerCanPlay(HandCard toCheck){
-        HandCard cardsCanPlay = new HandCard();
+    public CardHolder cardsPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders){
+        CardHolder cardsCanPlay = gameCardHolders.createNewCardHolder();
 
         if (lastCard == null) {
             return toCheck;
@@ -59,7 +73,7 @@ public class CardChecker {
         for (String card: toCheck){
             String feature = card.split(" ")[1];
             if (singleCompare(card) || feature.equals("switch") || feature.equals("+4")) {
-                cardsCanPlay.addCard(card);
+                gameCardHolders.addCard(card, cardsCanPlay);
             }
         }
         return cardsCanPlay;
@@ -85,6 +99,7 @@ public class CardChecker {
         return currentColor;
     }
 
+    // This method has some problem, when we set a +2 card here, the status will not be changed.
     public void setLastCard(String lastCard) {
         this.lastCard = lastCard;
         currentColor = lastCard.split(" ")[0];
