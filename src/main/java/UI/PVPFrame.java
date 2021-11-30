@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PVPFrame extends JFrame implements ActionListener{
     Presenter presenter;
@@ -19,8 +20,8 @@ public class PVPFrame extends JFrame implements ActionListener{
     JPanel frame = new JPanel();
     JLabel currentcard = new JLabel();
     JLabel remainingcards = new JLabel();
+    JLabel playerCardCounts = new JLabel();
     JLabel id = new JLabel();
-    JLabel label = new JLabel("Cards has");
     JLabel bottom = new JLabel();
     JPanel cardHas = new JPanel();
     JButton next = new JButton("next");
@@ -47,12 +48,27 @@ public class PVPFrame extends JFrame implements ActionListener{
         id.setForeground(Color.RED);
         id.setBounds(30, 100, 300, 50);//set the location and size of JLabel
         id.setFont(new Font("Times", Font.BOLD, 30));
-        id.setText("Current Player: " + presenter.getGameResponse().getIds().get(
-                presenter.getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex()));
+        ArrayList<String> playerIds = presenter.getGameResponse().getIds();
+        int currentPosition = presenter.getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        id.setText("Current Player: " + playerIds.get(currentPosition));
+
+        playerCardCounts.setForeground(Color.RED);
+        playerCardCounts.setBounds(30, 150, 400, 300);
+        playerCardCounts.setFont(new Font("Times", Font.BOLD, 20));
+        StringBuilder countText = new StringBuilder("<html>");
+        for (int i  = 0; i < playerIds.size(); i++) {
+            int cardCount = controller.getGameRunner().getEachRound().getGameBoard().
+                    getGameCardHolders().getHandCards(i).getSize();
+            if (i != currentPosition) {
+                countText.append(playerIds.get(i)).append(" has ").append(cardCount).append(" card(s).<br>");
+            } else {
+                countText.append("You").append(" have ").append(cardCount).append(" card(s).<br>");
+            }
+        }
+        playerCardCounts.setText(countText.substring(0, countText.length() - 4) + "<html>");
 
         bottom.setBounds(28, 244, 680, 210);//set the location and size of JPanel
 
-        bottom.add(label);
         try {
             AudioInputStream input = AudioSystem.getAudioInputStream(
                     new File("src/main/java/DataSet/Background Music.wav"));
@@ -99,6 +115,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         this.add(bottom);
         this.add(id);
         this.add(remainingcards);
+        this.add(playerCardCounts);
         this.add(currentcard);
         this.add(next);
 //        this.add(draw);
@@ -143,6 +160,19 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         remainingcards.setText("Remaining Cards: " + presenter.RemainingCards());
 
+        ArrayList<String> playerIds = presenter.getGameResponse().getIds();
+        int currentPosition = presenter.getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        StringBuilder countText = new StringBuilder("<html>");
+        for (int i  = 0; i < playerIds.size(); i++) {
+            int cardCount = controller.getGameRunner().getEachRound().getGameBoard().
+                    getGameCardHolders().getHandCards(i).getSize();
+            if (i != currentPosition) {
+                countText.append(playerIds.get(i)).append(" has ").append(cardCount).append(" card(s).<br>");
+            } else {
+                countText.append("You").append(" have ").append(cardCount).append(" card(s).<br>");
+            }
+        }
+        playerCardCounts.setText(countText.substring(0, countText.length() - 4) + "<html>");
 
     }
 
