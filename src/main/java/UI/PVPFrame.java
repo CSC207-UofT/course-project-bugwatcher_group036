@@ -1,19 +1,15 @@
 package UI;
 
 import Controller.*;
-import Entity.CardHolder;
-import UseCase.*;
-import java.applet.*;
+
 import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class PVPFrame extends JFrame implements ActionListener{
     Presenter presenter;
@@ -28,7 +24,6 @@ public class PVPFrame extends JFrame implements ActionListener{
     JLabel bottom = new JLabel();
     JPanel cardHas = new JPanel();
     JButton next = new JButton("next");
-    JButton draw = new JButton("draw");
     ButtonGroup buttonGroup = new ButtonGroup();
 
     public PVPFrame(Presenter presenter, Controller controller){
@@ -59,7 +54,8 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         bottom.add(label);
         try {
-            AudioInputStream input = AudioSystem.getAudioInputStream(new File("src/main/java/DataSet/Background Music.wav"));
+            AudioInputStream input = AudioSystem.getAudioInputStream(
+                    new File("src/main/java/DataSet/Background Music.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(input);
             clip.start();
@@ -93,10 +89,10 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         this.add(cardHas);
 
-        next.setBounds(400, 300, 150, 70);
+        next.setBounds(450, 300, 150, 70);
         next.addActionListener(this);
-        draw.setBounds(150, 300, 150, 70);
-        draw.addActionListener(this);
+//        draw.setBounds(150, 300, 150, 70);
+//        draw.addActionListener(this);
 
         this.setBounds(700, 700, 750, 500);//set the location and size of frame
 
@@ -105,7 +101,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         this.add(remainingcards);
         this.add(currentcard);
         this.add(next);
-        this.add(draw);
+//        this.add(draw);
 
         this.add(frame);
         this.setSize(700, 700);
@@ -152,7 +148,7 @@ public class PVPFrame extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == draw || e.getSource() == next) {
+        if (e.getSource() == next) {
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText());
             this.updateGUI();

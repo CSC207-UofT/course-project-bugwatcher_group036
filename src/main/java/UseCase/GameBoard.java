@@ -2,6 +2,7 @@ package UseCase;
 
 import Entity.CardHolder;
 import Entity.Deck;
+import Entity.Status;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,14 +10,14 @@ import java.util.Collections;
 public class GameBoard {
 
     private GameCardHolders gameCardHolders;
-    private GameStatus gameStatus;
+    private Status status;
     private CardChecker cardChecker;
     private Deck deck;
     private IPresenter iPresenter;
 
     public GameBoard(int numberOfPlayers) {
         this.gameCardHolders = new GameCardHolders(numberOfPlayers);
-        this.gameStatus = new GameStatus(numberOfPlayers);
+        this.status = new Status(numberOfPlayers);
         this.cardChecker = new CardChecker();
         this.deck = new Deck();
     }
@@ -29,8 +30,8 @@ public class GameBoard {
         return gameCardHolders;
     }
 
-    public GameStatus getGameStatus() {
-        return gameStatus;
+    public Status getGameStatus() {
+        return status;
     }
 
     public String drawCard() {
@@ -50,7 +51,7 @@ public class GameBoard {
     public void plusManyNextPlayer(CardHolder cardHolder) {
         // draw multiple cards for given player and notify
         StringBuilder drawnCardName = new StringBuilder();
-        int numToDraw = gameStatus.getPlus();
+        int numToDraw = status.getPlus();
         for (int i = 0; i < numToDraw; i++) {
             String drawnCard = drawCard();
             if (drawnCard != null) {
@@ -65,12 +66,12 @@ public class GameBoard {
     }
 
     public void operationWhenNoPlayableCard() {
-        CardHolder currentCardHolder = gameCardHolders.getHandCards(gameStatus.getCurrentPlayerIndex());
-        if (gameStatus.getPlus() > 0) {
+        CardHolder currentCardHolder = gameCardHolders.getHandCards(status.getCurrentPlayerIndex());
+        if (status.getPlus() > 0) {
             plusManyNextPlayer(currentCardHolder);
-            gameStatus.setPlus(0); // reset plus to zero
+            status.setPlus(0); // reset plus to zero
         } else if (!cardChecker.getLastCard().split(" ")[1].equals("skip") ||
-                (cardChecker.getLastCard().split(" ")[1].equals("skip") && !gameStatus.isSkip())) {
+                (cardChecker.getLastCard().split(" ")[1].equals("skip") && !status.isSkip())) {
             // if really no card playable, let player draw card, with punish notification
             String drawnCardName = drawCardWithNotification(true);
             gameCardHolders.addCard(drawnCardName, currentCardHolder);
@@ -88,7 +89,7 @@ public class GameBoard {
     }
 
     public void checkLastCard(String toPlay, GameRequest gameRequest) {
-        CardHolder currentCardHolder = gameCardHolders.getHandCards(gameStatus.getCurrentPlayerIndex());
+        CardHolder currentCardHolder = gameCardHolders.getHandCards(status.getCurrentPlayerIndex());
         // create the arrayList for all possible number features
         ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
@@ -103,14 +104,14 @@ public class GameBoard {
                     String punishCard = drawCardWithNotification(false);
                     gameCardHolders.addCard(punishCard, currentCardHolder);
                 }
-                gameStatus.functionCardResponse(feature); // respond according to features
+                status.functionCardResponse(feature); // respond according to features
                 cardChecker.functionCardResponse(feature, iPresenter, gameRequest); // specific response for color change
             }
         }
     }
 
     public void checkLastCardForComputer(String toPlay, GameRequest gameRequest) {
-        CardHolder currentCardHolder = gameCardHolders.getHandCards(gameStatus.getCurrentPlayerIndex());
+        CardHolder currentCardHolder = gameCardHolders.getHandCards(status.getCurrentPlayerIndex());
         // create the arrayList for all possible number features
         ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
@@ -125,7 +126,7 @@ public class GameBoard {
                     String punishCard = drawCardWithNotification(false);
                     gameCardHolders.addCard(punishCard, currentCardHolder);
                 }
-                gameStatus.functionCardResponse(feature); // respond according to features
+                status.functionCardResponse(feature); // respond according to features
                 cardChecker.functionCardResponseForComputer(feature, iPresenter, gameRequest); // specific response for color change
             }
         }
@@ -140,7 +141,7 @@ public class GameBoard {
     }
 
     public void checkLastCardGUI(String toPlay, GameRequest gameRequest) {
-        CardHolder currentCardHolder = gameCardHolders.getHandCards(gameStatus.getCurrentPlayerIndex());
+        CardHolder currentCardHolder = gameCardHolders.getHandCards(status.getCurrentPlayerIndex());
         // create the arrayList for all possible number features
         ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
@@ -155,7 +156,7 @@ public class GameBoard {
                     String punishCard = drawCardWithNotification(false);
                     gameCardHolders.addCard(punishCard, currentCardHolder);
                 }
-                gameStatus.functionCardResponse(feature); // respond according to features
+                status.functionCardResponse(feature); // respond according to features
                 cardChecker.functionCardResponseGUI(feature, iPresenter, gameRequest); // specific response for color change
             }
         }

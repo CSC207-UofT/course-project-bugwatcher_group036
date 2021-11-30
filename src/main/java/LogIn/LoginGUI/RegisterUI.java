@@ -83,6 +83,10 @@ public class RegisterUI extends JFrame implements ActionListener {
                 LoginUI frame = new LoginUI();
             } else {
                 System.out.println("The username already exists, please enter a new one.");
+                JOptionPane.showMessageDialog(null,
+                        "The username already exists, please enter a new one.\n" +
+                                "Your user info is\" " + loginController.getLoginInputBoundary().
+                                getUsers().getUser(usernameInput.getText()) + "\" ");
             }
 
         }

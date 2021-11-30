@@ -1,10 +1,7 @@
 package Controller;
 
-import Entity.CardHolder;
-import UI.GameFrame;
 import UseCase.*;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -12,30 +9,30 @@ import java.util.Scanner;
 
 public class Controller {
 
-    private Scanner input = new Scanner(System.in);
-    private Presenter presenter;
+    private final Scanner input = new Scanner(System.in);
+    private Presenter iPresenter;
     private GameRunner gameRunner;
     private GameRequest gameRequest;
 
 
-    public Controller(Presenter presenter, GameRequest gameRequest) {
+    public Controller(Presenter iPresenter, GameRequest gameRequest) {
 
-        this.gameRunner = new GameRunner(false, presenter, gameRequest);
-        this.presenter = presenter;
+        this.gameRunner = new GameRunner(false, iPresenter, gameRequest);
+        this.iPresenter = iPresenter;
         this.gameRequest = gameRequest;
 
     }
-    public Controller(Presenter presenter, ArrayList<String> ids) {
+    public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
-        this.gameRunner = new GameRunner(false, presenter, gameRequest, ids);
-        this.presenter = presenter;
+        this.gameRunner = new GameRunner(false, iPresenter, gameRequest, ids);
+        this.iPresenter = iPresenter;
         this.setiGameInput(gameRunner);
-        gameRunner.buildIEachRound(gameRunner.getGameResponse().getGameBoard(), presenter, gameRequest);
+        gameRunner.buildIEachRound(gameRunner.getGameResponse().getGameBoard(), iPresenter, gameRequest);
         gameRunner.setGameResponse(gameRunner.getGameResponse());
         setplayerID(ids);
-        presenter.setController(this);
-        presenter.setGameResponse(gameRunner.getGameResponse());
-        presenter.setGameRequest(gameRequest);
+        iPresenter.setController(this);
+        iPresenter.setGameResponse(gameRunner.getGameResponse());
+        iPresenter.setGameRequest(gameRequest);
 
     }
     public GameRequest getGameRequest(){return gameRequest;}
@@ -54,7 +51,7 @@ public class Controller {
     }
     public void typeSetColorGUI(String setColor) {
         gameRequest.setSetColor(setColor);
-        presenter.colorIsSet(setColor);
+        iPresenter.colorIsSet(setColor);
     }
 
     public void typeSetColor() {
@@ -66,10 +63,10 @@ public class Controller {
 
         while (wrongTimeCounter < 3) {
             if (!colors.contains(setColor) && wrongTimeCounter < 2) {
-                presenter.wrongColor();
+                iPresenter.wrongColor();
                 setColor = input.nextLine();
             } else if (!colors.contains(setColor) && wrongTimeCounter == 2) {
-                presenter.wrongThreeTimes();
+                iPresenter.wrongThreeTimes();
                 setColor = colors.get((int) (Math.random() * colors.size()));
             } else {
                 break;
@@ -77,7 +74,7 @@ public class Controller {
             wrongTimeCounter++;
         }
         gameRequest.setSetColor(setColor);
-        presenter.colorIsSet(setColor);
+        iPresenter.colorIsSet(setColor);
     }
 
     public void typeSetColorForComputer() {
@@ -96,23 +93,23 @@ public class Controller {
     public void inputIDsGUI(boolean computer, ArrayList<String> ids) {
 
         gameRequest.setIds(ids);
-        presenter.howManyPlayersGUI(computer);
+        iPresenter.howManyPlayersGUI(computer);
 
     }
     public void inputIDs() {
         Scanner input = new Scanner(System.in);
         ArrayList<String> ids = new ArrayList<>();
-        presenter.howManyPlayers();
+        iPresenter.howManyPlayers();
         int numberOfPlayer = input.nextInt();
 
         if (numberOfPlayer < 1 || numberOfPlayer > 6) {
-            presenter.oneToSix();
+            iPresenter.oneToSix();
             numberOfPlayer = input.nextInt();
         }
         input.nextLine(); // equals to "\n", otherwise would lead to bug for nextLine.
 
         for (int i = 0; i < numberOfPlayer; i++){
-            presenter.enterIDP(i);
+            iPresenter.enterIDP(i);
             String id = input.nextLine();
             ids.add(id);
         }
@@ -123,16 +120,16 @@ public class Controller {
     public void inputIDsForComputer(){
         Scanner input = new Scanner(System.in);
         ArrayList<String> ids = new ArrayList<>();
-        presenter.howManyPlayers();
+        iPresenter.howManyPlayers();
         int numberOfPlayer = input.nextInt();
 
         if (numberOfPlayer < 1 || numberOfPlayer > 6) {
-            presenter.oneToSix();
+            iPresenter.oneToSix();
             numberOfPlayer = input.nextInt();
         }
         input.nextLine(); // equals to "\n", otherwise would lead to bug for nextLine.
 
-        presenter.enterIDCom();
+        iPresenter.enterIDCom();
         String playerID = input.nextLine();
         ids.add(playerID);
 

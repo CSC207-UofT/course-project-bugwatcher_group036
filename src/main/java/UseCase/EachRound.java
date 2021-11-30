@@ -1,6 +1,5 @@
 package UseCase;
 
-import Controller.Presenter;
 import Entity.CardHolder;
 
 import static java.lang.Thread.sleep;

@@ -29,8 +29,6 @@ public class Status {
         this.currentPlayerIndex = rand.nextInt(numberOfPlayers);
     }
 
-    public Status() {this.numberOfPlayers = 0; }
-
     public void changeReverseState() {
         this.reverse = !this.reverse;
     }

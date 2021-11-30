@@ -14,7 +14,7 @@ import java.util.Collections;
  * As dealer is in use case level,
  * we put this terminal in entity level for clean architecture.
  */
-public class Presenter implements IPresenter {
+public class Presenter implements UseCase.IPresenter {
 
     private Controller controller;
     private GameResponse gameResponse;

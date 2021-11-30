@@ -1,10 +1,7 @@
 package UI;
 
 import Controller.Controller;
-import UseCase.GameRequest;
-import UseCase.GameResponse;
 import Controller.*;
-import UseCase.GameRunner;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,8 +65,6 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
                     }
                     Presenter presenter = new Presenter();
                     Controller controller = new Controller(presenter, ids);
-
-
 
                     PVPFrame frame = new PVPFrame(presenter,controller);
 

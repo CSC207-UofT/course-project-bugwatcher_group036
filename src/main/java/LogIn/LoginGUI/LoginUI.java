@@ -28,7 +28,7 @@ public class LoginUI extends JFrame implements ActionListener {
 //        Guide.setVerticalAlignment(JLabel.TOP);
         Guide.setBounds(10,0,400,20);
 
-        quitGuide.setText("Otherwise, you can press the red X button to leave.");
+        quitGuide.setText("Otherwise, you can press the red \"X\" button to leave.");
         quitGuide.setBounds(10,30,400,20);
 
         Username.setText("Username");
@@ -85,6 +85,8 @@ public class LoginUI extends JFrame implements ActionListener {
                 ModeFrame frame = new ModeFrame();
             } else {
                 System.out.println("The password is wrong or the user does not exist.");
+                JOptionPane.showMessageDialog(null,
+                        "The password is wrong or the user does not exist.");
             }
         }
         if (button.getSource() == registerButton){

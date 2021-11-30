@@ -1,7 +1,6 @@
 package UI;
 
 import Controller.*;
-import UseCase.GameRequest;
 import UseCase.GameResponse;
 
 import javax.swing.*;

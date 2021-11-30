@@ -2,11 +2,9 @@ package UseCase;
 
 import Entity.CardHolder;
 
-import java.util.HashMap;
-
 public class GameCardHolders {
 
-    private CardHolder[] cardHolders;
+    private final CardHolder[] cardHolders;
 
     public GameCardHolders(int numberOfPlayers) {
         this.cardHolders = new CardHolder[numberOfPlayers];

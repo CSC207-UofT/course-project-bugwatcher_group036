@@ -21,6 +21,9 @@ public class LoginController {
     public boolean runRegister(String username, String password){
         LoginUseCase.RegisterResult result = loginInputBoundary.register(username, password);
         return result == LoginUseCase.RegisterResult.SUCCESS;
+    }
 
+    public LoginInputBoundary getLoginInputBoundary() {
+        return loginInputBoundary;
     }
 }

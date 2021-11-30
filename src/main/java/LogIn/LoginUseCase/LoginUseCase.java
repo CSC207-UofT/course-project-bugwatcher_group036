@@ -87,4 +87,7 @@ public class LoginUseCase implements LoginInputBoundary {
             }
     }
 
+    public UserList getUsers() {
+        return users;
+    }
 }

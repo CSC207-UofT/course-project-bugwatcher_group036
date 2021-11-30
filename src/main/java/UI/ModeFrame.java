@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import Controller.Controller;
-import Controller.Presenter;
-import UseCase.*;
 
 public class ModeFrame extends JFrame implements ActionListener {
     JPanel panel = new JPanel();
