@@ -27,12 +27,12 @@ public class EachRound {
     }
 
     public CardHolder beginStage() {
-        int currentPlayerIndex = gameBoard.getGameStatus().getCurrentPlayerIndex();
+        int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
         // get the cards we need to check
         CardHolder toCheck = gameBoard.getGameCardHolders().getHandCards(currentPlayerIndex);
-        if (gameBoard.getGameStatus().isSkip()) {
+        if (gameBoard.getStatus().isSkip()) {
             return gameBoard.getCardChecker().skipsPlayerCanPlay(toCheck, gameBoard.getGameCardHolders());
-        } else if (gameBoard.getGameStatus().getPlus() > 0){
+        } else if (gameBoard.getStatus().getPlus() > 0){
             // if the last card is plus2, player can play plus2 or plus4.
             if (gameBoard.getCardChecker().getLastCard().split(" ")[1].equals("+2")) {
                 return gameBoard.getCardChecker().plusTwoPlayerCanPlay(toCheck, gameBoard.getGameCardHolders());
@@ -111,10 +111,10 @@ public class EachRound {
     }
     public void endStageGUI(String toPlay) {
         if (toPlay != null && toPlay.equals("quit")) {
-            gameBoard.getGameStatus().setQuit();
+            gameBoard.getStatus().setQuit();
         }
 
-        gameBoard.getGameStatus().setSkip(false);
+        gameBoard.getStatus().setSkip(false);
 
         // last check for played card and update status
         assert toPlay != null;
@@ -123,29 +123,29 @@ public class EachRound {
 
         // check whether any player has no hand card, which means that player wins
         if(gameBoard.getGameCardHolders().checkWinState()){
-            gameBoard.getGameStatus().setWinFlag(true);
+            gameBoard.getStatus().setWinFlag(true);
         }
         // move to the next player
-        gameBoard.getGameStatus().setCurrentPlayerIndex(gameBoard.getGameStatus().moveToNextPlayer());
+        gameBoard.getStatus().setCurrentPlayerIndex(gameBoard.getStatus().moveToNextPlayer());
     }
 
     public void endStage(String toPlay) {
         if (toPlay != null && toPlay.equals("quit")) {
-            gameBoard.getGameStatus().setQuit();
+            gameBoard.getStatus().setQuit();
             return;
         }
 
-        gameBoard.getGameStatus().setSkip(false);
+        gameBoard.getStatus().setSkip(false);
 
         // last check for played card and update status
         gameBoard.checkLastCard(toPlay, gameRequest);
 
         // check whether any player has no hand card, which means that player wins
         if(gameBoard.getGameCardHolders().checkWinState()){
-            gameBoard.getGameStatus().setWinFlag(true);
+            gameBoard.getStatus().setWinFlag(true);
         }
         // move to the next player
-        gameBoard.getGameStatus().setCurrentPlayerIndex(gameBoard.getGameStatus().moveToNextPlayer());
+        gameBoard.getStatus().setCurrentPlayerIndex(gameBoard.getStatus().moveToNextPlayer());
     }
 
     public void endStageForComputer(String toPlay, int currentPlayerIndex) throws InterruptedException {
@@ -153,19 +153,19 @@ public class EachRound {
             endStage(toPlay);
         } else {
 
-            gameBoard.getGameStatus().setSkip(false);
+            gameBoard.getStatus().setSkip(false);
 
             // last check for played card and update status
             gameBoard.checkLastCardForComputer(toPlay, gameRequest);
 
             // check whether any player has no hand card, which means that player wins
             if(gameBoard.getGameCardHolders().checkWinState()){
-                gameBoard.getGameStatus().setWinFlag(true);
+                gameBoard.getStatus().setWinFlag(true);
             }
             sleep(1300);
             // move to the next player
-            gameBoard.getGameStatus().setCurrentPlayerIndex(
-                    gameBoard.getGameStatus().moveToNextPlayer());
+            gameBoard.getStatus().setCurrentPlayerIndex(
+                    gameBoard.getStatus().moveToNextPlayer());
         }
 
     }

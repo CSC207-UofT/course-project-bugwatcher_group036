@@ -2,6 +2,8 @@ package Controller;
 
 import Entity.CardHolder;
 
+import LogIn.LogInEntity.User;
+import LogIn.LoginUseCase.LoginUseCase;
 import UI.WinFrame;
 import UseCase.*;
 
@@ -19,9 +21,14 @@ public class Presenter implements UseCase.IPresenter {
     private Controller controller;
     private GameResponse gameResponse;
     private GameRequest gameRequest;
+    private LoginUseCase loginUseCase = new LoginUseCase(false);
 
     public void setGameRequest(GameRequest gameRequest) {
         this.gameRequest = gameRequest;
+    }
+
+    public void updateLoginUseCase() {
+        loginUseCase = new LoginUseCase(false);
     }
 
     public void setController(Controller controller) {
@@ -39,14 +46,14 @@ public class Presenter implements UseCase.IPresenter {
     public void beginStage(){
         System.out.println();
         System.out.println("Current Player:" + gameResponse.getIds().get(
-                gameResponse.getGameBoard().getGameStatus().getCurrentPlayerIndex()));
+                gameResponse.getGameBoard().getStatus().getCurrentPlayerIndex()));
     }
 
     public void playStage(){
         GameBoard gameBoard = gameResponse.getGameBoard();
         CardHolder playableCards = gameResponse.getCardHolder();
 
-        int currentPlayerIndex = gameBoard.getGameStatus().getCurrentPlayerIndex();
+        int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
         System.out.println("Last Card: " + gameBoard.getCardChecker().getLastCard());
         System.out.println(
                 "The cards you have: " + gameBoard.getGameCardHolders().getHandCards(currentPlayerIndex));
@@ -55,7 +62,7 @@ public class Presenter implements UseCase.IPresenter {
 
     public CardHolder allhandcards(){
         return gameResponse.getGameBoard().getGameCardHolders().getHandCards(gameResponse.
-                getGameBoard().getGameStatus().getCurrentPlayerIndex());
+                getGameBoard().getStatus().getCurrentPlayerIndex());
     }
 
     public void getCardToPlay(){
@@ -155,14 +162,20 @@ public class Presenter implements UseCase.IPresenter {
 
     public String PlayerID() {
         return gameResponse.getIds().get(
-                gameResponse.getGameBoard().getGameStatus().getCurrentPlayerIndex());
+                gameResponse.getGameBoard().getStatus().getCurrentPlayerIndex());
     }
 
     public String RemainingCards() {
         return String.valueOf(gameResponse.getGameBoard().getDeck().getUnusedCardDeck().size());
     }
 
-    public void WinFrame() {
-        WinFrame frame = new WinFrame();
+    public void WinFrame(String id, boolean isPVP) {
+        this.updateLoginUseCase();
+        User winner = loginUseCase.getUsers().getUser(id);
+        if (isPVP) winner.setPVPWinCount(winner.getPVPWinCount() + 1);
+        else winner.setPVEWinCount(winner.getPVEWinCount() + 1);
+        loginUseCase =  new LoginUseCase(loginUseCase.getUsers());
+
+        WinFrame frame = new WinFrame(id);
     }
 }

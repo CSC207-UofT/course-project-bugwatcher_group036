@@ -34,7 +34,7 @@ public interface IPresenter {
 
     void drawManyCard(int numToDraw, StringBuilder drawnCardName);
 
-    void WinFrame();
+    void WinFrame(String id, boolean isPVP);
 
     void inputIDsForComputer();
 

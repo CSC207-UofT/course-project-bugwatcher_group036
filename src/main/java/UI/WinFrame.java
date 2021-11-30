@@ -6,10 +6,17 @@ import java.util.Objects;
 
 public class WinFrame extends JFrame {
 
-    public WinFrame() {
+    public WinFrame(String id) {
 //        ImagePanel panel = new ImagePanel("/src/main/java/DataSet/YouWinPic.png");
         JPanel frame = new JPanel();
+        JLabel winnerInfo = new JLabel();
+
+        winnerInfo.setForeground(Color.BLACK);
+        winnerInfo.setBounds(0, 0, 500, 300);
+        winnerInfo.setFont(new Font("Times", Font.BOLD, 50));
+        winnerInfo.setText(id + " wins!");
         this.add(frame);
+        this.add(winnerInfo);
         this.setSize(540, 360);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
