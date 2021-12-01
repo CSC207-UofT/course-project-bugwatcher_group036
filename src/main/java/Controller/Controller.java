@@ -4,35 +4,25 @@ import UseCase.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Controller {
 
-    private final Scanner input = new Scanner(System.in);
-    private Presenter iPresenter;
+    private final Presenter iPresenter;
     private GameRunner gameRunner;
-    private GameRequest gameRequest;
+    private final GameRequest gameRequest;
 
-
-    public Controller(Presenter iPresenter, GameRequest gameRequest) {
-
-        this.gameRunner = new GameRunner(false, iPresenter, gameRequest);
-        this.iPresenter = iPresenter;
-        this.gameRequest = gameRequest;
-
-    }
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
-        this.gameRunner = new GameRunner(false, iPresenter, gameRequest, ids);
+        this.gameRunner = new GameRunner(iPresenter, gameRequest, ids);
         this.iPresenter = iPresenter;
         this.setiGameInput(gameRunner);
         gameRunner.buildIEachRound(gameRunner.getGameResponse().getGameBoard(), iPresenter, gameRequest);
         gameRunner.setGameResponse(gameRunner.getGameResponse());
-        setplayerID(ids);
+        gameRequest.setIds(ids);
         iPresenter.setController(this);
-        iPresenter.setGameResponse(gameRunner.getGameResponse());
         iPresenter.setGameRequest(gameRequest);
+        iPresenter.setGameRunner(gameRunner);
 
     }
     public GameRequest getGameRequest(){return gameRequest;}
@@ -45,16 +35,19 @@ public class Controller {
         this.gameRunner = iGameInput;
     }
 
-    public void getCardToPlay() {
-        String getCardToPlay = input.nextLine();
-        gameRequest.setGetCardToPlay(getCardToPlay);
-    }
-    public void typeSetColorGUI(String setColor) {
-        gameRequest.setSetColor(setColor);
-        iPresenter.colorIsSet(setColor);
+///////////////////////////////////////////////
+    //Command Line Methods
+
+    private final Scanner input = new Scanner(System.in);
+
+    public Controller(Presenter iPresenter, GameRequest gameRequest) {
+
+        this.gameRunner = new GameRunner(false, iPresenter, gameRequest);
+        this.iPresenter = iPresenter;
+        this.gameRequest = gameRequest;
     }
 
-    public void typeSetColor() {
+        public void typeSetColor() {
         ArrayList<String> colors = new ArrayList<>();
         Collections.addAll(colors, "red", "blue", "yellow", "green");
 
@@ -77,25 +70,6 @@ public class Controller {
         iPresenter.colorIsSet(setColor);
     }
 
-    public void typeSetColorForComputer() {
-        ArrayList<String> colors = new ArrayList<>();
-        Collections.addAll(colors, "red", "blue", "yellow", "green");
-        Random rand = new Random();
-        String color = colors.get(rand.nextInt(4));
-
-        gameRequest.setSetColorForComputer(color);
-    }
-
-    public void setplayerID(ArrayList<String> ids) {
-        gameRequest.setIds(ids);
-    }
-
-    public void inputIDsGUI(boolean computer, ArrayList<String> ids) {
-
-        gameRequest.setIds(ids);
-        iPresenter.howManyPlayersGUI(computer);
-
-    }
     public void inputIDs() {
         Scanner input = new Scanner(System.in);
         ArrayList<String> ids = new ArrayList<>();
@@ -138,6 +112,11 @@ public class Controller {
         }
 
         gameRequest.setIds(ids);
+    }
+
+    public void getCardToPlay() {
+        String getCardToPlay = input.nextLine();
+        gameRequest.setGetCardToPlay(getCardToPlay);
     }
 
 }

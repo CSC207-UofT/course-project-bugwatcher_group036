@@ -3,49 +3,43 @@ package UseCase;
 import Controller.Controller;
 import Entity.CardHolder;
 
-import java.util.ArrayList;
-
 public interface IPresenter {
 
     void printString(String message);
 
-    void drawCardNotification(String drawn, boolean noCard);
+    void drawCardNotification(String drawn, boolean noCard, boolean computer);
 
-    void setColor();
+    void setGameRunner(GameRunner gameRunner);
+
     void setGameRequest(GameRequest gameRequest);
 
-    void setColorForComputer();
+    void setColorForComputer(String color);
 
     void beginStage();
 
     void playStage();
 
-    void getCardToPlay();
-
-    void inputIDsGUI(boolean computer, ArrayList<String> ids);
-
     String RemainingCards();
-
-    String PlayerID();
 
     CardHolder allhandcards();
 
     void setColorGUI();
 
-    void drawManyCard(int numToDraw, StringBuilder drawnCardName);
+    void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer);
 
-    void WinFrame();
+///////////////////////////////////////////////
+    //Command Line Methods
+    void wrongColor();
+
+    void wrongThreeTimes();
+
+    void colorIsSet(String setColor);
+
+    void getCardToPlay();
+
+    void setController(Controller controller);
 
     void inputIDsForComputer();
 
     void inputIDs();
-
-    void setGameResponse(GameResponse gameResponse);
-
-    void setController(Controller controller);
-
-
-//    void getCardToPlayForComputer();
-//
-//    String typeSetColorForComputer();
 }

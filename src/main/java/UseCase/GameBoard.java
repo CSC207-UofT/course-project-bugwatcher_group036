@@ -41,14 +41,14 @@ public class GameBoard {
         return deck.drawCardFromUnusedDeck();
     }
 
-    public String drawCardWithNotification(boolean noCard) {
+    public String drawCardWithNotification(boolean noCard, boolean computer) {
         // noCard represents whether the card draw is due to no card playable
         String drawn = drawCard();
-        iPresenter.drawCardNotification(drawn, noCard);
+        iPresenter.drawCardNotification(drawn, noCard, computer);
         return drawn;
     }
 
-    public void plusManyNextPlayer(CardHolder cardHolder) {
+    public void plusManyNextPlayer(CardHolder cardHolder, boolean computer) {
         // draw multiple cards for given player and notify
         StringBuilder drawnCardName = new StringBuilder();
         int numToDraw = status.getPlus();
@@ -62,26 +62,26 @@ public class GameBoard {
                 drawnCardName.append(", ");
             }
         }
-        iPresenter.drawManyCard(numToDraw, drawnCardName);
+        iPresenter.drawManyCard(numToDraw, drawnCardName, computer);
     }
 
-    public void operationWhenNoPlayableCard() {
+    public void operationWhenNoPlayableCard(boolean computer) {
         CardHolder currentCardHolder = gameCardHolders.getHandCards(status.getCurrentPlayerIndex());
         if (status.getPlus() > 0) {
-            plusManyNextPlayer(currentCardHolder);
+            plusManyNextPlayer(currentCardHolder, computer);
             status.setPlus(0); // reset plus to zero
         } else if (!cardChecker.getLastCard().split(" ")[1].equals("skip") ||
                 (cardChecker.getLastCard().split(" ")[1].equals("skip") && !status.isSkip())) {
             // if really no card playable, let player draw card, with punish notification
-            String drawnCardName = drawCardWithNotification(true);
+            String drawnCardName = drawCardWithNotification(true, computer);
             gameCardHolders.addCard(drawnCardName, currentCardHolder);
         }
     }
 
-    public String punishOrPlayCard(String cardToPlay) {
+    public String punishOrPlayCard(String cardToPlay, boolean computer) {
         if (cardToPlay == null) {
             iPresenter.printString("Enter too many times wrong cards! Draw a card for punishment.");
-            return drawCardWithNotification(false); // not because no card playable
+            return drawCardWithNotification(false, computer); // not because no card playable
         } else if (!cardToPlay.equals("white -1") && !cardToPlay.equals("quit")) { // if it is not voluntary draw
             deck.putCardToUsedDeck(cardToPlay);
         }
@@ -94,18 +94,18 @@ public class GameBoard {
         ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
-        if (toPlay != null && !toPlay.equals("white -1") && !toPlay.equals("quit")) {
+        if (toPlay != null && !toPlay.equals("white -1") && !toPlay.equals("quit") && !toPlay.equals("next")) {
             // if the player has played a card
             String feature = toPlay.split(" ")[1];
             iPresenter.printString("The card " + toPlay + " is played.");
             if (!num.contains(feature)) { // if function card is played
                 if (gameCardHolders.isEmpty(currentCardHolder)) {
                     iPresenter.printString("You played functioned card for last card, which is invalid.");
-                    String punishCard = drawCardWithNotification(false);
+                    String punishCard = drawCardWithNotification(false, false);
                     gameCardHolders.addCard(punishCard, currentCardHolder);
                 }
                 status.functionCardResponse(feature); // respond according to features
-                cardChecker.functionCardResponse(feature, iPresenter, gameRequest); // specific response for color change
+                cardChecker.functionCardResponseGUI(feature, iPresenter, gameRequest); // specific response for color change
             }
         }
     }
@@ -123,7 +123,7 @@ public class GameBoard {
             if (!num.contains(feature)) { // if function card is played
                 if (gameCardHolders.isEmpty(currentCardHolder)) {
                     iPresenter.printString("You played functioned card for last card, which is invalid.");
-                    String punishCard = drawCardWithNotification(false);
+                    String punishCard = drawCardWithNotification(false, true);
                     gameCardHolders.addCard(punishCard, currentCardHolder);
                 }
                 status.functionCardResponse(feature); // respond according to features
@@ -146,14 +146,14 @@ public class GameBoard {
         ArrayList<String> num = new ArrayList<>();
         Collections.addAll(num, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
-        if (toPlay != null && !toPlay.equals("white -1") && !toPlay.equals("quit")) {
+        if (toPlay != null && !toPlay.equals("white -1") && !toPlay.equals("quit") && !toPlay.equals("next")) {
             // if the player has played a card
             String feature = toPlay.split(" ")[1];
             iPresenter.printString("The card " + toPlay + " is played.");
             if (!num.contains(feature)) { // if function card is played
                 if (gameCardHolders.isEmpty(currentCardHolder)) {
                     iPresenter.printString("You played functioned card for last card, which is invalid.");
-                    String punishCard = drawCardWithNotification(false);
+                    String punishCard = drawCardWithNotification(false, false);
                     gameCardHolders.addCard(punishCard, currentCardHolder);
                 }
                 status.functionCardResponse(feature); // respond according to features
