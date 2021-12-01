@@ -29,7 +29,7 @@ public class PVEFrame extends JFrame implements ActionListener {
         this.presenter = presenter;
         this.controller = controller;
 
-        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
         currentcard.setHorizontalAlignment(0);//Center the text
         currentcard.setBounds(450, 50, 144, 216);//set the location and size of JLabel
@@ -57,7 +57,7 @@ public class PVEFrame extends JFrame implements ActionListener {
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
         id.setText("Current Player: " + playerIds.get(0));
 
-        playerCardCounts.setForeground(Color.RED);
+        playerCardCounts.setForeground(Color.BLACK);
         playerCardCounts.setBounds(30, 150, 400, 300);
         playerCardCounts.setFont(new Font("Times", Font.BOLD, 20));
         StringBuilder countText = new StringBuilder("<html>");
@@ -129,9 +129,9 @@ public class PVEFrame extends JFrame implements ActionListener {
 
         while (0 != currentPosition) {
             controller.getGameRunner().runGameforGUIComputer();
-            currentPosition = controller.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+            currentPosition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
             this.updateGUI();
-            boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
+            boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
             if (winFlag) {
                 this.dispose();
                 Loseframe frame = new Loseframe(playerIds.get(currentPosition) + " Wins");
@@ -147,7 +147,7 @@ public class PVEFrame extends JFrame implements ActionListener {
         currentcard.setIcon(icon1);
         currentcard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
         id.setText("Current Player: " + presenter.getGameRunner().getGameResponse().getIds().get(
-                presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex()));
+                presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
 
         cardHas.removeAll();
 
@@ -171,7 +171,7 @@ public class PVEFrame extends JFrame implements ActionListener {
         remainingcards.setText("Remaining Cards: " + presenter.RemainingCards());
 
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
-        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
         StringBuilder countText = new StringBuilder("<html>");
         for (int i = 0; i < playerIds.size(); i++) {
             int cardCount = presenter.getGameRunner().getEachRound().getGameBoard().
@@ -190,17 +190,17 @@ public class PVEFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> playerIds = controller.getGameRunner().getGameResponse().getIds();
 
-        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
         if (e.getSource() == next) {
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText());
-            int computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+            int computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
             while (computerposition != currentPosition) {
                 controller.getGameRunner().runGameforGUIComputer();
-                computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+                computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
                 this.updateGUI();
-                boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
+                boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                 if (winFlag) {
                     this.dispose();
                     Loseframe frame = new Loseframe(playerIds.get(computerposition) + " Wins");
@@ -212,19 +212,19 @@ public class PVEFrame extends JFrame implements ActionListener {
                 JToggleButton playedcard = (JToggleButton) e.getSource();
                 if (controller.getGameRunner().getEachRound().beginStage().toString().contains(playedcard.getText())) {
                     controller.getGameRunner().runGameforGUI(playedcard.getText());
-                    boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
+                    boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                     if (winFlag) {
                         this.dispose();
                         WinFrame frame = new WinFrame(playerIds.get(0));
                     }
                     else {
-                        int computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+                        int computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
                         while (computerposition != currentPosition) {
                             controller.getGameRunner().runGameforGUIComputer();
-                            computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+                            computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
                             this.updateGUI();
-                            winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
+                            winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                             if (winFlag) {
                                 this.dispose();
                                 Loseframe frame = new Loseframe(playerIds.get(computerposition) + " Wins");

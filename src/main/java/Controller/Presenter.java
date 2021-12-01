@@ -42,7 +42,7 @@ public class Presenter implements UseCase.IPresenter {
         System.out.println();
 
         System.out.println("Current Player:" + gameRunner.getGameResponse().getIds().get(
-                gameRunner.getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex()));
+                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
 
     }
 
@@ -60,7 +60,7 @@ public class Presenter implements UseCase.IPresenter {
     public CardHolder allhandcards(){
 
         return gameRunner.getGameResponse().getGameBoard().getGameCardHolders().getHandCards(gameRunner.getGameResponse().
-                getGameBoard().getGameStatus().getCurrentPlayerIndex());
+                getGameBoard().getStatus().getCurrentPlayerIndex());
 
     }
     public CardHolder allhandcards(int id){
@@ -111,7 +111,7 @@ public class Presenter implements UseCase.IPresenter {
     public void setColorForComputer(String color) {
         System.out.println("Color " + color + " is set.");
         JOptionPane.showMessageDialog(null, "Player: "+ gameRunner.getGameResponse().getIds().get(
-                gameRunner.getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex()) +" switch color. Color " + color + " is set.");
+                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) +" switch color. Color " + color + " is set.");
     }
 
     public String RemainingCards() {
@@ -134,7 +134,7 @@ public class Presenter implements UseCase.IPresenter {
 
     public String PlayerID() {
         return gameRunner.getGameResponse().getIds().get(
-                gameRunner.getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex());
+                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex());
     }
 
     public void enterIDCom() {

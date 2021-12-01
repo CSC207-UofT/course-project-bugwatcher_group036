@@ -102,7 +102,7 @@ public class EachRound {
         }
 
 
-        gameBoard.getGameStatus().setSkip(false);
+        gameBoard.getStatus().setSkip(false);
 
         gameBoard.checkLastCard(toPlay, gameRequest);
 
@@ -266,39 +266,39 @@ public class EachRound {
             endStage(toPlay);
         } else {
 
-            gameBoard.getGameStatus().setSkip(false);
+            gameBoard.getStatus().setSkip(false);
 
             // last check for played card and update status
             gameBoard.checkLastCardForComputer(toPlay, gameRequest);
 
             // check whether any player has no hand card, which means that player wins
             if(gameBoard.getGameCardHolders().checkWinState()){
-                gameBoard.getGameStatus().setWinFlag(true);
+                gameBoard.getStatus().setWinFlag(true);
             }
             sleep(1300);
             // move to the next player
-            gameBoard.getGameStatus().setCurrentPlayerIndex(
-                    gameBoard.getGameStatus().moveToNextPlayer());
+            gameBoard.getStatus().setCurrentPlayerIndex(
+                    gameBoard.getStatus().moveToNextPlayer());
         }
     }
 
     public void endStage(String toPlay) {
         if (toPlay != null && toPlay.equals("quit")) {
-            gameBoard.getGameStatus().setQuit();
+            gameBoard.getStatus().setQuit();
             return;
         }
 
-        gameBoard.getGameStatus().setSkip(false);
+        gameBoard.getStatus().setSkip(false);
 
         // last check for played card and update status
         gameBoard.checkLastCard(toPlay, gameRequest);
 
         // check whether any player has no hand card, which means that player wins
         if(gameBoard.getGameCardHolders().checkWinState()){
-            gameBoard.getGameStatus().setWinFlag(true);
+            gameBoard.getStatus().setWinFlag(true);
         }
         // move to the next player
-        gameBoard.getGameStatus().setCurrentPlayerIndex(gameBoard.getGameStatus().moveToNextPlayer());
+        gameBoard.getStatus().setCurrentPlayerIndex(gameBoard.getStatus().moveToNextPlayer());
     }
 }
 

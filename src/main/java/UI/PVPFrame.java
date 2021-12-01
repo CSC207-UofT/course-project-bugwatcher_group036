@@ -28,9 +28,9 @@ public class PVPFrame extends JFrame implements ActionListener{
         this.presenter = presenter;
         this.controller = controller;
 
-        currentcard.setHorizontalAlignment(0);//Center the text
-        currentcard.setBounds(450, 50, 144, 216);//set the location and size of JLabel
-        currentcard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
+        currentCard.setHorizontalAlignment(0);//Center the text
+        currentCard.setBounds(450, 50, 144, 216);//set the location and size of JLabel
+        currentCard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
         ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/black.png");
         Image img1 = icon1.getImage();
         Image newImg1 = img1.getScaledInstance(144, 216,  java.awt.Image.SCALE_SMOOTH) ;
@@ -47,7 +47,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         id.setFont(new Font("Times", Font.BOLD, 30));
 
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
-        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
         id.setText("Current Player: " + playerIds.get(currentPosition));
 
@@ -132,10 +132,10 @@ public class PVPFrame extends JFrame implements ActionListener{
         Image img1 = icon1.getImage();
         Image newImg1 = img1.getScaledInstance(144, 216,  java.awt.Image.SCALE_SMOOTH) ;
         icon1 = new ImageIcon(newImg1);
-        currentcard.setIcon(icon1);
-        currentcard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
+        currentCard.setIcon(icon1);
+        currentCard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
         id.setText("Current Player: " + presenter.getGameRunner().getGameResponse().getIds().get(
-                presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex()));
+                presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
 
         cardHas.removeAll();
 
@@ -161,7 +161,7 @@ public class PVPFrame extends JFrame implements ActionListener{
 
 
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
-        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
         StringBuilder countText = new StringBuilder("<html>");
         for (int i  = 0; i < playerIds.size(); i++) {
@@ -195,10 +195,10 @@ public class PVPFrame extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null,"Cannot play this card!");
             }
         }
-        boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
+        boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
         if(winFlag) {
             this.dispose();
-            WinFrame frame = new WinFrame(playerIds.get(controller.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex()));
+            WinFrame frame = new WinFrame(playerIds.get(controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
         }
     }
 }

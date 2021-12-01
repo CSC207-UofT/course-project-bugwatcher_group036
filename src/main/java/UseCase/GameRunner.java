@@ -56,7 +56,7 @@ public class GameRunner implements IGameInput {
 
     public void runGameforGUI(String toPlay) {
         // update current position
-        int currentPlayerIndex = eachRound.getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        int currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
 
         // system output and checking for begin stage, get playable cards for currentPlayer
         CardHolder playableCards = eachRound.beginStage();
@@ -73,7 +73,7 @@ public class GameRunner implements IGameInput {
 
     public void runGameforGUIComputer() {
         // update current position
-        int currentPlayerIndex = eachRound.getGameBoard().getGameStatus().getCurrentPlayerIndex();
+        int currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
 
         // system output and checking for begin stage, get playable cards for currentPlayer
         eachRound.getTerminal().beginStage();
