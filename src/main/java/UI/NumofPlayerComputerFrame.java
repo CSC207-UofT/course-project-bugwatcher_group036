@@ -1,6 +1,7 @@
 package UI;
 
 import Controller.*;
+import LogIn.LogInEntity.UserStatistics;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +14,10 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
     JButton enterbutton = new JButton();
     JTextField ComputerPlayer = new JTextField();
 
+    private UserStatistics stats;
 
-    public NumofPlayerComputerFrame() {
+    public NumofPlayerComputerFrame(UserStatistics stats) {
+        this.stats = stats;
 
         Username.setText("Number of Computer:");
         Username.setBounds(20, 30, 300, 20);
@@ -60,7 +63,7 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
                     Controller controller = new Controller(presenter, ids);
 
 
-                    PVEFrame pveFrame = new PVEFrame(presenter, controller);
+                    PVEFrame pveFrame = new PVEFrame(presenter, controller, stats);
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +

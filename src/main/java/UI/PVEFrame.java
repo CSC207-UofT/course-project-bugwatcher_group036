@@ -2,6 +2,9 @@ package UI;
 
 import Controller.Controller;
 import Controller.Presenter;
+import LogIn.LogInEntity.UserList;
+import LogIn.LogInEntity.UserStatistics;
+import LogIn.LoginUseCase.LoginUseCase;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -12,8 +15,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class PVEFrame extends JFrame implements ActionListener {
-    Presenter presenter;
-    Controller controller;
+    private Presenter presenter;
+    private Controller controller;
+    private UserStatistics stats;
 
     JPanel frame = new JPanel();
     JLabel currentcard = new JLabel();
@@ -25,9 +29,10 @@ public class PVEFrame extends JFrame implements ActionListener {
     JButton next = new JButton("next");
     ButtonGroup buttonGroup = new ButtonGroup();
 
-    public PVEFrame(Presenter presenter, Controller controller) {
+    public PVEFrame(Presenter presenter, Controller controller, UserStatistics stats) {
         this.presenter = presenter;
         this.controller = controller;
+        this.stats = stats;
 
         int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
@@ -193,7 +198,7 @@ public class PVEFrame extends JFrame implements ActionListener {
         int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
         if (e.getSource() == next) {
             JButton playedcard = (JButton) e.getSource();
-            controller.getGameRunner().runGameforGUI(playedcard.getText());
+            controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
             int computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
             while (computerposition != currentPosition) {
@@ -211,10 +216,17 @@ public class PVEFrame extends JFrame implements ActionListener {
         else{
                 JToggleButton playedcard = (JToggleButton) e.getSource();
                 if (controller.getGameRunner().getEachRound().beginStage().toString().contains(playedcard.getText())) {
-                    controller.getGameRunner().runGameforGUI(playedcard.getText());
+                    controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
                     boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                     if (winFlag) {
                         this.dispose();
+
+                        stats.PVEWin();
+                        LoginUseCase saver = new LoginUseCase(false);
+                        UserList users = saver.getUsers();
+                        users.getUser(stats.getPlayerId()).setUserStatistics(stats);
+                        new LoginUseCase(users);
+
                         WinFrame frame = new WinFrame(playerIds.get(0));
                     }
                     else {

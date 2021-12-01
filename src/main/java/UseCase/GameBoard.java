@@ -3,6 +3,7 @@ package UseCase;
 import Entity.CardHolder;
 import Entity.Deck;
 import Entity.Status;
+import LogIn.LogInEntity.UserStatistics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,15 +66,17 @@ public class GameBoard {
         iPresenter.drawManyCard(numToDraw, drawnCardName, computer);
     }
 
-    public void operationWhenNoPlayableCard(boolean computer) {
+    public void operationWhenNoPlayableCard(boolean computer, UserStatistics stats) {
         CardHolder currentCardHolder = gameCardHolders.getHandCards(status.getCurrentPlayerIndex());
         if (status.getPlus() > 0) {
             plusManyNextPlayer(currentCardHolder, computer);
+            stats.drawCard(status.getPlus());
             status.setPlus(0); // reset plus to zero
         } else if (!cardChecker.getLastCard().split(" ")[1].equals("skip") ||
                 (cardChecker.getLastCard().split(" ")[1].equals("skip") && !status.isSkip())) {
             // if really no card playable, let player draw card, with punish notification
             String drawnCardName = drawCardWithNotification(true, computer);
+            stats.drawCard(1);
             gameCardHolders.addCard(drawnCardName, currentCardHolder);
         }
     }
@@ -88,7 +91,7 @@ public class GameBoard {
         return null;
     }
 
-    public void checkLastCard(String toPlay, GameRequest gameRequest) {
+    public void checkLastCard(String toPlay, GameRequest gameRequest, UserStatistics stats) {
         CardHolder currentCardHolder = gameCardHolders.getHandCards(status.getCurrentPlayerIndex());
         // create the arrayList for all possible number features
         ArrayList<String> num = new ArrayList<>();
@@ -98,6 +101,7 @@ public class GameBoard {
             // if the player has played a card
             String feature = toPlay.split(" ")[1];
             iPresenter.printString("The card " + toPlay + " is played.");
+            stats.playCard(toPlay);
             if (!num.contains(feature)) { // if function card is played
                 if (gameCardHolders.isEmpty(currentCardHolder)) {
                     iPresenter.printString("You played functioned card for last card, which is invalid.");

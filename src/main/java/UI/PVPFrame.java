@@ -1,6 +1,9 @@
 package UI;
 
 import Controller.*;
+import LogIn.LogInEntity.UserList;
+import LogIn.LogInEntity.UserStatistics;
+import LogIn.LoginUseCase.LoginUseCase;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -13,6 +16,7 @@ import java.util.ArrayList;
 public class PVPFrame extends JFrame implements ActionListener{
     private Controller controller;
     private Presenter presenter;
+    private UserStatistics stats;
 
     JPanel frame = new JPanel();
     JLabel currentCard = new JLabel();
@@ -24,9 +28,10 @@ public class PVPFrame extends JFrame implements ActionListener{
     JButton next = new JButton("next");
     ButtonGroup buttonGroup = new ButtonGroup();
 
-    public PVPFrame(Presenter presenter, Controller controller){
+    public PVPFrame(Presenter presenter, Controller controller, UserStatistics stats){
         this.presenter = presenter;
         this.controller = controller;
+        this.stats = stats;
 
         currentCard.setHorizontalAlignment(0);//Center the text
         currentCard.setBounds(450, 50, 144, 216);//set the location and size of JLabel
@@ -182,13 +187,13 @@ public class PVPFrame extends JFrame implements ActionListener{
         ArrayList<String> playerIds = controller.getGameRunner().getGameResponse().getIds();
         if (e.getSource() == next) {
             JButton playedcard = (JButton) e.getSource();
-            controller.getGameRunner().runGameforGUI(playedcard.getText());
+            controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
             this.updateGUI();
         }
         else {
             JToggleButton playedcard = (JToggleButton) e.getSource();
             if (controller.getGameRunner().getEachRound().beginStage().toString().contains(playedcard.getText())) {
-                controller.getGameRunner().runGameforGUI(playedcard.getText());
+                controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
                 this.updateGUI();
             }
             else {
@@ -198,7 +203,15 @@ public class PVPFrame extends JFrame implements ActionListener{
         boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
         if(winFlag) {
             this.dispose();
-            WinFrame frame = new WinFrame(playerIds.get(controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
+
+            stats.PVPWin();
+            LoginUseCase saver = new LoginUseCase(false);
+            UserList users = saver.getUsers();
+            users.getUser(stats.getPlayerId()).setUserStatistics(stats);
+            new LoginUseCase(users);
+
+            WinFrame frame = new WinFrame(playerIds.get
+                    (controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
         }
     }
 }
