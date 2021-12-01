@@ -20,7 +20,7 @@ public class DeckTest {
         Deck deck = new Deck();
         String card = deck.drawCardFromUnusedDeck();
         ArrayList<String> colors = new ArrayList<>();
-        Collections.addAll(colors, "red", "green", "yellow", "blue");
+        Collections.addAll(colors, "red", "green", "yellow", "blue", "black");
         assertTrue(colors.contains(card.split(" ")[0]));
     }
 

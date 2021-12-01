@@ -30,7 +30,7 @@ public class GameBoard {
         return gameCardHolders;
     }
 
-    public Status getGameStatus() {
+    public Status getStatus() {
         return status;
     }
 

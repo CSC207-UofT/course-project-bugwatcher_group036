@@ -2,7 +2,6 @@ package UseCase;
 
 import Entity.Deck;
 import Entity.CardHolder;
-import Entity.Status;
 
 import org.junit.jupiter.api.Test;
 
@@ -55,23 +54,23 @@ public class EachRoundTest {
         assertEquals(cardHolder0.getSize(), 5);
         assertEquals(gameBoard.getGameCardHolders().getHolderNumber(), 2);
 
-        gameBoard.getGameStatus().setSkip(true);
-        gameBoard.getGameStatus().setCurrentPlayerIndex(0);
+        gameBoard.getStatus().setSkip(true);
+        gameBoard.getStatus().setCurrentPlayerIndex(0);
 
-        assertEquals(gameBoard.getGameStatus().getCurrentPlayerIndex(), 0);
+        assertEquals(gameBoard.getStatus().getCurrentPlayerIndex(), 0);
         assertEquals(gameBoard.getGameCardHolders().getNumbersOfCardHolds(0), 5);
-        assertTrue(gameBoard.getGameStatus().isSkip());
+        assertTrue(gameBoard.getStatus().isSkip());
         CardHolder b0 = eachRound.beginStage();
         assertEquals(b0.getSize(), 2);
 
-        gameBoard.getGameStatus().setSkip(false);
+        gameBoard.getStatus().setSkip(false);
         ArrayList<String> plusTwoCards = new ArrayList<String>();
         plusTwoCards.add("green +2");
         cardHolder0.addCards(plusTwoCards);
         gameBoard.getCardChecker().setLastCard("blue +2");
-        gameBoard.getGameStatus().setPlus(2);
+        gameBoard.getStatus().setPlus(2);
         CardHolder b1 = eachRound.beginStage();
-        assertEquals(gameBoard.getGameStatus().getPlus(), 2);
+        assertEquals(gameBoard.getStatus().getPlus(), 2);
         assertEquals(b1.getSize(), 1);
 
         ArrayList<String> plusFourCards = new ArrayList<String>();
@@ -81,12 +80,12 @@ public class EachRoundTest {
         plusFourCards.add("yellow +4");
         cardHolder0.addCards(plusFourCards);
         gameBoard.getCardChecker().setLastCard("blue +4");
-        gameBoard.getGameStatus().setPlus(4);
+        gameBoard.getStatus().setPlus(4);
         CardHolder b2 = eachRound.beginStage();
         assertEquals(b2.getSize(), 4);
 
         gameBoard.getCardChecker().setLastCard("blue 7");
-        gameBoard.getGameStatus().setPlus(0);
+        gameBoard.getStatus().setPlus(0);
         CardHolder b3 = eachRound.beginStage();
         assertEquals(b3.getSize(), 7);
 
