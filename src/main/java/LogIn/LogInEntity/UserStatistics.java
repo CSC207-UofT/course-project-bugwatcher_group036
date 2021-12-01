@@ -73,6 +73,6 @@ public class UserStatistics implements Serializable {
         for (int i = 0; i < keywords.length; i++) {
             res.append(keywords[i]).append(": ").append(stats[i]).append("\n");
         }
-        return res.substring(0, res.length() - 2);
+        return res.toString();
     }
 }
