@@ -83,7 +83,8 @@ public class LoginUI extends JFrame implements ActionListener {
                 System.out.println("Login success!");
 //               Need to connect to mainUI.
                 this.dispose();
-                ModeFrame frame = new ModeFrame();
+                ModeFrame frame = new ModeFrame
+                        (useCase.getUsers().getUser(usernameInput.getText()).getUserStatistics());
             } else {
                 System.out.println("The password is wrong or the user does not exist.");
                 JOptionPane.showMessageDialog(null,

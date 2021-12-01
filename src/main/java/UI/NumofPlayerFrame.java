@@ -2,6 +2,7 @@ package UI;
 
 import Controller.Controller;
 import Controller.*;
+import LogIn.LogInEntity.UserStatistics;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,10 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
     JButton enterbutton = new JButton();
     JTextField NumberPlayer = new JTextField();
 
-    public NumofPlayerFrame() {
+    private UserStatistics stats;
+
+    public NumofPlayerFrame(UserStatistics stats) {
+        this.stats = stats;
 
         Username.setText("Number of Players:");
         Username.setBounds(20, 30, 300, 20);
@@ -57,7 +61,7 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
                     Presenter presenter = new Presenter();
                     Controller controller = new Controller(presenter, ids);
 
-                    PVPFrame frame = new PVPFrame(presenter,controller);
+                    PVPFrame frame = new PVPFrame(presenter,controller, stats);
 
                 }
                 else {
