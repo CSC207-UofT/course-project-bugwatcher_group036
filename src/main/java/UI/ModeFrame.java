@@ -2,8 +2,7 @@ package UI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class ModeFrame extends JFrame implements ActionListener {
     JPanel panel = new JPanel();
@@ -42,7 +41,7 @@ public class ModeFrame extends JFrame implements ActionListener {
         this.add(panel);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        this.setSize(300, 200);
+        this.setSize(300, 130);
         this.setLocation(new Point(500, 200));
         this.setVisible(true);
 

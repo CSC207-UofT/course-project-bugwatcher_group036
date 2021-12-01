@@ -13,16 +13,8 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
     JLabel Username = new JLabel();
     JButton enterbutton = new JButton();
     JTextField NumberPlayer = new JTextField();
-//    IPresenter presenter;
-//    Controller controller;
-//    GameRequest gameRequest;
-//    GameResponse gameResponse;
 
     public NumofPlayerFrame() {
-//        this.presenter = presenter;
-//        this.controller = controller;
-//        this.gameRequest = gameRequest;
-//        this.gameResponse = gameResponse;
 
         Username.setText("Number of Players:");
         Username.setBounds(20, 30, 300, 20);
@@ -46,7 +38,6 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
         this.add(Username);
         this.add(enterbutton);
         this.add(NumberPlayer);
-//        this.pack();
     }
 
     @Override
