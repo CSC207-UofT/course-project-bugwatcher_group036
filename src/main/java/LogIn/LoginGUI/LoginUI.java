@@ -18,7 +18,7 @@ public class LoginUI extends JFrame implements ActionListener {
     JButton loginButton = new JButton();
     JButton registerButton = new JButton();
     JTextField usernameInput = new JTextField();
-    JPasswordField passwordInput = new JPasswordField();
+    JTextField passwordInput = new JTextField();
     LoginUseCase useCase;
     LoginController loginController = new LoginController(useCase);
 
@@ -53,7 +53,6 @@ public class LoginUI extends JFrame implements ActionListener {
         usernameInput.setBounds(100,100,200,20);
 
         passwordInput.addActionListener(this);
-        passwordInput.setEchoChar('*');
         passwordInput.setBounds(100,130,200,20);
 
         this.setTitle("Welcome to the game center!");
@@ -79,7 +78,7 @@ public class LoginUI extends JFrame implements ActionListener {
             useCase = new LoginUseCase(false);
             loginController = new LoginController(useCase);
 
-            if (loginController.runLogin(usernameInput.getText(), String.valueOf(passwordInput.getPassword()))) {
+            if (loginController.runLogin(usernameInput.getText(), passwordInput.getText())) {
                 System.out.println("Login success!");
 //               Need to connect to mainUI.
                 this.dispose();

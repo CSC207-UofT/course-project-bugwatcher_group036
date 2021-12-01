@@ -35,9 +35,6 @@ public class GameResponse {
         return ids;
     }
 
-///////////////////////////////////////////////
-    //Unused Methods
-
     public void setSetColor(String setColor) {
         this.setColor = setColor;
     }

@@ -1,10 +1,7 @@
 package UseCase;
 
 import Entity.CardHolder;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+import Entity.Status;
 
 public class CardChecker {
 
@@ -16,7 +13,12 @@ public class CardChecker {
         currentColor = null;
     }
 
-
+    public void functionCardResponse(String feature, IPresenter iPresenter, GameRequest gameRequest) {
+        if (feature.equals("+4") || feature.equals("switch")) {
+            iPresenter.setColor();
+            currentColor = gameRequest.getSetColor();
+        }
+    }
     public void functionCardResponseGUI(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {
             iPresenter.setColorGUI();
@@ -26,13 +28,8 @@ public class CardChecker {
 
     public void functionCardResponseForComputer(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {
-            ArrayList<String> colors = new ArrayList<>();
-            Collections.addAll(colors, "red", "blue", "yellow", "green");
-            Random rand = new Random();
-            String color = colors.get(rand.nextInt(4));
-            gameRequest.setSetColorForComputer(color);
+            iPresenter.setColorForComputer();
             currentColor = gameRequest.getSetColorForComputer();
-            iPresenter.setColorForComputer(color);
         }
     }
 
@@ -98,10 +95,17 @@ public class CardChecker {
         return lastCard;
     }
 
+    public String getCurrentColor() {
+        return currentColor;
+    }
+
     // This method has some problem, when we set a +2 card here, the status will not be changed.
     public void setLastCard(String lastCard) {
         this.lastCard = lastCard;
         currentColor = lastCard.split(" ")[0];
     }
 
+    public void setCurrentColor(String color) {
+        this.currentColor = color;
+    }
 }

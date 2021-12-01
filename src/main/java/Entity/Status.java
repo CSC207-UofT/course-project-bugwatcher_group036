@@ -33,6 +33,8 @@ public class Status {
         this.reverse = !this.reverse;
     }
 
+    public boolean getReverseState() { return reverse;}
+
     public boolean isWinFlag() {
         return winFlag;
     }
@@ -70,7 +72,7 @@ public class Status {
         this.plus = plus;
     }
 
-
+    public int getNumberOfPlayers(){ return numberOfPlayers;}
 
     public void functionCardResponse(String feature){
         switch (feature) {
@@ -103,10 +105,4 @@ public class Status {
         }
         return currentPlayerIndex;
     }
-///////////////////////////////////////////////
-    //Unused Methods
-    public int getNumberOfPlayers(){ return numberOfPlayers;}
-
-    public boolean getReverseState() { return reverse;}
-
 }

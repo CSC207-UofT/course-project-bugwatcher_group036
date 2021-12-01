@@ -1,6 +1,7 @@
 package UI;
 
 import Controller.*;
+import UseCase.GameResponse;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +12,11 @@ import java.util.ArrayList;
 public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
     JLabel Username = new JLabel();
     JButton enterbutton = new JButton();
-    JTextField ComputerPlayer = new JTextField();
-
+    JTextField NumberPlayer = new JTextField();
+//    IPresenter presenter;
+//    Controller controller;
+//    GameRequest gameRequest;
+//    GameResponse gameResponse;
 
     public NumofPlayerComputerFrame() {
 
@@ -24,8 +28,8 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
         enterbutton.addActionListener(this);
         enterbutton.setFocusable(false);
 
-        ComputerPlayer.addActionListener(this);
-        ComputerPlayer.setBounds(200, 30, 100, 20);
+        NumberPlayer.addActionListener(this);
+        NumberPlayer.setBounds(200, 30, 100, 20);
 
 
         this.setTitle("Number of Computer");
@@ -37,7 +41,7 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
         this.setLocation(new Point(500, 200));
         this.add(Username);
         this.add(enterbutton);
-        this.add(ComputerPlayer);
+        this.add(NumberPlayer);
 //        this.pack();
     }
 
@@ -45,7 +49,7 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enterbutton){
             try {
-                int num = Integer.parseInt(ComputerPlayer.getText());
+                int num = Integer.parseInt(NumberPlayer.getText());
 
                 if (num > 1 && num < 7){
                     this.dispose();
@@ -54,13 +58,18 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
                             "Player Name ", JOptionPane.INFORMATION_MESSAGE);
                     ids.add(id);
                     for (int i = 1; i <= num; i++){
-                        ids.add("Computer " + i);
+                        ids.add("Computer " + Integer.toString(i));
                     }
+//                    controller.setplayerID(ids);
                     Presenter presenter = new Presenter();
                     Controller controller = new Controller(presenter, ids);
+                    GameResponse gameResponse = controller.getGameRunner().getGameResponse();
+                    presenter.setController(controller);
+                    presenter.setGameResponse(gameResponse);
+                    GUITerminal terminal = new GUITerminal(presenter, controller, gameResponse, ids);
 
 
-                    PVEFrame pveFrame = new PVEFrame(presenter, controller);
+//                    PVEFrame pveFrame = new PVEFrame(presenter, controller, gameRequest, gameResponse);
                 }
                 else {
                     JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +
