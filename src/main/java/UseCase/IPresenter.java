@@ -31,6 +31,7 @@ public interface IPresenter {
     //Command Line Methods
     void wrongColor();
 
+
     void wrongThreeTimes();
 
     void colorIsSet(String setColor);

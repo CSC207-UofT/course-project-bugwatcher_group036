@@ -11,12 +11,12 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class PVPFrame extends JFrame implements ActionListener{
-    Presenter presenter;
-    Controller controller;
+    private Controller controller;
+    private Presenter presenter;
 
     JPanel frame = new JPanel();
-    JLabel currentcard = new JLabel();
-    JLabel remainingcards = new JLabel();
+    JLabel currentCard = new JLabel();
+    JLabel remainingCards = new JLabel();
     JLabel playerCardCounts = new JLabel();
     JLabel id = new JLabel();
     JLabel bottom = new JLabel();
@@ -35,21 +35,23 @@ public class PVPFrame extends JFrame implements ActionListener{
         Image img1 = icon1.getImage();
         Image newImg1 = img1.getScaledInstance(144, 216,  java.awt.Image.SCALE_SMOOTH) ;
         icon1 = new ImageIcon(newImg1);
-        currentcard.setIcon(icon1);
+        currentCard.setIcon(icon1);
 
-        remainingcards.setForeground(Color.RED);
-        remainingcards.setBounds(30, 50, 300, 50);//set the location and size of JLabel
-        remainingcards.setFont(new Font("Times", Font.BOLD, 30));
-        remainingcards.setText("Remaining Cards: " + presenter.RemainingCards());
+        remainingCards.setForeground(Color.RED);
+        remainingCards.setBounds(30, 50, 400, 50);//set the location and size of JLabel
+        remainingCards.setFont(new Font("Times", Font.BOLD, 30));
+        remainingCards.setText("Remaining Cards: " + presenter.RemainingCards());
 
         id.setForeground(Color.RED);
-        id.setBounds(30, 100, 300, 50);//set the location and size of JLabel
+        id.setBounds(30, 100, 400, 50);//set the location and size of JLabel
         id.setFont(new Font("Times", Font.BOLD, 30));
+
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
         int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+
         id.setText("Current Player: " + playerIds.get(currentPosition));
 
-        playerCardCounts.setForeground(Color.RED);
+        playerCardCounts.setForeground(Color.BLACK);
         playerCardCounts.setBounds(30, 150, 400, 300);
         playerCardCounts.setFont(new Font("Times", Font.BOLD, 20));
         StringBuilder countText = new StringBuilder("<html>");
@@ -111,9 +113,9 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         this.add(bottom);
         this.add(id);
-        this.add(remainingcards);
+        this.add(remainingCards);
         this.add(playerCardCounts);
-        this.add(currentcard);
+        this.add(currentCard);
         this.add(next);
 //        this.add(draw);
 
@@ -155,10 +157,12 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         );
 
-        remainingcards.setText("Remaining Cards: " + presenter.RemainingCards());
+        remainingCards.setText("Remaining Cards: " + presenter.RemainingCards());
+
 
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
         int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex();
+
         StringBuilder countText = new StringBuilder("<html>");
         for (int i  = 0; i < playerIds.size(); i++) {
             int cardCount = presenter.getGameRunner().getEachRound().getGameBoard().

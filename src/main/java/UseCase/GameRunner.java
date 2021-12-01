@@ -16,7 +16,9 @@ public class GameRunner implements IGameInput {
     private GameRequest gameRequest;
     private IPresenter iPresenter;
 
+
     public GameRunner(IPresenter iPresenter, GameRequest gameRequest, ArrayList<String> ids) {
+
         this.gameRequest = gameRequest;
         this.gameResponse = new GameResponse();// get player ids and number of players
         this.iPresenter = iPresenter;
@@ -43,9 +45,11 @@ public class GameRunner implements IGameInput {
         return gameRequest;
     }
 
-    public EachRound getEachRound() {return eachRound;}
+    public EachRound getEachRound() {
+        return eachRound;
+    }
 
-    public void buildIEachRound(GameBoard gameBoard, IPresenter iPresenter, GameRequest gameRequest){
+    public void buildIEachRound(GameBoard gameBoard, IPresenter iPresenter, GameRequest gameRequest) {
         this.eachRound = new EachRound(gameBoard, iPresenter, gameRequest);
         eachRound.cardDeal(numberOfPlayers);
     }
@@ -103,13 +107,14 @@ public class GameRunner implements IGameInput {
     }
 
     public String runGame(){
+
         int currentPlayerIndex = -1; // just initialize with a value, will be updates once enter the loop
-        boolean winFlag = eachRound.getGameBoard().getGameStatus().isWinFlag(); // initialize win flag
+        boolean winFlag = eachRound.getGameBoard().getStatus().isWinFlag(); // initialize win flag
 //        eachRound.cardDeal(numberOfPlayers); // let players draw cards
 
-        while (!winFlag){
+        while (!winFlag) {
             // update current position
-            currentPlayerIndex = eachRound.getGameBoard().getGameStatus().getCurrentPlayerIndex();
+            currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
 
             // system output and checking for begin stage, get playable cards for currentPlayer
             eachRound.getTerminal().beginStage();
@@ -125,13 +130,12 @@ public class GameRunner implements IGameInput {
             eachRound.endStage(toPlay);
 
             // update winFlag after each round
-            winFlag = eachRound.getGameBoard().getGameStatus().isWinFlag();
+            winFlag = eachRound.getGameBoard().getStatus().isWinFlag();
         }
 
 
-
         // Case the choice is quit
-        if (eachRound.getGameBoard().getGameStatus().getCurrentPlayerIndex() < 0) {
+        if (eachRound.getGameBoard().getStatus().getCurrentPlayerIndex() < 0) {
             return null;
         }
         return ids.get(currentPlayerIndex); // return winner's id from ids
@@ -140,12 +144,12 @@ public class GameRunner implements IGameInput {
 
     public String runGameForPVE() throws InterruptedException {
         int currentPlayerIndex = -1; // just initialize with a value, will be updates once enter the loop
-        boolean winFlag = eachRound.getGameBoard().getGameStatus().isWinFlag(); // initialize win flag
+        boolean winFlag = eachRound.getGameBoard().getStatus().isWinFlag(); // initialize win flag
         eachRound.cardDeal(numberOfPlayers); // let players draw cards
 
-        while (!winFlag){
+        while (!winFlag) {
             // update current position
-            currentPlayerIndex = eachRound.getGameBoard().getGameStatus().getCurrentPlayerIndex();
+            currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
 
             // system output and checking for begin stage, get playable cards for currentPlayer
 
@@ -162,11 +166,11 @@ public class GameRunner implements IGameInput {
             eachRound.endStageForComputer(toPlay, currentPlayerIndex);
 
             // update winFlag after each round
-            winFlag = eachRound.getGameBoard().getGameStatus().isWinFlag();
+            winFlag = eachRound.getGameBoard().getStatus().isWinFlag();
         }
 
         // Case the choice is quit
-        if (eachRound.getGameBoard().getGameStatus().getCurrentPlayerIndex() < 0) {
+        if (eachRound.getGameBoard().getStatus().getCurrentPlayerIndex() < 0) {
             return null;
         }
         return ids.get(currentPlayerIndex); // return winner's id from ids

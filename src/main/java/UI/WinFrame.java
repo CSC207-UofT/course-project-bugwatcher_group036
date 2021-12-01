@@ -7,7 +7,6 @@ import java.awt.*;
 public class WinFrame extends JFrame {
 
     public WinFrame(String name) {
-
         this.setSize(540, 360);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);

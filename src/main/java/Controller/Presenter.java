@@ -2,6 +2,8 @@ package Controller;
 
 import Entity.CardHolder;
 
+import LogIn.LogInEntity.User;
+import LogIn.LoginUseCase.LoginUseCase;
 import UI.WinFrame;
 import UseCase.*;
 
@@ -18,15 +20,19 @@ public class Presenter implements UseCase.IPresenter {
 
     private Controller controller;
     private GameRequest gameRequest;
+
     private GameRunner gameRunner;
 
     public void setGameRunner(GameRunner gameRunner) {this.gameRunner = gameRunner;}
+
 
     public void setGameRequest(GameRequest gameRequest) {
         this.gameRequest = gameRequest;
     }
 
+
     public GameRunner getGameRunner(){return this.gameRunner;}
+
 
     public GameRequest getGameRequest() {
         return gameRequest;
@@ -34,15 +40,17 @@ public class Presenter implements UseCase.IPresenter {
 
     public void beginStage(){
         System.out.println();
+
         System.out.println("Current Player:" + gameRunner.getGameResponse().getIds().get(
                 gameRunner.getGameResponse().getGameBoard().getGameStatus().getCurrentPlayerIndex()));
+
     }
 
     public void playStage(){
         GameBoard gameBoard = gameRunner.getGameResponse().getGameBoard();
         CardHolder playableCards = gameRunner.getGameResponse().getCardHolder();
 
-        int currentPlayerIndex = gameBoard.getGameStatus().getCurrentPlayerIndex();
+        int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
         System.out.println("Last Card: " + gameBoard.getCardChecker().getLastCard());
         System.out.println(
                 "The cards you have: " + gameBoard.getGameCardHolders().getHandCards(currentPlayerIndex));
@@ -50,8 +58,10 @@ public class Presenter implements UseCase.IPresenter {
     }
 
     public CardHolder allhandcards(){
+
         return gameRunner.getGameResponse().getGameBoard().getGameCardHolders().getHandCards(gameRunner.getGameResponse().
                 getGameBoard().getGameStatus().getCurrentPlayerIndex());
+
     }
     public CardHolder allhandcards(int id){
         return gameRunner.getGameResponse().getGameBoard().getGameCardHolders().getHandCards(id);
@@ -149,6 +159,7 @@ public class Presenter implements UseCase.IPresenter {
 
     public void howManyPlayers() {
         System.out.println("How many players here? ");
+
     }
 
     public void getCardToPlay(){
@@ -156,7 +167,9 @@ public class Presenter implements UseCase.IPresenter {
         controller.getCardToPlay();
     }
 
+
     public void setController(Controller controller) {
         this.controller = controller;
+
     }
 }
