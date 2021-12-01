@@ -25,6 +25,19 @@ public class EachRound {
             }
         }
     }
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public IPresenter getTerminal() {
+        return iPresenter;
+    }
+
+    public CardChecker getCardChecker() {
+        return gameBoard.getCardChecker();
+    }
+
+    public GameRequest getGameRequest() {return gameRequest;}
 
     public CardHolder beginStage() {
         int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
@@ -49,13 +62,13 @@ public class EachRound {
 
     public void playStageGUI(CardHolder playableCards, int currentPlayerIndex, String cardToPlay) {
         if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
-            gameBoard.operationWhenNoPlayableCard();
+            gameBoard.operationWhenNoPlayableCard(false);
         } else {
             // if there's playable card, call play card method
             cardToPlay = letPlayerPlayCardGUI(playableCards, currentPlayerIndex, cardToPlay);
 
             // return null if no punished card, and will pass the if statement
-            String probablyDrawnCard = gameBoard.punishOrPlayCard(cardToPlay);
+            String probablyDrawnCard = gameBoard.punishOrPlayCard(cardToPlay, false);
             if (probablyDrawnCard != null){
                 gameBoard.getGameCardHolders().addCard(probablyDrawnCard, currentPlayerIndex);
             }
@@ -67,19 +80,13 @@ public class EachRound {
         }
     }
 
-    public String playStage(CardHolder playableCards, int currentPlayerIndex) {
+    public String playStageGUIPVE(CardHolder playableCards, int currentPlayerIndex) {
         String cardToPlay = null;
         if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
-            gameBoard.operationWhenNoPlayableCard();
-        } else {
+            gameBoard.operationWhenNoPlayableCard(true);}
+        else {
             // if there's playable card, call play card method
-            cardToPlay = letPlayerPlayCard(playableCards, currentPlayerIndex);
-
-            // return null if no punished card, and will pass the if statement
-            String probablyDrawnCard = gameBoard.punishOrPlayCard(cardToPlay);
-            if (probablyDrawnCard != null){
-                gameBoard.getGameCardHolders().addCard(probablyDrawnCard, currentPlayerIndex);
-            }
+            cardToPlay = letPlayerPlayCardForComputer(playableCards, currentPlayerIndex);
 
             // if played card is valid, update last card
             if (cardToPlay != null && !cardToPlay.equals("white -1")){
@@ -89,55 +96,14 @@ public class EachRound {
         return cardToPlay;
     }
 
-    public String playStageForComputer(CardHolder playableCards, int currentPlayerIndex) throws InterruptedException {
-        if (currentPlayerIndex == 0) {
-            return playStage(playableCards, currentPlayerIndex);
-        }
-        String cardToPlay = null;
-        if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
-            gameBoard.operationWhenNoPlayableCard();
-            sleep(1300);
-        } else {
-            // if there's playable card, call play card method
-            cardToPlay = letPlayerPlayCardForComputer(playableCards);
-
-            // if played card is valid, update last card
-            if (cardToPlay != null && !cardToPlay.equals("white -1")){
-                gameBoard.getCardChecker().setLastCard(cardToPlay);
-            }
-            sleep(1300);
-        }
-        return cardToPlay;
-    }
     public void endStageGUI(String toPlay) {
         if (toPlay != null && toPlay.equals("quit")) {
             gameBoard.getStatus().setQuit();
         }
 
-        gameBoard.getStatus().setSkip(false);
-
-        // last check for played card and update status
-        assert toPlay != null;
-        if (!toPlay.equals("draw") && !toPlay.equals("next")){
-            gameBoard.checkLastCardGUI(toPlay, gameRequest);}
-
-        // check whether any player has no hand card, which means that player wins
-        if(gameBoard.getGameCardHolders().checkWinState()){
-            gameBoard.getStatus().setWinFlag(true);
-        }
-        // move to the next player
-        gameBoard.getStatus().setCurrentPlayerIndex(gameBoard.getStatus().moveToNextPlayer());
-    }
-
-    public void endStage(String toPlay) {
-        if (toPlay != null && toPlay.equals("quit")) {
-            gameBoard.getStatus().setQuit();
-            return;
-        }
 
         gameBoard.getStatus().setSkip(false);
 
-        // last check for played card and update status
         gameBoard.checkLastCard(toPlay, gameRequest);
 
         // check whether any player has no hand card, which means that player wins
@@ -148,9 +114,9 @@ public class EachRound {
         gameBoard.getStatus().setCurrentPlayerIndex(gameBoard.getStatus().moveToNextPlayer());
     }
 
-    public void endStageForComputer(String toPlay, int currentPlayerIndex) throws InterruptedException {
+    public void endStageGUIPVE(String toPlay, int currentPlayerIndex) {
         if (currentPlayerIndex == 0) {
-            endStage(toPlay);
+            endStageGUI(toPlay);
         } else {
 
             gameBoard.getStatus().setSkip(false);
@@ -162,12 +128,10 @@ public class EachRound {
             if(gameBoard.getGameCardHolders().checkWinState()){
                 gameBoard.getStatus().setWinFlag(true);
             }
-            sleep(1300);
             // move to the next player
             gameBoard.getStatus().setCurrentPlayerIndex(
                     gameBoard.getStatus().moveToNextPlayer());
         }
-
     }
 
     public String letPlayerPlayCardGUI(CardHolder playableCards, int currentPlayerIndex, String cardToPlayID) {
@@ -190,7 +154,7 @@ public class EachRound {
             }
             if (cardToPlayID.equals("draw")) {
                 gameBoard.getGameCardHolders().addCard(
-                        gameBoard.drawCardWithNotification(false), currentPlayerIndex);
+                        gameBoard.drawCardWithNotification(false, false), currentPlayerIndex);
                 cardToPlay = "white -1";
                 return cardToPlay;
             }
@@ -203,6 +167,60 @@ public class EachRound {
             }
         } while (!rightCard && wrongTimes < 3);
         //exit when the player types the right class or wrong time exceed 3
+        return cardToPlay;
+    }
+
+    public String letPlayerPlayCardForComputer(CardHolder playableCards, int currentPlayerIndex) {
+        String cardToPlay;
+
+        cardToPlay = gameBoard.getGameCardHolders().playCardWithIndex(0, playableCards);
+        gameBoard.getGameCardHolders().playCard(cardToPlay, currentPlayerIndex);
+
+        return cardToPlay;
+    }
+
+///////////////////////////////////////////////
+    //Command Line Methods
+    public String playStageForComputer(CardHolder playableCards, int currentPlayerIndex) throws InterruptedException {
+        if (currentPlayerIndex == 0) {
+            return playStage(playableCards, currentPlayerIndex);
+        }
+        String cardToPlay = null;
+        if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
+            gameBoard.operationWhenNoPlayableCard(true);
+            sleep(1300);
+        } else {
+            // if there's playable card, call play card method
+            cardToPlay = letPlayerPlayCardForComputer(playableCards, currentPlayerIndex);
+
+            // if played card is valid, update last card
+            if (cardToPlay != null && !cardToPlay.equals("white -1")){
+                gameBoard.getCardChecker().setLastCard(cardToPlay);
+            }
+            sleep(1300);
+        }
+        return cardToPlay;
+    }
+
+    public String playStage(CardHolder playableCards, int currentPlayerIndex) {
+        String cardToPlay = null;
+        if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
+            gameBoard.operationWhenNoPlayableCard(false);
+        } else {
+            // if there's playable card, call play card method
+            cardToPlay = letPlayerPlayCard(playableCards, currentPlayerIndex);
+
+            // return null if no punished card, and will pass the if statement
+            String probablyDrawnCard = gameBoard.punishOrPlayCard(cardToPlay, false);
+            if (probablyDrawnCard != null){
+                gameBoard.getGameCardHolders().addCard(probablyDrawnCard, currentPlayerIndex);
+            }
+
+            // if played card is valid, update last card
+            if (cardToPlay != null && !cardToPlay.equals("white -1")){
+                gameBoard.getCardChecker().setLastCard(cardToPlay);
+            }
+        }
         return cardToPlay;
     }
 
@@ -227,7 +245,7 @@ public class EachRound {
             }
             if (cardToPlayID.equals("draw")) {
                 gameBoard.getGameCardHolders().addCard(
-                        gameBoard.drawCardWithNotification(false), currentPlayerIndex);
+                        gameBoard.drawCardWithNotification(false, true), currentPlayerIndex);
                 cardToPlay = "white -1";
                 return cardToPlay;
             }
@@ -243,25 +261,46 @@ public class EachRound {
         return cardToPlay;
     }
 
-    public String letPlayerPlayCardForComputer(CardHolder playableCards) {
-        String cardToPlay = null;
+    public void endStageForComputer(String toPlay, int currentPlayerIndex) throws InterruptedException {
+        if (currentPlayerIndex == 0) {
+            endStage(toPlay);
+        } else {
 
-        cardToPlay = gameBoard.getGameCardHolders().playCardWithIndex(0, playableCards);
+            gameBoard.getStatus().setSkip(false);
 
-        return cardToPlay;
+            // last check for played card and update status
+            gameBoard.checkLastCardForComputer(toPlay, gameRequest);
+
+            // check whether any player has no hand card, which means that player wins
+            if(gameBoard.getGameCardHolders().checkWinState()){
+                gameBoard.getStatus().setWinFlag(true);
+            }
+            sleep(1300);
+            // move to the next player
+            gameBoard.getStatus().setCurrentPlayerIndex(
+                    gameBoard.getStatus().moveToNextPlayer());
+        }
     }
 
-    public GameBoard getGameBoard() {
-        return gameBoard;
-    }
+    public void endStage(String toPlay) {
+        if (toPlay != null && toPlay.equals("quit")) {
+            gameBoard.getStatus().setQuit();
+            return;
+        }
 
-    public IPresenter getTerminal() {
-        return iPresenter;
-    }
+        gameBoard.getStatus().setSkip(false);
 
-    public CardChecker getCardChecker() {
-        return gameBoard.getCardChecker();
-    }
+        // last check for played card and update status
+        gameBoard.checkLastCard(toPlay, gameRequest);
 
-    public GameRequest getGameRequest() { return gameRequest; }
+        // check whether any player has no hand card, which means that player wins
+        if(gameBoard.getGameCardHolders().checkWinState()){
+            gameBoard.getStatus().setWinFlag(true);
+        }
+        // move to the next player
+        gameBoard.getStatus().setCurrentPlayerIndex(gameBoard.getStatus().moveToNextPlayer());
+    }
 }
+
+
+

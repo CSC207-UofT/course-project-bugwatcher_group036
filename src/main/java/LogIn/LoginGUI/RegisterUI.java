@@ -17,7 +17,7 @@ public class RegisterUI extends JFrame implements ActionListener {
     JButton confirmButton = new JButton();
     JButton backButton = new JButton();
     JTextField usernameInput = new JTextField();
-    JTextField passwordInput = new JTextField();
+    JPasswordField passwordInput = new JPasswordField();
     LoginUseCase useCase;
     LoginController loginController = new LoginController(useCase);
 
@@ -49,6 +49,7 @@ public class RegisterUI extends JFrame implements ActionListener {
         Password.setBounds(10,130,80,20);
 
         passwordInput.addActionListener(this);
+        passwordInput.setEchoChar('*');
         passwordInput.setBounds(100,130,200,20);
 
         this.setTitle("Register now!");
@@ -74,7 +75,7 @@ public class RegisterUI extends JFrame implements ActionListener {
             useCase = new LoginUseCase(false);
             loginController = new LoginController(useCase);
 
-            if (loginController.runRegister(usernameInput.getText(), passwordInput.getText())) {
+            if (loginController.runRegister(usernameInput.getText(), String.valueOf(passwordInput.getPassword()))) {
                 System.out.println("Register success!");
 //               Need to connect to mainUI.
                 this.dispose();

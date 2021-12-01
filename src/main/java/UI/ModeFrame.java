@@ -2,8 +2,7 @@ package UI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class ModeFrame extends JFrame implements ActionListener {
     JPanel panel = new JPanel();

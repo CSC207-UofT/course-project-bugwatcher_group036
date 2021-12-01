@@ -4,13 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class WinFrame extends JFrame {
+public class Loseframe extends JFrame {
 
-    public WinFrame(String name) {
-        this.setSize(540, 360);
+    public Loseframe(String name) {
+
+
+        this.setSize(new Dimension(500, 440));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setContentPane(startP(name));
+
         this.setVisible(true);
 
 
@@ -21,16 +24,15 @@ public class WinFrame extends JFrame {
 
         public HomePanel() {
             //store one image in bin of executing program
-            icon = new ImageIcon("src/main/java/DataSet/YouWin.jpeg");
+            icon = new ImageIcon("src/main/java/DataSet/YouLose.jpeg");
             img = icon.getImage();
-
-
         }
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             //to let background picture adjust along with the size of the window
             g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+            g.drawString("text", 100, 100);
         }
     }
 
