@@ -26,21 +26,4 @@ public interface IPresenter {
     void setColorGUI();
 
     void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer);
-
-///////////////////////////////////////////////
-    //Command Line Methods
-    void wrongColor();
-
-
-    void wrongThreeTimes();
-
-    void colorIsSet(String setColor);
-
-    void getCardToPlay();
-
-    void setController(Controller controller);
-
-    void inputIDsForComputer();
-
-    void inputIDs();
 }

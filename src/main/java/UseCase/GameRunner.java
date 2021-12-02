@@ -92,23 +92,6 @@ public class GameRunner implements IGameInput {
         // final check and preparation for next loop for end stage
         eachRound.endStageGUIPVE(toPlay, currentPlayerIndex);
     }
-///////////////////////////////////////////////
-    //Command Line Methods
-
-    public GameRunner(boolean computer, IPresenter iPresenter, GameRequest gameRequest) {
-        this.gameRequest = gameRequest;
-        this.gameResponse = new GameResponse();
-        if (computer) {
-            iPresenter.inputIDsForComputer();
-            this.ids = gameRequest.getIds(); // get player ids and number of players
-        } else {
-            iPresenter.inputIDs();
-            this.ids = gameRequest.getIds(); // get player ids and number of players
-        }
-        this.numberOfPlayers = ids.size();
-        this.gameResponse.setIds(ids);
-        gameResponse.setGameBoard(new GameBoard(numberOfPlayers));
-    }
 
     private void saveUserStatistics(UserStatistics stats) {
         LoginUseCase saver = new LoginUseCase(false);

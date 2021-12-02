@@ -34,15 +34,4 @@ public class GameResponse {
     public ArrayList<String> getIds() {
         return ids;
     }
-
-///////////////////////////////////////////////
-    //Unused Methods
-
-    public void setSetColor(String setColor) {
-        this.setColor = setColor;
-    }
-
-    public String getSetColor() {
-        return setColor;
-    }
 }
