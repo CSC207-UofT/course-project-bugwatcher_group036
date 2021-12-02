@@ -103,10 +103,4 @@ public class Status {
         }
         return currentPlayerIndex;
     }
-///////////////////////////////////////////////
-    //Unused Methods
-    public int getNumberOfPlayers(){ return numberOfPlayers;}
-
-    public boolean getReverseState() { return reverse;}
-
 }

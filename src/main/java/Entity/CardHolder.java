@@ -47,8 +47,6 @@ public class CardHolder implements Iterable<String>{
     }
 
 
-
-
     public boolean playCard(String toPlay){
         return handcard.remove(toPlay);
     }
