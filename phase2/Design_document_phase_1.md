@@ -32,7 +32,8 @@ Our directions are mainly on these *three aspects*:
 
 ## UML Diagram
 
-![uml.drawio](C:\Users\王新远Ben\Desktop\uml.drawio.png)
+![uml drawio](https://user-images.githubusercontent.com/90352316/144681601-03ae515f-3b0c-40a5-9b1a-b2dfbb82f68b.png)
+
 
 
 
