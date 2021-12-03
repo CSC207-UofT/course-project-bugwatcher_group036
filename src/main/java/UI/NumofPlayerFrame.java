@@ -65,11 +65,11 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
 
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +
+                    JOptionPane.showMessageDialog(null, "Sorry, we only support 2 players -" +
                             " 6 players, please re-enter player count.");
                 }
             } catch (NumberFormatException numberFormatException) {
-                JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +
+                JOptionPane.showMessageDialog(null, "Sorry, we only support 2 players -" +
                         " 6 players, please re-enter player count.");
             }
         }
