@@ -5,8 +5,6 @@ import Entity.CardHolder;
 
 public interface IPresenter {
 
-    void printString(String message);
-
     void drawCardNotification(String drawn, boolean noCard, boolean computer);
 
     void setGameRunner(GameRunner gameRunner);
@@ -17,7 +15,7 @@ public interface IPresenter {
 
     void beginStage();
 
-    void playStage();
+    void lastcard(String cardname);
 
     String RemainingCards();
 

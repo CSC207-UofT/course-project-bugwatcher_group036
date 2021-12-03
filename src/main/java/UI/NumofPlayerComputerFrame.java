@@ -50,7 +50,7 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
             try {
                 int num = Integer.parseInt(ComputerPlayer.getText());
 
-                if (num > 1 && num < 7){
+                if (num > 0 && num < 5){
                     this.dispose();
                     ArrayList<String> ids = new ArrayList<>();
                     String id = JOptionPane.showInputDialog(null, "Player Name: ",
@@ -66,8 +66,8 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
                     PVEFrame pveFrame = new PVEFrame(presenter, controller, stats);
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +
-                            " 6 players, please re-enter player count.");
+                    JOptionPane.showMessageDialog(null, "Sorry, we only support 1 computer player -" +
+                            " 5 players, please re-enter player count.");
                 }
             } catch (NumberFormatException numberFormatException) {
                 JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +

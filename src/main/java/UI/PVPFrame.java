@@ -25,8 +25,11 @@ public class PVPFrame extends JFrame implements ActionListener{
     JLabel id = new JLabel();
     JLabel bottom = new JLabel();
     JPanel cardHas = new JPanel();
+    JButton closebutton = new JButton();
     JButton next = new JButton("next");
     ButtonGroup buttonGroup = new ButtonGroup();
+    JTextArea textArea = new JTextArea();
+    JScrollPane scroll = new JScrollPane(textArea);
 
     public PVPFrame(Presenter presenter, Controller controller, UserStatistics stats){
         this.presenter = presenter;
@@ -34,7 +37,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         this.stats = stats;
 
         currentCard.setHorizontalAlignment(0);//Center the text
-        currentCard.setBounds(450, 50, 144, 216);//set the location and size of JLabel
+        currentCard.setBounds(500, 50, 144, 216);//set the location and size of JLabel
         currentCard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
         ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/black.png");
         Image img1 = icon1.getImage();
@@ -84,7 +87,6 @@ public class PVPFrame extends JFrame implements ActionListener{
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
         }
 
-
         // add cardHas panel
 
         cardHas.setBorder(new LineBorder(new Color(0, 0, 0)));//set the border
@@ -93,6 +95,16 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         FlowLayout fl_cardHas = (FlowLayout) cardHas.getLayout();
         fl_cardHas.setAlignment(FlowLayout.LEADING);
+
+        closebutton.setFont(new Font("Times", Font.BOLD, 20));
+        closebutton.setText("x");
+        closebutton.setBounds(650, 5, 30, 30);
+        closebutton.setForeground(Color.RED);
+        closebutton.setBackground(new Color(225, 83, 83));
+        closebutton.addActionListener(this);
+        closebutton.setBorderPainted(true);
+        closebutton.setContentAreaFilled(false);
+        closebutton.setOpaque(true);
 
 
         presenter.allhandcards().forEach(c -> {
@@ -109,12 +121,20 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         this.add(cardHas);
 
-        next.setBounds(450, 300, 150, 70);
+        next.setBounds(506, 300, 144, 70);
         next.addActionListener(this);
-//        draw.setBounds(150, 300, 150, 70);
-//        draw.addActionListener(this);
 
-        this.setBounds(700, 700, 750, 500);//set the location and size of frame
+        textArea.setBounds(30, 630, 620, 210);
+        textArea.setEditable(false);
+        PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
+        System.setOut(printStream);
+
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setBounds(30, 630, 620, 210);
+        scroll.setBorder(new LineBorder(new Color(0, 0, 0)));
+        this.add(scroll);
+
+        this.setBounds(680, 700, 700, 900);//set the location and size of frame
 
         this.add(bottom);
         this.add(id);
@@ -122,14 +142,13 @@ public class PVPFrame extends JFrame implements ActionListener{
         this.add(playerCardCounts);
         this.add(currentCard);
         this.add(next);
-//        this.add(draw);
+        this.add(closebutton);
 
         this.add(frame);
-        this.setSize(700, 700);
-        this.setLocation(new Point(500, 200));
+        this.setSize(680, 900);
+        this.setLocation(new Point(200, 200));
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-
         this.setVisible(true);
     }
     private void updateGUI(){
@@ -164,7 +183,6 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         remainingCards.setText("Remaining Cards: " + presenter.RemainingCards());
 
-
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
         int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
@@ -185,6 +203,9 @@ public class PVPFrame extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> playerIds = controller.getGameRunner().getGameResponse().getIds();
+        if (e.getSource() == closebutton) {
+            System.exit(0);
+        }
         if (e.getSource() == next) {
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
@@ -211,7 +232,20 @@ public class PVPFrame extends JFrame implements ActionListener{
             new LoginUseCase(users);
 
             WinFrame frame = new WinFrame(playerIds.get
-                    (controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
+                    (controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()), stats);
+        }
+    }
+    private static class CustomOutputStream extends OutputStream {
+        private final JTextArea textArea;
+
+        public CustomOutputStream(JTextArea textArea) {
+            this.textArea = textArea;
+        }
+
+        @Override
+        public void write(int b) throws IOException {
+            textArea.append(String.valueOf((char)b));
+            textArea.setCaretPosition(textArea.getDocument().getLength());
         }
     }
 }
