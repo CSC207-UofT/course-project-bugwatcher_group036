@@ -28,10 +28,6 @@ public class GameRunner implements IGameInput {
         gameResponse.setGameBoard(new GameBoard(numberOfPlayers));
     }
 
-    public void setGameResponse(GameResponse gameResponse) {
-        this.gameResponse = gameResponse;
-    }
-
     public GameResponse getGameResponse() {
         return gameResponse;
     }
