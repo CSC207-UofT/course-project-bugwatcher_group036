@@ -46,21 +46,31 @@ public class CardHolder implements Iterable<String>{
         }
     }
 
-
+    /**
+     * return the card played and remove it.
+     */
     public boolean playCard(String toPlay){
         return handcard.remove(toPlay);
     }
-
+    /**
+     * play the card with given index and remove it
+     */
     public String playCardWithIndex(int toPlay){
         return handcard.remove(toPlay);
     }
-
+    /**
+     * add card to handcard
+     */
     public void addCard(String card){
         handcard.add(card);
     }
-
+    /**
+     * add several cards to handcard
+     */
     public void addCards(ArrayList<String> card) { handcard.addAll(card); }
-
+    /**
+     * check it handcard is empty
+     */
     public boolean isEmpty(){
         return handcard.isEmpty();
     }
@@ -76,7 +86,9 @@ public class CardHolder implements Iterable<String>{
         }
         return res.substring(0, res.length() - 2) + "}";
     }
-
+    /**
+     * getter method for the size of handcard
+     */
     public int getSize(){
         return this.handcard.size();
     }

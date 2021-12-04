@@ -10,7 +10,9 @@ public class Controller {
 
     private GameRunner gameRunner;
     private final GameRequest gameRequest;
-
+    /**
+     * initialize Controller
+     */
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
         this.gameRunner = new GameRunner(gameRequest, ids);
@@ -21,9 +23,21 @@ public class Controller {
         iPresenter.setGameRunner(gameRunner);
 
     }
+    /**
+     * getter method for gameRequest
+     */
     public GameRequest getGameRequest(){return gameRequest;}
-
+    /**
+     * getter method for gameRrunner
+     */
     public GameRunner getGameRunner() {
         return gameRunner;
+    }
+
+    /**
+     * setter method for IGameInput
+     */
+    public void setiGameInput(GameRunner iGameInput) {
+        this.gameRunner = iGameInput;
     }
 }
