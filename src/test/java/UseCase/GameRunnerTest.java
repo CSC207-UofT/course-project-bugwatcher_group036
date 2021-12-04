@@ -79,6 +79,7 @@ public class GameRunnerTest {
         assertEquals(gameResponse, gameRunner.getGameResponse());
 
     }
+
     @Test
     public void testsetGameRequest() {
         GameRequest gameRequest1 = new GameRequest();
@@ -86,6 +87,7 @@ public class GameRunnerTest {
         assertEquals(gameRequest1, gameRunner.getGameRequest());
 
     }
+
     @Test
     public void testgetGameRequest() {
         assertEquals(gameRequest, gameRunner.getGameRequest());
@@ -103,6 +105,7 @@ public class GameRunnerTest {
         assertEquals(eachRound1, gameRunner.getEachRound());
 
     }
+
     @Test
     public void testbuildIEachRound() {
         gameRunner.buildIEachRound(gameResponse.getGameBoard(), iPresenter, gameRequest);
@@ -117,14 +120,15 @@ public class GameRunnerTest {
         users.add(new User("a", "a"));
         UserStatistics stats = new UserStatistics("a");
         CardHolder playableCards = eachRound.beginStage();
-        if(!eachRound.getGameBoard().getGameCardHolders().isEmpty(playableCards)){
-        int before = playableCards.getSize();
-        gameResponse.setCardHolder(playableCards);
-        String toPlay = playableCards.playCardWithIndex(2);
-        playableCards.addCard(toPlay);
-        gameRunner.runGameforGUI(toPlay, stats);
-        int played = playableCards.getSize();
-        assertEquals(before, played + 1);}
+        if (!eachRound.getGameBoard().getGameCardHolders().isEmpty(playableCards)) {
+            int before = playableCards.getSize();
+            gameResponse.setCardHolder(playableCards);
+            String toPlay = playableCards.playCardWithIndex(2);
+            playableCards.addCard(toPlay);
+            gameRunner.runGameforGUI(toPlay, stats);
+            int played = playableCards.getSize();
+            assertEquals(before, played + 1);
+        }
     }
 
     @Test
@@ -134,29 +138,31 @@ public class GameRunnerTest {
         UserStatistics stats = new UserStatistics("a");
         CardHolder playableCards = eachRound.beginStage();
         playableCards.addCard("black switch");
-        if(!eachRound.getGameBoard().getGameCardHolders().isEmpty(playableCards)){
+        if (!eachRound.getGameBoard().getGameCardHolders().isEmpty(playableCards)) {
             int before = playableCards.getSize();
             gameResponse.setCardHolder(playableCards);
             String toPlay = playableCards.playCardWithIndex(7);
             playableCards.addCard(toPlay);
             gameRunner.runGameforGUI(toPlay, stats);
             int played = playableCards.getSize();
-            assertEquals(before, played + 1);}
+            assertEquals(before, played + 1);
+        }
     }
+
     @Test
     public void testrunGameforGUIComputer() {
         CardHolder playableCards = eachRound.beginStage();
         int before = playableCards.getSize();
         gameRunner.runGameforGUIComputer();
         int played = playableCards.getSize();
-        assertEquals(before, played+1);
+        assertEquals(before, played + 1);
 
     }
 
     @Test
     public void testrunGameforGUIComputer2() {
         CardHolder playableCards = eachRound.beginStage();
-        for (int i = 6; -1 < i; i--){
+        for (int i = 6; -1 < i; i--) {
             playableCards.playCardWithIndex(i);
         }
         playableCards.addCard("black switch");
@@ -164,21 +170,21 @@ public class GameRunnerTest {
         int before = playableCards.getSize();
         gameRunner.runGameforGUIComputer();
         int played = playableCards.getSize();
-        assertEquals(before, played+1);
+        assertEquals(before, played + 1);
 
     }
 
     @Test
     public void testrunGameforGUIComputer3() {
         CardHolder playableCards = eachRound.beginStage();
-        for (int i = 6; -1 < i; i--){
+        for (int i = 6; -1 < i; i--) {
             playableCards.playCardWithIndex(i);
         }
         playableCards.addCard("red 4");
 
         gameRunner.runGameforGUIComputer();
         CardHolder playableCards2 = eachRound.beginStage();
-        for (int i = playableCards2.getSize() - 1; -1 < i; i--){
+        for (int i = playableCards2.getSize() - 1; -1 < i; i--) {
             playableCards2.playCardWithIndex(i);
         }
         playableCards2.addCard("yellow 7");
@@ -191,14 +197,14 @@ public class GameRunnerTest {
     @Test
     public void testrunGameforGUIComputer4() {
         CardHolder playableCards = eachRound.beginStage();
-        for (int i = 6; -1 < i; i--){
+        for (int i = 6; -1 < i; i--) {
             playableCards.playCardWithIndex(i);
         }
         playableCards.addCard("red +2");
 
         gameRunner.runGameforGUIComputer();
         CardHolder playableCards2 = eachRound.beginStage();
-        for (int i = playableCards2.getSize() - 1; -1 < i; i--){
+        for (int i = playableCards2.getSize() - 1; -1 < i; i--) {
             playableCards2.playCardWithIndex(i);
         }
         playableCards2.addCard("yellow 7");

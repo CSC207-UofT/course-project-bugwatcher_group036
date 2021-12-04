@@ -103,6 +103,9 @@ public class GameRunner implements IGameInput {
     private void saveUserStatistics(UserStatistics stats) {
         LoginUseCase saver = new LoginUseCase(false);
         UserList users = saver.getUsers();
+        if (users.getUser(stats.getPlayerId()) == null) {
+            return;
+        }
         users.getUser(stats.getPlayerId()).setUserStatistics(stats);
         new LoginUseCase(users);
     }
