@@ -12,6 +12,9 @@ public class GameCardHolders {
             cardHolders[i] = new CardHolder();
         }
     }
+    /**
+     * Getter method for current player HandCard
+     */
 
     public CardHolder getHandCards(int currentPlayerIndex){
         return cardHolders[currentPlayerIndex];
@@ -38,15 +41,21 @@ public class GameCardHolders {
         return cardHolders[index].isEmpty();
     }
 
-
+    /**
+     * let a player play card
+     */
     public boolean playCard(String toPlay, CardHolder cardHolder){
         return cardHolder.playCard(toPlay);
     }
-
+    /**
+     * return the card with given index
+     */
     public String playCardWithIndex(int toPlay, CardHolder cardHolder){
         return cardHolder.playCardWithIndex(toPlay);
     }
-
+    /**
+     * add a card to a given player
+     */
     public void addCard(String card, CardHolder cardHolder){
         cardHolder.addCard(card);
     }
@@ -54,7 +63,9 @@ public class GameCardHolders {
     public boolean isEmpty(CardHolder cardHolder){
         return cardHolder.isEmpty();
     }
-
+    /**
+     * check if there is a player win this game
+     */
     public boolean checkWinState(){
         for (CardHolder handcard: cardHolders){
             if (handcard.isEmpty()){
@@ -63,7 +74,9 @@ public class GameCardHolders {
         }
         return false;
     }
-
+    /**
+     * create a new CardHolder
+     */
     public CardHolder createNewCardHolder() {
         return new CardHolder();
     }

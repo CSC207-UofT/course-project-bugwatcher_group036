@@ -24,20 +24,32 @@ public class EachRound {
             }
         }
     }
+    /**
+     * Getter method for gameBoard
+     */
     public GameBoard getGameBoard() {
         return gameBoard;
     }
+    /**
+     * Getter method for iPresenter
+     */
 
     public IPresenter getTerminal() {
         return iPresenter;
     }
-
+    /**
+     * Getter method for CardChecker
+     */
     public CardChecker getCardChecker() {
         return gameBoard.getCardChecker();
     }
-
+    /**
+     * Getter method for gameRequest
+     */
     public GameRequest getGameRequest() {return gameRequest;}
-
+    /**
+     *
+     */
     public CardHolder beginStage() {
         int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
         // get the cards we need to check

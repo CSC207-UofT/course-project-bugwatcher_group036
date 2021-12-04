@@ -19,7 +19,9 @@ public class GameRunner implements IGameInput {
     private GameRequest gameRequest;
     private IPresenter iPresenter;
 
-
+    /**
+     * initialize GameRunner
+     */
     public GameRunner(IPresenter iPresenter, GameRequest gameRequest, ArrayList<String> ids) {
 
         this.gameRequest = gameRequest;
@@ -31,32 +33,46 @@ public class GameRunner implements IGameInput {
         this.gameResponse.setIds(ids);
         gameResponse.setGameBoard(new GameBoard(numberOfPlayers));
     }
-
+    /**
+     * setter method for gameResponse
+     */
     public void setGameResponse(GameResponse gameResponse) {
         this.gameResponse = gameResponse;
     }
-
+    /**
+     * getter method for gameResponse
+     */
     public GameResponse getGameResponse() {
         return gameResponse;
     }
-
+    /**
+     * setter method for gameResponse
+     */
     public void setGameRequest(GameRequest gameRequest) {
         this.gameRequest = gameRequest;
     }
-
+    /**
+     * getter method for gameRequest
+     */
     public GameRequest getGameRequest() {
         return gameRequest;
     }
-
+    /**
+     * getter method for eachRound
+     */
     public EachRound getEachRound() {
         return eachRound;
     }
-
+    /**
+     * initialize the game
+     */
     public void buildIEachRound(GameBoard gameBoard, IPresenter iPresenter, GameRequest gameRequest) {
         this.eachRound = new EachRound(gameBoard, iPresenter, gameRequest);
         eachRound.cardDeal(numberOfPlayers);
     }
-
+    /**
+     * initialize the gui of the game
+     */
     public void runGameforGUI(String toPlay, UserStatistics stats) {
         // update current position
         int currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
@@ -74,6 +90,9 @@ public class GameRunner implements IGameInput {
         eachRound.endStageGUI(toPlay, stats);
         saveUserStatistics(stats);
     }
+    /**
+            * initialize the gui of the game in pve mode
+     */
 
     public void runGameforGUIComputer() {
         // update current position
@@ -91,6 +110,9 @@ public class GameRunner implements IGameInput {
         // final check and preparation for next loop for end stage
         eachRound.endStageGUIPVE(toPlay, currentPlayerIndex);
     }
+    /**
+         save Users game statistics
+     */
 
     private void saveUserStatistics(UserStatistics stats) {
         LoginUseCase saver = new LoginUseCase(false);
