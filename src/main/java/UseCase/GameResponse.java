@@ -9,7 +9,6 @@ public class GameResponse {
     private GameBoard gameBoard;
     private CardHolder cardHolder;
     private ArrayList<String> ids;
-    private String setColor;
 
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
