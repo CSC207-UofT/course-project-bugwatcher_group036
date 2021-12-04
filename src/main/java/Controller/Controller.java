@@ -3,12 +3,10 @@ package Controller;
 import UseCase.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
 
 public class Controller {
 
-    private GameRunner gameRunner;
+    private final GameRunner gameRunner;
     private final GameRequest gameRequest;
     /**
      * initialize Controller
@@ -32,12 +30,5 @@ public class Controller {
      */
     public GameRunner getGameRunner() {
         return gameRunner;
-    }
-
-    /**
-     * setter method for IGameInput
-     */
-    public void setiGameInput(GameRunner iGameInput) {
-        this.gameRunner = iGameInput;
     }
 }

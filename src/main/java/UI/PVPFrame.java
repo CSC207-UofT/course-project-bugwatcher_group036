@@ -14,9 +14,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class PVPFrame extends JFrame implements ActionListener{
-    private Controller controller;
-    private Presenter presenter;
-    private UserStatistics stats;
+    private final Controller controller;
+    private final Presenter presenter;
+    private final UserStatistics stats;
 
     JPanel frame = new JPanel();
     JLabel currentCard = new JLabel();
@@ -243,7 +243,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         }
 
         @Override
-        public void write(int b) throws IOException {
+        public void write(int b){
             textArea.append(String.valueOf((char)b));
             textArea.setCaretPosition(textArea.getDocument().getLength());
         }

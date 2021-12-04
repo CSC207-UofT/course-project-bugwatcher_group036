@@ -12,6 +12,7 @@ public class WinFrame extends JFrame implements ActionListener {
     JButton playagain = new JButton();
     UserStatistics stats;
     public WinFrame(String name, UserStatistics stats) {
+        this.stats = stats;
         this.setSize(540, 360);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -35,7 +36,7 @@ public class WinFrame extends JFrame implements ActionListener {
         }
     }
 
-    public class HomePanel extends JPanel {
+    public static class HomePanel extends JPanel {
         ImageIcon icon;
         Image img;
 

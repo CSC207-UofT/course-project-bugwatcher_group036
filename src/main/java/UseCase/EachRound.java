@@ -7,7 +7,7 @@ public class EachRound {
 
     private final GameBoard gameBoard;
     private final IPresenter iPresenter;
-    private GameRequest gameRequest;
+    private final GameRequest gameRequest;
 
     public EachRound(GameBoard gameBoard, IPresenter iPresenter, GameRequest gameRequest){
         this.gameBoard = gameBoard;
@@ -36,12 +36,6 @@ public class EachRound {
 
     public IPresenter getTerminal() {
         return iPresenter;
-    }
-    /**
-     * Getter method for CardChecker
-     */
-    public CardChecker getCardChecker() {
-        return gameBoard.getCardChecker();
     }
     /**
      * Getter method for gameRequest
@@ -110,10 +104,6 @@ public class EachRound {
     }
 
     public void endStageGUI(String toPlay, UserStatistics stats) {
-        if (toPlay != null && toPlay.equals("quit")) {
-            gameBoard.getStatus().setQuit();
-        }
-
 
         gameBoard.getStatus().setSkip(false);
 
@@ -159,12 +149,6 @@ public class EachRound {
         // Let the player type the card to play. If type a wrong card, type again,
         // with maximum 3 times.
         do {
-//            iPresenter.getCardToPlay();
-
-            if (cardToPlayID.equals("quit")) {
-                cardToPlay = "quit";
-                return cardToPlay;
-            }
             if (cardToPlayID.equals("draw")) {
                 gameBoard.getGameCardHolders().addCard(
                         gameBoard.drawCardWithNotification(false, false), currentPlayerIndex);

@@ -15,7 +15,7 @@ public class ModeFrame extends JFrame implements ActionListener {
     Color darkRed = new Color(15, 29, 101);
     Color white = new Color(255, 255, 255);
 
-    private UserStatistics stats;
+    private final UserStatistics stats;
 
     public ModeFrame(UserStatistics stats) {
         this.stats = stats;

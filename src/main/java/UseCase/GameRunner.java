@@ -14,7 +14,7 @@ public class GameRunner implements IGameInput {
 
     private final int numberOfPlayers;
     private EachRound eachRound; // interface of eachRound, use dependency injection for clean architecture
-    private GameResponse gameResponse;
+    private final GameResponse gameResponse;
     private GameRequest gameRequest;
 
     /**

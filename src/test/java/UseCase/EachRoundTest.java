@@ -261,10 +261,6 @@ public class EachRoundTest {
         assertEquals(eachRound.getTerminal(), iPresenter);
     }
 
-    @Test
-    public void testGetCardChecker() {
-        assertEquals(eachRound.getCardChecker().getClass(), cardChecker.getClass());
-    }
 
     @Test
     public void testGetGameRequest() {
