@@ -9,8 +9,6 @@ public class GameResponse {
     private GameBoard gameBoard;
     private CardHolder cardHolder;
     private ArrayList<String> ids;
-
-    private String setColor;
     /**
      * setter method for gameBoard
      */

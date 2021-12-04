@@ -1,11 +1,9 @@
 package UseCase;
 
-import Controller.Presenter;
 import Entity.CardHolder;
 import LogIn.LogInEntity.User;
 import LogIn.LogInEntity.UserList;
 import LogIn.LogInEntity.UserStatistics;
-import LogIn.LoginUseCase.LoginUseCase;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
@@ -29,11 +27,50 @@ public class GameRunnerTest {
         }
         gameRunner = new GameRunner(gameRequest, IDS);
         gameResponse = gameRunner.getGameResponse();
-        iPresenter = new Presenter();
+        iPresenter = new IPresenter() {
+            @Override
+            public void drawCardNotification(String drawn, boolean noCard, boolean computer) {
+            }
+
+            @Override
+            public void setGameRunner(GameRunner gameRunner) {
+            }
+
+            @Override
+            public void setGameRequest(GameRequest gameRequest) {
+            }
+
+            @Override
+            public void setColorForComputer(String color) {
+            }
+
+            @Override
+            public void lastcard(String cardname) {
+            }
+
+            @Override
+            public String RemainingCards() {
+                return null;
+            }
+
+            @Override
+            public CardHolder allhandcards() {
+                return null;
+            }
+
+            @Override
+            public void setColorGUI() {
+            }
+
+            @Override
+            public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
+            }
+        };
         gameRunner.buildIEachRound(gameResponse.getGameBoard(), iPresenter, gameRequest);
         eachRound = gameRunner.getEachRound();
         iPresenter.setGameRunner(gameRunner);
         iPresenter.setGameRequest(gameRequest);
+
     }
 
 
@@ -76,13 +113,10 @@ public class GameRunnerTest {
 
     @Test
     public void testrunGameforGUI() {
-
-
         UserList users = new UserList();
         users.add(new User("a", "a"));
         UserStatistics stats = new UserStatistics("a");
         CardHolder playableCards = eachRound.beginStage();
-        int currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
         if(!eachRound.getGameBoard().getGameCardHolders().isEmpty(playableCards)){
         int before = playableCards.getSize();
         gameResponse.setCardHolder(playableCards);
@@ -91,19 +125,99 @@ public class GameRunnerTest {
         gameRunner.runGameforGUI(toPlay, stats);
         int played = playableCards.getSize();
         assertEquals(before, played + 1);}
+    }
 
+    @Test
+    public void testrunGameforGUI2() {
+        UserList users = new UserList();
+        users.add(new User("a", "a"));
+        UserStatistics stats = new UserStatistics("a");
+        CardHolder playableCards = eachRound.beginStage();
+        playableCards.addCard("black switch");
+        if(!eachRound.getGameBoard().getGameCardHolders().isEmpty(playableCards)){
+            int before = playableCards.getSize();
+            gameResponse.setCardHolder(playableCards);
+            String toPlay = playableCards.playCardWithIndex(7);
+            playableCards.addCard(toPlay);
+            gameRunner.runGameforGUI(toPlay, stats);
+            int played = playableCards.getSize();
+            assertEquals(before, played + 1);}
     }
     @Test
     public void testrunGameforGUIComputer() {
-        gameRunner.buildIEachRound(gameResponse.getGameBoard(), iPresenter, gameRequest);
         CardHolder playableCards = eachRound.beginStage();
         int before = playableCards.getSize();
         gameRunner.runGameforGUIComputer();
         int played = playableCards.getSize();
         assertEquals(before, played+1);
 
+    }
 
+    @Test
+    public void testrunGameforGUIComputer2() {
+        CardHolder playableCards = eachRound.beginStage();
+        for (int i = 6; -1 < i; i--){
+            playableCards.playCardWithIndex(i);
+        }
+        playableCards.addCard("black switch");
+        playableCards.addCard("red 4");
+        int before = playableCards.getSize();
+        gameRunner.runGameforGUIComputer();
+        int played = playableCards.getSize();
+        assertEquals(before, played+1);
 
     }
 
+    @Test
+    public void testrunGameforGUIComputer3() {
+        CardHolder playableCards = eachRound.beginStage();
+        for (int i = 6; -1 < i; i--){
+            playableCards.playCardWithIndex(i);
+        }
+        playableCards.addCard("red 4");
+
+        gameRunner.runGameforGUIComputer();
+        CardHolder playableCards2 = eachRound.beginStage();
+        for (int i = playableCards2.getSize() - 1; -1 < i; i--){
+            playableCards2.playCardWithIndex(i);
+        }
+        playableCards2.addCard("yellow 7");
+        int before = playableCards2.getSize();
+        gameRunner.runGameforGUIComputer();
+        int played = playableCards2.getSize();
+        assertEquals(before, played);
+    }
+
+    @Test
+    public void testrunGameforGUIComputer4() {
+        CardHolder playableCards = eachRound.beginStage();
+        for (int i = 6; -1 < i; i--){
+            playableCards.playCardWithIndex(i);
+        }
+        playableCards.addCard("red +2");
+
+        gameRunner.runGameforGUIComputer();
+        CardHolder playableCards2 = eachRound.beginStage();
+        for (int i = playableCards2.getSize() - 1; -1 < i; i--){
+            playableCards2.playCardWithIndex(i);
+        }
+        playableCards2.addCard("yellow 7");
+        int before = playableCards2.getSize();
+        gameRunner.runGameforGUIComputer();
+        int played = playableCards2.getSize();
+        assertEquals(before, played);
+    }
+
+    @Test
+    public void testrunGameforGUIComputer5() {
+        CardHolder playableCards = eachRound.beginStage();
+        for (int i = 6; -1 < i; i--) {
+            playableCards.playCardWithIndex(i);
+        }
+        playableCards.addCard("black switch");
+        int before = playableCards.getSize();
+        gameRunner.runGameforGUIComputer();
+        int played = playableCards.getSize();
+        assertEquals(before, played);
+    }
 }

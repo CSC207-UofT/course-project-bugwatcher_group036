@@ -15,9 +15,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class PVEFrame extends JFrame implements ActionListener {
-    private Presenter presenter;
-    private Controller controller;
-    private UserStatistics stats;
+    private final Presenter presenter;
+    private final Controller controller;
+    private final UserStatistics stats;
 
     JPanel frame = new JPanel();
     JLabel currentcard = new JLabel();

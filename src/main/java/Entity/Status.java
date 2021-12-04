@@ -20,8 +20,7 @@ public class Status {
      * Construct the status of a new game with a random player started.
      *
      * @param numberOfPlayers Number of players.
-     */
-    /**
+
      * Randomly select a player to play the first card.
      */
     public Status(int numberOfPlayers) {

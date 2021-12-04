@@ -15,7 +15,7 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
     JButton enterbutton = new JButton();
     JTextField NumberPlayer = new JTextField();
 
-    private UserStatistics stats;
+    private final UserStatistics stats;
 
     public NumofPlayerFrame(UserStatistics stats) {
         this.stats = stats;
