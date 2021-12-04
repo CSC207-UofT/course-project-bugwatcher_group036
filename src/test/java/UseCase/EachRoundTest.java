@@ -32,7 +32,7 @@ public class EachRoundTest {
         int playNumber = eachRound.getGameBoard().getGameCardHolders().getHolderNumber();
         int cardNumberHolds = eachRound.getGameBoard().getGameCardHolders().getNumbersOfCardHolds(1);
         assertEquals(playNumber, 4);
-        assertEquals(cardNumberHolds, 7);
+        assertEquals(cardNumberHolds, 5);
     }
 
     @Test
