@@ -4,21 +4,12 @@ import java.util.ArrayList;
 
 public class GameRequest {
 
-    private String getCardToPlay;
-
     private String setColor;
 
     private String setColorForComputer;
 
     private ArrayList<String> ids;
 
-    public void setGetCardToPlay(String getCardToPlay) {
-        this.getCardToPlay = getCardToPlay;
-    }
-
-    public String getGetCardToPlay() {
-        return getCardToPlay;
-    }
 
     public void setSetColor(String setColor) {
         this.setColor = setColor;
