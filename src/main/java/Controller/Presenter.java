@@ -31,14 +31,6 @@ public class Presenter implements IPresenter {
         return gameRequest;
     }
 
-    public void beginStage(){
-//        System.out.println();
-
-//        System.out.println("Current Player:" + gameRunner.getGameResponse().getIds().get(
-//                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
-
-    }
-
     public CardHolder allhandcards(){
 
         return gameRunner.getGameResponse().getGameBoard().getGameCardHolders().getHandCards(gameRunner.getGameResponse().

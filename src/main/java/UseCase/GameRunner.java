@@ -76,7 +76,6 @@ public class GameRunner implements IGameInput {
         int currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
 
         // system output and checking for begin stage, get playable cards for currentPlayer
-        eachRound.getTerminal().beginStage();
         CardHolder playableCards = eachRound.beginStage();
         gameResponse.setCardHolder(playableCards);
         // system output and card-playing or punish based on status info and input

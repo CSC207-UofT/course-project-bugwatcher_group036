@@ -126,9 +126,6 @@ public class EachRoundTest {
             public void setColorForComputer(String color) {
             }
             @Override
-            public void beginStage() {
-            }
-            @Override
             public void lastcard(String cardname) {
             }
             @Override
@@ -172,9 +169,6 @@ public class EachRoundTest {
             public void setColorForComputer(String color) {
             }
             @Override
-            public void beginStage() {
-            }
-            @Override
             public void lastcard(String cardname) {
             }
             @Override
@@ -211,8 +205,6 @@ public class EachRoundTest {
             @Override
             public void setColorForComputer(String color) {}
             @Override
-            public void beginStage() {}
-            @Override
             public void lastcard(String cardname) {
             }
             @Override
@@ -241,8 +233,6 @@ public class EachRoundTest {
             public void setGameRequest(GameRequest gameRequest) {}
             @Override
             public void setColorForComputer(String color) {}
-            @Override
-            public void beginStage() {}
             @Override
             public void lastcard(String cardname) {
             }
