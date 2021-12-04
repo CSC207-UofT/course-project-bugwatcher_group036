@@ -10,19 +10,26 @@ public class CardChecker {
 
     private String lastCard;
     private String currentColor;
-
+    /**
+     * initialize CardChecker
+     */
     public CardChecker(){
         lastCard = null;
         currentColor = null;
     }
 
-
+    /**
+     * function card respond in Gui
+     */
     public void functionCardResponseGUI(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {
             iPresenter.setColorGUI();
             currentColor = gameRequest.getSetColor();
         }
     }
+    /**
+     * function card response in gui in pve
+     */
 
     public void functionCardResponseForComputer(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {
@@ -93,12 +100,17 @@ public class CardChecker {
         }
         return lastFeature.equals(toFeature) || lastColor.equals(toColor);
     }
-
+    /**
+     * Getter method for lastCard
+     */
     public String getLastCard() {
         return lastCard;
     }
 
     // This method has some problem, when we set a +2 card here, the status will not be changed.
+    /**
+     * setter method for lastcard
+     */
     public void setLastCard(String lastCard) {
         this.lastCard = lastCard;
         currentColor = lastCard.split(" ")[0];

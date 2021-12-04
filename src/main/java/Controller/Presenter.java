@@ -17,26 +17,25 @@ public class Presenter implements IPresenter {
 
     private GameRequest gameRequest;
     private GameRunner gameRunner;
-
+    /**
+     * setter method for gameRunner
+     */
     public void setGameRunner(GameRunner gameRunner) {this.gameRunner = gameRunner;}
-
+    /**
+     * setter method for gameRequest
+     */
     public void setGameRequest(GameRequest gameRequest) {
         this.gameRequest = gameRequest;
     }
-
+    /**
+     * getter method for gameRunner
+     */
     public GameRunner getGameRunner(){return this.gameRunner;}
-
-
+    /**
+     * getter method for gameRequest
+     */
     public GameRequest getGameRequest() {
         return gameRequest;
-    }
-
-    public void beginStage(){
-//        System.out.println();
-
-//        System.out.println("Current Player:" + gameRunner.getGameResponse().getIds().get(
-//                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
-
     }
 
     public CardHolder allhandcards(){
@@ -58,7 +57,9 @@ public class Presenter implements IPresenter {
                 " cards. The cards you've drawn are " +
                 drawnCardName + ".");}
     }
-
+    /**
+     * notification when draw card
+     */
     public void drawCardNotification(String drawn, boolean noCard, boolean computer){
         // only print this sentence when drawing due to no card playable
         if (noCard) {
@@ -72,10 +73,16 @@ public class Presenter implements IPresenter {
             }
         }
     }
+    /**
+     * the last card played
+     */
     public void lastcard(String cardname){
 
         System.out.println(gameRunner.getGameResponse().getIds().get(gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) + " played " + cardname + ".");
     }
+    /**
+     * set  color for gui
+     */
 
     public void setColorGUI() {
         ArrayList<String> colors = new ArrayList<>();
@@ -86,12 +93,17 @@ public class Presenter implements IPresenter {
         System.out.println("Color " + setColor + " is set.");
         JOptionPane.showMessageDialog(null, "Color " + setColor + " is set.");
     }
-
+    /**
+     * set color for gui in pve mode
+     */
     public void setColorForComputer(String color) {
         System.out.println("Color " + color + " is set.");
         JOptionPane.showMessageDialog(null, gameRunner.getGameResponse().getIds().get(
                 gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) +" switch color. Color " + color + " is set.");
     }
+    /**
+     * return the remaining card in deck
+     */
 
     public String RemainingCards() {
         return String.valueOf(gameRunner.getGameResponse().getGameBoard().getDeck().getUnusedCardDeck().size());

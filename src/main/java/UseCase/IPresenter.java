@@ -12,8 +12,6 @@ public interface IPresenter {
 
     void setColorForComputer(String color);
 
-    void beginStage();
-
     void lastcard(String cardname);
 
     String RemainingCards();

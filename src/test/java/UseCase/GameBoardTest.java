@@ -40,8 +40,6 @@ public class GameBoardTest {
             @Override
             public void setColorForComputer(String color) {}
             @Override
-            public void beginStage() {}
-            @Override
             public void lastcard(String cardname) {
             }
             @Override
@@ -78,8 +76,6 @@ public class GameBoardTest {
             @Override
             public void setColorForComputer(String color) {}
             @Override
-            public void beginStage() {}
-            @Override
             public void lastcard(String cardname) {
             }
             @Override
@@ -110,8 +106,6 @@ public class GameBoardTest {
             public void setGameRequest(GameRequest gameRequest) {}
             @Override
             public void setColorForComputer(String color) {}
-            @Override
-            public void beginStage() {}
             @Override
             public void lastcard(String cardname) {
             }
@@ -144,8 +138,6 @@ public class GameBoardTest {
             @Override
             public void setColorForComputer(String color) {}
             @Override
-            public void beginStage() {}
-            @Override
             public void lastcard(String cardname) {
             }
             @Override
@@ -177,8 +169,6 @@ public class GameBoardTest {
             public void setGameRequest(GameRequest gameRequest) {}
             @Override
             public void setColorForComputer(String color) {}
-            @Override
-            public void beginStage() {}
             @Override
             public void lastcard(String cardname) {
             }

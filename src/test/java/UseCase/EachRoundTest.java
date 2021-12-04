@@ -3,6 +3,7 @@ package UseCase;
 import Entity.Deck;
 import Entity.CardHolder;
 
+import LogIn.LogInEntity.UserStatistics;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -107,6 +108,148 @@ public class EachRoundTest {
         */
     }
 
+    @Test
+    public void testPlayStageGUI() {
+        CardHolder cardHolder = new CardHolder();
+        eachRound.getGameBoard().setiTerminal(new IPresenter() {
+            @Override
+            public void drawCardNotification(String drawn, boolean noCard, boolean computer) {
+
+            }
+            @Override
+            public void setGameRunner(GameRunner gameRunner) {
+            }
+            @Override
+            public void setGameRequest(GameRequest gameRequest) {
+            }
+            @Override
+            public void setColorForComputer(String color) {
+            }
+            @Override
+            public void lastcard(String cardname) {
+            }
+            @Override
+            public String RemainingCards() {
+                return null;
+            }
+            @Override
+            public CardHolder allhandcards() {
+                return null;
+            }
+            @Override
+            public void setColorGUI() {
+            }
+            @Override
+            public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
+            }
+        });
+        UserStatistics userStatistics = new UserStatistics("Jason");
+        cardHolder.addCard("red 1");
+        eachRound.playStageGUI(cardHolder, 0, "red reverse", userStatistics);
+        eachRound.getGameBoard().getGameCardHolders().getHandCards(0).addCard("red 1");
+        eachRound.playStageGUI(cardHolder, 0,
+                "red 1", userStatistics);
+    }
+
+    @Test
+    public void testPlayStageGUIPVE() {
+        CardHolder cardHolder = new CardHolder();
+        eachRound.getGameBoard().setiTerminal(new IPresenter() {
+            @Override
+            public void drawCardNotification(String drawn, boolean noCard, boolean computer) {
+
+            }
+            @Override
+            public void setGameRunner(GameRunner gameRunner) {
+            }
+            @Override
+            public void setGameRequest(GameRequest gameRequest) {
+            }
+            @Override
+            public void setColorForComputer(String color) {
+            }
+            @Override
+            public void lastcard(String cardname) {
+            }
+            @Override
+            public String RemainingCards() {
+                return null;
+            }
+            @Override
+            public CardHolder allhandcards() {
+                return null;
+            }
+            @Override
+            public void setColorGUI() {
+            }
+            @Override
+            public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
+            }
+        });
+        cardHolder.addCard("red 1");
+        eachRound.playStageGUIPVE(cardHolder, 0);
+        eachRound.getGameBoard().getGameCardHolders().getHandCards(0).addCard("red 1");
+        eachRound.playStageGUIPVE(cardHolder, 0);
+    }
+
+    @Test
+    public void testEndStageGUI() {
+        UserStatistics userStatistics = new UserStatistics("Jason");
+        eachRound.getGameBoard().setiTerminal(new IPresenter() {
+            @Override
+            public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+            @Override
+            public void setGameRunner(GameRunner gameRunner) {}
+            @Override
+            public void setGameRequest(GameRequest gameRequest) {}
+            @Override
+            public void setColorForComputer(String color) {}
+            @Override
+            public void lastcard(String cardname) {
+            }
+            @Override
+            public String RemainingCards() {
+                return null;}
+            @Override
+            public CardHolder allhandcards() {
+                return null;}
+            @Override
+            public void setColorGUI() {}
+            @Override
+            public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {}
+        });
+        eachRound.getGameBoard().getCardChecker().setLastCard("red 3");
+        eachRound.endStageGUI("red 1", userStatistics);
+    }
+
+    @Test
+    public void testEndStageGUIPVE() {
+        eachRound.getGameBoard().setiTerminal(new IPresenter() {
+            @Override
+            public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+            @Override
+            public void setGameRunner(GameRunner gameRunner) {}
+            @Override
+            public void setGameRequest(GameRequest gameRequest) {}
+            @Override
+            public void setColorForComputer(String color) {}
+            @Override
+            public void lastcard(String cardname) {
+            }
+            @Override
+            public String RemainingCards() {
+                return null;}
+            @Override
+            public CardHolder allhandcards() {
+                return null;}
+            @Override
+            public void setColorGUI() {}
+            @Override
+            public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {}
+        });
+        eachRound.getGameBoard().getCardChecker().setLastCard("red 3");
+        eachRound.endStageGUIPVE("red 1", 0);
+    }
 
     @Test
     public void testGetGameBoard() {
