@@ -30,15 +30,6 @@ public class GameRunner implements IGameInput {
         this.gameResponse.setIds(ids);
         gameResponse.setGameBoard(new GameBoard(numberOfPlayers));
     }
-    /**
-     * setter method for gameResponse
-     */
-    public void setGameResponse(GameResponse gameResponse) {
-        this.gameResponse = gameResponse;
-    }
-    /**
-     * getter method for gameResponse
-     */
     public GameResponse getGameResponse() {
         return gameResponse;
     }

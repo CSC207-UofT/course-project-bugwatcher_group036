@@ -16,8 +16,8 @@ public class Controller {
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
         this.gameRunner = new GameRunner(gameRequest, ids);
+
         gameRunner.buildIEachRound(gameRunner.getGameResponse().getGameBoard(), iPresenter, gameRequest);
-        gameRunner.setGameResponse(gameRunner.getGameResponse());
         gameRequest.setIds(ids);
         iPresenter.setGameRequest(gameRequest);
         iPresenter.setGameRunner(gameRunner);
