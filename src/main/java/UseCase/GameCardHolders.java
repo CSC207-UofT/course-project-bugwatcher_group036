@@ -28,11 +28,6 @@ public class GameCardHolders {
     // Return the number of card a player holds.
     public int getNumbersOfCardHolds(int index) { return cardHolders[index].getSize();}
 
-    // Remove the given card from player of given index.
-    public String playCardWithIndex(int toPlay, int index){
-        return cardHolders[index].playCardWithIndex(toPlay);
-    }
-
     // add the card to player of given index.
     public void addCard(String card, int index){
         cardHolders[index].addCard(card);

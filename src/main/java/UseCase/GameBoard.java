@@ -10,10 +10,10 @@ import java.util.Collections;
 
 public class GameBoard {
 
-    private GameCardHolders gameCardHolders;
-    private Status status;
-    private CardChecker cardChecker;
-    private Deck deck;
+    private final GameCardHolders gameCardHolders;
+    private final Status status;
+    private final CardChecker cardChecker;
+    private final Deck deck;
     private IPresenter iPresenter;
 
     public GameBoard(int numberOfPlayers) {

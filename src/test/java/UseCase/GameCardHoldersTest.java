@@ -26,6 +26,22 @@ public class GameCardHoldersTest {
     }
 
     @Test
+    public void testPlayCard1() {
+        GameCardHolders gameCardHolders = new GameCardHolders(3);
+        gameCardHolders.addCard("red 1", 1);
+        assertTrue(gameCardHolders.playCard("red 1", 1));
+    }
+
+    @Test
+    public void testPlayCardWithIndex() {
+        GameCardHolders gameCardHolders = new GameCardHolders(3);
+        CardHolder cardHolder = new CardHolder();
+        cardHolder.addCard("red 1");
+        String played = gameCardHolders.playCardWithIndex(0, cardHolder);
+        assertEquals(played, "red 1");
+    }
+
+    @Test
     public void testInitialization() {
         GameCardHolders gameCardHolders0 = new GameCardHolders(3);
         assertEquals(gameCardHolders0.getHolderNumber(), 3);
@@ -44,7 +60,7 @@ public class GameCardHoldersTest {
     }
 
     @Test
-    public void testPlayCard() {
+    public void testPlayCard2() {
         ArrayList<String> cards = getHandCards();
         cardHolder0.addCards(cards);
         assertFalse(gameCardHolders.playCard("red 9", cardHolder0));
@@ -68,16 +84,6 @@ public class GameCardHoldersTest {
     }
 
     @Test
-    public void testPlayCardWithIndex() {
-        ArrayList<String> cards = getHandCards();
-        cardHolder0.addCards(cards);
-        String card0 = gameCardHolders.playCardWithIndex(1, 0);
-        assertEquals(card0, "blue +2");
-        String card1 = gameCardHolders.playCardWithIndex(0, 0);
-        assertEquals(card1, "red 5");
-    }
-
-    @Test
     public void testAddCard() {
         assertEquals(cardHolder0.getSize(), 0);
         gameCardHolders.addCard("123", 0);
@@ -88,6 +94,7 @@ public class GameCardHoldersTest {
 
     @Test
     public void testIsEmpty() {
+        assertTrue(gameCardHolders.isEmpty(new CardHolder()));
         assertTrue(gameCardHolders.isEmpty(0));
         ArrayList<String> cards = getHandCards();
         cardHolder0.addCards(cards);

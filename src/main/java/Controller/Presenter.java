@@ -18,9 +18,7 @@ import java.util.Collections;
  */
 public class Presenter implements UseCase.IPresenter {
 
-    private Controller controller;
     private GameRequest gameRequest;
-
     private GameRunner gameRunner;
 
     public void setGameRunner(GameRunner gameRunner) {this.gameRunner = gameRunner;}

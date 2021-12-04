@@ -3,8 +3,6 @@ package UseCase;
 import Entity.CardHolder;
 import LogIn.LogInEntity.UserStatistics;
 
-import static java.lang.Thread.sleep;
-
 public class EachRound {
 
     private final GameBoard gameBoard;
