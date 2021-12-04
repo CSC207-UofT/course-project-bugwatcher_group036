@@ -18,6 +18,7 @@ public class PVEFrame extends JFrame implements ActionListener {
     private final Presenter presenter;
     private final Controller controller;
     private final UserStatistics stats;
+    private Clip clip;
 
     JPanel frame = new JPanel();
     JLabel currentcard = new JLabel();
@@ -86,7 +87,7 @@ public class PVEFrame extends JFrame implements ActionListener {
         try {
             AudioInputStream input = AudioSystem.getAudioInputStream(
                     new File("src/main/java/DataSet/Background Music.wav"));
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(input);
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -236,6 +237,8 @@ public class PVEFrame extends JFrame implements ActionListener {
                 this.updateGUI();
                 boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                 if (winFlag) {
+                    clip.stop();
+                    clip.close();
                     this.dispose();
                     Loseframe frame = new Loseframe(playerIds.get(computerposition), stats);
                     break;
@@ -248,6 +251,8 @@ public class PVEFrame extends JFrame implements ActionListener {
                     controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
                     boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                     if (winFlag) {
+                        clip.stop();
+                        clip.close();
                         this.dispose();
 
                         stats.PVEWin();
@@ -267,6 +272,8 @@ public class PVEFrame extends JFrame implements ActionListener {
 //                            this.updateGUI();
                             winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                             if (winFlag) {
+                                clip.stop();
+                                clip.close();
                                 this.dispose();
                                 Loseframe frame = new Loseframe(playerIds.get(computerposition), stats);
                                 break;

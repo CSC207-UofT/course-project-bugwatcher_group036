@@ -13,10 +13,11 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class PVPFrame extends JFrame implements ActionListener{
+public class PVPFrame extends JFrame implements ActionListener {
     private final Controller controller;
     private final Presenter presenter;
     private final UserStatistics stats;
+    private Clip clip;
 
     JPanel frame = new JPanel();
     JLabel currentCard = new JLabel();
@@ -31,7 +32,7 @@ public class PVPFrame extends JFrame implements ActionListener{
     JTextArea textArea = new JTextArea();
     JScrollPane scroll = new JScrollPane(textArea);
 
-    public PVPFrame(Presenter presenter, Controller controller, UserStatistics stats){
+    public PVPFrame(Presenter presenter, Controller controller, UserStatistics stats) {
         this.presenter = presenter;
         this.controller = controller;
         this.stats = stats;
@@ -41,7 +42,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         currentCard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
         ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/black.png");
         Image img1 = icon1.getImage();
-        Image newImg1 = img1.getScaledInstance(144, 216,  java.awt.Image.SCALE_SMOOTH) ;
+        Image newImg1 = img1.getScaledInstance(144, 216, java.awt.Image.SCALE_SMOOTH);
         icon1 = new ImageIcon(newImg1);
         currentCard.setIcon(icon1);
 
@@ -63,7 +64,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         playerCardCounts.setBounds(30, 150, 400, 300);
         playerCardCounts.setFont(new Font("Times", Font.BOLD, 20));
         StringBuilder countText = new StringBuilder("<html>");
-        for (int i  = 0; i < playerIds.size(); i++) {
+        for (int i = 0; i < playerIds.size(); i++) {
             int cardCount = presenter.getGameRunner().getEachRound().getGameBoard().
                     getGameCardHolders().getHandCards(i).getSize();
             if (i != currentPosition) {
@@ -79,7 +80,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         try {
             AudioInputStream input = AudioSystem.getAudioInputStream(
                     new File("src/main/java/DataSet/Background Music.wav"));
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(input);
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -108,16 +109,16 @@ public class PVPFrame extends JFrame implements ActionListener{
 
 
         presenter.allhandcards().forEach(c -> {
-            JToggleButton button = new JToggleButton(c);
-            buttonGroup.add(button);
-            if (!presenter.getGameRunner().getEachRound().beginStage().toString().contains(button.getText())) {
-                button.setEnabled(false);
-            }
-                button.addActionListener(this);
-            button.setBounds(20, 20, 20, 20);
-            cardHas.add(button);
+                    JToggleButton button = new JToggleButton(c);
+                    buttonGroup.add(button);
+                    if (!presenter.getGameRunner().getEachRound().beginStage().toString().contains(button.getText())) {
+                        button.setEnabled(false);
+                    }
+                    button.addActionListener(this);
+                    button.setBounds(20, 20, 20, 20);
+                    cardHas.add(button);
                 }
-            );
+        );
 
         this.add(cardHas);
 
@@ -151,10 +152,11 @@ public class PVPFrame extends JFrame implements ActionListener{
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-    private void updateGUI(){
-        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/"+presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard() +".png");
+
+    private void updateGUI() {
+        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/" + presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard() + ".png");
         Image img1 = icon1.getImage();
-        Image newImg1 = img1.getScaledInstance(144, 216,  java.awt.Image.SCALE_SMOOTH) ;
+        Image newImg1 = img1.getScaledInstance(144, 216, java.awt.Image.SCALE_SMOOTH);
         icon1 = new ImageIcon(newImg1);
         currentCard.setIcon(icon1);
         currentCard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
@@ -187,7 +189,7 @@ public class PVPFrame extends JFrame implements ActionListener{
         int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
         StringBuilder countText = new StringBuilder("<html>");
-        for (int i  = 0; i < playerIds.size(); i++) {
+        for (int i = 0; i < playerIds.size(); i++) {
             int cardCount = presenter.getGameRunner().getEachRound().getGameBoard().
                     getGameCardHolders().getHandCards(i).getSize();
             if (i != currentPosition) {
@@ -210,19 +212,19 @@ public class PVPFrame extends JFrame implements ActionListener{
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
             this.updateGUI();
-        }
-        else {
+        } else {
             JToggleButton playedcard = (JToggleButton) e.getSource();
             if (controller.getGameRunner().getEachRound().beginStage().toString().contains(playedcard.getText())) {
                 controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
                 this.updateGUI();
-            }
-            else {
-                JOptionPane.showMessageDialog(null,"Cannot play this card!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Cannot play this card!");
             }
         }
         boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
-        if(winFlag) {
+        if (winFlag) {
+            clip.stop();
+            clip.close();
             this.dispose();
 
             stats.PVPWin();
@@ -235,6 +237,7 @@ public class PVPFrame extends JFrame implements ActionListener{
                     (controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()), stats);
         }
     }
+
     private static class CustomOutputStream extends OutputStream {
         private final JTextArea textArea;
 
@@ -243,8 +246,8 @@ public class PVPFrame extends JFrame implements ActionListener{
         }
 
         @Override
-        public void write(int b){
-            textArea.append(String.valueOf((char)b));
+        public void write(int b) {
+            textArea.append(String.valueOf((char) b));
             textArea.setCaretPosition(textArea.getDocument().getLength());
         }
     }
