@@ -2,9 +2,6 @@ package Controller;
 
 import Entity.CardHolder;
 
-import LogIn.LogInEntity.User;
-import LogIn.LoginUseCase.LoginUseCase;
-import UI.WinFrame;
 import UseCase.*;
 
 import javax.swing.*;
@@ -23,11 +20,9 @@ public class Presenter implements UseCase.IPresenter {
 
     public void setGameRunner(GameRunner gameRunner) {this.gameRunner = gameRunner;}
 
-
     public void setGameRequest(GameRequest gameRequest) {
         this.gameRequest = gameRequest;
     }
-
 
     public GameRunner getGameRunner(){return this.gameRunner;}
 
@@ -37,22 +32,11 @@ public class Presenter implements UseCase.IPresenter {
     }
 
     public void beginStage(){
-        System.out.println();
+//        System.out.println();
 
-        System.out.println("Current Player:" + gameRunner.getGameResponse().getIds().get(
-                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
+//        System.out.println("Current Player:" + gameRunner.getGameResponse().getIds().get(
+//                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
 
-    }
-
-    public void playStage(){
-        GameBoard gameBoard = gameRunner.getGameResponse().getGameBoard();
-        CardHolder playableCards = gameRunner.getGameResponse().getCardHolder();
-
-        int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
-        System.out.println("Last Card: " + gameBoard.getCardChecker().getLastCard());
-        System.out.println(
-                "The cards you have: " + gameBoard.getGameCardHolders().getHandCards(currentPlayerIndex));
-        System.out.println("The cards you can play: " + playableCards);
     }
 
     public CardHolder allhandcards(){
@@ -65,13 +49,10 @@ public class Presenter implements UseCase.IPresenter {
         return gameRunner.getGameResponse().getGameBoard().getGameCardHolders().getHandCards(id);
     }
 
-    public void printString(String message){
-        System.out.println(message); // print sentence message
-    }
-
     public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
-        System.out.println("You draw " + numToDraw + " cards. The cards you've drawn are " +
-                drawnCardName + ".");
+        System.out.println(gameRunner.getGameResponse().getIds().get(
+                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) +
+                " draw " + numToDraw + " cards.");
         if (!computer){
         JOptionPane.showMessageDialog(null, "You draw " + numToDraw +
                 " cards. The cards you've drawn are " +
@@ -81,22 +62,22 @@ public class Presenter implements UseCase.IPresenter {
     public void drawCardNotification(String drawn, boolean noCard, boolean computer){
         // only print this sentence when drawing due to no card playable
         if (noCard) {
-            System.out.println("Cannot play a card! Draw one more card");
-            System.out.println("The card you draw is " + drawn);
             if (!computer) {
                 JOptionPane.showMessageDialog(null, "Cannot play a card! Draw one more card \n The card you draw is " + drawn, "Draw One Card", JOptionPane.PLAIN_MESSAGE);
             }
         }
         else {
-            System.out.println("The card you draw is " + drawn);
             if (!computer) {
                 JOptionPane.showMessageDialog(null, "The card you draw is " + drawn, "Draw One Card", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
+    public void lastcard(String cardname){
+
+        System.out.println(gameRunner.getGameResponse().getIds().get(gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) + " played " + cardname + ".");
+    }
 
     public void setColorGUI() {
-        System.out.println("Type a color you want to set:");
         ArrayList<String> colors = new ArrayList<>();
         Collections.addAll(colors, "red", "blue", "yellow", "green");
 
@@ -108,7 +89,7 @@ public class Presenter implements UseCase.IPresenter {
 
     public void setColorForComputer(String color) {
         System.out.println("Color " + color + " is set.");
-        JOptionPane.showMessageDialog(null, "Player: "+ gameRunner.getGameResponse().getIds().get(
+        JOptionPane.showMessageDialog(null, gameRunner.getGameResponse().getIds().get(
                 gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) +" switch color. Color " + color + " is set.");
     }
 

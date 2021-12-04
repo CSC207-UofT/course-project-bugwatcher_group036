@@ -26,8 +26,12 @@ public class PVEFrame extends JFrame implements ActionListener {
     JLabel id = new JLabel();
     JLabel bottom = new JLabel();
     JPanel cardHas = new JPanel();
+    JButton closebutton = new JButton();
     JButton next = new JButton("next");
     ButtonGroup buttonGroup = new ButtonGroup();
+    JTextArea textArea = new JTextArea();
+    JScrollPane scroll = new JScrollPane(textArea);
+
 
     public PVEFrame(Presenter presenter, Controller controller, UserStatistics stats) {
         this.presenter = presenter;
@@ -37,7 +41,7 @@ public class PVEFrame extends JFrame implements ActionListener {
         int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
 
         currentcard.setHorizontalAlignment(0);//Center the text
-        currentcard.setBounds(450, 50, 144, 216);//set the location and size of JLabel
+        currentcard.setBounds(510, 50, 144, 216);//set the location and size of JLabel
         currentcard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
         ImageIcon icon1;
         if (presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard() == null) {
@@ -99,6 +103,17 @@ public class PVEFrame extends JFrame implements ActionListener {
         FlowLayout fl_cardHas = (FlowLayout) cardHas.getLayout();
         fl_cardHas.setAlignment(FlowLayout.LEADING);
 
+        closebutton.setFont(new Font("Times", Font.BOLD, 20));
+        closebutton.setText("x");
+        closebutton.setBounds(620, 5, 30, 30);
+        closebutton.setForeground(Color.RED);
+        closebutton.setBackground(new Color(225, 83, 83));
+        closebutton.addActionListener(this);
+        closebutton.setBorderPainted(true);
+        closebutton.setContentAreaFilled(false);
+        closebutton.setOpaque(true);
+
+
         presenter.allhandcards(0).forEach(c -> {
                     JToggleButton button = new JToggleButton(c);
                     buttonGroup.add(button);
@@ -111,23 +126,35 @@ public class PVEFrame extends JFrame implements ActionListener {
                 }
         );
 
-
         this.add(cardHas);
 
-        next.setBounds(450, 300, 150, 70);
+        next.setBounds(506, 300, 144, 70);
         next.addActionListener(this);
 
-        this.setBounds(700, 700, 750, 500);//set the location and size of frame
+        textArea.setBounds(30, 630, 620, 210);
+        textArea.setEditable(false);
+        PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
+        System.setOut(printStream);
+        System.setErr(printStream);
+
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setBounds(30, 630, 620, 210);
+        scroll.setBorder(new LineBorder(new Color(0, 0, 0)));
+        this.add(scroll);
+
+
+        this.setBounds(680, 700, 700, 900);//set the location and size of frame
         this.add(bottom);
         this.add(id);
         this.add(remainingcards);
         this.add(playerCardCounts);
         this.add(currentcard);
         this.add(next);
+        this.add(closebutton);
 
         this.add(frame);
-        this.setSize(700, 700);
-        this.setLocation(new Point(500, 200));
+        this.setSize(680, 900);
+        this.setLocation(new Point(200, 200));
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -139,7 +166,8 @@ public class PVEFrame extends JFrame implements ActionListener {
             boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
             if (winFlag) {
                 this.dispose();
-                Loseframe frame = new Loseframe(playerIds.get(currentPosition) + " Wins");
+                Loseframe frame = new Loseframe(presenter.getGameRunner().getGameResponse().getIds().get(
+                presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()), stats);
             }
         }
     }
@@ -151,8 +179,6 @@ public class PVEFrame extends JFrame implements ActionListener {
         icon1 = new ImageIcon(newImg1);
         currentcard.setIcon(icon1);
         currentcard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
-        id.setText("Current Player: " + presenter.getGameRunner().getGameResponse().getIds().get(
-                presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()));
 
         cardHas.removeAll();
 
@@ -196,6 +222,9 @@ public class PVEFrame extends JFrame implements ActionListener {
         ArrayList<String> playerIds = controller.getGameRunner().getGameResponse().getIds();
 
         int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+        if (e.getSource() == closebutton) {
+            System.exit(0);
+        }
         if (e.getSource() == next) {
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
@@ -208,7 +237,7 @@ public class PVEFrame extends JFrame implements ActionListener {
                 boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                 if (winFlag) {
                     this.dispose();
-                    Loseframe frame = new Loseframe(playerIds.get(computerposition) + " Wins");
+                    Loseframe frame = new Loseframe(playerIds.get(computerposition), stats);
                     break;
                 }
             }
@@ -227,7 +256,7 @@ public class PVEFrame extends JFrame implements ActionListener {
                         users.getUser(stats.getPlayerId()).setUserStatistics(stats);
                         new LoginUseCase(users);
 
-                        WinFrame frame = new WinFrame(playerIds.get(0));
+                        WinFrame frame = new WinFrame(playerIds.get(0), stats);
                     }
                     else {
                         int computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
@@ -235,17 +264,30 @@ public class PVEFrame extends JFrame implements ActionListener {
                         while (computerposition != currentPosition) {
                             controller.getGameRunner().runGameforGUIComputer();
                             computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
-                            this.updateGUI();
+//                            this.updateGUI();
                             winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
                             if (winFlag) {
                                 this.dispose();
-                                Loseframe frame = new Loseframe(playerIds.get(computerposition) + " Wins");
+                                Loseframe frame = new Loseframe(playerIds.get(computerposition), stats);
                                 break;
                             }
-                            this.updateGUI();
                     }
+                        this.updateGUI();
                 }
             }
+        }
+    }
+    private static class CustomOutputStream extends OutputStream {
+        private final JTextArea textArea;
+
+        public CustomOutputStream(JTextArea textArea) {
+            this.textArea = textArea;
+        }
+
+        @Override
+        public void write(int b) throws IOException {
+            textArea.append(String.valueOf((char)b));
+            textArea.setCaretPosition(textArea.getDocument().getLength());
         }
     }
 }

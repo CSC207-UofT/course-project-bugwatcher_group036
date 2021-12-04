@@ -1,20 +1,40 @@
 package UI;
 
+import LogIn.LogInEntity.UserStatistics;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
-public class WinFrame extends JFrame {
-
-    public WinFrame(String name) {
+public class WinFrame extends JFrame implements ActionListener {
+    JButton playagain = new JButton();
+    UserStatistics stats;
+    public WinFrame(String name, UserStatistics stats) {
         this.setSize(540, 360);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setContentPane(startP(name));
+        playagain.setForeground(new Color(0,0,0));
+        playagain.setBounds(198, 250, 144, 70);
+        playagain.addActionListener(this);
+        playagain.setText("Play Again!");
+        playagain.setFont(new Font("Times", Font.BOLD, 20));
+        this.add(playagain);
         this.setVisible(true);
 
 
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == playagain) {
+            this.dispose();
+            ModeFrame frame = new ModeFrame(stats);
+        }
+    }
+
     public class HomePanel extends JPanel {
         ImageIcon icon;
         Image img;

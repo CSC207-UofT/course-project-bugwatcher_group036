@@ -18,7 +18,7 @@ public class EachRound {
 
     // Deal cards to players at the beginning of the game, each player should hold 7 cards after that.
     public void cardDeal(int numberOfPlayers) {
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 5; i++){
             for (int j = 0; j < numberOfPlayers; j++){
                 gameBoard.getGameCardHolders().addCard(gameBoard.drawCard(), j);
             }
