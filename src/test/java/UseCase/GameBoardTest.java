@@ -40,8 +40,6 @@ public class GameBoardTest {
             @Override
             public void setColorForComputer(String color) {}
             @Override
-            public void beginStage() {}
-            @Override
             public void lastcard(String cardname) {
             }
             @Override
@@ -78,8 +76,6 @@ public class GameBoardTest {
             @Override
             public void setColorForComputer(String color) {}
             @Override
-            public void beginStage() {}
-            @Override
             public void lastcard(String cardname) {
             }
             @Override
@@ -93,6 +89,7 @@ public class GameBoardTest {
             @Override
             public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {}
         });
+        gameBoard.getStatus().setPlus(4);
         gameBoard.plusManyNextPlayer(new CardHolder(), false);
         gameBoard.plusManyNextPlayer(new CardHolder(), true);
     }
@@ -110,12 +107,8 @@ public class GameBoardTest {
             @Override
             public void setColorForComputer(String color) {}
             @Override
-            public void beginStage() {}
-
-            @Override
             public void lastcard(String cardname) {
             }
-
             @Override
             public String RemainingCards() {
                 return null;}
@@ -130,5 +123,70 @@ public class GameBoardTest {
         gameBoard.getCardChecker().setLastCard("red 1");
         UserStatistics userStatistics = new UserStatistics("Jason");
         gameBoard.operationWhenNoPlayableCard(false, userStatistics);
+    }
+
+    @Test
+    public void testPunishOrPlayCard() {
+        GameBoard gameBoard = new GameBoard(4);
+        gameBoard.setiTerminal(new IPresenter() {
+            @Override
+            public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+            @Override
+            public void setGameRunner(GameRunner gameRunner) {}
+            @Override
+            public void setGameRequest(GameRequest gameRequest) {}
+            @Override
+            public void setColorForComputer(String color) {}
+            @Override
+            public void lastcard(String cardname) {
+            }
+            @Override
+            public String RemainingCards() {
+                return null;}
+            @Override
+            public CardHolder allhandcards() {
+                return null;}
+            @Override
+            public void setColorGUI() {}
+            @Override
+            public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {}
+        });
+        gameBoard.punishOrPlayCard(null, false);
+        gameBoard.punishOrPlayCard(null, true);
+        gameBoard.punishOrPlayCard("red 1", false);
+    }
+
+    @Test
+    public void testCheckLastCard() {
+        GameBoard gameBoard = new GameBoard(4);
+        GameRequest gameRequest = new GameRequest();
+        gameBoard.setiTerminal(new IPresenter() {
+            @Override
+            public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+            @Override
+            public void setGameRunner(GameRunner gameRunner) {}
+            @Override
+            public void setGameRequest(GameRequest gameRequest) {}
+            @Override
+            public void setColorForComputer(String color) {}
+            @Override
+            public void lastcard(String cardname) {
+            }
+            @Override
+            public String RemainingCards() {
+                return null;}
+            @Override
+            public CardHolder allhandcards() {
+                return null;}
+            @Override
+            public void setColorGUI() {}
+            @Override
+            public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {}
+        });
+        UserStatistics userStatistics = new UserStatistics("Jason");
+        gameBoard.checkLastCard("red 1", gameRequest, userStatistics);
+        gameBoard.checkLastCard("red reverse", gameRequest, userStatistics);
+        gameBoard.checkLastCardForComputer("red 1", gameRequest);
+        gameBoard.checkLastCardForComputer("red reverse", gameRequest);
     }
 }

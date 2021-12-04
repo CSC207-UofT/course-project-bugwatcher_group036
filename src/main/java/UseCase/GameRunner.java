@@ -12,22 +12,19 @@ import java.util.ArrayList;
  */
 public class GameRunner implements IGameInput {
 
-    private final ArrayList<String> ids;
     private final int numberOfPlayers;
     private EachRound eachRound; // interface of eachRound, use dependency injection for clean architecture
     private GameResponse gameResponse;
     private GameRequest gameRequest;
-    private IPresenter iPresenter;
 
     /**
      * initialize GameRunner
      */
-    public GameRunner(IPresenter iPresenter, GameRequest gameRequest, ArrayList<String> ids) {
+    public GameRunner(GameRequest gameRequest, ArrayList<String> ids) {
+
 
         this.gameRequest = gameRequest;
         this.gameResponse = new GameResponse();// get player ids and number of players
-        this.iPresenter = iPresenter;
-        this.ids = gameRequest.getIds(); // get player ids and number of players
 
         this.numberOfPlayers = ids.size();
         this.gameResponse.setIds(ids);
@@ -99,7 +96,6 @@ public class GameRunner implements IGameInput {
         int currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
 
         // system output and checking for begin stage, get playable cards for currentPlayer
-        eachRound.getTerminal().beginStage();
         CardHolder playableCards = eachRound.beginStage();
         gameResponse.setCardHolder(playableCards);
         // system output and card-playing or punish based on status info and input
