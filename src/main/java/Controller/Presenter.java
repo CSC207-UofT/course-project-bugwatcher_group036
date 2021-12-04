@@ -13,7 +13,7 @@ import java.util.Collections;
  * As dealer is in use case level,
  * we put this terminal in entity level for clean architecture.
  */
-public class Presenter implements UseCase.IPresenter {
+public class Presenter implements IPresenter {
 
     private GameRequest gameRequest;
     private GameRunner gameRunner;

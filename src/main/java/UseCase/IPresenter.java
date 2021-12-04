@@ -1,6 +1,5 @@
 package UseCase;
 
-import Controller.Controller;
 import Entity.CardHolder;
 
 public interface IPresenter {

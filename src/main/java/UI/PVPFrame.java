@@ -98,7 +98,7 @@ public class PVPFrame extends JFrame implements ActionListener{
 
         closebutton.setFont(new Font("Times", Font.BOLD, 20));
         closebutton.setText("x");
-        closebutton.setBounds(650, 5, 30, 30);
+        closebutton.setBounds(620, 5, 30, 30);
         closebutton.setForeground(Color.RED);
         closebutton.setBackground(new Color(225, 83, 83));
         closebutton.addActionListener(this);

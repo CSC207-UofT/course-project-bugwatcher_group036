@@ -32,8 +32,6 @@ public class GameBoardTest {
         GameBoard gameBoard = new GameBoard(4);
         gameBoard.setiTerminal(new IPresenter() {
             @Override
-            public void printString(String message) {}
-            @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
             @Override
             public void setGameRunner(GameRunner gameRunner) {}
@@ -44,7 +42,8 @@ public class GameBoardTest {
             @Override
             public void beginStage() {}
             @Override
-            public void playStage() {}
+            public void lastcard(String cardname) {
+            }
             @Override
             public String RemainingCards() {
                 return null;}
@@ -71,8 +70,6 @@ public class GameBoardTest {
         GameBoard gameBoard = new GameBoard(4);
         gameBoard.setiTerminal(new IPresenter() {
             @Override
-            public void printString(String message) {}
-            @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
             @Override
             public void setGameRunner(GameRunner gameRunner) {}
@@ -83,7 +80,8 @@ public class GameBoardTest {
             @Override
             public void beginStage() {}
             @Override
-            public void playStage() {}
+            public void lastcard(String cardname) {
+            }
             @Override
             public String RemainingCards() {
                 return null;}
@@ -104,8 +102,6 @@ public class GameBoardTest {
         GameBoard gameBoard = new GameBoard(4);
         gameBoard.setiTerminal(new IPresenter() {
             @Override
-            public void printString(String message) {}
-            @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
             @Override
             public void setGameRunner(GameRunner gameRunner) {}
@@ -115,8 +111,11 @@ public class GameBoardTest {
             public void setColorForComputer(String color) {}
             @Override
             public void beginStage() {}
+
             @Override
-            public void playStage() {}
+            public void lastcard(String cardname) {
+            }
+
             @Override
             public String RemainingCards() {
                 return null;}
