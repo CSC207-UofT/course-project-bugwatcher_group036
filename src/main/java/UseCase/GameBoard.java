@@ -15,6 +15,9 @@ public class GameBoard {
     private final CardChecker cardChecker;
     private final Deck deck;
     private IPresenter iPresenter;
+    /**
+     * initialize GameBoard
+     */
 
     public GameBoard(int numberOfPlayers) {
         this.gameCardHolders = new GameCardHolders(numberOfPlayers);
