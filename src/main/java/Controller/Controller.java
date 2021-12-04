@@ -14,7 +14,7 @@ public class Controller {
 
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
-        this.gameRunner = new GameRunner(iPresenter, gameRequest, ids);
+        this.gameRunner = new GameRunner(gameRequest, ids);
         this.iPresenter = iPresenter;
         this.setiGameInput(gameRunner);
         gameRunner.buildIEachRound(gameRunner.getGameResponse().getGameBoard(), iPresenter, gameRequest);

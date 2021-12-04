@@ -12,20 +12,16 @@ import java.util.ArrayList;
  */
 public class GameRunner implements IGameInput {
 
-    private final ArrayList<String> ids;
     private final int numberOfPlayers;
     private EachRound eachRound; // interface of eachRound, use dependency injection for clean architecture
     private GameResponse gameResponse;
     private GameRequest gameRequest;
-    private IPresenter iPresenter;
 
 
-    public GameRunner(IPresenter iPresenter, GameRequest gameRequest, ArrayList<String> ids) {
+    public GameRunner(GameRequest gameRequest, ArrayList<String> ids) {
 
         this.gameRequest = gameRequest;
         this.gameResponse = new GameResponse();// get player ids and number of players
-        this.iPresenter = iPresenter;
-        this.ids = gameRequest.getIds(); // get player ids and number of players
 
         this.numberOfPlayers = ids.size();
         this.gameResponse.setIds(ids);
