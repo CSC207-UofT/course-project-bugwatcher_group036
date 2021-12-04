@@ -22,7 +22,6 @@ public class GameRunner implements IGameInput {
      */
     public GameRunner(GameRequest gameRequest, ArrayList<String> ids) {
 
-
         this.gameRequest = gameRequest;
         this.gameResponse = new GameResponse();// get player ids and number of players
 
