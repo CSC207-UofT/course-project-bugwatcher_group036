@@ -4,6 +4,12 @@ import java.io.*;
 
 public class UserReadWriter implements ReadWriter {
 
+    /**
+     *
+     * @param filePath The path of the file.
+     * @param users The user to be saved.
+     * @throws IOException The exception may happen.
+     */
     @Override
     public void saveToFile(String filePath, Object users) throws IOException {
 
@@ -16,6 +22,13 @@ public class UserReadWriter implements ReadWriter {
         output.close();
     }
 
+    /**
+     *
+     * @param filePath The path of the file.
+     * @return  The user list read from file.
+     * @throws IOException The exception may happen.
+     * @throws ClassNotFoundException The exception may happen.
+     */
     @Override
     public UserList readFromFile(String filePath) throws IOException, ClassNotFoundException {
 
