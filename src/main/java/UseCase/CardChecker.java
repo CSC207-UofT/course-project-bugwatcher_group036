@@ -1,35 +1,45 @@
 package UseCase;
 
 import Entity.CardHolder;
-import Entity.Status;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class CardChecker {
 
     private String lastCard;
     private String currentColor;
-
+    /**
+     * initialize CardChecker
+     */
     public CardChecker(){
         lastCard = null;
         currentColor = null;
     }
 
-    public void functionCardResponse(String feature, IPresenter iPresenter, GameRequest gameRequest) {
-        if (feature.equals("+4") || feature.equals("switch")) {
-            iPresenter.setColor();
-            currentColor = gameRequest.getSetColor();
-        }
-    }
+    /**
+     * function card respond in Gui
+     */
     public void functionCardResponseGUI(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {
             iPresenter.setColorGUI();
             currentColor = gameRequest.getSetColor();
         }
     }
+    /**
+     * function card response in gui in pve
+     */
 
     public void functionCardResponseForComputer(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {
-            iPresenter.setColorForComputer();
+            ArrayList<String> colors = new ArrayList<>();
+            Collections.addAll(colors, "red", "blue", "yellow", "green");
+            Random rand = new Random();
+            String color = colors.get(rand.nextInt(4));
+            gameRequest.setSetColorForComputer(color);
             currentColor = gameRequest.getSetColorForComputer();
+            iPresenter.setColorForComputer(color);
         }
     }
 
@@ -90,22 +100,20 @@ public class CardChecker {
         }
         return lastFeature.equals(toFeature) || lastColor.equals(toColor);
     }
-
+    /**
+     * Getter method for lastCard
+     */
     public String getLastCard() {
         return lastCard;
     }
 
-    public String getCurrentColor() {
-        return currentColor;
-    }
-
     // This method has some problem, when we set a +2 card here, the status will not be changed.
+    /**
+     * setter method for lastcard
+     */
     public void setLastCard(String lastCard) {
         this.lastCard = lastCard;
         currentColor = lastCard.split(" ")[0];
     }
 
-    public void setCurrentColor(String color) {
-        this.currentColor = color;
-    }
 }

@@ -18,7 +18,7 @@ public class LoginUI extends JFrame implements ActionListener {
     JButton loginButton = new JButton();
     JButton registerButton = new JButton();
     JTextField usernameInput = new JTextField();
-    JTextField passwordInput = new JTextField();
+    JPasswordField passwordInput = new JPasswordField();
     LoginUseCase useCase;
     LoginController loginController = new LoginController(useCase);
 
@@ -28,7 +28,7 @@ public class LoginUI extends JFrame implements ActionListener {
 //        Guide.setVerticalAlignment(JLabel.TOP);
         Guide.setBounds(10,0,400,20);
 
-        quitGuide.setText("Otherwise, you can press the red X button to leave.");
+        quitGuide.setText("Otherwise, you can press the red \"X\" button to leave.");
         quitGuide.setBounds(10,30,400,20);
 
         Username.setText("Username");
@@ -53,6 +53,7 @@ public class LoginUI extends JFrame implements ActionListener {
         usernameInput.setBounds(100,100,200,20);
 
         passwordInput.addActionListener(this);
+        passwordInput.setEchoChar('*');
         passwordInput.setBounds(100,130,200,20);
 
         this.setTitle("Welcome to the game center!");
@@ -78,13 +79,16 @@ public class LoginUI extends JFrame implements ActionListener {
             useCase = new LoginUseCase(false);
             loginController = new LoginController(useCase);
 
-            if (loginController.runLogin(usernameInput.getText(), passwordInput.getText())) {
+            if (loginController.runLogin(usernameInput.getText(), String.valueOf(passwordInput.getPassword()))) {
                 System.out.println("Login success!");
 //               Need to connect to mainUI.
                 this.dispose();
-                ModeFrame frame = new ModeFrame();
+                ModeFrame frame = new ModeFrame
+                        (useCase.getUsers().getUser(usernameInput.getText()).getUserStatistics());
             } else {
                 System.out.println("The password is wrong or the user does not exist.");
+                JOptionPane.showMessageDialog(null,
+                        "The password is wrong or the user does not exist.");
             }
         }
         if (button.getSource() == registerButton){

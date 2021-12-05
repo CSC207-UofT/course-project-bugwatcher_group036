@@ -63,4 +63,11 @@ public class StatusTest {
         assertTrue(curr - 1 == s.getCurrentPlayerIndex() ||
                 s.getCurrentPlayerIndex() == 3);
     }
+
+    @Test
+    public void testSetQuit() {
+        Status s = new Status(4);
+        s.setQuit();
+        assertEquals(s.getCurrentPlayerIndex(), -10);
+    }
 }

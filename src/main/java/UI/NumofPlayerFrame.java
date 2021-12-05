@@ -1,10 +1,8 @@
 package UI;
 
 import Controller.Controller;
-import UseCase.GameRequest;
-import UseCase.GameResponse;
 import Controller.*;
-import UseCase.GameRunner;
+import LogIn.LogInEntity.UserStatistics;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,16 +14,11 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
     JLabel Username = new JLabel();
     JButton enterbutton = new JButton();
     JTextField NumberPlayer = new JTextField();
-//    IPresenter presenter;
-//    Controller controller;
-//    GameRequest gameRequest;
-//    GameResponse gameResponse;
 
-    public NumofPlayerFrame() {
-//        this.presenter = presenter;
-//        this.controller = controller;
-//        this.gameRequest = gameRequest;
-//        this.gameResponse = gameResponse;
+    private final UserStatistics stats;
+
+    public NumofPlayerFrame(UserStatistics stats) {
+        this.stats = stats;
 
         Username.setText("Number of Players:");
         Username.setBounds(20, 30, 300, 20);
@@ -49,7 +42,6 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
         this.add(Username);
         this.add(enterbutton);
         this.add(NumberPlayer);
-//        this.pack();
     }
 
     @Override
@@ -69,17 +61,15 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
                     Presenter presenter = new Presenter();
                     Controller controller = new Controller(presenter, ids);
 
-
-
-                    PVPFrame frame = new PVPFrame(presenter,controller);
+                    PVPFrame frame = new PVPFrame(presenter,controller, stats);
 
                 }
                 else {
-                    JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +
+                    JOptionPane.showMessageDialog(null, "Sorry, we only support 2 players -" +
                             " 6 players, please re-enter player count.");
                 }
             } catch (NumberFormatException numberFormatException) {
-                JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +
+                JOptionPane.showMessageDialog(null, "Sorry, we only support 2 players -" +
                         " 6 players, please re-enter player count.");
             }
         }

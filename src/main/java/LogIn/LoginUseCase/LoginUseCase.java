@@ -5,7 +5,6 @@ import LogIn.LogInEntity.UserList;
 import LogIn.LogInEntity.UserReadWriter;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class LoginUseCase implements LoginInputBoundary {
 
@@ -87,4 +86,7 @@ public class LoginUseCase implements LoginInputBoundary {
             }
     }
 
+    public UserList getUsers() {
+        return users;
+    }
 }

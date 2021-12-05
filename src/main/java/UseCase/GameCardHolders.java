@@ -2,11 +2,9 @@ package UseCase;
 
 import Entity.CardHolder;
 
-import java.util.HashMap;
-
 public class GameCardHolders {
 
-    private CardHolder[] cardHolders;
+    private final CardHolder[] cardHolders;
 
     public GameCardHolders(int numberOfPlayers) {
         this.cardHolders = new CardHolder[numberOfPlayers];
@@ -14,6 +12,9 @@ public class GameCardHolders {
             cardHolders[i] = new CardHolder();
         }
     }
+    /**
+     * Getter method for current player HandCard
+     */
 
     public CardHolder getHandCards(int currentPlayerIndex){
         return cardHolders[currentPlayerIndex];
@@ -30,11 +31,6 @@ public class GameCardHolders {
     // Return the number of card a player holds.
     public int getNumbersOfCardHolds(int index) { return cardHolders[index].getSize();}
 
-    // Remove the given card from player of given index.
-    public String playCardWithIndex(int toPlay, int index){
-        return cardHolders[index].playCardWithIndex(toPlay);
-    }
-
     // add the card to player of given index.
     public void addCard(String card, int index){
         cardHolders[index].addCard(card);
@@ -45,15 +41,21 @@ public class GameCardHolders {
         return cardHolders[index].isEmpty();
     }
 
-
+    /**
+     * let a player play card
+     */
     public boolean playCard(String toPlay, CardHolder cardHolder){
         return cardHolder.playCard(toPlay);
     }
-
+    /**
+     * return the card with given index
+     */
     public String playCardWithIndex(int toPlay, CardHolder cardHolder){
         return cardHolder.playCardWithIndex(toPlay);
     }
-
+    /**
+     * add a card to a given player
+     */
     public void addCard(String card, CardHolder cardHolder){
         cardHolder.addCard(card);
     }
@@ -61,7 +63,9 @@ public class GameCardHolders {
     public boolean isEmpty(CardHolder cardHolder){
         return cardHolder.isEmpty();
     }
-
+    /**
+     * check if there is a player win this game
+     */
     public boolean checkWinState(){
         for (CardHolder handcard: cardHolders){
             if (handcard.isEmpty()){
@@ -70,7 +74,9 @@ public class GameCardHolders {
         }
         return false;
     }
-
+    /**
+     * create a new CardHolder
+     */
     public CardHolder createNewCardHolder() {
         return new CardHolder();
     }
