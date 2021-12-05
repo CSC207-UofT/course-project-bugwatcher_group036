@@ -24,9 +24,9 @@ In phase 2, we focused on mainly three aspects and construct a comprehensive pla
 * **Aspect of GUI** We developed a GUI and added necessary information all inside the GUI:
 ![image](https://user-images.githubusercontent.com/56620120/144762978-f1bd6935-1eb5-4a95-a9bb-e4ac7b3210ac.png)
 
-## 3 Future Aspiration & What We Will Implement in Phase 2 
+## 3 Future Aspiration  
 
 Our directions are mainly on these *three aspects*:
-* **Optimizing basic settings**, we will debug logical errors and implement login system and user info system using serialization.
+* **Optimizing online game play**, Players can use different computers and play together online
 * **Implementing more rules**, like playing specific card would trigger special change, and adding extra function card into the deck.
 * **Optimize code structure** With complexity of code increases, we will foucus on SOLID principles and clean architecture to make our codes more concise and effecitve with less potential bug.
