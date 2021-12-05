@@ -12,17 +12,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class EachRoundTest {
     Deck deck = new Deck();
-    GameBoard gameBoard = new GameBoard(4);
     GameRequest gameRequest;
     IPresenter iPresenter;
     CardChecker cardChecker = new CardChecker();
-    EachRound eachRound = new EachRound(gameBoard, iPresenter, gameRequest);
+    EachRound eachRound = new EachRound(4, iPresenter, gameRequest);
 
 
     @Test
     public void testInitialization() {
-        EachRound eachRound0 = new EachRound(gameBoard, iPresenter, gameRequest);
-        assertEquals(eachRound0.getGameBoard(), gameBoard);
+        EachRound eachRound0 = new EachRound(4, iPresenter, gameRequest);
+        assertNotNull(eachRound0.getGameBoard());
         assertEquals(eachRound0.getTerminal(), iPresenter);
         assertEquals(eachRound0.getGameRequest(), gameRequest);
     }
@@ -38,8 +37,8 @@ public class EachRoundTest {
 
     @Test
     public void testBeginState() {
-        gameBoard = new GameBoard(2);
-        EachRound eachRound = new EachRound(gameBoard, iPresenter, gameRequest);
+        EachRound eachRound = new EachRound(2, iPresenter, gameRequest);
+        GameBoard gameBoard = eachRound.getGameBoard();
         CardHolder cardHolder0 = gameBoard.getGameCardHolders().getHandCards(0);
         CardHolder cardHolder1 = gameBoard.getGameCardHolders().getHandCards(1);
         ArrayList<String> skipCards = new ArrayList<String>();
@@ -55,23 +54,23 @@ public class EachRoundTest {
         assertEquals(cardHolder0.getSize(), 5);
         assertEquals(gameBoard.getGameCardHolders().getHolderNumber(), 2);
 
-        gameBoard.getStatus().setSkip(true);
-        gameBoard.getStatus().setCurrentPlayerIndex(0);
+        gameBoard.getGameStatus().setSkip(true);
+        gameBoard.getGameStatus().setCurrentPlayerIndex(0);
 
-        assertEquals(gameBoard.getStatus().getCurrentPlayerIndex(), 0);
+        assertEquals(gameBoard.getGameStatus().getCurrentPlayerIndex(), 0);
         assertEquals(gameBoard.getGameCardHolders().getNumbersOfCardHolds(0), 5);
-        assertTrue(gameBoard.getStatus().isSkip());
+        assertTrue(gameBoard.getGameStatus().isSkip());
         CardHolder b0 = eachRound.beginStage();
         assertEquals(b0.getSize(), 2);
 
-        gameBoard.getStatus().setSkip(false);
+        gameBoard.getGameStatus().setSkip(false);
         ArrayList<String> plusTwoCards = new ArrayList<String>();
         plusTwoCards.add("green +2");
         cardHolder0.addCards(plusTwoCards);
         gameBoard.getCardChecker().setLastCard("blue +2");
-        gameBoard.getStatus().setPlus(2);
+        gameBoard.getGameStatus().setPlus(2);
         CardHolder b1 = eachRound.beginStage();
-        assertEquals(gameBoard.getStatus().getPlus(), 2);
+        assertEquals(gameBoard.getGameStatus().getPlus(), 2);
         assertEquals(b1.getSize(), 1);
 
         ArrayList<String> plusFourCards = new ArrayList<String>();
@@ -81,12 +80,12 @@ public class EachRoundTest {
         plusFourCards.add("yellow +4");
         cardHolder0.addCards(plusFourCards);
         gameBoard.getCardChecker().setLastCard("blue +4");
-        gameBoard.getStatus().setPlus(4);
+        gameBoard.getGameStatus().setPlus(4);
         CardHolder b2 = eachRound.beginStage();
         assertEquals(b2.getSize(), 4);
 
         gameBoard.getCardChecker().setLastCard("blue 7");
-        gameBoard.getStatus().setPlus(0);
+        gameBoard.getGameStatus().setPlus(0);
         CardHolder b3 = eachRound.beginStage();
         assertEquals(b3.getSize(), 7);
 
@@ -94,8 +93,8 @@ public class EachRoundTest {
 
     @Test
     public void testPlayState() {
-        gameBoard = new GameBoard(2);
-        EachRound eachRound = new EachRound(gameBoard, iPresenter, gameRequest);
+        EachRound eachRound = new EachRound(2, iPresenter, gameRequest);
+        GameBoard gameBoard = eachRound.getGameBoard();
         CardHolder cardHolder0 = gameBoard.getGameCardHolders().getHandCards(0);
         CardHolder cardHolder1 = gameBoard.getGameCardHolders().getHandCards(1);
 
@@ -253,7 +252,7 @@ public class EachRoundTest {
 
     @Test
     public void testGetGameBoard() {
-        assertEquals(eachRound.getGameBoard(), gameBoard);
+        assertNotNull(eachRound.getGameBoard());
     }
 
     @Test

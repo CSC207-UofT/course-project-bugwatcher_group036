@@ -26,7 +26,7 @@ public class CardCheckerTest {
         gameRunner = new GameRunner(gameRequest, IDS);
         gameResponse = gameRunner.getGameResponse();
         iPresenter = new Presenter();
-        gameRunner.buildIEachRound(gameResponse.getGameBoard(), iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest);
         eachRound = gameRunner.getEachRound();
         iPresenter.setGameRunner(gameRunner);
         iPresenter.setGameRequest(gameRequest);

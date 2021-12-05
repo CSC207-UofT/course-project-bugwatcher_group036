@@ -2,7 +2,6 @@ package UseCase;
 
 import Entity.CardHolder;
 import Entity.Deck;
-import Entity.Status;
 import LogIn.LogInEntity.UserStatistics;
 import org.junit.jupiter.api.Test;
 
@@ -21,9 +20,9 @@ public class GameBoardTest {
     @Test
     public void testGetMethods() {
         GameBoard gameBoard = new GameBoard(4);
-        Status status = gameBoard.getStatus();
+        GameStatus gameStatus = gameBoard.getGameStatus();
         CardChecker cardChecker = gameBoard.getCardChecker();
-        Deck deck = gameBoard.getDeck();
+        GameDeck gameDeck = gameBoard.getGameDeck();
         GameCardHolders gameCardHolders = gameBoard.getGameCardHolders();
     }
 
@@ -89,7 +88,7 @@ public class GameBoardTest {
             @Override
             public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {}
         });
-        gameBoard.getStatus().setPlus(4);
+        gameBoard.getGameStatus().setPlus(4);
         gameBoard.plusManyNextPlayer(new CardHolder(), false);
         gameBoard.plusManyNextPlayer(new CardHolder(), true);
     }

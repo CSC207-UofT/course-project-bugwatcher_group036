@@ -19,8 +19,7 @@ public class LoginUI extends JFrame implements ActionListener {
     JButton registerButton = new JButton();
     JTextField usernameInput = new JTextField();
     JPasswordField passwordInput = new JPasswordField();
-    LoginUseCase useCase;
-    LoginController loginController = new LoginController(useCase);
+    LoginController loginController = new LoginController();
 
     public LoginUI(){
 
@@ -76,15 +75,16 @@ public class LoginUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent button) {
         if (button.getSource() == loginButton) {
-            useCase = new LoginUseCase(false);
-            loginController = new LoginController(useCase);
+//            useCase = new LoginUseCase(false);
+//            loginController = new LoginController(useCase);
 
             if (loginController.runLogin(usernameInput.getText(), String.valueOf(passwordInput.getPassword()))) {
                 System.out.println("Login success!");
 //               Need to connect to mainUI.
                 this.dispose();
                 ModeFrame frame = new ModeFrame
-                        (useCase.getUsers().getUser(usernameInput.getText()).getUserStatistics());
+                        (loginController.getLoginInputBoundary().getUsers().getUser(
+                                usernameInput.getText()).getUserStatistics());
             } else {
                 System.out.println("The password is wrong or the user does not exist.");
                 JOptionPane.showMessageDialog(null,

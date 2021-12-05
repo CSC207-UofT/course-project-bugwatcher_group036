@@ -4,7 +4,7 @@ import LogIn.LogInEntity.UserStatistics;
 
 public interface IGameInput {
 
-    void buildIEachRound(GameBoard gameBoard, IPresenter iPresenter, GameRequest gameRequest);
+    void buildIEachRound(IPresenter iPresenter, GameRequest gameRequest);
 
     EachRound getEachRound();
 

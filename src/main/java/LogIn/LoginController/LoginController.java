@@ -8,8 +8,8 @@ public class LoginController {
     private final LoginInputBoundary loginInputBoundary;
 
 
-
-    public LoginController(LoginInputBoundary loginInputBoundary) {
+    public LoginController() {
+        LoginInputBoundary loginInputBoundary = new LoginUseCase(false);
         this.loginInputBoundary = loginInputBoundary;
     }
 
