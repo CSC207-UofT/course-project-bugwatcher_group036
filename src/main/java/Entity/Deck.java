@@ -1,6 +1,5 @@
 package Entity;
 
-import java.io.*;
 import java.util.*;
 
 public class Deck {
@@ -15,21 +14,10 @@ public class Deck {
     public Deck(){
         this.used = new ArrayList<>();
         this.unused = new ArrayList<>();
-        File testFile = new File("");
-        try {
-            BufferedReader CardList = new BufferedReader(new FileReader(testFile.getAbsolutePath() +
-                    "/src/main/java/DataSet/Cards.txt"));
-            String numberLine = CardList.readLine();
-            while (numberLine != null){
-                unused.add(numberLine);
-                numberLine = CardList.readLine();
-            }
-        }
-        catch (FileNotFoundException fileMissing){
-            System.out.println("Card file not found. Check directory.");
+    }
 
-        }
-        catch (IOException ignored) {} // wise: don't know how to handle this case
+    public void setUnused(ArrayList<String> unused) {
+        this.unused = unused;
     }
 
     /**
@@ -75,4 +63,6 @@ public class Deck {
     public void putCardToUsedDeck(String c) {
         used.add(c);
     }
+
+
 }

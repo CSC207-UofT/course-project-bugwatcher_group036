@@ -9,8 +9,15 @@ public class EachRound {
     private final IPresenter iPresenter;
     private final GameRequest gameRequest;
 
-    public EachRound(int numberOfPlayers, IPresenter iPresenter, GameRequest gameRequest){
-        this.gameBoard = new GameBoard(numberOfPlayers);
+    /**
+     * Initialize EachRound
+     * @param numberOfPlayers the total number of player
+     * @param iPresenter Interface for presenter class
+     * @param gameRequest Gamerequest of the game
+     * @param gateway Gateway interface for reading file
+     */
+    public EachRound(int numberOfPlayers, IPresenter iPresenter, GameRequest gameRequest, ReadFile gateway){
+        this.gameBoard = new GameBoard(numberOfPlayers, gateway);
         this.iPresenter = iPresenter;
         gameBoard.setiTerminal(iPresenter);
         this.gameRequest = gameRequest;
@@ -29,6 +36,7 @@ public class EachRound {
 
     /**
      * Getter method for gameBoard
+     * @return the GameBoard for the uno game
      */
     public GameBoard getGameBoard() {
         return gameBoard;
@@ -36,6 +44,7 @@ public class EachRound {
 
     /**
      * Getter method for iPresenter
+     * @return the iPresenter for the uno game
      */
     public IPresenter getTerminal() {
         return iPresenter;
@@ -43,12 +52,13 @@ public class EachRound {
 
     /**
      * Getter method for gameRequest
+     * @return the GameRequest for the uno game
      */
     public GameRequest getGameRequest() {return gameRequest;}
 
     /**
      * Start the round for current player. If last card is plus, then let the player draw cards or play plus card.
-     * return the cards that current player can play
+     * @return the cards that current player can play
      */
     public CardHolder beginStage() {
         int currentPlayerIndex = gameBoard.getGameStatus().getCurrentPlayerIndex();
@@ -71,6 +81,10 @@ public class EachRound {
         }
     }
 
+    /**
+     * The playstage when a player played a card that is playable.
+     * To check whether the player have any card or not.
+     */
     public void playStageGUI(CardHolder playableCards, int currentPlayerIndex,
                              String cardToPlay, UserStatistics stats) {
         if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
@@ -93,6 +107,12 @@ public class EachRound {
         }
     }
 
+    /**
+     * The playstage for the computer.
+     * @param playableCards The cards that the computer player can play
+     * @param currentPlayerIndex the index of the current player.
+     * @return the card that the computer played
+     */
     public String playStageGUIPVE(CardHolder playableCards, int currentPlayerIndex) {
         String cardToPlay = null;
         if (gameBoard.getGameCardHolders().isEmpty(playableCards)) {
@@ -109,6 +129,11 @@ public class EachRound {
         return cardToPlay;
     }
 
+    /**
+     * The endstage when a player play a card. To set all the game and status to the correct type.
+     * @param toPlay The card that played by last player.
+     * @param stats The informaiton statistics of the player
+     */
     public void endStageGUI(String toPlay, UserStatistics stats) {
 
         gameBoard.getGameStatus().setSkip(false);
@@ -123,6 +148,11 @@ public class EachRound {
         gameBoard.getGameStatus().setCurrentPlayerIndex(gameBoard.getGameStatus().moveToNextPlayer());
     }
 
+    /**
+     * The endstage when a computer play a card. To set all the game and status to the correct type.
+     * @param toPlay The card that played by Computer.
+     * @param currentPlayerIndex The computer player index
+     */
     public void endStageGUIPVE(String toPlay, int currentPlayerIndex) {
         if (currentPlayerIndex == 0) {
             endStageGUI(toPlay, new UserStatistics("noSave"));
@@ -143,6 +173,12 @@ public class EachRound {
         }
     }
 
+    /**
+     * For player to play a card when the card is playable or draw a card.
+     * @param currentPlayerIndex the index of the current player
+     * @param cardToPlayID the card that the player played or draw a card.
+     * @return the card either the player draw or the card that player played.
+     */
     public String letPlayerPlayCardGUI(int currentPlayerIndex, String cardToPlayID) {
         String cardToPlay = null;
 
@@ -173,6 +209,12 @@ public class EachRound {
         return cardToPlay;
     }
 
+    /**
+     * For computer to play a card when there is playable card
+     * @param playableCards the cards that the computer can play
+     * @param currentPlayerIndex the index of the current player
+     * @return the card that the computer play
+     */
     public String letPlayerPlayCardForComputer(CardHolder playableCards, int currentPlayerIndex) {
         String cardToPlay;
 
@@ -183,7 +225,8 @@ public class EachRound {
     }
 
     /**
-     * @return get the current index of the player
+     * Getter method for the current player index.
+     * @return the current index of the player
      */
     public int getCurrentPlayerIndex() {
         return getGameBoard().getCurrentPlayerIndex();
