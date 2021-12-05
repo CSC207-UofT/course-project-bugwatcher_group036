@@ -27,7 +27,9 @@ We want to demonstrate our understanding of clean architecture and design patter
 
 
 ### Ben Wang (BenWXY - xyben.wang@mail.utoronto.ca)
-
+* Revised the structure to follow SOLID and Clean Architecture
+* Created UML diagram for phase 2
+* Made last check to SOLID and Clean Architecture
 
 ### York Chen (zhumengzhiren - york.chen@mail.utoronto.ca)
 
@@ -38,4 +40,5 @@ We want to demonstrate our understanding of clean architecture and design patter
 ### Eli Gao (ElizaZoldyck - eliza.gao@mail.utoronto.ca)
 * Wrote progress report.md for phase 2
 * Marginally contributed in writing UseCase test
-* Made minor debugs for the UseCase class structure and UI
+* Made minor debugs for the UseCase class structure
+* Modified BGM function and sound related features in UI class
