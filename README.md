@@ -10,16 +10,19 @@ Our team developed two game modes: PVP and PVE. In PVP mode, you can play UNO to
 
 ![Differnt modes and statistics](https://user-images.githubusercontent.com/56620120/144762755-0c277922-f1f4-494d-839c-d63a92b42a55.png)
 
-## 2 What We've Done So Far
+## 2 What We've Done So Far (phase0 - phase2)
 In phase 0, we determined the overall strucutre and realized the basic running of the game that only has number card with four colors.
-After phase 1, We accomplished great implementations on three aspects:
-* **Aspect of Basic Setting** We added function card to the deck and enabled function card interactions. Then, we enabled fiexible player-count that allows player to decide. We also implemented PVE mode - one player and multiple computer players, with hidden card details. Finally, we added a txt file and reader class to store deck informations in txt so that we can devise customized decks without altering the code.
-*  **Aspect of design pattern** 
-   * We added iterator pattern to easier access handcards in player and all players in sequence.
-   * We added builder pattern to standardize the initialization process and reduce controller complexity.
-   * We added facade pattern to maintain the SOLID principle and improve extensiblility.
-* **Aspect of GUI** We developed a GUI, which can be further perfected, and we'll do that in phase 2. Here is our current GUI:
-![139bb29f73dbd099cf2b4aeae5d7d88](https://user-images.githubusercontent.com/56620120/141606380-23530b3b-21fb-45ce-b96d-4233d28aee6d.png)
+
+Through phase 1, We accomplished great implementations on basic setting to enable function card play, implemented two design patterns, and created GUI to make it more user-friendly.
+
+In phase 2, we focused on mainly three aspects and construct a comprehensive platform for UNO playing:
+* **Aspect of Code Restructure** Our project structure in phase 1 contained several unnecessary designs that hindered furture expansion in GUI and login interaction. Thus, our team restructured the code to make it more efficient and concise. 
+*  **Aspect of Login System and Interaction with gameRun** 
+   * We added user database that allows new user to register and then login normally for further gamePlay.
+   * We added user statistics collector and exp system that updates in each round, where user can access these information everytime before game starts.
+   * We added "play again" option after each game play, and players can choose new game mode as they want.
+* **Aspect of GUI** We developed a GUI and added necessary information all inside the GUI:
+![image](https://user-images.githubusercontent.com/56620120/144762978-f1bd6935-1eb5-4a95-a9bb-e4ac7b3210ac.png)
 
 ## 3 Future Aspiration & What We Will Implement in Phase 2 
 
