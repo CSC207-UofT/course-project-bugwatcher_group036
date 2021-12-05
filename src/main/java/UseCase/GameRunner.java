@@ -1,7 +1,6 @@
 package UseCase;
 
 import Entity.CardHolder;
-import Entity.ReadFile;
 import LogIn.LogInEntity.UserList;
 import LogIn.LogInEntity.UserStatistics;
 import LogIn.LoginUseCase.LoginUseCase;

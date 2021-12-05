@@ -1,4 +1,4 @@
-package Entity;
+package UseCase;
 
 import Entity.Deck;
 

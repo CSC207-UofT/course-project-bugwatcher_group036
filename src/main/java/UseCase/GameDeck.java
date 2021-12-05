@@ -1,7 +1,6 @@
 package UseCase;
 
 import Entity.Deck;
-import Entity.ReadFile;
 
 import java.util.ArrayList;
 
@@ -10,7 +9,9 @@ public class GameDeck {
     private Deck deck;
 
     public GameDeck(ReadFile gateway) {
-        this.deck = new Deck(gateway);
+        this.deck = new Deck();
+        ArrayList<String> unused = gateway.readFromFile();
+        deck.setUnused(unused);
     }
 
     /**
@@ -50,4 +51,6 @@ public class GameDeck {
     public void putCardToUsedDeck(String c) {
         deck.putCardToUsedDeck(c);
     }
+
+
 }

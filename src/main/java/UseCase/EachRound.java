@@ -1,7 +1,6 @@
 package UseCase;
 
 import Entity.CardHolder;
-import Entity.ReadFile;
 import LogIn.LogInEntity.UserStatistics;
 
 public class EachRound {
