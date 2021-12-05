@@ -6,8 +6,6 @@ public interface IPresenter {
 
     void drawCardNotification(String drawn, boolean noCard, boolean computer);
 
-//    void setGameRunner(GameRunner gameRunner);
-
     void setGameRequest(IRequest gameRequest);
 
     void setColorForComputer(String color);
@@ -22,5 +20,4 @@ public interface IPresenter {
 
     void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer);
 
-//    void setGameResponse(GameResponse gameResponse);
 }
