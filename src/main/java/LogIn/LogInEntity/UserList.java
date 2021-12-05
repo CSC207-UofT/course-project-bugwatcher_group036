@@ -9,7 +9,11 @@ import java.util.Map;
  */
 public class UserList implements Serializable {
 
-    private final Map<String, User> users = new HashMap<>();
+    private Map<String, User> users;
+
+    public UserList() {
+        this.users = new HashMap<>();
+    }
 
     public void add(User user) {
         users.put(user.getUsername(), user);
