@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Core of the program
  */
-public class GameRunner implements IGameInput {
+public class GameRunner implements IGameInput, IGameOutput {
 
     private final int numberOfPlayers;
     private EachRound eachRound; // interface of eachRound, use dependency injection for clean architecture
@@ -27,42 +27,47 @@ public class GameRunner implements IGameInput {
 
         this.numberOfPlayers = ids.size();
         this.gameResponse.setIds(ids);
-        gameResponse.setGameBoard(new GameBoard(numberOfPlayers));
     }
+
     public GameResponse getGameResponse() {
         return gameResponse;
     }
+
     /**
      * setter method for gameResponse
      */
     public void setGameRequest(GameRequest gameRequest) {
         this.gameRequest = gameRequest;
     }
+
     /**
      * getter method for gameRequest
      */
     public GameRequest getGameRequest() {
         return gameRequest;
     }
+
     /**
      * getter method for eachRound
      */
     public EachRound getEachRound() {
         return eachRound;
     }
+
     /**
      * initialize the game
      */
-    public void buildIEachRound(GameBoard gameBoard, IPresenter iPresenter, GameRequest gameRequest) {
-        this.eachRound = new EachRound(gameBoard, iPresenter, gameRequest);
+    public void buildIEachRound(IPresenter iPresenter, GameRequest gameRequest) {
+        this.eachRound = new EachRound(numberOfPlayers, iPresenter, gameRequest);
         eachRound.cardDeal(numberOfPlayers);
     }
+
     /**
      * initialize the gui of the game
      */
     public void runGameforGUI(String toPlay, UserStatistics stats) {
         // update current position
-        int currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
+        int currentPlayerIndex = eachRound.getCurrentPlayerIndex();
 
         // system output and checking for begin stage, get playable cards for currentPlayer
         CardHolder playableCards = eachRound.beginStage();
@@ -77,13 +82,13 @@ public class GameRunner implements IGameInput {
         eachRound.endStageGUI(toPlay, stats);
         saveUserStatistics(stats);
     }
+
     /**
             * initialize the gui of the game in pve mode
      */
-
     public void runGameforGUIComputer() {
         // update current position
-        int currentPlayerIndex = eachRound.getGameBoard().getStatus().getCurrentPlayerIndex();
+        int currentPlayerIndex = eachRound.getCurrentPlayerIndex();
 
         // system output and checking for begin stage, get playable cards for currentPlayer
         CardHolder playableCards = eachRound.beginStage();
@@ -96,10 +101,10 @@ public class GameRunner implements IGameInput {
         // final check and preparation for next loop for end stage
         eachRound.endStageGUIPVE(toPlay, currentPlayerIndex);
     }
+
     /**
          save Users game statistics
      */
-
     private void saveUserStatistics(UserStatistics stats) {
         LoginUseCase saver = new LoginUseCase(false);
         UserList users = saver.getUsers();

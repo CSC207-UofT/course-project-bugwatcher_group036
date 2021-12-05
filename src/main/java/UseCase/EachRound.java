@@ -9,14 +9,16 @@ public class EachRound {
     private final IPresenter iPresenter;
     private final GameRequest gameRequest;
 
-    public EachRound(GameBoard gameBoard, IPresenter iPresenter, GameRequest gameRequest){
-        this.gameBoard = gameBoard;
+    public EachRound(int numberOfPlayers, IPresenter iPresenter, GameRequest gameRequest){
+        this.gameBoard = new GameBoard(numberOfPlayers);
         this.iPresenter = iPresenter;
         gameBoard.setiTerminal(iPresenter);
         this.gameRequest = gameRequest;
     }
 
-    // Deal cards to players at the beginning of the game, each player should hold 7 cards after that.
+    /**
+     * Deal cards to players at the beginning of the game, each player should hold 7 cards after that.
+     */
     public void cardDeal(int numberOfPlayers) {
         for (int i = 0; i < 7; i++){
             for (int j = 0; j < numberOfPlayers; j++){
@@ -24,33 +26,37 @@ public class EachRound {
             }
         }
     }
+
     /**
      * Getter method for gameBoard
      */
     public GameBoard getGameBoard() {
         return gameBoard;
     }
+
     /**
      * Getter method for iPresenter
      */
-
     public IPresenter getTerminal() {
         return iPresenter;
     }
+
     /**
      * Getter method for gameRequest
      */
     public GameRequest getGameRequest() {return gameRequest;}
+
     /**
-     *
+     * Start the round for current player. If last card is plus, then let the player draw cards or play plus card.
+     * return the cards that current player can play
      */
     public CardHolder beginStage() {
-        int currentPlayerIndex = gameBoard.getStatus().getCurrentPlayerIndex();
+        int currentPlayerIndex = gameBoard.getGameStatus().getCurrentPlayerIndex();
         // get the cards we need to check
         CardHolder toCheck = gameBoard.getGameCardHolders().getHandCards(currentPlayerIndex);
-        if (gameBoard.getStatus().isSkip()) {
+        if (gameBoard.getGameStatus().isSkip()) {
             return gameBoard.getCardChecker().skipsPlayerCanPlay(toCheck, gameBoard.getGameCardHolders());
-        } else if (gameBoard.getStatus().getPlus() > 0){
+        } else if (gameBoard.getGameStatus().getPlus() > 0){
             // if the last card is plus2, player can play plus2 or plus4.
             if (gameBoard.getCardChecker().getLastCard().split(" ")[1].equals("+2")) {
                 return gameBoard.getCardChecker().plusTwoPlayerCanPlay(toCheck, gameBoard.getGameCardHolders());
@@ -105,16 +111,16 @@ public class EachRound {
 
     public void endStageGUI(String toPlay, UserStatistics stats) {
 
-        gameBoard.getStatus().setSkip(false);
+        gameBoard.getGameStatus().setSkip(false);
 
         gameBoard.checkLastCard(toPlay, gameRequest, stats);
 
         // check whether any player has no hand card, which means that player wins
         if(gameBoard.getGameCardHolders().checkWinState()){
-            gameBoard.getStatus().setWinFlag(true);
+            gameBoard.getGameStatus().setWinFlag(true);
         }
         // move to the next player
-        gameBoard.getStatus().setCurrentPlayerIndex(gameBoard.getStatus().moveToNextPlayer());
+        gameBoard.getGameStatus().setCurrentPlayerIndex(gameBoard.getGameStatus().moveToNextPlayer());
     }
 
     public void endStageGUIPVE(String toPlay, int currentPlayerIndex) {
@@ -122,18 +128,18 @@ public class EachRound {
             endStageGUI(toPlay, new UserStatistics("noSave"));
         } else {
 
-            gameBoard.getStatus().setSkip(false);
+            gameBoard.getGameStatus().setSkip(false);
 
             // last check for played card and update status
             gameBoard.checkLastCardForComputer(toPlay, gameRequest);
 
             // check whether any player has no hand card, which means that player wins
             if(gameBoard.getGameCardHolders().checkWinState()){
-                gameBoard.getStatus().setWinFlag(true);
+                gameBoard.getGameStatus().setWinFlag(true);
             }
             // move to the next player
-            gameBoard.getStatus().setCurrentPlayerIndex(
-                    gameBoard.getStatus().moveToNextPlayer());
+            gameBoard.getGameStatus().setCurrentPlayerIndex(
+                    gameBoard.getGameStatus().moveToNextPlayer());
         }
     }
 
@@ -175,6 +181,16 @@ public class EachRound {
 
         return cardToPlay;
     }
+
+    /**
+     * @return get the current index of the player
+     */
+    public int getCurrentPlayerIndex() {
+        return getGameBoard().getCurrentPlayerIndex();
+    }
+
+
+
 }
 
 

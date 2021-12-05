@@ -16,9 +16,6 @@ public class CardHolder implements Iterable<String>{
         this.handcard = new ArrayList<>();
     }
 
-
-    
-
     @Override
     public Iterator<String> iterator(){
         return new cardIterator();
@@ -52,22 +49,28 @@ public class CardHolder implements Iterable<String>{
     public boolean playCard(String toPlay){
         return handcard.remove(toPlay);
     }
+
     /**
      * play the card with given index and remove it
      */
     public String playCardWithIndex(int toPlay){
         return handcard.remove(toPlay);
     }
+
     /**
      * add card to handcard
      */
     public void addCard(String card){
         handcard.add(card);
     }
+
     /**
      * add several cards to handcard
      */
-    public void addCards(ArrayList<String> card) { handcard.addAll(card); }
+    public void addCards(ArrayList<String> card) {
+        handcard.addAll(card);
+    }
+
     /**
      * check it handcard is empty
      */
@@ -86,6 +89,7 @@ public class CardHolder implements Iterable<String>{
         }
         return res.substring(0, res.length() - 2) + "}";
     }
+
     /**
      * getter method for the size of handcard
      */

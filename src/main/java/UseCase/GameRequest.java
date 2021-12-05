@@ -2,13 +2,17 @@ package UseCase;
 
 import java.util.ArrayList;
 
-public class GameRequest {
+public class GameRequest implements IRequest{
 
     private String setColor;
 
     private String setColorForComputer;
 
     private ArrayList<String> ids;
+
+    public GameRequest(ArrayList<String> ids) {
+        this.ids = ids;
+    }
 
     /**
      * setter method for setColor
@@ -37,15 +41,15 @@ public class GameRequest {
     /**
      * setter method for ids
      */
-    public void setIds(ArrayList<String> ids) {
-        this.ids = ids;
-    }
-    /**
-     * getter method for ids
-     */
-    public ArrayList<String> getIds() {
-        return ids;
-    }
+//    public void setIds(ArrayList<String> ids) {
+//        this.ids = ids;
+//    }
+//    /**
+//     * getter method for ids
+//     */
+//    public ArrayList<String> getIds() {
+//        return ids;
+//    }
 
 }
 

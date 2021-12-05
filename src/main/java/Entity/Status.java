@@ -2,6 +2,10 @@ package Entity;
 
 import java.util.Random;
 
+/**
+ * This class contains the variables used in each round of the game and methods that
+ * are in charge of setting and changing these variables.
+ */
 public class Status {
     // The order of the game.
     private boolean reverse = false;
@@ -32,65 +36,74 @@ public class Status {
     /**
      * change the order of the game
      */
+
     public void changeReverseState() {
         this.reverse = !this.reverse;
     }
+
     /**
      * return winFlag
      */
     public boolean isWinFlag() {
         return winFlag;
     }
+
     /**
      * setter method for winFlag
      */
     public void setWinFlag(boolean winFlag) {
         this.winFlag = winFlag;
     }
+
     /**
-     *
+     * change the state to quit
      */
     public void setQuit() {
         winFlag = true;
         currentPlayerIndex = -10;
     }
+
     /**
      * getter method for  currentPlayerIndex
      */
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }
+
     /**
      * setter method for currentPlayerIndex
      */
     public void setCurrentPlayerIndex(int currentPlayerIndex) {
         this.currentPlayerIndex = currentPlayerIndex;
     }
+
     /**
      * return skip
      */
     public boolean isSkip() {
         return skip;
     }
+
     /**
      * setter method for skip
      */
     public void setSkip(boolean skip) {
         this.skip = skip;
     }
+
     /**
      * getter method for plus
      */
     public int getPlus() {
         return plus;
     }
+
     /**
      * setter method for plus
      */
     public void setPlus(int plus) {
         this.plus = plus;
     }
-
 
     /**
      * response in game while play a function card
@@ -110,6 +123,7 @@ public class Status {
                 setPlus(plus + 4);
         }
     }
+
     /**
      * move current played player to next player by index
      */

@@ -39,16 +39,18 @@ public class PVEFrame extends JFrame implements ActionListener {
         this.controller = controller;
         this.stats = stats;
 
-        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+        int currentPosition = presenter.getGameRunner().getEachRound().getGameBoard().
+                getGameStatus().getCurrentPlayerIndex();
 
         currentcard.setHorizontalAlignment(0);//Center the text
         currentcard.setBounds(510, 50, 144, 216);//set the location and size of JLabel
-        currentcard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
+        currentcard.setText(presenter.getGameRunner().getEachRound().getGameBoard().getCardChecker().getLastCard());
         ImageIcon icon1;
-        if (presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard() == null) {
+        if (presenter.getGameRunner().getEachRound().getGameBoard().getCardChecker().getLastCard() == null) {
             icon1 = new ImageIcon("src/main/java/DataSet/Card Image/black.png");
         } else {
-            icon1 = new ImageIcon("src/main/java/DataSet/Card Image/" + presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard() + ".png");
+            icon1 = new ImageIcon("src/main/java/DataSet/Card Image/" + presenter.
+                    getGameRunner().getEachRound().getGameBoard().getCardChecker().getLastCard() + ".png");
 
         }
         Image img1 = icon1.getImage();
@@ -162,24 +164,26 @@ public class PVEFrame extends JFrame implements ActionListener {
 
         while (0 != currentPosition) {
             controller.getGameRunner().runGameforGUIComputer();
-            currentPosition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+            currentPosition = controller.getGameRunner().getEachRound().getGameBoard().
+                    getGameStatus().getCurrentPlayerIndex();
             this.updateGUI();
-            boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
+            boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
             if (winFlag) {
                 this.dispose();
                 Loseframe frame = new Loseframe(presenter.getGameRunner().getGameResponse().getIds().get(
-                presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()), stats);
+                presenter.getGameRunner().getEachRound().getGameBoard().getGameStatus().
+                        getCurrentPlayerIndex()), stats);
             }
         }
     }
 
     private void updateGUI() {
-        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/" + presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard() + ".png");
+        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/" + presenter.getGameRunner().getEachRound().getGameBoard().getCardChecker().getLastCard() + ".png");
         Image img1 = icon1.getImage();
         Image newImg1 = img1.getScaledInstance(144, 216, java.awt.Image.SCALE_SMOOTH);
         icon1 = new ImageIcon(newImg1);
         currentcard.setIcon(icon1);
-        currentcard.setText(presenter.getGameRunner().getGameResponse().getGameBoard().getCardChecker().getLastCard());
+        currentcard.setText(presenter.getGameRunner().getEachRound().getGameBoard().getCardChecker().getLastCard());
 
         cardHas.removeAll();
 
@@ -203,7 +207,8 @@ public class PVEFrame extends JFrame implements ActionListener {
         remainingcards.setText("Remaining Cards: " + presenter.RemainingCards());
 
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
-        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+        int currentPosition = presenter.getGameRunner().getEachRound().getGameBoard().
+                getGameStatus().getCurrentPlayerIndex();
         StringBuilder countText = new StringBuilder("<html>");
         for (int i = 0; i < playerIds.size(); i++) {
             int cardCount = presenter.getGameRunner().getEachRound().getGameBoard().
@@ -222,20 +227,24 @@ public class PVEFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> playerIds = controller.getGameRunner().getGameResponse().getIds();
 
-        int currentPosition = presenter.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+        int currentPosition = presenter.getGameRunner().getEachRound().getGameBoard().
+                getGameStatus().getCurrentPlayerIndex();
         if (e.getSource() == closebutton) {
             System.exit(0);
         }
         if (e.getSource() == next) {
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
-            int computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+            int computerposition = controller.getGameRunner().getEachRound().getGameBoard().
+                    getGameStatus().getCurrentPlayerIndex();
 
             while (computerposition != currentPosition) {
                 controller.getGameRunner().runGameforGUIComputer();
-                computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+                computerposition = controller.getGameRunner().getEachRound().getGameBoard().
+                        getGameStatus().getCurrentPlayerIndex();
                 this.updateGUI();
-                boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
+                boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().
+                        getGameStatus().isWinFlag();
                 if (winFlag) {
                     clip.stop();
                     clip.close();
@@ -247,9 +256,11 @@ public class PVEFrame extends JFrame implements ActionListener {
         }
         else{
                 JToggleButton playedcard = (JToggleButton) e.getSource();
-                if (controller.getGameRunner().getEachRound().beginStage().toString().contains(playedcard.getText())) {
+                if (controller.getGameRunner().getEachRound().beginStage().toString().
+                        contains(playedcard.getText())) {
                     controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
-                    boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
+                    boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().
+                            getGameStatus().isWinFlag();
                     if (winFlag) {
                         clip.stop();
                         clip.close();
@@ -264,13 +275,16 @@ public class PVEFrame extends JFrame implements ActionListener {
                         WinFrame frame = new WinFrame(playerIds.get(0), stats);
                     }
                     else {
-                        int computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+                        int computerposition = controller.getGameRunner().getEachRound().
+                                getGameBoard().getGameStatus().getCurrentPlayerIndex();
 
                         while (computerposition != currentPosition) {
                             controller.getGameRunner().runGameforGUIComputer();
-                            computerposition = controller.getGameRunner().getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex();
+                            computerposition = controller.getGameRunner().getEachRound().
+                                    getGameBoard().getGameStatus().getCurrentPlayerIndex();
 //                            this.updateGUI();
-                            winFlag = controller.getGameRunner().getEachRound().getGameBoard().getStatus().isWinFlag();
+                            winFlag = controller.getGameRunner().getEachRound().
+                                    getGameBoard().getGameStatus().isWinFlag();
                             if (winFlag) {
                                 clip.stop();
                                 clip.close();

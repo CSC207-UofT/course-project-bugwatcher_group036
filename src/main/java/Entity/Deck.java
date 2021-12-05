@@ -48,6 +48,7 @@ public class Deck {
     public ArrayList<String> getUnusedCardDeck(){
         return unused;
     }
+
     /**
      * when a deck is empty draw a card from a new deck
      */
@@ -59,6 +60,7 @@ public class Deck {
         int index = rand.nextInt(unused.size());
         return unused.remove(index);
     }
+
     /**
      * after draw card new deck become a used deck
      */
@@ -66,6 +68,7 @@ public class Deck {
         unused = used;
         used = new ArrayList<>();
     }
+
     /**
      * add card to UsedDeck
      */

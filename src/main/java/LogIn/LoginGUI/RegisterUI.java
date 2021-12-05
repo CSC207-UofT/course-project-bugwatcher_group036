@@ -18,8 +18,8 @@ public class RegisterUI extends JFrame implements ActionListener {
     JButton backButton = new JButton();
     JTextField usernameInput = new JTextField();
     JPasswordField passwordInput = new JPasswordField();
-    LoginUseCase useCase;
-    LoginController loginController = new LoginController(useCase);
+
+    LoginController loginController = new LoginController();
 
     public RegisterUI(){
         Guide.setText("Please register here, and press Confirm when you finish.");
@@ -72,8 +72,8 @@ public class RegisterUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirmButton){
-            useCase = new LoginUseCase(false);
-            loginController = new LoginController(useCase);
+//            useCase = new LoginUseCase(false);
+//            loginController = new LoginController();
 
             if (loginController.runRegister(usernameInput.getText(), String.valueOf(passwordInput.getPassword()))) {
                 System.out.println("Register success!");
