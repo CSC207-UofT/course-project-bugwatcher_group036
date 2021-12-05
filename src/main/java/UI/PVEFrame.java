@@ -85,9 +85,8 @@ public class PVEFrame extends JFrame implements ActionListener {
         bottom.setBounds(28, 244, 680, 210);//set the location and size of JPanel
 
         try {
-            int randSong = 1 + (int)(Math.random() * 5);
             AudioInputStream input = AudioSystem.getAudioInputStream(
-                    new File("src/main/java/DataSet/bgm/bgm" + randSong + ".wav"));
+                    new File("src/main/java/DataSet/bgm.wav"));
             clip = AudioSystem.getClip();
             clip.open(input);
             clip.start();
