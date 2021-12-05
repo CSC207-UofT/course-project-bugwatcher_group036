@@ -1,5 +1,6 @@
 package Controller;
 
+import Entity.ReadFile;
 import UseCase.*;
 
 import java.util.ArrayList;
@@ -10,17 +11,19 @@ public class Controller {
     private final GameRequest gameRequest;
 
     /**
-     * initialize Controller
+     * initialize Controller for Unogame
      */
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
         this.gameRunner = new GameRunner(gameRequest, ids);
 
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        ReadFile gateway = new Gateway();
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         iPresenter.setGameRequest(gameRequest);
         iPresenter.setController(this);
 
     }
+
     /**
      * getter method for gameRequest
      */

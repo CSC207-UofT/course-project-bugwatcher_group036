@@ -19,6 +19,12 @@ public class Presenter implements IPresenter {
 
     private Controller controller;
 
+//    /**
+//     * setter method for gameRunner
+//     */
+//    public void setGameRunner(GameRunner gameRunner) {this.gameRunner = gameRunner;}
+
+    @Override
 
     /**
      * setter method for gameRequest
