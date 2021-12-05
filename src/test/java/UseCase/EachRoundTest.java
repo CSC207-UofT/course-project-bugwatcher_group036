@@ -115,12 +115,12 @@ public class EachRoundTest {
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {
 
             }
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {
+            public void setGameRequest(IRequest gameRequest) {
+
             }
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {
-            }
+
             @Override
             public void setColorForComputer(String color) {
             }
@@ -158,12 +158,12 @@ public class EachRoundTest {
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {
 
             }
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {
+            public void setGameRequest(IRequest gameRequest) {
+
             }
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {
-            }
+
             @Override
             public void setColorForComputer(String color) {
             }
@@ -197,10 +197,12 @@ public class EachRoundTest {
         eachRound.getGameBoard().setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {}
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {}
+            public void setGameRequest(IRequest gameRequest) {
+
+            }
+
             @Override
             public void setColorForComputer(String color) {}
             @Override
@@ -226,10 +228,11 @@ public class EachRoundTest {
         eachRound.getGameBoard().setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {}
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {}
+            public void setGameRequest(IRequest gameRequest) {
+
+            }
             @Override
             public void setColorForComputer(String color) {}
             @Override

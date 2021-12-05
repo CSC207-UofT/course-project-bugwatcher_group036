@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Core of the program
  */
-public class GameRunner implements IGameInput, IGameOutput {
+public class GameRunner implements IGameInput {
 
     private final int numberOfPlayers;
     private EachRound eachRound; // interface of eachRound, use dependency injection for clean architecture
@@ -75,7 +75,6 @@ public class GameRunner implements IGameInput, IGameOutput {
         // system output and card-playing or punish based on status info and input
         // get cards currentPlayer will play, only invalid playing would return null
         gameResponse.setCardHolder(playableCards);
-//        eachRound.getTerminal().playStage();
         eachRound.playStageGUI(playableCards, currentPlayerIndex, toPlay, stats);
 
         // final check and preparation for next loop for end stage
@@ -95,7 +94,6 @@ public class GameRunner implements IGameInput, IGameOutput {
         gameResponse.setCardHolder(playableCards);
         // system output and card-playing or punish based on status info and input
         // get cards currentPlayer will play, only invalid playing would return null
-//        eachRound.getTerminal().playStage();
         String toPlay = eachRound.playStageGUIPVE(playableCards, currentPlayerIndex);
 
         // final check and preparation for next loop for end stage

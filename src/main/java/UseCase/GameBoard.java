@@ -1,7 +1,7 @@
 package UseCase;
 
 import Entity.CardHolder;
-import Entity.Deck;
+
 import LogIn.LogInEntity.UserStatistics;
 
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import java.util.Collections;
 public class GameBoard {
 
     private final GameCardHolders gameCardHolders;
-//    private final Status status;
     private final GameStatus gameStatus;
     private final CardChecker cardChecker;
     private final GameDeck gameDeck;
@@ -21,7 +20,6 @@ public class GameBoard {
      */
     public GameBoard(int numberOfPlayers) {
         this.gameCardHolders = new GameCardHolders(numberOfPlayers);
-//        this.status = new Status(numberOfPlayers);
         this.gameStatus = new GameStatus(numberOfPlayers);
         this.cardChecker = new CardChecker();
         this.gameDeck = new GameDeck();

@@ -16,19 +16,9 @@ import java.util.Collections;
 public class Presenter implements IPresenter {
 
     private IRequest gameRequest;
-//    private GameRunner gameRunner;
-//    private GameResponse gameResponse;
+
     private Controller controller;
 
-//    /**
-//     * setter method for gameRunner
-//     */
-//    public void setGameRunner(GameRunner gameRunner) {this.gameRunner = gameRunner;}
-
-    @Override
-    public void setGameRequest(GameRequest gameRequest) {
-
-    }
 
     /**
      * setter method for gameRequest
@@ -42,12 +32,7 @@ public class Presenter implements IPresenter {
      */
     public GameRunner getGameRunner(){return controller.getGameRunner();}
 
-    /**
-     * getter method for gameRequest
-     */
-//    public GameRequest getGameRequest() {
-//        return gameRequest;
-//    }
+
 
     public CardHolder allhandcards(){
 
@@ -71,10 +56,6 @@ public class Presenter implements IPresenter {
                 drawnCardName + ".");}
     }
 
-//    @Override
-//    public void setGameResponse(GameResponse gameResponse) {
-//        this.gameResponse = gameResponse;
-//    }
 
     /**
      * notification when draw card
