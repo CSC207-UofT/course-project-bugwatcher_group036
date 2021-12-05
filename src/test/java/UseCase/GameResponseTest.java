@@ -16,7 +16,6 @@ public class GameResponseTest {
     @Test
     public void testInitialization(){
         GameResponse gameResponse = new GameResponse();
-//        assertNull(gameResponse.getEachRound().getGameBoard());
         assertNull(gameResponse.getIds());
         assertNull(gameResponse.getCardHolder());
     }
