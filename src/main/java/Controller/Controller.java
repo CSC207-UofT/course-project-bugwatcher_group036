@@ -8,6 +8,7 @@ public class Controller {
 
     private final GameRunner gameRunner;
     private final GameRequest gameRequest;
+
     /**
      * initialize Controller
      */
@@ -18,7 +19,8 @@ public class Controller {
         gameRunner.buildIEachRound(iPresenter, gameRequest);
 //        gameRequest.setIds(ids);
         iPresenter.setGameRequest(gameRequest);
-        iPresenter.setGameRunner(gameRunner);
+        iPresenter.setController(this);
+//        iPresenter.setGameResponse(gameRunner.getGameResponse());
 
     }
     /**
