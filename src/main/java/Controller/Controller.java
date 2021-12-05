@@ -1,6 +1,6 @@
 package Controller;
 
-import Entity.ReadFile;
+import UseCase.ReadFile;
 import UseCase.*;
 
 import java.util.ArrayList;

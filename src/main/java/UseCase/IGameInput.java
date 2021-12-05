@@ -1,6 +1,5 @@
 package UseCase;
 
-import Entity.ReadFile;
 import LogIn.LogInEntity.UserStatistics;
 
 public interface IGameInput {

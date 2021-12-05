@@ -11,10 +11,13 @@ public class Deck {
      * Construct the Deck in UNO card game.
      *
      */
-    public Deck(ReadFile gateway){
+    public Deck(){
         this.used = new ArrayList<>();
-        this.unused = gateway.readFromFile();
+        this.unused = new ArrayList<>();
+    }
 
+    public void setUnused(ArrayList<String> unused) {
+        this.unused = unused;
     }
 
     /**
