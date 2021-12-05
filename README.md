@@ -1,16 +1,15 @@
 ## 1 Brief Introduction of Our Project
 
-We want to write a java project that **simulate Board-Game "UNO".** 
+Our java project aim at **simulating the Board-Game "UNO".** 
 
 The Board-Game "UNO" is basically a card game. Each game contains 2 or more players. There are two different types of cards: the number card and function card. Each number card contains a number with a color and a function card contains a function and color. Each player will randomly receive 7 cards at the start of the game. Player that moves first in the game will choose a card from his/her own player's hand and play one of the card. The remaining players will then take turns to play a card from the player own player's hand. Each player can only play a card in a turn from its own hand with the play card has the same color, number, or is a function black card as the last card played by the previous player. Each player will draw a card from the card deck if there is no card available to play in the round. The last card play from a player needs to be a number card and cannot be a function card. When a player has only one card, the player must say "UNO!" to inform others that there is only one card in the player's hand, otherwise the player needs to draw an extra card if other player notice. When a player have no more cards in the player's hand, the player will become the winner of the game.
 
-There are 5 different color card: Yellow, Blue, Green, Red, Black
-
-There are 5 different function card: Reverse, Skip, Switch Color, Plus Two Cards, Plus Four Cards
-
 ![This is an example](https://i.insider.com/5cd062dcf067174d3f7c4d72?width=1000&format=jpeg&auto=webp)
 
-## 2 Our Current Progress & What We've Done So Far
+Our team developed two game modes: PVP and PVE. In PVP mode, you can play UNO together with up to 5 firends. In case you are playing alone, you can choose PVE mode and play with 1-4 computer players. Also, as we developed the login system, our program will count user statistics and transform them into relative level in exp system.
+![Differnt modes and statistics](https://user-images.githubusercontent.com/56620120/144762755-0c277922-f1f4-494d-839c-d63a92b42a55.png)
+
+## 2 What We've Done So Far
 In phase 0, we determined the overall strucutre and realized the basic running of the game that only has number card with four colors.
 After phase 1, We accomplished great implementations on three aspects:
 * **Aspect of Basic Setting** We added function card to the deck and enabled function card interactions. Then, we enabled fiexible player-count that allows player to decide. We also implemented PVE mode - one player and multiple computer players, with hidden card details. Finally, we added a txt file and reader class to store deck informations in txt so that we can devise customized decks without altering the code.
