@@ -3,14 +3,15 @@ package UseCase;
 import Entity.Deck;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GameDeck {
 
     private Deck deck;
 
-    public GameDeck() {
+    public GameDeck(ReadFile gateway) {
         this.deck = new Deck();
+        ArrayList<String> unused = gateway.readFromFile();
+        deck.setUnused(unused);
     }
 
     /**
@@ -50,4 +51,6 @@ public class GameDeck {
     public void putCardToUsedDeck(String c) {
         deck.putCardToUsedDeck(c);
     }
+
+
 }

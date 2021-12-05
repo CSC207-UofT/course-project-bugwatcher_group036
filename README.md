@@ -2,7 +2,7 @@
 
 Our java project aim at **simulating the Board-Game "UNO".** 
 
-The Board-Game "UNO" is basically a card game. Each game contains 2 or more players. There are two different types of cards: the number card and function card. Each number card contains a number with a color and a function card contains a function and color. Each player will randomly receive 7 cards at the start of the game. Player that moves first in the game will choose a card from his/her own player's hand and play one of the card. The remaining players will then take turns to play a card from the player own player's hand. Each player can only play a card in a turn from its own hand with the play card has the same color, number, or is a function black card as the last card played by the previous player. Each player will draw a card from the card deck if there is no card available to play in the round. The last card play from a player needs to be a number card and cannot be a function card. When a player has only one card, the player must say "UNO!" to inform others that there is only one card in the player's hand, otherwise the player needs to draw an extra card if other player notice. When a player have no more cards in the player's hand, the player will become the winner of the game.
+The Board-Game "UNO" is basically a card game. Each game contains 2 or more players. There are two different types of cards: the number card and function card. Each number card contains a number with a color and a function card contains a function and color. Each player will randomly receive 7 cards at the start of the game. Player that moves first in the game will choose a card from his/her own player's hand and play one of the card. The remaining players will then take turns to play a card from the player own player's hand. Each player can only play a card in a turn from its own hand with the play card has the same color, number, or is a function black card as the last card played by the previous player. Each player will draw a card from the card deck if there is no card available to play in the round. The last card play from a player needs to be a number card and cannot be a function card. When a player have no more cards in the player's hand, the player will become the winner of the game.
 
 ![This is an example](https://i.insider.com/5cd062dcf067174d3f7c4d72?width=1000&format=jpeg&auto=webp)
 
@@ -24,9 +24,9 @@ In phase 2, we focused on mainly three aspects and construct a comprehensive pla
 * **Aspect of GUI** We developed a GUI and added necessary information all inside the GUI:
 ![image](https://user-images.githubusercontent.com/56620120/144762978-f1bd6935-1eb5-4a95-a9bb-e4ac7b3210ac.png)
 
-## 3 Future Aspiration & What We Will Implement in Phase 2 
+## 3 Future Aspiration  
 
 Our directions are mainly on these *three aspects*:
-* **Optimizing basic settings**, we will debug logical errors and implement login system and user info system using serialization.
+* **Optimizing online game play**, Players can use different computers and play together online
 * **Implementing more rules**, like playing specific card would trigger special change, and adding extra function card into the deck.
 * **Optimize code structure** With complexity of code increases, we will foucus on SOLID principles and clean architecture to make our codes more concise and effecitve with less potential bug.
