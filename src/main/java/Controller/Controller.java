@@ -10,17 +10,24 @@ public class Controller {
     private final GameRequest gameRequest;
 
     /**
-     * initialize Controller
+     * initialize Controller for Unogame
      */
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
         this.gameRunner = new GameRunner(gameRequest, ids);
+        readcard();
 
         gameRunner.buildIEachRound(iPresenter, gameRequest);
         iPresenter.setGameRequest(gameRequest);
         iPresenter.setController(this);
 
     }
+
+    private void readcard() {
+        Readfile readfile = new Cardreadfile();
+        ArrayList<String> card = readfile.readFromFile();
+    }
+
     /**
      * getter method for gameRequest
      */
