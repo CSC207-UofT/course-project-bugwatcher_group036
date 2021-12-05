@@ -9,6 +9,13 @@ public class EachRound {
     private final IPresenter iPresenter;
     private final GameRequest gameRequest;
 
+    /**
+     * Initialize EachRound
+     * @param numberOfPlayers the total number of player
+     * @param iPresenter Interface for presenter class
+     * @param gameRequest Gamerequest of the game
+     * @param gateway Gateway interface for reading file
+     */
     public EachRound(int numberOfPlayers, IPresenter iPresenter, GameRequest gameRequest, ReadFile gateway){
         this.gameBoard = new GameBoard(numberOfPlayers, gateway);
         this.iPresenter = iPresenter;
