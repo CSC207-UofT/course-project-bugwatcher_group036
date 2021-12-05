@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.Gateway;
 import Entity.CardHolder;
 import org.junit.jupiter.api.Test;
 
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameResponseTest {
-
-    GameBoard gameBoard = new GameBoard(2);
+    ReadFile gateway = new Gateway();
+    GameBoard gameBoard = new GameBoard(2, gateway);
     CardHolder cardHolder = new CardHolder();
     ArrayList<String> ids = new ArrayList<>();
 
