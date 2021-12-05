@@ -2,13 +2,17 @@ package UI;
 
 import LogIn.LogInEntity.UserStatistics;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 
 public class Loseframe extends JFrame implements ActionListener{
+    private Clip clip;
     JButton playagain = new JButton();
     UserStatistics stats;
     public Loseframe(String name, UserStatistics stats) {
@@ -25,9 +29,18 @@ public class Loseframe extends JFrame implements ActionListener{
         playagain.setFont(new Font("Times", Font.BOLD, 20));
 
         this.add(playagain);
-
         this.setVisible(true);
 
+        try {
+            AudioInputStream input = AudioSystem.getAudioInputStream(
+                    new File("src/main/java/DataSet/bgm6.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(input);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
+        }
     }
 
     @Override

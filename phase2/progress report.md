@@ -18,9 +18,10 @@ We want to demonstrate our understanding of clean architecture and design patter
 
 ### Jason Zhu (zhuyuezx - yuezhexuan.zhu@mail.utoronto.ca)
 * Wrote specification.md for phase 2
+* 
 
 ### Wise Chua (wisechua - wise.chua@mail.utoronto.ca)
-
+* 
 
 ### Allen Chen (Ez4Allen - challen.chen@mail.utoronto.ca)
 
@@ -37,4 +38,4 @@ We want to demonstrate our understanding of clean architecture and design patter
 ### Eli Gao (ElizaZoldyck - eliza.gao@mail.utoronto.ca)
 * Wrote progress report.md for phase 2
 * Marginally contributed in writing UseCase test
-* Made minor debugs for the UseCase class structure
+* Made minor debugs for the UseCase class structure and UI
