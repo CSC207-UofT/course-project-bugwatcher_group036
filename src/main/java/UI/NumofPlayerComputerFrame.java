@@ -41,7 +41,6 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
         this.add(Username);
         this.add(enterbutton);
         this.add(ComputerPlayer);
-//        this.pack();
     }
 
     @Override

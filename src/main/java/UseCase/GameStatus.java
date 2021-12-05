@@ -23,12 +23,6 @@ public class GameStatus {
     public void setWinFlag(boolean winFlag) {
         status.setWinFlag(winFlag);
     }
-    /**
-     *
-     */
-    public void setQuit() {
-        status.setQuit();
-    }
 
     /**
      * getter method for  currentPlayerIndex
