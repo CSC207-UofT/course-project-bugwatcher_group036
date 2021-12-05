@@ -79,7 +79,7 @@
 ### York Chen (zhumengzhiren - york.chen@mail.utoronto.ca)
 
 
-### Yao Zhou (zhuyuezx - yaoo.zhou@mail.utoronto.ca)
+### Yao Zhou (zhouyao9 - yaoo.zhou@mail.utoronto.ca)
 
 
 ### Eli Gao (ElizaZoldyck - eliza.gao@mail.utoronto.ca)
