@@ -15,42 +15,50 @@ import java.util.Collections;
  */
 public class Presenter implements IPresenter {
 
-    private GameRequest gameRequest;
+    private IRequest gameRequest;
     private GameRunner gameRunner;
     /**
      * setter method for gameRunner
      */
     public void setGameRunner(GameRunner gameRunner) {this.gameRunner = gameRunner;}
+
+    @Override
+    public void setGameRequest(GameRequest gameRequest) {
+
+    }
+
     /**
      * setter method for gameRequest
      */
-    public void setGameRequest(GameRequest gameRequest) {
+    public void setGameRequest(IRequest gameRequest) {
         this.gameRequest = gameRequest;
     }
     /**
      * getter method for gameRunner
      */
     public GameRunner getGameRunner(){return this.gameRunner;}
+
     /**
      * getter method for gameRequest
      */
-    public GameRequest getGameRequest() {
-        return gameRequest;
-    }
+//    public IRequest getGameRequest() {
+//        return iRequest;
+//    }
 
     public CardHolder allhandcards(){
 
-        return gameRunner.getGameResponse().getGameBoard().getGameCardHolders().getHandCards(gameRunner.getGameResponse().
-                getGameBoard().getStatus().getCurrentPlayerIndex());
+        return gameRunner.getEachRound().getGameBoard().getGameCardHolders().
+                getHandCards(gameRunner.getEachRound()
+                        .getGameBoard().getGameStatus().getCurrentPlayerIndex());
 
     }
     public CardHolder allhandcards(int id){
-        return gameRunner.getGameResponse().getGameBoard().getGameCardHolders().getHandCards(id);
+        return gameRunner.getEachRound().getGameBoard().getGameCardHolders().getHandCards(id);
     }
 
     public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
         System.out.println(gameRunner.getGameResponse().getIds().get(
-                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) +
+                gameRunner.getEachRound().getGameBoard().getGameStatus().getCurrentPlayerIndex()) +
                 " draw " + numToDraw + " cards.");
         if (!computer){
         JOptionPane.showMessageDialog(null, "You draw " + numToDraw +
@@ -64,12 +72,15 @@ public class Presenter implements IPresenter {
         // only print this sentence when drawing due to no card playable
         if (noCard) {
             if (!computer) {
-                JOptionPane.showMessageDialog(null, "Cannot play a card! Draw one more card \n The card you draw is " + drawn, "Draw One Card", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Cannot play a card! Draw one more card \n The card you draw is " +
+                                drawn, "Draw One Card", JOptionPane.PLAIN_MESSAGE);
             }
         }
         else {
             if (!computer) {
-                JOptionPane.showMessageDialog(null, "The card you draw is " + drawn, "Draw One Card", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "The card you draw is "
+                        + drawn, "Draw One Card", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
@@ -78,7 +89,8 @@ public class Presenter implements IPresenter {
      */
     public void lastcard(String cardname){
 
-        System.out.println(gameRunner.getGameResponse().getIds().get(gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) + " played " + cardname + ".");
+        System.out.println(gameRunner.getGameResponse().getIds().get(gameRunner.getEachRound().
+                getGameBoard().getGameStatus().getCurrentPlayerIndex()) + " played " + cardname + ".");
     }
     /**
      * set  color for gui
@@ -99,14 +111,18 @@ public class Presenter implements IPresenter {
     public void setColorForComputer(String color) {
         System.out.println("Color " + color + " is set.");
         JOptionPane.showMessageDialog(null, gameRunner.getGameResponse().getIds().get(
-                gameRunner.getGameResponse().getGameBoard().getStatus().getCurrentPlayerIndex()) +" switch color. Color " + color + " is set.");
+                gameRunner.getEachRound().getGameBoard().
+                        getGameStatus().getCurrentPlayerIndex()) +" switch color. Color " + color + " is set.");
     }
     /**
      * return the remaining card in deck
      */
 
     public String RemainingCards() {
-        return String.valueOf(gameRunner.getGameResponse().getGameBoard().getDeck().getUnusedCardDeck().size());
+        return String.valueOf(gameRunner.getEachRound().getGameBoard().
+                getGameDeck().getUnusedCardDeck().size());
     }
+
+
 
 }

@@ -66,7 +66,7 @@ public class GameRunnerTest {
             public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
             }
         };
-        gameRunner.buildIEachRound(gameResponse.getGameBoard(), iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest);
         eachRound = gameRunner.getEachRound();
         iPresenter.setGameRunner(gameRunner);
         iPresenter.setGameRequest(gameRequest);
@@ -100,7 +100,7 @@ public class GameRunnerTest {
     @Test
     public void testgetEachRound() {
         assertEquals(eachRound, gameRunner.getEachRound());
-        gameRunner.buildIEachRound(gameResponse.getGameBoard(), iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest);
         EachRound eachRound1 = gameRunner.getEachRound();
         assertEquals(eachRound1, gameRunner.getEachRound());
 
@@ -108,7 +108,7 @@ public class GameRunnerTest {
 
     @Test
     public void testbuildIEachRound() {
-        gameRunner.buildIEachRound(gameResponse.getGameBoard(), iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest);
         EachRound eachRound1 = gameRunner.getEachRound();
         assertEquals(eachRound1, gameRunner.getEachRound());
 
