@@ -1,8 +1,5 @@
 package Entity;
 
-import Controller.Readfile;
-
-import java.io.*;
 import java.util.*;
 
 public class Deck {
@@ -14,9 +11,9 @@ public class Deck {
      * Construct the Deck in UNO card game.
      *
      */
-    public Deck(){
+    public Deck(ReadFile gateway){
         this.used = new ArrayList<>();
-        this.unused = new ArrayList<>();
+        this.unused = gateway.readFromFile();
 
     }
 
@@ -63,4 +60,6 @@ public class Deck {
     public void putCardToUsedDeck(String c) {
         used.add(c);
     }
+
+
 }

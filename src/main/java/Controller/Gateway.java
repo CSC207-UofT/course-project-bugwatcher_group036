@@ -5,13 +5,11 @@ import Entity.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Cardreadfile implements Readfile {
+public class Gateway implements ReadFile {
 
     public ArrayList<String> readFromFile(){
 
-        Deck d = new Deck();
-
-        ArrayList<String> unused = d.getUnusedCardDeck();
+        ArrayList<String> unused = new ArrayList<String>();
         File testFile = new File("");
         try {
             BufferedReader CardList = new BufferedReader(new FileReader(testFile.getAbsolutePath() +

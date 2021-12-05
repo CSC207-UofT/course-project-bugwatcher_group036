@@ -1,18 +1,16 @@
 package UseCase;
 
-import Controller.Cardreadfile;
-import Controller.Readfile;
 import Entity.Deck;
+import Entity.ReadFile;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GameDeck {
 
     private Deck deck;
 
-    public GameDeck() {
-        this.deck = new Deck();
+    public GameDeck(ReadFile gateway) {
+        this.deck = new Deck(gateway);
     }
 
     /**

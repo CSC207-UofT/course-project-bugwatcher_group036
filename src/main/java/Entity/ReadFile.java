@@ -1,10 +1,10 @@
-package Controller;
+package Entity;
 
 import Entity.Deck;
 
 import java.util.ArrayList;
 
-public interface Readfile {
+public interface ReadFile {
 
 
     /**

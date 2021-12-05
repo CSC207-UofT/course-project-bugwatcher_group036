@@ -1,5 +1,6 @@
 package Controller;
 
+import Entity.ReadFile;
 import UseCase.*;
 
 import java.util.ArrayList;
@@ -15,17 +16,12 @@ public class Controller {
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
         this.gameRunner = new GameRunner(gameRequest, ids);
-        readcard();
 
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        ReadFile gateway = new Gateway();
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         iPresenter.setGameRequest(gameRequest);
         iPresenter.setController(this);
 
-    }
-
-    private void readcard() {
-        Readfile readfile = new Cardreadfile();
-        ArrayList<String> card = readfile.readFromFile();
     }
 
     /**
