@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.Gateway;
 import Entity.CardHolder;
 import LogIn.LogInEntity.User;
 import LogIn.LogInEntity.UserList;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GameRunnerTest {
     GameRequest gameRequest = new GameRequest();
     ArrayList<String> IDS = new ArrayList<>();
+    ReadFile gateway = new Gateway();
     GameRunner gameRunner;
     GameResponse gameResponse;
     IPresenter iPresenter;
@@ -63,7 +65,7 @@ public class GameRunnerTest {
             public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
             }
         };
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         eachRound = gameRunner.getEachRound();
         iPresenter.setGameRequest(gameRequest);
 
@@ -96,7 +98,7 @@ public class GameRunnerTest {
     @Test
     public void testgetEachRound() {
         assertEquals(eachRound, gameRunner.getEachRound());
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         EachRound eachRound1 = gameRunner.getEachRound();
         assertEquals(eachRound1, gameRunner.getEachRound());
 
@@ -104,7 +106,7 @@ public class GameRunnerTest {
 
     @Test
     public void testbuildIEachRound() {
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         EachRound eachRound1 = gameRunner.getEachRound();
         assertEquals(eachRound1, gameRunner.getEachRound());
 
