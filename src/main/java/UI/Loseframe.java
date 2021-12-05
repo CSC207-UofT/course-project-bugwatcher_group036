@@ -47,6 +47,8 @@ public class Loseframe extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playagain) {
             this.dispose();
+            clip.stop();
+            clip.close();
             ModeFrame frame = new ModeFrame(stats);
         }
     }
