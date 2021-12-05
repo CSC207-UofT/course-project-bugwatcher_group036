@@ -2,8 +2,6 @@ package UseCase;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameRequestTest {
@@ -14,7 +12,6 @@ public class GameRequestTest {
         GameRequest gameRequest1 = new GameRequest();
         assertNull(gameRequest1.getSetColor());
         assertNull(gameRequest1.getSetColorForComputer());
-        assertNull(gameRequest1.getIds());
     }
 
     @Test
@@ -62,7 +59,6 @@ public class GameRequestTest {
         assertEquals("green", gameRequest.getSetColorForComputer());
         gameRequest.setSetColorForComputer("blue");
         assertEquals("blue", gameRequest.getSetColorForComputer());
-
     }
 
     @Test
@@ -81,26 +77,4 @@ public class GameRequestTest {
 
     }
 
-    @Test
-    public void testsetIds() {
-        ArrayList<String> ids = new ArrayList<String>();
-        for (int i = 0; i < 7; i++) {
-            ids.add("Computer " + i);
-        }
-        gameRequest.setIds(ids);
-        assertEquals(ids, gameRequest.getIds());
-
-    }
-
-    @Test
-    public void testgetIds() {
-        assertNull(gameRequest.getIds());
-        ArrayList<String> ids = new ArrayList<String>();
-        for (int i = 0; i < 7; i++) {
-            ids.add("Computer " + i);
-        }
-        gameRequest.setIds(ids);
-        assertEquals(ids, gameRequest.getIds());
-
-    }
 }
