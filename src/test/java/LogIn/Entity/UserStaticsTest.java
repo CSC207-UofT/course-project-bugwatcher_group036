@@ -89,4 +89,11 @@ public class UserStaticsTest {
         String id = statistics.getPlayerId();
         assertEquals(id, "Allen");
     }
+
+    @Test
+    public void testToString() {
+        String s = statistics.toString();
+        assertEquals(s, "PVP win count: 0\nPVE win count: 0\ntotal card played: 0\n" +
+                "total function card played: 0\ntotal card drawn: 0\nexp: 0\nplayer level: 0\n");
+    }
 }

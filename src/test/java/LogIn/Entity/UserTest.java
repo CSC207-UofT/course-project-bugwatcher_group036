@@ -12,7 +12,7 @@ public class UserTest {
 
     @Test
     public void testInitialization() {
-        String username = user0.getUsername();
+        String username = user.getUsername();
         assertEquals(username, "Allen");
     }
 
@@ -29,20 +29,24 @@ public class UserTest {
     }
 
     @Test
+    public void testToString() {
+        String s = user.toString();
+        assertEquals(s, "Username: Allen, Password: 123456");
+    }
+
+    @Test
     public void testGetUserStatics() {
         UserStatistics userStat = user.getUserStatistics();
         int[] stat = userStat.getStats();
         assertEquals(stat.length, 7);
-
 
     }
 
     @Test
     public void testSetUserStatics() {
         UserStatistics userStat = new UserStatistics("Allen");
-        assertEquals(userStat.getPlayerId(), "Allen");
-        UserStatistics userStat0 = new UserStatistics(("Jame"));
-        assertEquals(userStat0.getPlayerId(), "Jame");
+        user.setUserStatistics(userStat);
+        assertEquals(user.getUserStatistics(), userStat);
 
     }
 }
