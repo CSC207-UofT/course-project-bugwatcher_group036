@@ -162,17 +162,19 @@ public class PVEFrame extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        while (0 != currentPosition) {
+        boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
+
+        while (0 != currentPosition && !winFlag) {
             controller.getGameRunner().runGameforGUIComputer();
             currentPosition = controller.getGameRunner().getEachRound().getGameBoard().
                     getGameStatus().getCurrentPlayerIndex();
             this.updateGUI();
-            boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
+            winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
             if (winFlag) {
+                clip.stop();
+                clip.close();
                 this.dispose();
-                Loseframe frame = new Loseframe(presenter.getGameRunner().getGameResponse().getIds().get(
-                presenter.getGameRunner().getEachRound().getGameBoard().getGameStatus().
-                        getCurrentPlayerIndex()), stats);
+                Loseframe frame = new Loseframe(playerIds.get(currentPosition), stats);
             }
         }
     }
@@ -237,13 +239,14 @@ public class PVEFrame extends JFrame implements ActionListener {
             controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
             int computerposition = controller.getGameRunner().getEachRound().getGameBoard().
                     getGameStatus().getCurrentPlayerIndex();
-
-            while (computerposition != currentPosition) {
+            boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().
+                    getGameStatus().isWinFlag();
+            while (computerposition != currentPosition && !winFlag) {
                 controller.getGameRunner().runGameforGUIComputer();
                 computerposition = controller.getGameRunner().getEachRound().getGameBoard().
                         getGameStatus().getCurrentPlayerIndex();
                 this.updateGUI();
-                boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().
+                winFlag = controller.getGameRunner().getEachRound().getGameBoard().
                         getGameStatus().isWinFlag();
                 if (winFlag) {
                     clip.stop();
@@ -277,12 +280,13 @@ public class PVEFrame extends JFrame implements ActionListener {
                     else {
                         int computerposition = controller.getGameRunner().getEachRound().
                                 getGameBoard().getGameStatus().getCurrentPlayerIndex();
+                        winFlag = controller.getGameRunner().getEachRound().
+                                getGameBoard().getGameStatus().isWinFlag();
 
-                        while (computerposition != currentPosition) {
+                        while (computerposition != currentPosition && !winFlag) {
                             controller.getGameRunner().runGameforGUIComputer();
                             computerposition = controller.getGameRunner().getEachRound().
                                     getGameBoard().getGameStatus().getCurrentPlayerIndex();
-//                            this.updateGUI();
                             winFlag = controller.getGameRunner().getEachRound().
                                     getGameBoard().getGameStatus().isWinFlag();
                             if (winFlag) {

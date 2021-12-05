@@ -8,6 +8,10 @@ public class GameDeck {
 
     private Deck deck;
 
+    /**
+     * Intialize GameDeck.
+     * @param gateway the gateway interface for reading file.
+     */
     public GameDeck(ReadFile gateway) {
         this.deck = new Deck();
         ArrayList<String> unused = gateway.readFromFile();
@@ -16,7 +20,6 @@ public class GameDeck {
 
     /**
      * To check whether the unused_card_deck is empty.
-     *
      * If the card deck is empty, Placed all the used card into the card deck.
      */
     public boolean isEmpty(){
@@ -24,29 +27,30 @@ public class GameDeck {
     }
 
     /**
-     * getter
-     * @return unused_card_deck
+     * Getter method for unused card.
+     * @return the card deck that has no used card.
      */
     public ArrayList<String> getUnusedCardDeck(){
         return deck.getUnusedCardDeck();
     }
 
     /**
-     * when a deck is empty draw a card from a new deck
+     * Draw a card from the unused card deck.
+     * @return the card that draw from the unused card deck.
      */
     public String drawCardFromUnusedDeck() {
         return deck.drawCardFromUnusedDeck();
     }
 
     /**
-     * after draw card new deck become a used deck
+     * To shuffle all cards from used card to unused card.
      */
     public void shuffleFromUsedToUnused() {
         deck.shuffleFromUsedToUnused();
     }
 
     /**
-     * add card to UsedDeck
+     * Ddd card to UsedDeck.
      */
     public void putCardToUsedDeck(String c) {
         deck.putCardToUsedDeck(c);

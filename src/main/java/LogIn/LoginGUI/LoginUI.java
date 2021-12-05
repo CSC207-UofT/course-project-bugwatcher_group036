@@ -21,6 +21,9 @@ public class LoginUI extends JFrame implements ActionListener {
     JPasswordField passwordInput = new JPasswordField();
     LoginController loginController = new LoginController();
 
+    /**
+     * The gui of the login system.
+     */
     public LoginUI(){
 
         Guide.setText("Please login, or press Register if you don't have an account.");

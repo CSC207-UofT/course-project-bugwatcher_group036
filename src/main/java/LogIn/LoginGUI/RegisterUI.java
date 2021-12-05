@@ -21,6 +21,9 @@ public class RegisterUI extends JFrame implements ActionListener {
 
     LoginController loginController = new LoginController();
 
+    /**
+     * The gui of the register system.
+     */
     public RegisterUI(){
         Guide.setText("Please register here, and press Confirm when you finish.");
         Guide.setVerticalAlignment(JLabel.TOP);
