@@ -18,13 +18,17 @@ We want to demonstrate our understanding of clean architecture and design patter
 
 ### Jason Zhu (zhuyuezx - yuezhexuan.zhu@mail.utoronto.ca)
 * Wrote specification.md for phase 2
-* 
+* Restructured the whole project with regard on rigorous clean Architecture
+* Added executable GUI features
+* Contributed writing UseCase test classes
 
 ### Wise Chua (wisechua - wise.chua@mail.utoronto.ca)
 * 
 
 ### Allen Chen (Ez4Allen - challen.chen@mail.utoronto.ca)
-
+* Checked Login classes
+* Wrote tests for UseClass and Login
+* Made minor debugs for Controller and UseCase class
 
 ### Ben Wang (BenWXY - xyben.wang@mail.utoronto.ca)
 * Revised the structure to follow SOLID and Clean Architecture
@@ -35,7 +39,7 @@ We want to demonstrate our understanding of clean architecture and design patter
 
 
 ### Yao Zhou (zhouyao9 - yaoo.zhou@mail.utoronto.ca)
-
+* Wrote the accessibility report
 
 ### Eli Gao (ElizaZoldyck - eliza.gao@mail.utoronto.ca)
 * Wrote progress report.md for phase 2
