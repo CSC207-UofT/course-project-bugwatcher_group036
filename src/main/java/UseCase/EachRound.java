@@ -27,7 +27,7 @@ public class EachRound {
      * Deal cards to players at the beginning of the game, each player should hold 7 cards after that.
      */
     public void cardDeal(int numberOfPlayers) {
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 20; i++){
             for (int j = 0; j < numberOfPlayers; j++){
                 gameBoard.getGameCardHolders().addCard(gameBoard.drawCard(), j);
             }
@@ -120,6 +120,11 @@ public class EachRound {
         } else {
             // if there's playable card, call play card method
             cardToPlay = letPlayerPlayCardForComputer(playableCards, currentPlayerIndex);
+
+            String probablyDrawnCard = gameBoard.punishOrPlayCard(cardToPlay, true);
+            if (probablyDrawnCard != null){
+                gameBoard.getGameCardHolders().addCard(probablyDrawnCard, currentPlayerIndex);
+            }
 
             // if played card is valid, update last card
             if (cardToPlay != null && !cardToPlay.equals("white -1")){
