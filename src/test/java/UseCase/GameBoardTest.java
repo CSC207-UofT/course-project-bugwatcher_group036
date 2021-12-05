@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.Gateway;
 import Entity.CardHolder;
 import Entity.Deck;
 import LogIn.LogInEntity.UserStatistics;
@@ -14,12 +15,12 @@ public class GameBoardTest {
 
     @Test
     public void testInitialization() {
-        GameBoard gameBoard = new GameBoard(4);
+        GameBoard gameBoard = new GameBoard(4, new Gateway());
     }
 
     @Test
     public void testGetMethods() {
-        GameBoard gameBoard = new GameBoard(4);
+        GameBoard gameBoard = new GameBoard(4, new Gateway());
         GameStatus gameStatus = gameBoard.getGameStatus();
         CardChecker cardChecker = gameBoard.getCardChecker();
         GameDeck gameDeck = gameBoard.getGameDeck();
@@ -28,7 +29,7 @@ public class GameBoardTest {
 
     @Test
     public void testDrawCard() {
-        GameBoard gameBoard = new GameBoard(4);
+        GameBoard gameBoard = new GameBoard(4, new Gateway());
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
@@ -65,7 +66,7 @@ public class GameBoardTest {
 
     @Test
     public void testPlusManyNextPlayer() {
-        GameBoard gameBoard = new GameBoard(4);
+        GameBoard gameBoard = new GameBoard(4, new Gateway());
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
@@ -97,7 +98,7 @@ public class GameBoardTest {
 
     @Test
     public void testOperationWhenNoCard() {
-        GameBoard gameBoard = new GameBoard(4);
+        GameBoard gameBoard = new GameBoard(4, new Gateway());
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
@@ -129,7 +130,7 @@ public class GameBoardTest {
 
     @Test
     public void testPunishOrPlayCard() {
-        GameBoard gameBoard = new GameBoard(4);
+        GameBoard gameBoard = new GameBoard(4, new Gateway());
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
@@ -161,7 +162,7 @@ public class GameBoardTest {
 
     @Test
     public void testCheckLastCard() {
-        GameBoard gameBoard = new GameBoard(4);
+        GameBoard gameBoard = new GameBoard(4, new Gateway());
         GameRequest gameRequest = new GameRequest();
         gameBoard.setiTerminal(new IPresenter() {
             @Override

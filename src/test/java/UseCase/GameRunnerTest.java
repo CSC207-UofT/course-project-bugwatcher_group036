@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.Gateway;
 import Entity.CardHolder;
 import LogIn.LogInEntity.User;
 import LogIn.LogInEntity.UserList;
@@ -63,7 +64,7 @@ public class GameRunnerTest {
             public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
             }
         };
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, new Gateway());
         eachRound = gameRunner.getEachRound();
         iPresenter.setGameRequest(gameRequest);
 
@@ -96,7 +97,7 @@ public class GameRunnerTest {
     @Test
     public void testgetEachRound() {
         assertEquals(eachRound, gameRunner.getEachRound());
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, new Gateway());
         EachRound eachRound1 = gameRunner.getEachRound();
         assertEquals(eachRound1, gameRunner.getEachRound());
 
@@ -104,7 +105,7 @@ public class GameRunnerTest {
 
     @Test
     public void testbuildIEachRound() {
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, new Gateway());
         EachRound eachRound1 = gameRunner.getEachRound();
         assertEquals(eachRound1, gameRunner.getEachRound());
 

@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.Gateway;
 import Controller.Presenter;
 import Entity.CardHolder;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ public class CardCheckerTest {
         gameRunner = new GameRunner(gameRequest, IDS);
         gameResponse = gameRunner.getGameResponse();
         iPresenter = new Presenter();
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, new Gateway());
         eachRound = gameRunner.getEachRound();
         iPresenter.setGameRequest(gameRequest);
     }

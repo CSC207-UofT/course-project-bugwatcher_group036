@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.Gateway;
 import Entity.Deck;
 import Entity.CardHolder;
 
@@ -15,12 +16,12 @@ public class EachRoundTest {
     GameRequest gameRequest;
     IPresenter iPresenter;
     CardChecker cardChecker = new CardChecker();
-    EachRound eachRound = new EachRound(4, iPresenter, gameRequest);
+    EachRound eachRound = new EachRound(4, iPresenter, gameRequest, new Gateway());
 
 
     @Test
     public void testInitialization() {
-        EachRound eachRound0 = new EachRound(4, iPresenter, gameRequest);
+        EachRound eachRound0 = new EachRound(4, iPresenter, gameRequest, new Gateway());
         assertNotNull(eachRound0.getGameBoard());
         assertEquals(eachRound0.getTerminal(), iPresenter);
         assertEquals(eachRound0.getGameRequest(), gameRequest);
@@ -37,7 +38,7 @@ public class EachRoundTest {
 
     @Test
     public void testBeginState() {
-        EachRound eachRound = new EachRound(2, iPresenter, gameRequest);
+        EachRound eachRound = new EachRound(2, iPresenter, gameRequest, new Gateway());
         GameBoard gameBoard = eachRound.getGameBoard();
         CardHolder cardHolder0 = gameBoard.getGameCardHolders().getHandCards(0);
         CardHolder cardHolder1 = gameBoard.getGameCardHolders().getHandCards(1);
@@ -93,7 +94,7 @@ public class EachRoundTest {
 
     @Test
     public void testPlayState() {
-        EachRound eachRound = new EachRound(2, iPresenter, gameRequest);
+        EachRound eachRound = new EachRound(2, iPresenter, gameRequest, new Gateway());
         GameBoard gameBoard = eachRound.getGameBoard();
         CardHolder cardHolder0 = gameBoard.getGameCardHolders().getHandCards(0);
         CardHolder cardHolder1 = gameBoard.getGameCardHolders().getHandCards(1);
