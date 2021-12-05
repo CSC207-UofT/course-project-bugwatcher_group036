@@ -33,11 +33,8 @@ public class GameRunnerTest {
             }
 
             @Override
-            public void setGameRunner(GameRunner gameRunner) {
-            }
+            public void setGameRequest(IRequest gameRequest) {
 
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {
             }
 
             @Override
@@ -68,7 +65,6 @@ public class GameRunnerTest {
         };
         gameRunner.buildIEachRound(iPresenter, gameRequest);
         eachRound = gameRunner.getEachRound();
-        iPresenter.setGameRunner(gameRunner);
         iPresenter.setGameRequest(gameRequest);
 
     }

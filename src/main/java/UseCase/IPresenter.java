@@ -8,7 +8,7 @@ public interface IPresenter {
 
 //    void setGameRunner(GameRunner gameRunner);
 
-    void setGameRequest(GameRequest gameRequest);
+    void setGameRequest(IRequest gameRequest);
 
     void setColorForComputer(String color);
 
