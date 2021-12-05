@@ -17,7 +17,7 @@ public class WinFrame extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setContentPane(startP(name));
-        playagain.setForeground(new Color(0,0,0));
+        playagain.setForeground(new Color(0,204,204));
         playagain.setBounds(198, 250, 144, 70);
         playagain.addActionListener(this);
         playagain.setText("Play Again!");
