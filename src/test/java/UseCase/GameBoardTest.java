@@ -32,10 +32,11 @@ public class GameBoardTest {
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {}
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {}
+            public void setGameRequest(IRequest gameRequest) {
+
+            }
             @Override
             public void setColorForComputer(String color) {}
             @Override
@@ -68,10 +69,11 @@ public class GameBoardTest {
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {}
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {}
+            public void setGameRequest(IRequest gameRequest) {
+
+            }
             @Override
             public void setColorForComputer(String color) {}
             @Override
@@ -99,10 +101,11 @@ public class GameBoardTest {
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {}
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {}
+            public void setGameRequest(IRequest gameRequest) {
+
+            }
             @Override
             public void setColorForComputer(String color) {}
             @Override
@@ -130,10 +133,11 @@ public class GameBoardTest {
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {}
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {}
+            public void setGameRequest(IRequest gameRequest) {
+
+            }
             @Override
             public void setColorForComputer(String color) {}
             @Override
@@ -162,10 +166,11 @@ public class GameBoardTest {
         gameBoard.setiTerminal(new IPresenter() {
             @Override
             public void drawCardNotification(String drawn, boolean noCard, boolean computer) {}
+
             @Override
-            public void setGameRunner(GameRunner gameRunner) {}
-            @Override
-            public void setGameRequest(GameRequest gameRequest) {}
+            public void setGameRequest(IRequest gameRequest) {
+
+            }
             @Override
             public void setColorForComputer(String color) {}
             @Override

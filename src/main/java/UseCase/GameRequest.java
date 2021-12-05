@@ -1,18 +1,12 @@
 package UseCase;
 
-import java.util.ArrayList;
-
 public class GameRequest implements IRequest{
 
     private String setColor;
 
     private String setColorForComputer;
 
-    private ArrayList<String> ids;
-
-    public GameRequest(ArrayList<String> ids) {
-        this.ids = ids;
-    }
+    public GameRequest() {}
 
     /**
      * setter method for setColor
@@ -38,18 +32,6 @@ public class GameRequest implements IRequest{
     public String getSetColorForComputer() {
         return setColorForComputer;
     }
-    /**
-     * setter method for ids
-     */
-//    public void setIds(ArrayList<String> ids) {
-//        this.ids = ids;
-//    }
-//    /**
-//     * getter method for ids
-//     */
-//    public ArrayList<String> getIds() {
-//        return ids;
-//    }
 
 }
 

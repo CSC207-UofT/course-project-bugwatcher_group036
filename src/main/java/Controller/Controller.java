@@ -13,14 +13,12 @@ public class Controller {
      * initialize Controller
      */
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
-        this.gameRequest = new GameRequest(ids);
+        this.gameRequest = new GameRequest();
         this.gameRunner = new GameRunner(gameRequest, ids);
 
         gameRunner.buildIEachRound(iPresenter, gameRequest);
-//        gameRequest.setIds(ids);
         iPresenter.setGameRequest(gameRequest);
         iPresenter.setController(this);
-//        iPresenter.setGameResponse(gameRunner.getGameResponse());
 
     }
     /**
