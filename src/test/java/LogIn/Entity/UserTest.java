@@ -1,6 +1,7 @@
 package LogIn.Entity;
 
 import LogIn.LogInEntity.User;
+import LogIn.LogInEntity.UserStatistics;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,11 +30,19 @@ public class UserTest {
 
     @Test
     public void testGetUserStatics() {
+        UserStatistics userStat = user.getUserStatistics();
+        int[] stat = userStat.getStats();
+        assertEquals(stat.length, 7);
+
 
     }
 
     @Test
     public void testSetUserStatics() {
+        UserStatistics userStat = new UserStatistics("Allen");
+        assertEquals(userStat.getPlayerId(), "Allen");
+        UserStatistics userStat0 = new UserStatistics(("Jame"));
+        assertEquals(userStat0.getPlayerId(), "Jame");
 
     }
 }
