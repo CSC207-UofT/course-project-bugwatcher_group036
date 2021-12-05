@@ -1,6 +1,7 @@
 package UseCase;
 
 import Entity.CardHolder;
+import Entity.ReadFile;
 import LogIn.LogInEntity.UserList;
 import LogIn.LogInEntity.UserStatistics;
 import LogIn.LoginUseCase.LoginUseCase;
@@ -57,8 +58,8 @@ public class GameRunner implements IGameInput {
     /**
      * initialize the game
      */
-    public void buildIEachRound(IPresenter iPresenter, GameRequest gameRequest) {
-        this.eachRound = new EachRound(numberOfPlayers, iPresenter, gameRequest);
+    public void buildIEachRound(IPresenter iPresenter, GameRequest gameRequest, ReadFile gateway) {
+        this.eachRound = new EachRound(numberOfPlayers, iPresenter, gameRequest, gateway);
         eachRound.cardDeal(numberOfPlayers);
     }
 

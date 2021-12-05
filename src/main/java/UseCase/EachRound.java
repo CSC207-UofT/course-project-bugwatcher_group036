@@ -1,6 +1,7 @@
 package UseCase;
 
 import Entity.CardHolder;
+import Entity.ReadFile;
 import LogIn.LogInEntity.UserStatistics;
 
 public class EachRound {
@@ -9,8 +10,8 @@ public class EachRound {
     private final IPresenter iPresenter;
     private final GameRequest gameRequest;
 
-    public EachRound(int numberOfPlayers, IPresenter iPresenter, GameRequest gameRequest){
-        this.gameBoard = new GameBoard(numberOfPlayers);
+    public EachRound(int numberOfPlayers, IPresenter iPresenter, GameRequest gameRequest, ReadFile gateway){
+        this.gameBoard = new GameBoard(numberOfPlayers, gateway);
         this.iPresenter = iPresenter;
         gameBoard.setiTerminal(iPresenter);
         this.gameRequest = gameRequest;
