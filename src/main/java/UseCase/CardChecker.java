@@ -19,7 +19,10 @@ public class CardChecker {
     }
 
     /**
-     * function card respond in Gui
+     * Function card respond for GUI
+     * @param feature the feature of each card
+     * @param iPresenter the presenter for the card
+     * @param gameRequest the gamerequest of the the game
      */
     public void functionCardResponseGUI(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {
@@ -27,8 +30,12 @@ public class CardChecker {
             currentColor = gameRequest.getSetColor();
         }
     }
+
     /**
-     * function card response in gui in pve
+     * Function card response in gui in PVE
+     * @param feature the feature of each card
+     * @param iPresenter the presenter for the card
+     * @param gameRequest the gamerequest of the the game
      */
 
     public void functionCardResponseForComputer(String feature, IPresenter iPresenter, GameRequest gameRequest) {
@@ -43,6 +50,13 @@ public class CardChecker {
         }
     }
 
+    /**
+     *To return player cards when skip card is played.
+     * @param toCheck the function card to check
+     * @param gameCardHolders The cards for players that need to be skip
+     * @return the cards that the player can play
+     */
+
     public CardHolder skipsPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders){
         CardHolder skips = gameCardHolders.createNewCardHolder();
         for (String card: toCheck){
@@ -52,6 +66,12 @@ public class CardChecker {
         }
         return skips;
     }
+    /**
+     *To return player card when plus two is played.
+     * @param toCheck the function card to check
+     * @param gameCardHolders The cards for players that need to be add card
+     * @return the cards that the player can play
+     */
 
     public CardHolder plusTwoPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders) {
         CardHolder plusTwo = gameCardHolders.createNewCardHolder();
@@ -62,6 +82,12 @@ public class CardChecker {
         }
         return plusTwo;
     }
+    /**
+     *To return player cards when plus four is played.
+     * @param toCheck the function card to check
+     * @param gameCardHolders The cards for players that need to be add card
+     * @return the cards that the player can play
+     */
 
     public CardHolder plusFourPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders) {
         CardHolder plusFour = gameCardHolders.createNewCardHolder();
@@ -72,6 +98,13 @@ public class CardChecker {
         }
         return plusFour;
     }
+
+    /**
+     *To return player cards when plus two is played.
+     * @param toCheck the function card to check
+     * @param gameCardHolders The cards for players that need to be add card
+     * @return the cards that the player can play
+     */
 
     public CardHolder cardsPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders){
         CardHolder cardsCanPlay = gameCardHolders.createNewCardHolder();
@@ -89,6 +122,11 @@ public class CardChecker {
         return cardsCanPlay;
     }
 
+    /**
+     * To compare which card
+     * @param toCompare the string of the last card
+     * @return true if and only if the card can be played
+     */
     public boolean singleCompare(String toCompare){
         // check whether a single card is playable given the last card
         String toColor = toCompare.split(" ")[0];
@@ -102,12 +140,12 @@ public class CardChecker {
     }
     /**
      * Getter method for lastCard
+     * @return the card of the last card
      */
     public String getLastCard() {
         return lastCard;
     }
 
-    // This method has some problem, when we set a +2 card here, the status will not be changed.
     /**
      * setter method for lastcard
      */
