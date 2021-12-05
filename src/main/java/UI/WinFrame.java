@@ -2,13 +2,18 @@ package UI;
 
 import LogIn.LogInEntity.UserStatistics;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 
 public class WinFrame extends JFrame implements ActionListener {
+    private Clip clip;
+
     JButton playagain = new JButton();
     UserStatistics stats;
     public WinFrame(String name, UserStatistics stats) {
@@ -17,13 +22,24 @@ public class WinFrame extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setContentPane(startP(name));
-        playagain.setForeground(new Color(0,0,0));
+        playagain.setForeground(new Color(0,204,204));
         playagain.setBounds(198, 250, 144, 70);
         playagain.addActionListener(this);
         playagain.setText("Play Again!");
         playagain.setFont(new Font("Times", Font.BOLD, 20));
         this.add(playagain);
         this.setVisible(true);
+
+        try {
+            AudioInputStream input = AudioSystem.getAudioInputStream(
+                    new File("src/main/java/DataSet/bgm5.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(input);
+            clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
+        }
 
 
     }
@@ -32,6 +48,8 @@ public class WinFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playagain) {
             this.dispose();
+            clip.stop();
+            clip.close();
             ModeFrame frame = new ModeFrame(stats);
         }
     }
