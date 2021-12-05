@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CardCheckerTest {
     GameRequest gameRequest = new GameRequest();
     ArrayList<String> IDS = new ArrayList<>();
+    ReadFile gateway = new Gateway();
     GameRunner gameRunner;
     GameResponse gameResponse;
     IPresenter iPresenter;
@@ -27,7 +28,7 @@ public class CardCheckerTest {
         gameRunner = new GameRunner(gameRequest, IDS);
         gameResponse = gameRunner.getGameResponse();
         iPresenter = new Presenter();
-        gameRunner.buildIEachRound(iPresenter, gameRequest, new Gateway());
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         eachRound = gameRunner.getEachRound();
         iPresenter.setGameRequest(gameRequest);
     }

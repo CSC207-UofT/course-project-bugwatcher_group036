@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameResponseTest {
-
-    GameBoard gameBoard = new GameBoard(2, new Gateway());
+    ReadFile gateway = new Gateway();
+    GameBoard gameBoard = new GameBoard(2, gateway);
     CardHolder cardHolder = new CardHolder();
     ArrayList<String> ids = new ArrayList<>();
 
