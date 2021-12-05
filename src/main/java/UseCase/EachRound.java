@@ -174,15 +174,32 @@ public class EachRound {
      * @return the card either the player draw or the card that player played.
      */
     public String letPlayerPlayCardGUI(int currentPlayerIndex, String cardToPlayID) {
-        String cardToPlay;
-        if (cardToPlayID.equals("draw")) {
-            gameBoard.getGameCardHolders().addCard(
-                    gameBoard.drawCardWithNotification(false, false), currentPlayerIndex);
-            cardToPlay = "white -1";
-            return cardToPlay;}
-        else {
-            cardToPlay = cardToPlayID;
+        String cardToPlay = null;
+
+        // rightCard indicates whether the play type a right card to play.
+        boolean rightCard;
+
+        // The number of times that the player type a wrong card.
+        int wrongTimes = 0;
+
+        // Let the player type the card to play. If type a wrong card, type again,
+        // with maximum 3 times.
+        do {
+            if (cardToPlayID.equals("draw")) {
+                gameBoard.getGameCardHolders().addCard(
+                        gameBoard.drawCardWithNotification(false, false), currentPlayerIndex);
+                cardToPlay = "white -1";
+                return cardToPlay;
             }
+            if (!gameBoard.getGameCardHolders().playCard(cardToPlayID, currentPlayerIndex)) {
+                wrongTimes++;
+                rightCard = false;
+            } else {
+                rightCard = true;
+                cardToPlay = cardToPlayID;
+            }
+        } while (!rightCard && wrongTimes < 3);
+        //exit when the player types the right class or wrong time exceed 3
         return cardToPlay;
     }
 
