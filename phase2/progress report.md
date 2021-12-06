@@ -6,13 +6,27 @@ The Board-Game "UNO" is basically a card game. Each game contains 2 or more play
 We want to demonstrate our understanding of clean architecture and design pattern, by implementing them in this project. We also intend to enter the field of GUI design, client platform, login system, URL,
 +-and AI training alongside developing this project. More importantly, we want to create a personalized game that involves our own innovative features and rules, and we aim for perfect.
 
-## Future TODO
+## Future Plan
+**Optimizing online game mode**
+* We may create an online platform and relative client for players to connect and play this UNO game online, instead of local multiplayer mode like the current one.
 
+**Make the game more customizable**
+* We may make this game more customizable by adding features to manually change the background, bgm, profile picture and etc. We may add character and skill system as well to make this UNO game more personalized.
+
+**Create android app**
+* We may aim to create an android app for this game, broaden its current platform restriction from pc only to pc and android mobile.
 ## Reflection
+In phase 0, we determined the overall structure and realized the basic run of the game that only has number card with four colors.
 
+Through phase 1, We accomplished great implementations on basic setting to enable function card play, implemented two design patterns, and created GUI to make it more user-friendly.
 
-## Our questions to TA
-
+In phase 2, we focused on mainly three aspects and construct a comprehensive platform for UNO playing:
+* **Aspect of Code Restructure** Our project structure in phase 1 contained several unnecessary designs that hindered future expansion in GUI and login interaction. Thus, our team restructured the code to make it more efficient and concise. It went out to be a thorough overhaul that, we totally denied the previous UML structure and based on Clean architecture and SOLID principles, we re-framed the whole code body to the current stage.
+* **Aspect of Login System and Interaction with gameRun**
+    * We added user database that allows new user to register and then login normally for further gamePlay. We made this feature functions that, now our game can record and store user login intel to local ser. documents, and is able to perform what a login system ought to do. 
+    * We added user statistics collector and exp system that updates in each round, where user can access this information everytime before game starts. We inputted exp accumulator and win/lose rate statistics feature to one extra frame that can be called from the main page. The scarcity is we are unable to call it in-game at the moment, but could be implemented in the future for definite.
+    * We added "play again" option after each game play, and players can choose new game mode as they want (currently just pve and pvp).
+* **Aspect of GUI** We developed a GUI and added necessary information all inside the GUI. And we added background music for this game.
 
 ## Contribution
 
@@ -23,7 +37,10 @@ We want to demonstrate our understanding of clean architecture and design patter
 * Contributed writing UseCase test classes
 
 ### Wise Chua (wisechua - wise.chua@mail.utoronto.ca)
-* 
+* Completed GUI for the whole game after re-framing
+* Transformed from command line UI to GUI
+* Implemented all GUI frames
+* Wrote testcases for UseCase and Entity
 
 ### Allen Chen (Ez4Allen - challen.chen@mail.utoronto.ca)
 * Checked Login classes
@@ -36,7 +53,9 @@ We want to demonstrate our understanding of clean architecture and design patter
 * Made last check to SOLID and Clean Architecture
 
 ### York Chen (zhumengzhiren - york.chen@mail.utoronto.ca)
-
+* Completed GUI for login system, created relevant frames
+* Wrote docstring for controller, entity and login system classes
+* Wrote tests for entity and controller classes
 
 ### Yao Zhou (zhouyao9 - yaoo.zhou@mail.utoronto.ca)
 * Wrote the accessibility report
