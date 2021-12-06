@@ -1,6 +1,5 @@
 package LogIn.LoginGUI;
 import LogIn.LoginController.LoginController;
-import LogIn.LoginUseCase.LoginUseCase;
 import UI.ModeFrame;
 
 import javax.swing.*;
@@ -78,12 +77,9 @@ public class LoginUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent button) {
         if (button.getSource() == loginButton) {
-//            useCase = new LoginUseCase(false);
-//            loginController = new LoginController(useCase);
 
             if (loginController.runLogin(usernameInput.getText(), String.valueOf(passwordInput.getPassword()))) {
                 System.out.println("Login success!");
-//               Need to connect to mainUI.
                 this.dispose();
                 ModeFrame frame = new ModeFrame
                         (loginController.getLoginInputBoundary().getUsers().getUser(
@@ -96,7 +92,6 @@ public class LoginUI extends JFrame implements ActionListener {
         }
         if (button.getSource() == registerButton){
             RegisterUI registerUI = new RegisterUI();
-//            useCase = new LoginUseCase(true);
             this.dispose();
 
         }
