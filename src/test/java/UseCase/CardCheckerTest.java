@@ -39,7 +39,7 @@ public class CardCheckerTest {
         assertNull(checker.getLastCard());
     }
     @Test
-    public void testgetLastCard(){
+    public void testGetLastCard(){
         CardChecker checker = new CardChecker();
         assertNull(checker.getLastCard());
         checker.setLastCard("blue 4");
@@ -48,7 +48,7 @@ public class CardCheckerTest {
         assertEquals("black +4", checker.getLastCard());
     }
     @Test
-    public void testsetLastCard(){
+    public void testSetLastCard(){
         CardChecker checker = new CardChecker();
         checker.setLastCard("yellow 6");
         assertEquals("yellow 6", checker.getLastCard());
