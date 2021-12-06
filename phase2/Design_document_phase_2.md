@@ -42,6 +42,11 @@ Our directions are mainly on these *three aspects*:
 
 ## Major Design Decisions We've Made:
 
+* Restructure: Use the Presenter, move class from controller to UseCase, Change the structure of our data(card). This decision helps us to implement future functions with ease, and reduce the coupling between classes in the same level.
+* Use serializable to construct log in system, and store player-specific statistics inside database. By doing so, we've brought real funtionality to login system instead of simply letting user to log in.
+* The GUI: Added bgm and more info chunks to inform other players' card count, history of card playing, and last card's image. These extensions make the game much more attractive and user friendly.
+* Design Pattern: we implemented iterator pattern inside cardHolder class to interate over cards easily, and as we have two modes avaliable for players, we use the builder pattern to standardize the initialization also enable further addition of special game mode.
+
 
 ## Clean Architecture:
 
