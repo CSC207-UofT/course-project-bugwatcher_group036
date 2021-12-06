@@ -25,6 +25,7 @@ public class EachRound {
 
     /**
      * Deal cards to players at the beginning of the game, each player should hold 7 cards after that.
+     * @param numberOfPlayers number of players
      */
     public void cardDeal(int numberOfPlayers) {
         for (int i = 0; i < 20; i++){
@@ -84,6 +85,10 @@ public class EachRound {
     /**
      * The playstage when a player played a card that is playable.
      * To check whether the player have any card or not.
+     * @param playableCards playable cards in cardholder
+     * @param  currentPlayerIndex index of current player
+     * @param cardToPlay card current player want to play
+     * @param stats stats of user
      */
     public void playStageGUI(CardHolder playableCards, int currentPlayerIndex,
                              String cardToPlay, UserStatistics stats) {
