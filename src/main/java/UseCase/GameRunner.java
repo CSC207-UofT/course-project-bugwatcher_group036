@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Core of the program.
  * The GameRunner.
  */
-public class GameRunner implements IGameInput {
+public class GameRunner {
 
     private final int numberOfPlayers;
     private EachRound eachRound; // interface of eachRound, use dependency injection for clean architecture
