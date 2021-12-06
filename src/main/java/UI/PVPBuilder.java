@@ -10,14 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class NumofPlayerFrame extends JFrame implements ActionListener {
+public class PVPBuilder extends JFrame implements ActionListener, ModeBuilder {
     JLabel Username = new JLabel();
     JButton enterbutton = new JButton();
     JTextField NumberPlayer = new JTextField();
+    private UserStatistics stats;
 
-    private final UserStatistics stats;
-
-    public NumofPlayerFrame(UserStatistics stats) {
+    public void buildGameFrame(UserStatistics stats) {
         this.stats = stats;
 
         Username.setText("Number of Players:");
@@ -44,6 +43,20 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
         this.add(NumberPlayer);
     }
 
+    public Presenter buildPresenter() {
+        return new Presenter();
+    }
+
+    public Controller buildController(int playerNum, Presenter presenter) {
+        ArrayList<String> ids = new ArrayList<>();
+        for (int i = 1; i <= playerNum; i++) {
+            String id = JOptionPane.showInputDialog(null, "Player Name " + i,
+                    "Player Name " + i, JOptionPane.INFORMATION_MESSAGE);
+            ids.add(id);
+        }
+        return new Controller(presenter, ids);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enterbutton){
@@ -52,16 +65,10 @@ public class NumofPlayerFrame extends JFrame implements ActionListener {
 
                 if (num > 1 && num < 7){
                     this.dispose();
-                    ArrayList<String> ids = new ArrayList<>();
-                    for (int i = 1; i <= num; i++){
-                        String id = JOptionPane.showInputDialog(null, "Player Name " + i,
-                                "Player Name " + i, JOptionPane.INFORMATION_MESSAGE);
-                        ids.add(id);
-                    }
-                    Presenter presenter = new Presenter();
-                    Controller controller = new Controller(presenter, ids);
+                    Presenter presenter = buildPresenter();
+                    Controller controller = buildController(num, presenter);
 
-                    PVPFrame frame = new PVPFrame(presenter,controller, stats);
+                    PVPFrame frame = new PVPFrame(presenter, controller, stats);
 
                 }
                 else {

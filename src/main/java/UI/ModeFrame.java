@@ -61,11 +61,13 @@ public class ModeFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (pvp == e.getSource()) {
             this.dispose();
-            NumofPlayerFrame frame = new NumofPlayerFrame(stats);
+            PVPBuilder frame = new PVPBuilder();
+            frame.buildGameFrame(stats);
 
         } else if (pve == e.getSource()) {
             this.dispose();
-            NumofPlayerComputerFrame frame = new NumofPlayerComputerFrame(stats);
+            PVEBuilder frame = new PVEBuilder();
+            frame.buildGameFrame(stats);
 
         } else if (userStats == e.getSource()) {
             JOptionPane.showMessageDialog(null,
