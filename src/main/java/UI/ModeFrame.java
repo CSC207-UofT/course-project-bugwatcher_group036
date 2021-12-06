@@ -14,7 +14,7 @@ public class ModeFrame extends JFrame implements ActionListener {
     JLabel label = new JLabel("PVP or PVE"); // Title for the label
     JButton pvp = new JButton("PVP"); // The button for PVP
     JButton pve = new JButton("PVE"); // THe button for PVE
-    JButton userStats = new JButton("Game Statistics"); // User statistics
+    JButton userStats = new JButton("Game Statistics"); // The button for user statistics
     Color darkRed = new Color(15, 29, 101);
     Color white = new Color(255, 255, 255);
 

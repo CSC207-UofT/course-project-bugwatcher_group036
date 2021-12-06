@@ -9,12 +9,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * The PVEBuilder.
+ */
 public class PVEBuilder extends JFrame implements ActionListener, ModeBuilder {
     JLabel Username = new JLabel();
     JButton enterbutton = new JButton();
     JTextField ComputerPlayer = new JTextField();
     private UserStatistics stats;
 
+    /**
+     * The Builder for PVE Game Frame
+     * @param stats The user's statistics
+     */
     public void buildGameFrame(UserStatistics stats) {
         this.stats = stats;
 
@@ -42,16 +49,26 @@ public class PVEBuilder extends JFrame implements ActionListener, ModeBuilder {
         this.add(ComputerPlayer);
     }
 
+    /**
+     * The builder for GUI Presenter
+     * @return The presenter of GUI
+     */
     public Presenter buildPresenter() {
         return new Presenter();
     }
 
+    /**
+     * The builder of Controller for the game
+     * @param playerNum Total number of player
+     * @param presenter The presenter of GUI
+     * @return The Controller of the game
+     */
     public Controller buildController(int playerNum, Presenter presenter) {
         ArrayList<String> ids = new ArrayList<>();
         String id = JOptionPane.showInputDialog(null, "Player Name: ",
                 "Player Name ", JOptionPane.INFORMATION_MESSAGE);
         ids.add(id);
-        for (int i = 1; i <= playerNum; i++){
+        for (int i = 1; i <= playerNum; i++){// Add all computer name
             ids.add("Computer " + i);
         }
         return new Controller(presenter, ids);
@@ -60,23 +77,23 @@ public class PVEBuilder extends JFrame implements ActionListener, ModeBuilder {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enterbutton){
-            try {
+            try {// Check whether the player enter a correct number of player
                 int num = Integer.parseInt(ComputerPlayer.getText());
 
                 if (num > 0 && num <= 5){
                     this.dispose();
 
-                    Presenter presenter = buildPresenter();
-                    Controller controller = buildController(num, presenter);
+                    Presenter presenter = buildPresenter(); // Build the Presenter
+                    Controller controller = buildController(num, presenter); // Build the Controller
 
 
                     PVEFrame pveFrame = new PVEFrame(presenter, controller, stats);
                 }
-                else {
+                else { // When the player enter too big number of players
                     JOptionPane.showMessageDialog(null, "Sorry, we only support 1 computer player -" +
                             " 5 players, please re-enter player count.");
                 }
-            } catch (NumberFormatException numberFormatException) {
+            } catch (NumberFormatException numberFormatException) {// When the player enter a non-number
                 JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +
                         " 6 players, please re-enter player count.");
             }

@@ -2,6 +2,9 @@ package UseCase;
 
 import Entity.CardHolder;
 
+/**
+ * The Interface of IPresenter.
+ */
 public interface IPresenter {
 
     void drawCardNotification(String drawn, boolean noCard, boolean computer);
