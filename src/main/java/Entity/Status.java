@@ -24,8 +24,6 @@ public class Status {
      * Construct the status of a new game with a random player started.
      *
      * @param numberOfPlayers Number of players.
-
-     * Randomly select a player to play the first card.
      */
     public Status(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
@@ -33,10 +31,10 @@ public class Status {
         Random rand = new Random();
         this.currentPlayerIndex = rand.nextInt(numberOfPlayers);
     }
+
     /**
      * change the order of the game
      */
-
     public void changeReverseState() {
         this.reverse = !this.reverse;
     }

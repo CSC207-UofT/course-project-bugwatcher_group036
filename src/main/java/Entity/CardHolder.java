@@ -12,10 +12,17 @@ public class CardHolder implements Iterable<String>{
 
     private final ArrayList<String> handcard;
 
+    /**
+     * The Cardholder for the player.
+     */
     public CardHolder() {
         this.handcard = new ArrayList<>();
     }
 
+    /**
+     * The Iterator Design Pattern for CardHolder.
+     * @return The string of cardHolder.
+     */
     @Override
     public Iterator<String> iterator(){
         return new cardIterator();

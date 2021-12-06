@@ -9,13 +9,16 @@ public class Deck {
 
     /**
      * Construct the Deck in UNO card game.
-     *
      */
     public Deck(){
         this.used = new ArrayList<>();
         this.unused = new ArrayList<>();
     }
 
+    /**
+     * Setter method for Unused Card Deck.
+     * @param unused the unused card deck.
+     */
     public void setUnused(ArrayList<String> unused) {
         this.unused = unused;
     }
