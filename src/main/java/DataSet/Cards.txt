@@ -92,14 +92,10 @@ blue reverse
 blue reverse
 red +2
 red +2
-red +2
-green +2
 green +2
 green +2
 yellow +2
 yellow +2
-yellow +2
-blue +2
 blue +2
 blue +2
 black +4

@@ -25,7 +25,7 @@ public class GameDeckTest {
     @Test
     public void testisEmpty() {
         assertFalse(gameDeck.isEmpty());
-        for (int i = 0; i < 112; i++){
+        for (int i = 0; i < 108; i++){
             gameDeck.drawCardFromUnusedDeck();
         }
         assertTrue(gameDeck.isEmpty());
@@ -35,7 +35,7 @@ public class GameDeckTest {
     public void testgetUnusedCardDeck() {
         ArrayList<String> unused = gameDeck.getUnusedCardDeck();
         assertFalse(gameDeck.getUnusedCardDeck().isEmpty());
-        for (int i = 0; i < 112; i++){
+        for (int i = 0; i < 108; i++){
             gameDeck.drawCardFromUnusedDeck();
         }
         assertTrue(gameDeck.getUnusedCardDeck().isEmpty());
@@ -47,21 +47,21 @@ public class GameDeckTest {
         assertFalse(gameDeck.getUnusedCardDeck().isEmpty());
         for (int i = 0; i < 108; i++){
             gameDeck.drawCardFromUnusedDeck();
-            assertEquals(111 - i, gameDeck.getUnusedCardDeck().size());
+            assertEquals(107 - i, gameDeck.getUnusedCardDeck().size());
         }
 
     }
     @Test
     public void testshuffleFromUsedToUnused() {
         assertFalse(gameDeck.getUnusedCardDeck().isEmpty());
-        for (int i = 0; i < 112; i++){
+        for (int i = 0; i < 108; i++){
             gameDeck.putCardToUsedDeck(gameDeck.drawCardFromUnusedDeck());
         }
         assertEquals(0, gameDeck.getUnusedCardDeck().size());
         assertTrue(gameDeck.getUnusedCardDeck().isEmpty());
         gameDeck.shuffleFromUsedToUnused();
         assertFalse(gameDeck.getUnusedCardDeck().isEmpty());
-        assertEquals(112, gameDeck.getUnusedCardDeck().size());
+        assertEquals(108, gameDeck.getUnusedCardDeck().size());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class GameDeckTest {
         assertFalse(gameDeck.getUnusedCardDeck().isEmpty());
         for (int i = 0; i < 108; i++){
             gameDeck.putCardToUsedDeck(gameDeck.drawCardFromUnusedDeck());
-            assertEquals(111 - i, gameDeck.getUnusedCardDeck().size());
+            assertEquals(107 - i, gameDeck.getUnusedCardDeck().size());
         }
     }
 }
