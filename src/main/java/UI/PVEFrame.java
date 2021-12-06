@@ -319,7 +319,7 @@ public class PVEFrame extends JFrame implements ActionListener {
         }
 
         @Override
-        public void write(int b) throws IOException {
+        public void write(int b) {
             textArea.append(String.valueOf((char)b));
             textArea.setCaretPosition(textArea.getDocument().getLength());
         }

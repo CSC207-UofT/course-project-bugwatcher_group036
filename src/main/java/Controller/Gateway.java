@@ -16,7 +16,7 @@ public class Gateway implements ReadFile {
      */
     public ArrayList<String> readFromFile(){
 
-        ArrayList<String> unused = new ArrayList<String>();
+        ArrayList<String> unused = new ArrayList<>();
         File testFile = new File("");
         try {
             BufferedReader CardList = new BufferedReader(new FileReader(testFile.getAbsolutePath() +

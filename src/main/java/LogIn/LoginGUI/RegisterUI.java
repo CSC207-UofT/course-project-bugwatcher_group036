@@ -1,7 +1,6 @@
 package LogIn.LoginGUI;
 
 import LogIn.LoginController.LoginController;
-import LogIn.LoginUseCase.LoginUseCase;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,12 +74,9 @@ public class RegisterUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirmButton){
-//            useCase = new LoginUseCase(false);
-//            loginController = new LoginController();
 
             if (loginController.runRegister(usernameInput.getText(), String.valueOf(passwordInput.getPassword()))) {
                 System.out.println("Register success!");
-//               Need to connect to mainUI.
                 this.dispose();
                 LoginUI frame = new LoginUI();
             } else {
