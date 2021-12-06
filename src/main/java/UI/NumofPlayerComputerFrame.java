@@ -49,7 +49,7 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
             try {
                 int num = Integer.parseInt(ComputerPlayer.getText());
 
-                if (num > 0 && num < 5){
+                if (num > 0 && num <= 5){
                     this.dispose();
                     ArrayList<String> ids = new ArrayList<>();
                     String id = JOptionPane.showInputDialog(null, "Player Name: ",
