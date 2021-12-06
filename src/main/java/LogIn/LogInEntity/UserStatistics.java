@@ -8,6 +8,10 @@ public class UserStatistics implements Serializable {
     private final String playerId;
     private final int[] stats;
 
+    /**
+     * Initialize a new statistics according to player.
+     * @param playerId
+     */
     public UserStatistics(String playerId) {
         // 0: PVP win count
         // 1: PVE win count
@@ -20,22 +24,36 @@ public class UserStatistics implements Serializable {
         this.playerId = playerId;
     }
 
+    /**
+     *
+     * @return Get the stats of the user.
+     */
     public int[] getStats() {
         return stats;
     }
 
+    /**
+     * Change the stats of the user after winning a PVP game.
+     */
     public void PVPWin() {
         stats[0]++;
         stats[5] += 100;
         checkExp();
     }
 
+    /**
+     * Change the stats of the user after winning a PVE game.
+     */
     public void PVEWin() {
         stats[1]++;
         stats[5] += 70;
         checkExp();
     }
 
+    /**
+     *
+     * @param played The card the player play. Add 2 exp if number cards, 3 exp if function card.
+     */
     public void playCard(String played) {
         if (played == null) return;
         stats[2]++; stats[5] += 2;
@@ -47,12 +65,19 @@ public class UserStatistics implements Serializable {
         checkExp();
     }
 
+    /**
+     *
+     * @param num The number of card the player draw.
+     */
     public void drawCard(int num) {
         stats[4] += num;
         stats[5] += num;
         checkExp();
     }
 
+    /**
+     * Check whether the exp is enough to level up.
+     */
     public void checkExp() {
         if (stats[5] < 100) {
             stats[6] = 1;
@@ -66,6 +91,10 @@ public class UserStatistics implements Serializable {
         return playerId;
     }
 
+    /**
+     *
+     * @return Convert the stats to string.
+     */
     public String toString() {
         StringBuilder res = new StringBuilder();
         String[] keywords = new String[]{"PVP win count", "PVE win count", "total card played",

@@ -7,19 +7,27 @@ import LogIn.LogInEntity.UserReadWriter;
 import java.io.IOException;
 
 public class LoginUseCase implements LoginInputBoundary {
-
     private final UserList users;
-
     UserReadWriter readWriter = new UserReadWriter();
 
+    /**
+     * The result of login.
+     */
     public enum LoginResult {
         SUCCESS, FAILURE // Should we do NO_SUCH_USER as well as SUCCESS and FAILURE?
     }
 
+    /**
+     * The result of register.
+     */
     public enum RegisterResult{
         SUCCESS, FAILURE
     }
 
+    /**
+     * Saving the list into the file.
+     * @param users The user list need to save.
+     */
     public LoginUseCase(UserList users) {
         this.users = users;
         try {
@@ -29,6 +37,10 @@ public class LoginUseCase implements LoginInputBoundary {
         }
     }
 
+    /**
+     * Read the list from the file.
+     * @param register The user list need to save.
+     */
     public LoginUseCase(boolean register){
         UserList temp = new UserList();
         try{
@@ -60,6 +72,12 @@ public class LoginUseCase implements LoginInputBoundary {
         this.users = temp;
     }
 
+    /**
+     *
+     * @param username The username of the user.
+     * @param password The password of the user.
+     * @return Whether the login is successful.
+     */
     public LoginResult login(String username, String password) {
         User user = users.getUser(username);
         if (user != null && user.passwordMatches(password)) {
@@ -69,6 +87,12 @@ public class LoginUseCase implements LoginInputBoundary {
         }
     }
 
+    /**
+     *
+     * @param username The username of the user.
+     * @param password The password of the user.
+     * @return Whether the register is successful.
+     */
     public RegisterResult register(String username, String password){
         User newUser;
         if (this.users.getUser(username) == null) {
@@ -86,6 +110,10 @@ public class LoginUseCase implements LoginInputBoundary {
             }
     }
 
+    /**
+     *
+     * @return Get the users.
+     */
     public UserList getUsers() {
         return users;
     }

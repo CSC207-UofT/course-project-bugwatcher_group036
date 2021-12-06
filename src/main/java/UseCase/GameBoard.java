@@ -18,11 +18,11 @@ public class GameBoard {
     /**
      * initialize GameBoard
      */
-    public GameBoard(int numberOfPlayers) {
+    public GameBoard(int numberOfPlayers, ReadFile gateway) {
         this.gameCardHolders = new GameCardHolders(numberOfPlayers);
         this.gameStatus = new GameStatus(numberOfPlayers);
         this.cardChecker = new CardChecker();
-        this.gameDeck = new GameDeck();
+        this.gameDeck = new GameDeck(gateway);
     }
 
     /**

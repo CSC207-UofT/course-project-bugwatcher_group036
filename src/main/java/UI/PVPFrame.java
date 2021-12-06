@@ -79,13 +79,13 @@ public class PVPFrame extends JFrame implements ActionListener {
         bottom.setBounds(28, 244, 680, 210);//set the location and size of JPanel
 
         try {
+            int randSong = 1 + (int)(Math.random() * 4);
             AudioInputStream input = AudioSystem.getAudioInputStream(
-                    new File("src/main/java/DataSet/bgm.wav"));
+                    new File("src/main/java/DataSet/bgm" + randSong + ".wav"));
             clip = AudioSystem.getClip();
             clip.open(input);
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
         }
 
