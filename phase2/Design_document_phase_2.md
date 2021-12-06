@@ -3,7 +3,8 @@
 
 
 ## UML Diagram:
-![Untitled Diagram](https://user-images.githubusercontent.com/90352316/144772126-d2fd5b9c-f5d2-4a11-908c-d64e454928e2.jpg)
+![Untitled Diagram](https://user-images.githubusercontent.com/90352316/144772448-6b24fefa-1310-4110-855e-c588ce49cc6d.jpg)
+
 
 ## Major Design Decisions We've Made:
 
