@@ -35,7 +35,9 @@ We want to demonstrate our understanding of clean architecture and design patter
 
 
 ### Yao Zhou (zhouyao9 - yaoo.zhou@mail.utoronto.ca)
-
+* Part of GUI design
+* Add docstring to most classes
+* Write Accessibility Report
 
 ### Eli Gao (ElizaZoldyck - eliza.gao@mail.utoronto.ca)
 * Wrote progress report.md for phase 2

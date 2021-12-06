@@ -6,17 +6,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The ModeFrame.
+ */
 public class ModeFrame extends JFrame implements ActionListener {
     JPanel panel = new JPanel();
-    JLabel label = new JLabel("PVP or PVE");
-    JButton pvp = new JButton("PVP");
-    JButton pve = new JButton("PVE");
-    JButton userStats = new JButton("Game Statistics");
+    JLabel label = new JLabel("PVP or PVE"); // Title for the label
+    JButton pvp = new JButton("PVP"); // The button for PVP
+    JButton pve = new JButton("PVE"); // THe button for PVE
+    JButton userStats = new JButton("Game Statistics"); // User statistics
     Color darkRed = new Color(15, 29, 101);
     Color white = new Color(255, 255, 255);
 
     private final UserStatistics stats;
 
+    /**
+     * Modeframe for the Game
+     * @param stats The user statistics.
+     */
     public ModeFrame(UserStatistics stats) {
         this.stats = stats;
 
@@ -49,25 +56,27 @@ public class ModeFrame extends JFrame implements ActionListener {
         panel.setBackground(white);
 
         this.add(panel);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // To ensure frame can close
 
-        this.setSize(300, 200);
+        this.setSize(300, 200); // Set the size of the frame
         this.setLocation(new Point(500, 200));
-        this.setVisible(true);
+        this.setVisible(true); // Set the frame to be visible
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (pvp == e.getSource()) {
+        if (pvp == e.getSource()) { // When the player choose PVP mode
             this.dispose();
-            NumofPlayerFrame frame = new NumofPlayerFrame(stats);
+            PVPBuilder frame = new PVPBuilder();
+            frame.buildGameFrame(stats);
 
-        } else if (pve == e.getSource()) {
+        } else if (pve == e.getSource()) { // When the player choose PVE mode
             this.dispose();
-            NumofPlayerComputerFrame frame = new NumofPlayerComputerFrame(stats);
+            PVEBuilder frame = new PVEBuilder();
+            frame.buildGameFrame(stats);
 
-        } else if (userStats == e.getSource()) {
+        } else if (userStats == e.getSource()) { // When the player wants to see their own statistics
             JOptionPane.showMessageDialog(null,
                     stats.toString());
         }

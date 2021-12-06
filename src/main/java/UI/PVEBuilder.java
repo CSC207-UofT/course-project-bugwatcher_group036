@@ -9,14 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
+public class PVEBuilder extends JFrame implements ActionListener, ModeBuilder {
     JLabel Username = new JLabel();
     JButton enterbutton = new JButton();
     JTextField ComputerPlayer = new JTextField();
+    private UserStatistics stats;
 
-    private final UserStatistics stats;
-
-    public NumofPlayerComputerFrame(UserStatistics stats) {
+    public void buildGameFrame(UserStatistics stats) {
         this.stats = stats;
 
         Username.setText("Number of Computer:");
@@ -43,23 +42,32 @@ public class NumofPlayerComputerFrame extends JFrame implements ActionListener {
         this.add(ComputerPlayer);
     }
 
+    public Presenter buildPresenter() {
+        return new Presenter();
+    }
+
+    public Controller buildController(int playerNum, Presenter presenter) {
+        ArrayList<String> ids = new ArrayList<>();
+        String id = JOptionPane.showInputDialog(null, "Player Name: ",
+                "Player Name ", JOptionPane.INFORMATION_MESSAGE);
+        ids.add(id);
+        for (int i = 1; i <= playerNum; i++){
+            ids.add("Computer " + i);
+        }
+        return new Controller(presenter, ids);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enterbutton){
             try {
                 int num = Integer.parseInt(ComputerPlayer.getText());
 
-                if (num > 0 && num < 5){
+                if (num > 0 && num <= 5){
                     this.dispose();
-                    ArrayList<String> ids = new ArrayList<>();
-                    String id = JOptionPane.showInputDialog(null, "Player Name: ",
-                            "Player Name ", JOptionPane.INFORMATION_MESSAGE);
-                    ids.add(id);
-                    for (int i = 1; i <= num; i++){
-                        ids.add("Computer " + i);
-                    }
-                    Presenter presenter = new Presenter();
-                    Controller controller = new Controller(presenter, ids);
+
+                    Presenter presenter = buildPresenter();
+                    Controller controller = buildController(num, presenter);
 
 
                     PVEFrame pveFrame = new PVEFrame(presenter, controller, stats);

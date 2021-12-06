@@ -8,7 +8,8 @@ import LogIn.LoginUseCase.LoginUseCase;
 import java.util.ArrayList;
 
 /**
- * Core of the program
+ * Core of the program.
+ * The GameRunner.
  */
 public class GameRunner implements IGameInput {
 
@@ -19,6 +20,8 @@ public class GameRunner implements IGameInput {
 
     /**
      * initialize GameRunner
+     * @param gameRequest Gamerequest of the game
+     * @param ids list of all players ids
      */
     public GameRunner(GameRequest gameRequest, ArrayList<String> ids) {
 
@@ -29,6 +32,10 @@ public class GameRunner implements IGameInput {
         this.gameResponse.setIds(ids);
     }
 
+    /**
+     * getter method for gameRespond
+     * @return gameRespond of the game
+     */
     public GameResponse getGameResponse() {
         return gameResponse;
     }
@@ -42,6 +49,7 @@ public class GameRunner implements IGameInput {
 
     /**
      * getter method for gameRequest
+     * @return the gamerequest of the the game
      */
     public GameRequest getGameRequest() {
         return gameRequest;
@@ -49,6 +57,7 @@ public class GameRunner implements IGameInput {
 
     /**
      * getter method for eachRound
+     * @return eachRound of the game
      */
     public EachRound getEachRound() {
         return eachRound;
@@ -56,6 +65,9 @@ public class GameRunner implements IGameInput {
 
     /**
      * initialize the game
+     * @param iPresenter Interface for presenter class
+     * @param gameRequest Gamerequest of the game
+     * @param gateway Gateway interface for reading file
      */
     public void buildIEachRound(IPresenter iPresenter, GameRequest gameRequest, ReadFile gateway) {
         this.eachRound = new EachRound(numberOfPlayers, iPresenter, gameRequest, gateway);
@@ -64,6 +76,8 @@ public class GameRunner implements IGameInput {
 
     /**
      * initialize the gui of the game
+     * @param toPlay the string of the card player wants to play
+     * @param stats stats of user
      */
     public void runGameforGUI(String toPlay, UserStatistics stats) {
         // update current position
@@ -83,7 +97,7 @@ public class GameRunner implements IGameInput {
     }
 
     /**
-            * initialize the gui of the game in pve mode
+     * initialize the gui of the game in pve mode
      */
     public void runGameforGUIComputer() {
         // update current position
@@ -101,7 +115,8 @@ public class GameRunner implements IGameInput {
     }
 
     /**
-         save Users game statistics
+     *Save Users game statistics
+     @param stats stats of user
      */
     private void saveUserStatistics(UserStatistics stats) {
         LoginUseCase saver = new LoginUseCase(false);

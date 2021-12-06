@@ -2,5 +2,5 @@ package UseCase;
 
 public interface IRequest {
 
-    public void setSetColor(String setColor);
+    void setSetColor(String setColor);
 }
