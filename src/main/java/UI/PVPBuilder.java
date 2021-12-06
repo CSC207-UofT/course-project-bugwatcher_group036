@@ -67,8 +67,14 @@ public class PVPBuilder extends JFrame implements ActionListener, ModeBuilder {
     public Controller buildController(int playerNum, Presenter presenter) {
         ArrayList<String> ids = new ArrayList<>();
         for (int i = 1; i <= playerNum; i++) { // Add all players name
-            String id = JOptionPane.showInputDialog(null, "Player Name " + i,
+            String id = null;
+            while (id == null) {
+            id = JOptionPane.showInputDialog(null, "Player Name " + i,
                     "Player Name " + i, JOptionPane.INFORMATION_MESSAGE);
+            if (id == null) {
+                JOptionPane.showMessageDialog(null, "You did not enter a name, try again.");
+                }
+            }
             ids.add(id);
         }
         return new Controller(presenter, ids);

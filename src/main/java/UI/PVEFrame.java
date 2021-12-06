@@ -251,7 +251,6 @@ public class PVEFrame extends JFrame implements ActionListener {
                 controller.getGameRunner().runGameforGUIComputer();
                 computerposition = controller.getGameRunner().getEachRound().getGameBoard().
                         getGameStatus().getCurrentPlayerIndex();
-                this.updateGUI();
                 winFlag = controller.getGameRunner().getEachRound().getGameBoard().
                         getGameStatus().isWinFlag();
                 if (winFlag) { //Check whether the computer win
@@ -261,6 +260,7 @@ public class PVEFrame extends JFrame implements ActionListener {
                     Loseframe frame = new Loseframe(playerIds.get(computerposition), stats);
                     break;
                 }
+                this.updateGUI();
             }
         }
         else{ // When user played a playable card
