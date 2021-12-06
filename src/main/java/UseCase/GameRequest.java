@@ -16,6 +16,7 @@ public class GameRequest implements IRequest{
     }
     /**
      * getter method for setColor
+     * @return the cloor want to set
      */
     public String getSetColor() {
         return setColor;

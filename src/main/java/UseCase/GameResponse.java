@@ -11,6 +11,7 @@ public class GameResponse {
 
     /**
      * getter method for cardHolder
+     * @return the cardHolder of the game
      */
     public CardHolder getCardHolder() {
         return cardHolder;
@@ -32,6 +33,7 @@ public class GameResponse {
 
     /**
      * getter method for ids
+     * @return the id of player
      */
     public ArrayList<String> getIds() {
         return ids;

@@ -35,6 +35,7 @@ public class Presenter implements IPresenter {
 
     /**
      * getter method for gameRunner
+     * @return GameRunner of the game
      */
     public GameRunner getGameRunner(){return controller.getGameRunner();}
 
@@ -65,6 +66,9 @@ public class Presenter implements IPresenter {
 
     /**
      * notification when draw card
+     * @param drawn string of drawn card
+     * @param noCard true for no card flase for not
+     * @param computer ture for computer player flase for not
      */
     public void drawCardNotification(String drawn, boolean noCard, boolean computer){
         // only print this sentence when drawing due to no card playable

@@ -5,6 +5,10 @@ import Entity.Status;
 public class GameStatus {
 
     private final Status status;
+    /**
+     * Initialize GameStatus
+     * @param numberOfPlayers number of player
+     */
 
     public GameStatus(int numberOfPlayers) {
         this.status = new Status(numberOfPlayers);
@@ -26,6 +30,7 @@ public class GameStatus {
 
     /**
      * getter method for  currentPlayerIndex
+     * @return  the index of current players
      */
     public int getCurrentPlayerIndex() {
         return status.getCurrentPlayerIndex();
@@ -33,6 +38,7 @@ public class GameStatus {
 
     /**
      * setter method for currentPlayerIndex
+     * @param currentPlayerIndex index of current player
      */
     public void setCurrentPlayerIndex(int currentPlayerIndex) {
         status.setCurrentPlayerIndex(currentPlayerIndex);
@@ -46,6 +52,7 @@ public class GameStatus {
 
     /**
      * setter method for skip
+     * @para True for skip Flase for not
      */
     public void setSkip(boolean skip) {
         status.setSkip(skip);
@@ -53,6 +60,7 @@ public class GameStatus {
 
     /**
      * getter method for plus
+     * @return the number of plus
      */
     public int getPlus() {
         return status.getPlus();
@@ -60,6 +68,7 @@ public class GameStatus {
 
     /**
      * setter method for plus
+     * @param plus number of plus
      */
     public void setPlus(int plus) {
         status.setPlus(plus);
@@ -68,6 +77,7 @@ public class GameStatus {
 
     /**
      * response in game while play a function card
+     * @param feature the feature of each card
      */
     public void functionCardResponse(String feature){
         status.functionCardResponse(feature);
