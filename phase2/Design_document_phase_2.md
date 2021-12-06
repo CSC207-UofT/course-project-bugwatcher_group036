@@ -36,8 +36,11 @@ Our directions are mainly on these *three aspects*:
 
 
 
-## UML Diagram:
+## UML Diagram for phase 2:
 ![Untitled Diagram](https://user-images.githubusercontent.com/90352316/144772448-6b24fefa-1310-4110-855e-c588ce49cc6d.jpg)
+
+### UML Diagram in phase 1 (for comparison use to phase 2):
+![uml drawio](https://user-images.githubusercontent.com/90352316/144927597-d376b263-6abf-4332-a168-13a53fab38d5.png)
 
 
 ## Major Design Decisions We've Made:
