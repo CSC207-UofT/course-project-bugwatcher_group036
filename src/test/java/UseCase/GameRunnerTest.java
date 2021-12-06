@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameRunnerTest {
     GameRequest gameRequest = new GameRequest();
-    ArrayList<String> IDS = new ArrayList<>();
     ReadFile gateway = new Gateway();
     GameRunner gameRunner;
     GameResponse gameResponse;
@@ -24,6 +23,7 @@ public class GameRunnerTest {
 
     @BeforeEach
     public void generateIds() {
+        ArrayList<String> IDS = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             IDS.add("Computer " + i);
         }
@@ -136,6 +136,7 @@ public class GameRunnerTest {
         UserStatistics stats = new UserStatistics("a");
         CardHolder playableCards = eachRound.beginStage();
         playableCards.addCard("black switch");
+        playableCards.addCard("black +4");
         if (!eachRound.getGameBoard().getGameCardHolders().isEmpty(playableCards)) {
             int before = playableCards.getSize();
             gameResponse.setCardHolder(playableCards);
@@ -164,7 +165,7 @@ public class GameRunnerTest {
             playableCards.playCardWithIndex(i);
         }
         playableCards.addCard("black switch");
-        playableCards.addCard("red 4");
+        playableCards.addCard("black +4");
         int before = playableCards.getSize();
         gameRunner.runGameforGUIComputer();
         int played = playableCards.getSize();
