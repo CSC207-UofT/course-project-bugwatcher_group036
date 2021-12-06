@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class GameDeck {
 
-    private Deck deck;
+    private final Deck deck;
 
     /**
      * Intialize GameDeck.
