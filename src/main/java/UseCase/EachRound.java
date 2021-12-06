@@ -3,6 +3,9 @@ package UseCase;
 import Entity.CardHolder;
 import LogIn.LogInEntity.UserStatistics;
 
+/**
+ * The EachRound.
+ */
 public class EachRound {
 
     private final GameBoard gameBoard;

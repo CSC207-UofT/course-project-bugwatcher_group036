@@ -4,6 +4,9 @@ import Entity.CardHolder;
 
 import java.util.ArrayList;
 
+/**
+ * The GameResponse.
+ */
 public class GameResponse {
 
     private CardHolder cardHolder;
@@ -33,7 +36,7 @@ public class GameResponse {
 
     /**
      * getter method for ids
-     * @return the id of player
+     * @return all the ids of player in the game
      */
     public ArrayList<String> getIds() {
         return ids;

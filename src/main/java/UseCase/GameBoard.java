@@ -7,6 +7,9 @@ import LogIn.LogInEntity.UserStatistics;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The GameBoard.
+ */
 public class GameBoard {
 
     private final GameCardHolders gameCardHolders;

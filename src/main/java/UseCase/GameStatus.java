@@ -1,21 +1,23 @@
 package UseCase;
 
 import Entity.Status;
-
+/**
+ * The GameStatus.
+ */
 public class GameStatus {
 
     private final Status status;
+
     /**
      * Initialize GameStatus
      * @param numberOfPlayers number of player
      */
-
     public GameStatus(int numberOfPlayers) {
         this.status = new Status(numberOfPlayers);
     }
 
     /**
-     * return winFlag
+     * @return whether the game status is win
      */
     public boolean isWinFlag() {
         return status.isWinFlag();
@@ -23,6 +25,7 @@ public class GameStatus {
 
     /**
      * setter method for winFlag
+     * @param winFlag Set the status of winflag
      */
     public void setWinFlag(boolean winFlag) {
         status.setWinFlag(winFlag);
@@ -44,7 +47,8 @@ public class GameStatus {
         status.setCurrentPlayerIndex(currentPlayerIndex);
     }
     /**
-     * return skip
+     * To check whether the player is skipped
+     * @return true if and only if the player is skipped
      */
     public boolean isSkip() {
         return status.isSkip();
@@ -52,7 +56,7 @@ public class GameStatus {
 
     /**
      * setter method for skip
-     * @para True for skip Flase for not
+     * @param skip whether the player is skip.
      */
     public void setSkip(boolean skip) {
         status.setSkip(skip);
@@ -60,15 +64,15 @@ public class GameStatus {
 
     /**
      * getter method for plus
-     * @return the number of plus
+     * @return the number of plus card for next player
      */
     public int getPlus() {
         return status.getPlus();
     }
 
     /**
-     * setter method for plus
-     * @param plus number of plus
+     * setter method for plus card
+     * @param plus the number of plus card for next player
      */
     public void setPlus(int plus) {
         status.setPlus(plus);
@@ -76,7 +80,7 @@ public class GameStatus {
 
 
     /**
-     * response in game while play a function card
+     * The game response when a function card is played
      * @param feature the feature of each card
      */
     public void functionCardResponse(String feature){

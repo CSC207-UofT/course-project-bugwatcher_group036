@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ * The CardChecker.
+ */
 public class CardChecker {
 
     private String lastCard;
@@ -37,7 +40,6 @@ public class CardChecker {
      * @param iPresenter the presenter for the card
      * @param gameRequest the gamerequest of the the game
      */
-
     public void functionCardResponseForComputer(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) { // Check whether the card need to change color
             ArrayList<String> colors = new ArrayList<>();
@@ -56,7 +58,6 @@ public class CardChecker {
      * @param gameCardHolders The cards for players that need to be skip
      * @return the cards that the player can play
      */
-
     public CardHolder skipsPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders){
         CardHolder skips = gameCardHolders.createNewCardHolder();
         for (String card: toCheck){
@@ -66,13 +67,13 @@ public class CardChecker {
         }
         return skips;
     }
+
     /**
      *To return player card when plus two is played.
      * @param toCheck the function card to check
      * @param gameCardHolders The cards for players that need to be add card
      * @return the cards that the player can play
      */
-
     public CardHolder plusTwoPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders) {
         CardHolder plusTwo = gameCardHolders.createNewCardHolder();
         for (String card: toCheck) {
@@ -88,7 +89,6 @@ public class CardChecker {
      * @param gameCardHolders The cards for players that need to be add card
      * @return the cards that the player can play
      */
-
     public CardHolder plusFourPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders) {
         CardHolder plusFour = gameCardHolders.createNewCardHolder();
         for (String card: toCheck) {
@@ -105,7 +105,6 @@ public class CardChecker {
      * @param gameCardHolders The cards for players that need to be add card
      * @return the cards that the player can play
      */
-
     public CardHolder cardsPlayerCanPlay(CardHolder toCheck, GameCardHolders gameCardHolders){
         CardHolder cardsCanPlay = gameCardHolders.createNewCardHolder();
 
