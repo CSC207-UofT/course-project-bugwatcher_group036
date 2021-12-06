@@ -94,8 +94,8 @@ public class PVEBuilder extends JFrame implements ActionListener, ModeBuilder {
                             " 5 players, please re-enter player count.");
                 }
             } catch (NumberFormatException numberFormatException) {// When the player enter a non-number
-                JOptionPane.showMessageDialog(null, "Sorry, we only support 1 player -" +
-                        " 6 players, please re-enter player count.");
+                JOptionPane.showMessageDialog(null, "Sorry, we only support 1 computer player -" +
+                        " 5 players, please re-enter player count.");
             }
         }
 
