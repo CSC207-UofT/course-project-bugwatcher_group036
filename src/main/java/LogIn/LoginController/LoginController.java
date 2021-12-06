@@ -11,8 +11,7 @@ public class LoginController {
      * Initialize the Login Controller.
      */
     public LoginController() {
-        LoginInputBoundary loginInputBoundary = new LoginUseCase(false);
-        this.loginInputBoundary = loginInputBoundary;
+        this.loginInputBoundary = new LoginUseCase(false);
     }
 
     /**
