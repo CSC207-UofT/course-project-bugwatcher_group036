@@ -91,15 +91,18 @@ Finally the two GUI are combined together to display the whole board game.
 Our project can be divided into two parts according to its function.(Uno part and login part). We did not spend so mush time on deciding our packaging strategy(Layers strategy). From the very beginning we noticed that Clean Architecture is a very significant part of this course, so we choose layers strategy for both parts whose layout of files is straight forward. It makes us easier to implement the Clean Architecture and checkout the correctness afterwards.
 
 ## Design Patterns We Implemented:
-We will list the design patterns we used and what we will further implement for phase 2:
-### Patterns We Have Used
-* **Iterator**: We use this pattern to iterate over handcards each player has directly, and players the playerManager has without accessing the inner arrayList. 
-This reduce the occurance of bug and simplify iterating process for upper layer.
-* **Builder**: We apply this pattern to standarize the initialization of game controller, which has multiple variables, each of them need to be constructed specifically. 
-By using builder pattern, we simplify controller's complexity and make the process more extensible. 
-### Patterns We may Implement in Future:
-* **Facade**: We plan to use facade to make our code more conform to SOLID principle, and also make the structure more organized instead of being stranded together.
-* **Strategy** We are thinking to implement a strategy design pattern for the computer game mode such as easy and hard version where the easy will just played the first card in the computer's hand and the hard will choose any avaliable card that he can play.
+### Implemented:
+1. CardHolder Class - Iterator
+2. PVE/PVP Frame Class - Builder
+### Change From Phase 1:
+1. Due to Restructure from Command UI to GUI and PVE mode
+2. All Design Pattern in Phase 1 was redesigned
+3. Builder Class build PVP/PVE Frame
+### Possible implementation in Future:
+Memento - Undo Game State
+Strategy - PVE Mode
+
+We originally have Iterator for our Card Class and Player Class. Due to the Restructure in Phase 2, we decided to reconsider all our design pattern whether it is useful or not. Furthermore, We changed our Card Class as previously it was an parent class with two child class, function card and normal card. As now our card all transformed into CardHolder Class which can be consider as the player's hand in real life. We would want to iterate through the player's hand to get different card, so we use the iterator design pattern. Previously, We implemented builder class but the feedback in Phase 1 indicated that our builder class did not correctly implement . In the new builder class, we build different frame and depending on the user, we will choose to build different frame. As our restructure in Phase 2 was big from Command UI to GUI, we did not implement new design pattern. We do want to implement Memento for reversing back to different game state or restoring from a pause game. We do also want to implement strategy design pattern for the different game mode in PVE.
 
 
 ## Progress Report
