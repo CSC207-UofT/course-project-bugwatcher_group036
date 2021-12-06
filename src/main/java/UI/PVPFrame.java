@@ -13,6 +13,9 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The PVPFrame.
+ */
 public class PVPFrame extends JFrame implements ActionListener {
     private final Controller controller;
     private final Presenter presenter;
@@ -20,52 +23,57 @@ public class PVPFrame extends JFrame implements ActionListener {
     private Clip clip;
 
     JPanel frame = new JPanel();
-    JLabel currentCard = new JLabel();
-    JLabel remainingCards = new JLabel();
-    JLabel playerCardCounts = new JLabel();
-    JLabel id = new JLabel();
-    JLabel bottom = new JLabel();
-    JPanel cardHas = new JPanel();
-    JButton closebutton = new JButton();
-    JButton next = new JButton("next");
-    ButtonGroup buttonGroup = new ButtonGroup();
-    JTextArea textArea = new JTextArea();
-    JScrollPane scroll = new JScrollPane(textArea);
+    JLabel currentCard = new JLabel(); //The last card played by player
+    JLabel remainingCards = new JLabel(); //Reminding cards in the deck
+    JLabel playerCardCounts = new JLabel(); //The number of cards each player has
+    JLabel id = new JLabel(); // The name of current player
+    JPanel cardHas = new JPanel();// The cards the player has
+    JButton closebutton = new JButton(); // The button to exit the game
+    JButton next = new JButton("next"); // The next button for player to draw card or move to next player
+    ButtonGroup buttonGroup = new ButtonGroup(); // A frame of all button
+    JTextArea textArea = new JTextArea(); // The text of each players played
+    JScrollPane scroll = new JScrollPane(textArea); // To have the textarea be scroll automatically
 
+    /**
+     * The PVP Frame of the game
+     * @param presenter the presenter for the frame
+     * @param controller the controller
+     * @param stats The statistics of the User
+     */
     public PVPFrame(Presenter presenter, Controller controller, UserStatistics stats) {
         this.presenter = presenter;
         this.controller = controller;
         this.stats = stats;
 
         currentCard.setHorizontalAlignment(0);//Center the text
-        currentCard.setBounds(500, 50, 144, 216);//set the location and size of JLabel
+        currentCard.setBounds(500, 50, 144, 216);//set the location and size of the picture
         currentCard.setText(presenter.getGameRunner().getEachRound().getGameBoard().getCardChecker().getLastCard());
-        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/black.png");
+        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/black.png"); // To read the image for card, set to black for first card
         Image img1 = icon1.getImage();
         Image newImg1 = img1.getScaledInstance(144, 216, java.awt.Image.SCALE_SMOOTH);
         icon1 = new ImageIcon(newImg1);
         currentCard.setIcon(icon1);
 
         remainingCards.setForeground(Color.RED);
-        remainingCards.setBounds(30, 50, 400, 50);//set the location and size of JLabel
+        remainingCards.setBounds(30, 50, 400, 50);//set the location and size of remaining card
         remainingCards.setFont(new Font("Times", Font.BOLD, 30));
         remainingCards.setText("Remaining Cards: " + presenter.RemainingCards());
 
         id.setForeground(Color.RED);
-        id.setBounds(30, 100, 400, 50);//set the location and size of JLabel
+        id.setBounds(30, 100, 400, 50);//set the location and size of current player id
         id.setFont(new Font("Times", Font.BOLD, 30));
 
-        ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
+        ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds(); //Get the id of each player
         int currentPosition = presenter.getGameRunner().getEachRound().
                 getGameBoard().getGameStatus().getCurrentPlayerIndex();
 
-        id.setText("Current Player: " + playerIds.get(currentPosition));
+        id.setText("Current Player: " + playerIds.get(currentPosition)); //display the current player name
 
         playerCardCounts.setForeground(Color.BLACK);
         playerCardCounts.setBounds(30, 150, 400, 300);
         playerCardCounts.setFont(new Font("Times", Font.BOLD, 20));
         StringBuilder countText = new StringBuilder("<html>");
-        for (int i = 0; i < playerIds.size(); i++) {
+        for (int i = 0; i < playerIds.size(); i++) { //Display all remaining cards each player has
             int cardCount = presenter.getGameRunner().getEachRound().getGameBoard().
                     getGameCardHolders().getHandCards(i).getSize();
             if (i != currentPosition) {
@@ -76,22 +84,19 @@ public class PVPFrame extends JFrame implements ActionListener {
         }
         playerCardCounts.setText(countText.substring(0, countText.length() - 4) + "<html>");
 
-        bottom.setBounds(28, 244, 680, 210);//set the location and size of JPanel
 
         try {
-            int randSong = 1 + (int)(Math.random() * 4);
+            int randSong = 1 + (int)(Math.random() * 4); //Randomize a number for background music
             AudioInputStream input = AudioSystem.getAudioInputStream(
                     new File("src/main/java/DataSet/bgm" + randSong + ".wav"));
-            clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip(); // Get the song of the random background music
             clip.open(input);
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
         }
 
-        // add cardHas panel
-
-        cardHas.setBorder(new LineBorder(new Color(0, 0, 0)));//set the border
+        cardHas.setBorder(new LineBorder(new Color(0, 0, 0))); //set the border of all cards
         cardHas.setBounds(30, 400, 620, 210);
         cardHas.setPreferredSize(new Dimension(570, 200));
 
@@ -109,16 +114,16 @@ public class PVPFrame extends JFrame implements ActionListener {
         closebutton.setOpaque(true);
 
 
-        presenter.allhandcards().forEach(c -> {
+        presenter.allhandcards().forEach(c -> { // To add all cards the player has to cardhas
                     JToggleButton button = new JToggleButton(c);
                     buttonGroup.add(button);
                     if (!presenter.getGameRunner().getEachRound().beginStage().toString().
-                            contains(button.getText())) {
+                            contains(button.getText())) { //Check whether the card cannot be played
                         button.setEnabled(false);
                     }
                     button.addActionListener(this);
                     button.setBounds(20, 20, 20, 20);
-                    cardHas.add(button);
+                    cardHas.add(button); // Add each card to the cardhas panel
                 }
         );
 
@@ -129,7 +134,7 @@ public class PVPFrame extends JFrame implements ActionListener {
 
         textArea.setBounds(30, 630, 620, 210);
         textArea.setEditable(false);
-        PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
+        PrintStream printStream = new PrintStream(new CustomOutputStream(textArea)); // The console in our GUI
         System.setOut(printStream);
 
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -139,7 +144,6 @@ public class PVPFrame extends JFrame implements ActionListener {
 
         this.setBounds(680, 700, 700, 900);//set the location and size of frame
 
-        this.add(bottom);
         this.add(id);
         this.add(remainingCards);
         this.add(playerCardCounts);
@@ -155,26 +159,29 @@ public class PVPFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * To Update the GUI after each player play a card.
+     */
     private void updateGUI() {
-        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/" + presenter.
+        ImageIcon icon1 = new ImageIcon("src/main/java/DataSet/Card Image/" + presenter. // The new last card played by player
                 getGameRunner().getEachRound().getGameBoard().getCardChecker().getLastCard() + ".png");
         Image img1 = icon1.getImage();
         Image newImg1 = img1.getScaledInstance(144, 216, java.awt.Image.SCALE_SMOOTH);
         icon1 = new ImageIcon(newImg1);
-        currentCard.setIcon(icon1);
+        currentCard.setIcon(icon1); // Change the picture of last card
         currentCard.setText(presenter.getGameRunner().getEachRound().
-                getGameBoard().getCardChecker().getLastCard());
+                getGameBoard().getCardChecker().getLastCard()); // Change the name of the last card
         id.setText("Current Player: " + presenter.getGameRunner().getGameResponse().getIds().get(
-                presenter.getGameRunner().getEachRound().getGameBoard().getGameStatus().getCurrentPlayerIndex()));
+                presenter.getGameRunner().getEachRound().getGameBoard().getGameStatus().getCurrentPlayerIndex())); // Change the current player ID
 
-        cardHas.removeAll();
+        cardHas.removeAll(); //Remove all cards from display of the previous player
 
         cardHas.setBorder(new LineBorder(new Color(0, 0, 0)));//set the border
         cardHas.setBounds(30, 400, 620, 210);
         cardHas.setPreferredSize(new Dimension(570, 200));
 
         ButtonGroup buttonGroup = new ButtonGroup();
-        presenter.allhandcards().forEach(c -> {
+        presenter.allhandcards().forEach(c -> { // Add all current card that the player has
                     JToggleButton button = new JToggleButton(c);
                     buttonGroup.add(button);
                     if (!presenter.getGameRunner().getEachRound().beginStage().
@@ -188,14 +195,14 @@ public class PVPFrame extends JFrame implements ActionListener {
 
         );
 
-        remainingCards.setText("Remaining Cards: " + presenter.RemainingCards());
+        remainingCards.setText("Remaining Cards: " + presenter.RemainingCards()); //Update remaining cards in card deck
 
         ArrayList<String> playerIds = presenter.getGameRunner().getGameResponse().getIds();
         int currentPosition = presenter.getGameRunner().getEachRound().
                 getGameBoard().getGameStatus().getCurrentPlayerIndex();
 
         StringBuilder countText = new StringBuilder("<html>");
-        for (int i = 0; i < playerIds.size(); i++) {
+        for (int i = 0; i < playerIds.size(); i++) { // Update all remaining cards of each player
             int cardCount = presenter.getGameRunner().getEachRound().getGameBoard().
                     getGameCardHolders().getHandCards(i).getSize();
             if (i != currentPosition) {
@@ -211,14 +218,14 @@ public class PVPFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<String> playerIds = controller.getGameRunner().getGameResponse().getIds();
-        if (e.getSource() == closebutton) {
+        if (e.getSource() == closebutton) { //If user click close button
             System.exit(0);
         }
-        if (e.getSource() == next) {
+        if (e.getSource() == next) { // If user decide to draw card or skip to next player
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
             this.updateGUI();
-        } else {
+        } else { // When user played a playable card
             JToggleButton playedcard = (JToggleButton) e.getSource();
             if (controller.getGameRunner().getEachRound().beginStage().toString().contains(playedcard.getText())) {
                 controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
@@ -228,7 +235,7 @@ public class PVPFrame extends JFrame implements ActionListener {
             }
         }
         boolean winFlag = controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isWinFlag();
-        if (winFlag) {
+        if (winFlag) { //Check whether the user win after played a card
             clip.stop();
             clip.close();
             this.dispose();
@@ -236,14 +243,17 @@ public class PVPFrame extends JFrame implements ActionListener {
             stats.PVPWin();
             LoginUseCase saver = new LoginUseCase(false);
             UserList users = saver.getUsers();
-            users.getUser(stats.getPlayerId()).setUserStatistics(stats);
+            users.getUser(stats.getPlayerId()).setUserStatistics(stats); // Update User Statistics
             new LoginUseCase(users);
 
-            WinFrame frame = new WinFrame(playerIds.get
+            WinFrame frame = new WinFrame(playerIds.get //Create the new winframe for next player
                     (controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().getCurrentPlayerIndex()), stats);
         }
     }
 
+    /**
+     * Override console to GUI.
+     */
     private static class CustomOutputStream extends OutputStream {
         private final JTextArea textArea;
 

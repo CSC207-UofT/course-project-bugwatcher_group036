@@ -10,12 +10,20 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * The WinFrame.
+ */
 public class WinFrame extends JFrame implements ActionListener {
     private Clip clip;
 
-    JButton playagain = new JButton();
+    JButton playagain = new JButton(); // The button when user wants to play again.
     UserStatistics stats;
+
+    /**
+     * The Win Frame for player win
+     * @param name the name of player that wins
+     * @param stats the user's statistics
+     */
     public WinFrame(String name, UserStatistics stats) {
         this.stats = stats;
         this.setSize(540, 360);
@@ -28,10 +36,10 @@ public class WinFrame extends JFrame implements ActionListener {
         playagain.setText("Play Again!");
         playagain.setFont(new Font("Times", Font.BOLD, 20));
         this.add(playagain);
-        this.setVisible(true);
+        this.setVisible(true); // Set the frame to be visible
 
         try {
-            AudioInputStream input = AudioSystem.getAudioInputStream(
+            AudioInputStream input = AudioSystem.getAudioInputStream( // The music background when the player wins
                     new File("src/main/java/DataSet/bgm5.wav"));
             clip = AudioSystem.getClip();
             clip.open(input);
@@ -54,26 +62,28 @@ public class WinFrame extends JFrame implements ActionListener {
         }
     }
 
-    public static class HomePanel extends JPanel {
+    public static class HomePanel extends JPanel { // To implement the background image for the frame
         ImageIcon icon;
         Image img;
 
         public HomePanel() {
-            //store one image in bin of executing program
-            icon = new ImageIcon("src/main/java/DataSet/YouWin.jpeg");
+
+            icon = new ImageIcon("src/main/java/DataSet/YouWin.jpeg"); // To transform the picture to Icon
             img = icon.getImage();
-
-
         }
 
-        public void paintComponent(Graphics g) {
+        public void paintComponent(Graphics g) { // Set the background for the frame
             super.paintComponent(g);
-            //to let background picture adjust along with the size of the window
+            //Set the picture with the same as the size of the frame
             g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         }
     }
 
-    //Jpanel to return to the starting page
+    /**
+     * The frame of the panel.
+     * @param name the name of player that wins
+     * @return The frame of the panel
+     */
     public JPanel startP(String name) {
         JPanel p = new HomePanel();
         JLabel player = new JLabel(name + " Wins", SwingConstants.CENTER);

@@ -1,13 +1,11 @@
 package UseCase;
 
-import Entity.Deck;
-
 import java.util.ArrayList;
 
+/**
+ * The Interface of ReadFile.
+ */
 public interface ReadFile {
 
-
-    /**
-     */
     ArrayList<String> readFromFile();
 }

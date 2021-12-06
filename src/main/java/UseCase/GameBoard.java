@@ -7,6 +7,9 @@ import LogIn.LogInEntity.UserStatistics;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The GameBoard.
+ */
 public class GameBoard {
 
     private final GameCardHolders gameCardHolders;
@@ -17,6 +20,8 @@ public class GameBoard {
 
     /**
      * initialize GameBoard
+     * @param numberOfPlayers number for player
+     * @param gateway Gateway interface for reading file
      */
     public GameBoard(int numberOfPlayers, ReadFile gateway) {
         this.gameCardHolders = new GameCardHolders(numberOfPlayers);
@@ -27,6 +32,7 @@ public class GameBoard {
 
     /**
      * Getter method for cardChecker
+     * @return cardChecker of this game
      */
     public CardChecker getCardChecker() {
         return cardChecker;
@@ -34,6 +40,7 @@ public class GameBoard {
 
     /**
      * Getter method for gameCardHolders
+     * @return gameCardHolder of this game
      */
     public GameCardHolders getGameCardHolders() {
         return gameCardHolders;
@@ -41,6 +48,7 @@ public class GameBoard {
 
     /**
      * Getter method for Status
+     * @return status of the game
      */
     public GameStatus getGameStatus() {
         return gameStatus;
@@ -48,26 +56,31 @@ public class GameBoard {
 
     /**
      * if deck is empty draw card from unused deck
+     * @return the card drawn
      */
     public String drawCard() {
-        if (gameDeck.isEmpty()) {
+        if (gameDeck.isEmpty()) { // Check whether the card deck is empty
             gameDeck.shuffleFromUsedToUnused();
         }
-        return gameDeck.drawCardFromUnusedDeck();
+        return gameDeck.drawCardFromUnusedDeck(); // Return the card draw from the unused card deck
     }
 
     /**
      * notify the card current player draw
+     * @param noCard noCard represents whether the card draw is due to no card playable
+     * @param computer True for computer player False for not
      */
     public String drawCardWithNotification(boolean noCard, boolean computer) {
         // noCard represents whether the card draw is due to no card playable
-        String drawn = drawCard();
+        String drawn = drawCard(); // The card draw from the deck
         iPresenter.drawCardNotification(drawn, noCard, computer);
         return drawn;
     }
 
     /**
      * draw multiple cards for given player and notify
+     * @param computer True for computer player False for not
+     * @param cardHolder card holders of this game
      */
     public void plusManyNextPlayer(CardHolder cardHolder, boolean computer) {
         // draw multiple cards for given player and notify
@@ -88,6 +101,8 @@ public class GameBoard {
 
     /**
      * draw card,then if really no card playable, let player draw card, with punish notification
+     * @param stats stats of users
+     * @param computer  True for computer player False for not
      */
     public void operationWhenNoPlayableCard(boolean computer, UserStatistics stats) {
         CardHolder currentCardHolder = gameCardHolders.getHandCards(gameStatus.getCurrentPlayerIndex());
@@ -106,6 +121,8 @@ public class GameBoard {
 
     /**
      * if no card played draw a card with notification
+     * @param computer True for computer player False for not
+     * @param cardToPlay card player play
      */
     public String punishOrPlayCard(String cardToPlay, boolean computer) {
         if (cardToPlay == null) {
@@ -118,6 +135,9 @@ public class GameBoard {
 
     /**
      * check the last played card
+     * @param gameRequest Gamerequest of the game
+     * @param stats stats of users
+     * @param toPlay the string of the card player wants to play
      */
     public void checkLastCard(String toPlay, GameRequest gameRequest, UserStatistics stats) {
         CardHolder currentCardHolder = gameCardHolders.getHandCards(gameStatus.getCurrentPlayerIndex());
@@ -143,6 +163,8 @@ public class GameBoard {
 
     /**
      * check the last played card in pve
+     * @param gameRequest  Gamerequest of the game
+     * @param toPlay the string of the card player wants to play
      */
     public void checkLastCardForComputer(String toPlay, GameRequest gameRequest) {
         CardHolder currentCardHolder = gameCardHolders.getHandCards(gameStatus.getCurrentPlayerIndex());
@@ -167,6 +189,7 @@ public class GameBoard {
 
     /**
      * Getter method for deck
+     * @return  the deck of this game
      */
     public GameDeck getGameDeck() {
         return this.gameDeck;

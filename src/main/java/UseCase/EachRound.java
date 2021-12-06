@@ -3,6 +3,9 @@ package UseCase;
 import Entity.CardHolder;
 import LogIn.LogInEntity.UserStatistics;
 
+/**
+ * The EachRound.
+ */
 public class EachRound {
 
     private final GameBoard gameBoard;
@@ -17,7 +20,7 @@ public class EachRound {
      * @param gateway Gateway interface for reading file
      */
     public EachRound(int numberOfPlayers, IPresenter iPresenter, GameRequest gameRequest, ReadFile gateway){
-        this.gameBoard = new GameBoard(numberOfPlayers, gateway);
+        this.gameBoard = new GameBoard(numberOfPlayers, gateway); // Initialize Gameboard
         this.iPresenter = iPresenter;
         gameBoard.setiTerminal(iPresenter);
         this.gameRequest = gameRequest;
@@ -25,11 +28,12 @@ public class EachRound {
 
     /**
      * Deal cards to players at the beginning of the game, each player should hold 7 cards after that.
+     * @param numberOfPlayers number of players
      */
     public void cardDeal(int numberOfPlayers) {
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++){ // Each player gets 7 cards
             for (int j = 0; j < numberOfPlayers; j++){
-                gameBoard.getGameCardHolders().addCard(gameBoard.drawCard(), j);
+                gameBoard.getGameCardHolders().addCard(gameBoard.drawCard(), j); // Add card to each player hand card
             }
         }
     }
@@ -84,6 +88,10 @@ public class EachRound {
     /**
      * The playstage when a player played a card that is playable.
      * To check whether the player have any card or not.
+     * @param playableCards playable cards in cardholder
+     * @param  currentPlayerIndex index of current player
+     * @param cardToPlay card current player want to play
+     * @param stats stats of user
      */
     public void playStageGUI(CardHolder playableCards, int currentPlayerIndex,
                              String cardToPlay, UserStatistics stats) {
@@ -120,6 +128,11 @@ public class EachRound {
         } else {
             // if there's playable card, call play card method
             cardToPlay = letPlayerPlayCardForComputer(playableCards, currentPlayerIndex);
+
+            String probablyDrawnCard = gameBoard.punishOrPlayCard(cardToPlay, true);
+            if (probablyDrawnCard != null){
+                gameBoard.getGameCardHolders().addCard(probablyDrawnCard, currentPlayerIndex);
+            }
 
             // if played card is valid, update last card
             if (cardToPlay != null && !cardToPlay.equals("white -1")){
@@ -191,11 +204,11 @@ public class EachRound {
         // Let the player type the card to play. If type a wrong card, type again,
         // with maximum 3 times.
         do {
-            if (cardToPlayID.equals("draw")) {
+            if (cardToPlayID.equals("draw")) { // Check whether the player draw a card
                 gameBoard.getGameCardHolders().addCard(
                         gameBoard.drawCardWithNotification(false, false), currentPlayerIndex);
                 cardToPlay = "white -1";
-                return cardToPlay;
+                return cardToPlay; // Return the card that is not draw by player
             }
             if (!gameBoard.getGameCardHolders().playCard(cardToPlayID, currentPlayerIndex)) {
                 wrongTimes++;
@@ -218,6 +231,7 @@ public class EachRound {
     public String letPlayerPlayCardForComputer(CardHolder playableCards, int currentPlayerIndex) {
         String cardToPlay;
 
+        // Automatic played the first card from the cards that the computer can play
         cardToPlay = gameBoard.getGameCardHolders().playCardWithIndex(0, playableCards);
         gameBoard.getGameCardHolders().playCard(cardToPlay, currentPlayerIndex);
 

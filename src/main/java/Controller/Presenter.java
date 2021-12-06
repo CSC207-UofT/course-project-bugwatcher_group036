@@ -15,16 +15,9 @@ import java.util.Collections;
  */
 public class Presenter implements IPresenter {
 
-    private IRequest gameRequest;
+    private IRequest gameRequest; //The request by player
 
-    private Controller controller;
-
-//    /**
-//     * setter method for gameRunner
-//     */
-//    public void setGameRunner(GameRunner gameRunner) {this.gameRunner = gameRunner;}
-
-    @Override
+    private Controller controller; // The controller of the class
 
     /**
      * setter method for gameRequest
@@ -35,11 +28,14 @@ public class Presenter implements IPresenter {
 
     /**
      * getter method for gameRunner
+     * @return GameRunner of the game
      */
     public GameRunner getGameRunner(){return controller.getGameRunner();}
 
-
-
+    /**
+     * For getting all hand cards of the current player
+     * @return A CardHolder that contains all cards the player has
+     */
     public CardHolder allhandcards(){
 
         return controller.getGameRunner().getEachRound().getGameBoard().getGameCardHolders().
@@ -48,10 +44,21 @@ public class Presenter implements IPresenter {
 
     }
 
+    /**
+     * For getting all hand cards of a specific player
+     * @param id the index of the specific player
+     * @return A CardHolder that contains all cards the player has
+     */
     public CardHolder allhandcards(int id){
         return controller.getGameRunner().getEachRound().getGameBoard().getGameCardHolders().getHandCards(id);
     }
 
+    /**
+     * Print the message for the cards that the player draw
+     * @param numToDraw the number of card player needs to draw
+     * @param drawnCardName the name of all cards the player draw
+     * @param computer Check whether it is computer that draw the card
+     */
     public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
         System.out.println(controller.getGameRunner().getGameResponse().getIds().get(
                 controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().getCurrentPlayerIndex()) +
@@ -65,6 +72,9 @@ public class Presenter implements IPresenter {
 
     /**
      * notification when draw card
+     * @param drawn string of drawn card
+     * @param noCard true for no card false for has playable card
+     * @param computer ture for computer player false for not computer
      */
     public void drawCardNotification(String drawn, boolean noCard, boolean computer){
         // only print this sentence when drawing due to no card playable
@@ -84,7 +94,7 @@ public class Presenter implements IPresenter {
     }
 
     /**
-     * the last card played
+     * Print the card that was last played by player or computer
      */
     public void lastcard(String cardname){
 
@@ -94,7 +104,7 @@ public class Presenter implements IPresenter {
     }
 
     /**
-     * set  color for gui
+     * Message when a colour change by player
      */
     public void setColorGUI() {
         ArrayList<String> colors = new ArrayList<>();
@@ -107,7 +117,7 @@ public class Presenter implements IPresenter {
     }
 
     /**
-     * set color for gui in pve mode
+     * Message when a colour change by Computer
      */
     public void setColorForComputer(String color) {
         System.out.println("Color " + color + " is set.");
@@ -118,13 +128,18 @@ public class Presenter implements IPresenter {
     }
 
     /**
-     * return the remaining card in deck
+     * Print the message of the remaining cards in the unused deck
+     * @return the number of cards in unused card deck
      */
     public String RemainingCards() {
         return String.valueOf(controller.getGameRunner().getEachRound().getGameBoard().
                 getGameDeck().getUnusedCardDeck().size());
     }
 
+    /**
+     * Setter method for Controller
+     * @param controller The controller need to be set
+     */
     public void setController(Controller controller) {
         this.controller = controller;
     }

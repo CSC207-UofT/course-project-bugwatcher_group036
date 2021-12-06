@@ -1,5 +1,6 @@
 package Entity;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -8,25 +9,34 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DeckTest {
+    Deck deck;
+
+    @BeforeEach
+    public void initialize() {
+        this.deck = new Deck();
+        String[] colors = {"red", "green", "blue", "yellow"};
+        for (String color : colors) {
+            for (int i = 0; i < 10; i++) {
+                deck.getUnusedCardDeck().add(color + " " + i);
+            }
+        }
+    }
 
     @Test
     public void testInitializationAndGetUnused(){
-        Deck deck = new Deck();
-        assertEquals(deck.getUnusedCardDeck().size(), 108);
+        assertEquals(deck.getUnusedCardDeck().size(), 40);
     }
 
     @Test
     public void testDrawCardFromUnusedDeck(){
-        Deck deck = new Deck();
         String card = deck.drawCardFromUnusedDeck();
         ArrayList<String> colors = new ArrayList<>();
-        Collections.addAll(colors, "red", "green", "yellow", "blue", "black");
+        Collections.addAll(colors, "red", "green", "yellow", "blue");
         assertTrue(colors.contains(card.split(" ")[0]));
     }
 
     @Test
     public void testIsEmptyAndShuffle(){
-        Deck deck = new Deck();
         String drawn = deck.drawCardFromUnusedDeck();
         while (drawn != null) {
             deck.putCardToUsedDeck(drawn);

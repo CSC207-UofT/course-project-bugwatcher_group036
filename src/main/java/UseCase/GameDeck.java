@@ -4,9 +4,12 @@ import Entity.Deck;
 
 import java.util.ArrayList;
 
+/**
+ * The GameDeck.
+ */
 public class GameDeck {
 
-    private Deck deck;
+    private final Deck deck;
 
     /**
      * Intialize GameDeck.
@@ -50,7 +53,7 @@ public class GameDeck {
     }
 
     /**
-     * Ddd card to UsedDeck.
+     * Add card to UsedDeck.
      */
     public void putCardToUsedDeck(String c) {
         deck.putCardToUsedDeck(c);

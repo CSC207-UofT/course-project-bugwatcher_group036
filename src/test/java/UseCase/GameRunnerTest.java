@@ -1,5 +1,6 @@
 package UseCase;
 
+import Controller.Gateway;
 import Entity.CardHolder;
 import LogIn.LogInEntity.User;
 import LogIn.LogInEntity.UserList;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameRunnerTest {
     GameRequest gameRequest = new GameRequest();
-    ArrayList<String> IDS = new ArrayList<>();
+    ReadFile gateway = new Gateway();
     GameRunner gameRunner;
     GameResponse gameResponse;
     IPresenter iPresenter;
@@ -22,6 +23,7 @@ public class GameRunnerTest {
 
     @BeforeEach
     public void generateIds() {
+        ArrayList<String> IDS = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             IDS.add("Computer " + i);
         }
@@ -63,7 +65,7 @@ public class GameRunnerTest {
             public void drawManyCard(int numToDraw, StringBuilder drawnCardName, boolean computer) {
             }
         };
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         eachRound = gameRunner.getEachRound();
         iPresenter.setGameRequest(gameRequest);
 
@@ -96,7 +98,7 @@ public class GameRunnerTest {
     @Test
     public void testgetEachRound() {
         assertEquals(eachRound, gameRunner.getEachRound());
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         EachRound eachRound1 = gameRunner.getEachRound();
         assertEquals(eachRound1, gameRunner.getEachRound());
 
@@ -104,7 +106,7 @@ public class GameRunnerTest {
 
     @Test
     public void testbuildIEachRound() {
-        gameRunner.buildIEachRound(iPresenter, gameRequest);
+        gameRunner.buildIEachRound(iPresenter, gameRequest, gateway);
         EachRound eachRound1 = gameRunner.getEachRound();
         assertEquals(eachRound1, gameRunner.getEachRound());
 
@@ -134,6 +136,7 @@ public class GameRunnerTest {
         UserStatistics stats = new UserStatistics("a");
         CardHolder playableCards = eachRound.beginStage();
         playableCards.addCard("black switch");
+        playableCards.addCard("black +4");
         if (!eachRound.getGameBoard().getGameCardHolders().isEmpty(playableCards)) {
             int before = playableCards.getSize();
             gameResponse.setCardHolder(playableCards);
@@ -162,7 +165,7 @@ public class GameRunnerTest {
             playableCards.playCardWithIndex(i);
         }
         playableCards.addCard("black switch");
-        playableCards.addCard("red 4");
+        playableCards.addCard("black +4");
         int before = playableCards.getSize();
         gameRunner.runGameforGUIComputer();
         int played = playableCards.getSize();

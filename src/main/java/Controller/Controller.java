@@ -12,6 +12,8 @@ public class Controller {
 
     /**
      * initialize Controller for Unogame
+     * @param iPresenter the presenter for the card
+     * @param ids list for all player ids
      */
     public Controller(Presenter iPresenter, ArrayList<String> ids) {
         this.gameRequest = new GameRequest();
@@ -26,10 +28,12 @@ public class Controller {
 
     /**
      * getter method for gameRequest
+     * @return the gameRequest of the game
      */
     public GameRequest getGameRequest(){return gameRequest;}
     /**
      * getter method for gameRrunner
+     * @return the gameRunner of the game
      */
     public GameRunner getGameRunner() {
         return gameRunner;

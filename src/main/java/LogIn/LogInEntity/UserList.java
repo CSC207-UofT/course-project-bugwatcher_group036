@@ -9,10 +9,12 @@ import java.util.Map;
  */
 public class UserList implements Serializable {
 
-    /**
-     * Initialize a new user list.
-     */
-    private final Map<String, User> users = new HashMap<>();
+
+    private Map<String, User> users;
+
+    public UserList() {
+        this.users = new HashMap<>();
+    }
 
     /**
      *

@@ -10,7 +10,7 @@ public class UserStatistics implements Serializable {
 
     /**
      * Initialize a new statistics according to player.
-     * @param playerId
+     * @param playerId the ID of the player
      */
     public UserStatistics(String playerId) {
         // 0: PVP win count
