@@ -22,7 +22,7 @@ public class CardChecker {
      * Function card respond for GUI
      * @param feature the feature of each card
      * @param iPresenter the presenter for the card
-     * @param gameRequest the gamerequest of the the game
+     * @param gameRequest the gamerequest of the game
      */
     public void functionCardResponseGUI(String feature, IPresenter iPresenter, GameRequest gameRequest) {
         if (feature.equals("+4") || feature.equals("switch")) {

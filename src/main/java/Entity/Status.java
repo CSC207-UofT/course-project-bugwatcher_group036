@@ -65,6 +65,7 @@ public class Status {
 
     /**
      * getter method for  currentPlayerIndex
+     * @return  currentPlayerIndex
      */
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
@@ -72,6 +73,7 @@ public class Status {
 
     /**
      * setter method for currentPlayerIndex
+     * @param currentPlayerIndex index of current player
      */
     public void setCurrentPlayerIndex(int currentPlayerIndex) {
         this.currentPlayerIndex = currentPlayerIndex;
@@ -86,6 +88,7 @@ public class Status {
 
     /**
      * setter method for skip
+     * true for skip next player false for not
      */
     public void setSkip(boolean skip) {
         this.skip = skip;
@@ -93,6 +96,7 @@ public class Status {
 
     /**
      * getter method for plus
+     * @return the number of plus
      */
     public int getPlus() {
         return plus;
@@ -100,6 +104,7 @@ public class Status {
 
     /**
      * setter method for plus
+     * @param plus number of plus
      */
     public void setPlus(int plus) {
         this.plus = plus;
@@ -107,6 +112,7 @@ public class Status {
 
     /**
      * response in game while play a function card
+     * @param  feature the feature of each card
      */
     public void functionCardResponse(String feature){
         switch (feature) {
@@ -126,6 +132,7 @@ public class Status {
 
     /**
      * move current played player to next player by index
+     * @return index of current player
      */
     public int moveToNextPlayer() {
         // Move to the next player
