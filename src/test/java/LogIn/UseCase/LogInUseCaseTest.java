@@ -1,13 +1,16 @@
 package LogIn.UseCase;
 
 import LogIn.LogInEntity.UserList;
+
 import LogIn.LoginUseCase.LoginUseCase;
 import org.junit.jupiter.api.Test;
 import LogIn.LogInEntity.User;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LogInUseCaseTest {
+
 
     @Test
     public void testLogInResult() {
@@ -21,12 +24,14 @@ public class LogInUseCaseTest {
                 LoginUseCase.LoginResult.SUCCESS);
         assertEquals(loginUseCase.login("york","123"),
                 LoginUseCase.LoginResult.SUCCESS);
+
     }
 
     @Test
     public void testRegisterResult() {
         LoginUseCase.RegisterResult registerResult = LoginUseCase.RegisterResult.FAILURE;
         assertEquals(LoginUseCase.RegisterResult.valueOf("FAILURE"), registerResult);
+
         UserList userList = new UserList();
         User user = new User("york","123");
         userList.add(user);
@@ -84,5 +89,6 @@ public class LogInUseCaseTest {
                 LoginUseCase.RegisterResult.SUCCESS);
         assertEquals(loginUseCase.register("york","123"),
                 LoginUseCase.RegisterResult.FAILURE);
+
     }
 }
