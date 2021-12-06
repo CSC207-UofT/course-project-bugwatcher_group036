@@ -1,5 +1,8 @@
 package UseCase;
 
+/**
+ * THe GameRequest.
+ */
 public class GameRequest implements IRequest{
 
     private String setColor;
@@ -16,7 +19,7 @@ public class GameRequest implements IRequest{
     }
     /**
      * getter method for setColor
-     * @return the cloor want to set
+     * @return the color user/computer want to set
      */
     public String getSetColor() {
         return setColor;
@@ -29,6 +32,7 @@ public class GameRequest implements IRequest{
     }
     /**
      * setter method for setColorForComputer
+     * @return the color that the computer set
      */
     public String getSetColorForComputer() {
         return setColorForComputer;

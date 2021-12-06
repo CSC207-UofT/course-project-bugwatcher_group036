@@ -7,6 +7,9 @@ import LogIn.LogInEntity.UserStatistics;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The GameBoard.
+ */
 public class GameBoard {
 
     private final GameCardHolders gameCardHolders;
@@ -56,10 +59,10 @@ public class GameBoard {
      * @return the card drawn
      */
     public String drawCard() {
-        if (gameDeck.isEmpty()) {
+        if (gameDeck.isEmpty()) { // Check whether the card deck is empty
             gameDeck.shuffleFromUsedToUnused();
         }
-        return gameDeck.drawCardFromUnusedDeck();
+        return gameDeck.drawCardFromUnusedDeck(); // Return the card draw from the unused card deck
     }
 
     /**
@@ -69,7 +72,7 @@ public class GameBoard {
      */
     public String drawCardWithNotification(boolean noCard, boolean computer) {
         // noCard represents whether the card draw is due to no card playable
-        String drawn = drawCard();
+        String drawn = drawCard(); // The card draw from the deck
         iPresenter.drawCardNotification(drawn, noCard, computer);
         return drawn;
     }

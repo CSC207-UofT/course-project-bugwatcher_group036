@@ -8,7 +8,8 @@ import LogIn.LoginUseCase.LoginUseCase;
 import java.util.ArrayList;
 
 /**
- * Core of the program
+ * Core of the program.
+ * The GameRunner.
  */
 public class GameRunner implements IGameInput {
 
@@ -30,11 +31,11 @@ public class GameRunner implements IGameInput {
         this.numberOfPlayers = ids.size();
         this.gameResponse.setIds(ids);
     }
+
     /**
      * getter method for gameRespond
      * @return gameRespond of the game
      */
-
     public GameResponse getGameResponse() {
         return gameResponse;
     }
@@ -114,7 +115,7 @@ public class GameRunner implements IGameInput {
     }
 
     /**
-     save Users game statistics
+     *Save Users game statistics
      @param stats stats of user
      */
     private void saveUserStatistics(UserStatistics stats) {
