@@ -21,7 +21,10 @@ We want to demonstrate our understanding of clean architecture and design patter
 * 
 
 ### Wise Chua (wisechua - wise.chua@mail.utoronto.ca)
-* 
+* Transform whole Command UI to GUI
+* Ensure GUI follows MVC/MVP and clean architecture
+* Implement testcase after transforming to GUI and clean all IntelliJ warnings
+
 
 ### Allen Chen (Ez4Allen - challen.chen@mail.utoronto.ca)
 
