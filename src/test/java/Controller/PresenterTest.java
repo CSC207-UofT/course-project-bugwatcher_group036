@@ -32,7 +32,7 @@ public class PresenterTest {
         UserList users = new UserList();
         users.add(new User("a", "a"));
         UserStatistics stats = new UserStatistics("a");
-        assertEquals("94", iPresenter.RemainingCards());
+        assertEquals("98", iPresenter.RemainingCards());
     }
 
     @Test
