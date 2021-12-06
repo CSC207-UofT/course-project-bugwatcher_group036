@@ -60,7 +60,7 @@ The code structure of our project generally follows the clean architecture, we w
 
    In phase 1, the use cases are DeckManager, PlayerManager, BasicOperations, Status, GameBoard. DeckManager is in charge of manage Card and Deck. PlayerManager is in charge of Player. Status stores the variables used in upper classes when running the game. BasicOperations stores the operations that each game someone plays a function card. GameBoard represents the circumstance on the table or screen, such as contains the card that the last player played.
 
-3. In the controller layer, there are classes Presenter, Controller, Gateway. Controller receives instructions from the GUI, Presenter sends information to the GUI, Gateway read the cards data from txt files to create cards for the game.
+3. In the controller layer, there are classes Presenter, Controller, Gateway. Controller receives instructions from the GUI to construct the game, including use cases and entities, Presenter sends information to the GUI, Gateway read the cards data from txt files to create cards for the game.
 
    In phase 1, the structure is much more complex. There are classes Controller, ControllerBuilder, EachRound, Dealer, Cardreadfile, DeckManagerData, PlayerManagerData, BasicOperationsData, StatusData, GameBoardData. ControllerBuilder helps to build the complex structure of Controller, which is a design pattern. Dealer is in charge of deal and manage the cards in each round of the game. Cardreafile is the Gateway. DeckManagerData, PlayerManagerData, BasicOperationsData, StatusData, GameBoardData these are the classes that could call the methods in corresponding classes in lower layers. The left are the same as the classes in phase 2.
 
