@@ -103,7 +103,8 @@ This princple asks the class to not implement the interface which has the unnece
 This principle is somewhat a way to decouplt the software. When one class have to depend on other class in the code, the best way is not to implement but to add an interface between them. To make the UI class interact with the EachRound class in the controller level, we make a CardDisplayer interface which implement by UI but depended by controller class. Then both of two methods will be more flexible to change.
 ### Single Responsibility Principle 
 This principle mains one class should have only one reason to change. Honestly we do not follow this principle very well. In PlayerManager and DeckManager we have try to eliminate the dependecy within the same layer. While in the controller class it is still a problem for us. We have thinked several soultions about it but they are not satisfying. Maybe we need some time to fix with it.
-In conclusion, It may cost a lot of time for our group to try to follow with the solid principles, while we find the reward is well worth it. We can always easily extend, maintain and test our program. Also, these principles may not cover all the design issue in our project, but it is enough in most of cases.
+### Conclusion
+It may cost a lot of time for our group to try to follow with the solid principles, while we find the reward is well worth it. We can always easily extend, maintain and test our program. We create many new structures and functions in phase 2 while we found they are easy to implement. Nevertheless, these principles may not cover all the design issue in our project, but it is enough in most of cases.
 
 
 ## Packaging Strategies:
