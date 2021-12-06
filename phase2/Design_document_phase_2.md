@@ -62,7 +62,7 @@ The code structure of our project generally follows the clean architecture, we w
 
    In phase 1, the structure is much more complex. There are classes Controller, ControllerBuilder, EachRound, Dealer, Cardreadfile, DeckManagerData, PlayerManagerData, BasicOperationsData, StatusData, GameBoardData. ControllerBuilder helps to build the complex structure of Controller, which is a design pattern. Dealer is in charge of deal and manage the cards in each round of the game. Cardreafile is the Gateway. DeckManagerData, PlayerManagerData, BasicOperationsData, StatusData, GameBoardData these are the classes that could call the methods in corresponding classes in lower layers. The left are the same as the classes in phase 2.
 
-4. The top of the project is the UI that takes the responsibility to let players to operate.
+4. The top of the project is the UI that takes the responsibility to let players to operate. There are two builder classes, PVEBuilder and PVPBuilder, and an builder Interface, ModeBuilder in the UI layer in order to build the complex structure of UI.
 
 In addition, we have another module of login system. 
 
