@@ -109,8 +109,13 @@ public class Presenter implements IPresenter {
     public void setColorGUI() {
         ArrayList<String> colors = new ArrayList<>();
         Collections.addAll(colors, "red", "blue", "yellow", "green");
-
-        String setColor = (String) JOptionPane.showInputDialog(null, "Choose color", "Choose color", JOptionPane.INFORMATION_MESSAGE, null, colors.toArray(), null);
+        String setColor = null;
+        while (setColor == null) {
+        setColor = (String) JOptionPane.showInputDialog(null, "Choose color", "Choose color",JOptionPane.QUESTION_MESSAGE, null, colors.toArray(), colors.toArray()[0]);
+        if (setColor == null) {
+            JOptionPane.showMessageDialog(null, "You did not set a color, try again.");
+            }
+        }
         gameRequest.setSetColor(setColor);
         System.out.println("Color " + setColor + " is set.");
         JOptionPane.showMessageDialog(null, "Color " + setColor + " is set.");
