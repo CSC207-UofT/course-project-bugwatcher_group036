@@ -65,8 +65,14 @@ public class PVEBuilder extends JFrame implements ActionListener, ModeBuilder {
      */
     public Controller buildController(int playerNum, Presenter presenter) {
         ArrayList<String> ids = new ArrayList<>();
-        String id = JOptionPane.showInputDialog(null, "Player Name: ",
-                "Player Name ", JOptionPane.INFORMATION_MESSAGE);
+        String id = null;
+        while (id == null) {
+            id = JOptionPane.showInputDialog(null, "Player Name: ",
+                    "Player Name ", JOptionPane.INFORMATION_MESSAGE);
+            if (id == null) {
+                JOptionPane.showMessageDialog(null, "You did not enter a name, try again.");
+            }
+        }
         ids.add(id);
         for (int i = 1; i <= playerNum; i++){// Add all computer name
             ids.add("Computer " + i);

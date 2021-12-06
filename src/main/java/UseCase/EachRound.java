@@ -31,7 +31,7 @@ public class EachRound {
      * @param numberOfPlayers number of players
      */
     public void cardDeal(int numberOfPlayers) {
-        for (int i = 0; i < 7; i++){ // Each player gets 7 cards
+        for (int i = 0; i < 2; i++){ // Each player gets 7 cards
             for (int j = 0; j < numberOfPlayers; j++){
                 gameBoard.getGameCardHolders().addCard(gameBoard.drawCard(), j); // Add card to each player hand card
             }
