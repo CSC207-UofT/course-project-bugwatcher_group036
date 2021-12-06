@@ -25,6 +25,7 @@ public class EachRound {
 
     /**
      * Deal cards to players at the beginning of the game, each player should hold 7 cards after that.
+     * @param numberOfPlayers number of players
      */
     public void cardDeal(int numberOfPlayers) {
         for (int i = 0; i < 7; i++){ // Each player gets 7 cards
@@ -84,6 +85,10 @@ public class EachRound {
     /**
      * The playstage when a player played a card that is playable.
      * To check whether the player have any card or not.
+     * @param playableCards playable cards in cardholder
+     * @param  currentPlayerIndex index of current player
+     * @param cardToPlay card current player want to play
+     * @param stats stats of user
      */
     public void playStageGUI(CardHolder playableCards, int currentPlayerIndex,
                              String cardToPlay, UserStatistics stats) {
@@ -120,6 +125,11 @@ public class EachRound {
         } else {
             // if there's playable card, call play card method
             cardToPlay = letPlayerPlayCardForComputer(playableCards, currentPlayerIndex);
+
+            String probablyDrawnCard = gameBoard.punishOrPlayCard(cardToPlay, true);
+            if (probablyDrawnCard != null){
+                gameBoard.getGameCardHolders().addCard(probablyDrawnCard, currentPlayerIndex);
+            }
 
             // if played card is valid, update last card
             if (cardToPlay != null && !cardToPlay.equals("white -1")){
