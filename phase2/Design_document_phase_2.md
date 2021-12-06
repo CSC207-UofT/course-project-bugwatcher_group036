@@ -2,21 +2,8 @@
 
 
 
-## 1 Brief Introduction of Our Project
-
-
-
-## 2 Our Current Progress & What We've Done So Far
-
-
-
-## 3 Future Aspiration & What We Will Implement in Phase 2 
-
-
-
 ## UML Diagram:
-
-
+![Untitled Diagram](https://user-images.githubusercontent.com/90352316/144772126-d2fd5b9c-f5d2-4a11-908c-d64e454928e2.jpg)
 
 ## Major Design Decisions We've Made:
 
@@ -67,16 +54,11 @@ Finally the two GUI are combined together to display the whole board game.
 ## SOLID design principle:
 
 
-## Five SOLID Principles
-
-
-## Conclusion
-
-
 ## packaging strategies:
 
 
 ## Design Patterns We Implemented:
 
 
-### Patterns We Have Used
+## Progress Report
+
