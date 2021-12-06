@@ -1,3 +1,9 @@
+## How to Download and Play the Game
+
+* Download the program by clicking the **Code** button on upper right corner. You can either download by using the http address by git or directly download the zip document and unzip the document.
+* Using java IDE equipped with JDK to open the program, and locate **GameStarterTerminal** at **src/main/java**.
+* Run the main program and you can see the login interface and play UNO game freely
+
 ## 1 Brief Introduction of Our Project
 
 Our java project aim at **simulating the Board-Game "UNO".** 
