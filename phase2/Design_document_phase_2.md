@@ -52,13 +52,22 @@ Finally the two GUI are combined together to display the whole board game.
 
 
 
-## SOLID design principle:
+## SOLID Design Principle:
 
 
-## packaging strategies:
+## Packaging Strategies:
 
 
 ## Design Patterns We Implemented:
+We will list the design patterns we used and what we will further implement for phase 2:
+### Patterns We Have Used
+* **Iterator**: We use this pattern to iterate over handcards each player has directly, and players the playerManager has without accessing the inner arrayList. 
+This reduce the occurance of bug and simplify iterating process for upper layer.
+* **Builder**: We apply this pattern to standarize the initialization of game controller, which has multiple variables, each of them need to be constructed specifically. 
+By using builder pattern, we simplify controller's complexity and make the process more extensible. 
+### Patterns We may Implement in Future:
+* **Facade**: We plan to use facade to make our code more conform to SOLID principle, and also make the structure more organized instead of being stranded together.
+* **Strategy** We are thinking to implement a strategy design pattern for the computer game mode such as easy and hard version where the easy will just played the first card in the computer's hand and the hard will choose any avaliable card that he can play.
 
 
 ## Progress Report
