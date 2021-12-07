@@ -33,6 +33,10 @@ public class Deck {
         return unused.isEmpty();
     }
 
+    /**
+     * whether the two decks are empty at the same time.
+     * @return whether the two decks are empty at the same time.
+     */
     public boolean bothIsEmpty(){
         return unused.isEmpty() && used.isEmpty();
     }

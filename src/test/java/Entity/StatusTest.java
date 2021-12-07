@@ -70,4 +70,11 @@ public class StatusTest {
         s.setQuit();
         assertEquals(s.getCurrentPlayerIndex(), -10);
     }
+
+    @Test
+    public void testSetTwoDecksRunOut() {
+        Status s = new Status(4);
+        s.setTwoDecksRunOut(true);
+        assertTrue(s.isTwoDecksBothRunOut());
+    }
 }

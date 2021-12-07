@@ -46,4 +46,9 @@ public class DeckTest {
         deck.shuffleFromUsedToUnused();
         assertFalse(deck.unusedIsEmpty());
     }
+
+    @Test
+    public void testBothIsEmpty(){
+        assertFalse(deck.bothIsEmpty());
+    }
 }
