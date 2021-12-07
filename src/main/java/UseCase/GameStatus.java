@@ -93,4 +93,11 @@ public class GameStatus {
     public int moveToNextPlayer() {
         return status.moveToNextPlayer();
     }
+
+    /**
+     * change the value of twoDecksBothRunOut, i.e., true becomes false or false becomes true.
+     */
+    public void setTwoDecksRunOut(boolean b) {
+        status.setTwoDecksRunOut(b);
+    }
 }

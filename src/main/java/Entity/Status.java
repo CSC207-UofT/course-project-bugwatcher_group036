@@ -19,6 +19,8 @@ public class Status {
     private int plus = 0;
     // Number of players.
     private final int numberOfPlayers;
+    // deckRunsOut is used to indicate whether there is no card in both decks.
+    private boolean twoDecksBothRunOut = false;
 
     /**
      * Construct the status of a new game with a random player started.
@@ -146,5 +148,12 @@ public class Status {
             }
         }
         return currentPlayerIndex;
+    }
+
+    /**
+     * change the value of twoDecksBothRunOut, i.e., true becomes false or false becomes true.
+     */
+    public void setTwoDecksRunOut(boolean b) {
+        twoDecksBothRunOut = b;
     }
 }
