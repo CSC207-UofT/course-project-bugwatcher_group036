@@ -29,9 +29,13 @@ public class Deck {
      * If the card deck is empty, Placed all the used card into the card deck.
      * @return if the deck is empty or not
      */
-    public boolean isEmpty(){
+    public boolean unusedIsEmpty(){
         return unused.isEmpty();
-        }
+    }
+
+    public boolean bothIsEmpty(){
+        return unused.isEmpty() && used.isEmpty();
+    }
 
     /**
      * getter
@@ -55,19 +59,19 @@ public class Deck {
     }
 
     /**
-     * after draw card new deck become a used deck
-     */
-    public void shuffleFromUsedToUnused() {
-        unused = used;
-        used = new ArrayList<>();
-    }
-
-    /**
      * add card to UsedDeck
      * @param c string of card
      */
     public void putCardToUsedDeck(String c) {
         used.add(c);
+    }
+
+    /**
+     * after draw card new deck become a used deck
+     */
+    public void shuffleFromUsedToUnused() {
+        unused = used;
+        used = new ArrayList<>();
     }
 
 

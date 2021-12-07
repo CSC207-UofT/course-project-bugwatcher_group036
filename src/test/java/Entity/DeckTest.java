@@ -42,8 +42,8 @@ public class DeckTest {
             deck.putCardToUsedDeck(drawn);
             drawn = deck.drawCardFromUnusedDeck();
         }
-        assertTrue(deck.isEmpty());
+        assertTrue(deck.unusedIsEmpty());
         deck.shuffleFromUsedToUnused();
-        assertFalse(deck.isEmpty());
+        assertFalse(deck.unusedIsEmpty());
     }
 }

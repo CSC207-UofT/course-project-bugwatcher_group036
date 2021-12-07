@@ -28,6 +28,7 @@ public class GameBoard {
         this.gameStatus = new GameStatus(numberOfPlayers);
         this.cardChecker = new CardChecker();
         this.gameDeck = new GameDeck(gateway);
+        gameStatus.setTwoDecksRunOut(false);
     }
 
     /**
@@ -59,7 +60,9 @@ public class GameBoard {
      * @return the card drawn
      */
     public String drawCard() {
-        if (gameDeck.isEmpty()) { // Check whether the card deck is empty
+        if (gameDeck.bothIsEmpty()) {
+            gameStatus.setTwoDecksRunOut(true);
+        } else if (gameDeck.unusedIsEmpty()) { // Check whether the card deck is empty
             gameDeck.shuffleFromUsedToUnused();
         }
         return gameDeck.drawCardFromUnusedDeck(); // Return the card draw from the unused card deck
@@ -129,6 +132,7 @@ public class GameBoard {
             return drawCardWithNotification(false, computer); // not because no card playable
         } else if (!cardToPlay.equals("white -1") && !cardToPlay.equals("quit")) { // if it is not voluntary draw
             gameDeck.putCardToUsedDeck(cardToPlay);
+            gameStatus.setTwoDecksRunOut(false);
         }
         return null;
     }
@@ -208,6 +212,6 @@ public class GameBoard {
     public int getCurrentPlayerIndex() {
         return gameStatus.getCurrentPlayerIndex();
     }
-
+    
 }
 

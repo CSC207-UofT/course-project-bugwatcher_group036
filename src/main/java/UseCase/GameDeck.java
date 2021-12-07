@@ -25,8 +25,12 @@ public class GameDeck {
      * To check whether the unused_card_deck is empty.
      * If the card deck is empty, Placed all the used card into the card deck.
      */
-    public boolean isEmpty(){
-        return deck.isEmpty();
+    public boolean unusedIsEmpty(){
+        return deck.unusedIsEmpty();
+    }
+
+    public boolean bothIsEmpty() {
+        return deck.bothIsEmpty();
     }
 
     /**

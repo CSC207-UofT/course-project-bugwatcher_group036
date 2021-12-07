@@ -1,7 +1,6 @@
 package UseCase;
 
 import Controller.Gateway;
-import Entity.CardHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +23,11 @@ public class GameDeckTest {
 
     @Test
     public void testisEmpty() {
-        assertFalse(gameDeck.isEmpty());
+        assertFalse(gameDeck.unusedIsEmpty());
         for (int i = 0; i < 108; i++){
             gameDeck.drawCardFromUnusedDeck();
         }
-        assertTrue(gameDeck.isEmpty());
+        assertTrue(gameDeck.unusedIsEmpty());
     }
 
     @Test
