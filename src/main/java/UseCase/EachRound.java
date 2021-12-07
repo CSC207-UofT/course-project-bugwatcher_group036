@@ -36,6 +36,7 @@ public class EachRound {
                 gameBoard.getGameCardHolders().addCard(gameBoard.drawCard(), j); // Add card to each player hand card
             }
         }
+        gameBoard.getGameStatus().setTwoDecksRunOut(gameBoard.getGameDeck().bothIsEmpty());
     }
 
     /**

@@ -22,6 +22,7 @@ public class PVEFrame extends JFrame implements ActionListener {
     private final Controller controller;
     private final UserStatistics stats;
     private Clip clip;
+    Boolean sound = true;
 
     JPanel frame = new JPanel();
     JLabel currentCard = new JLabel(); //The last card played by player
@@ -34,6 +35,7 @@ public class PVEFrame extends JFrame implements ActionListener {
     ButtonGroup buttonGroup = new ButtonGroup(); // A frame of all button
     JTextArea textArea = new JTextArea(); // The text of each players played
     JScrollPane scroll = new JScrollPane(textArea); // To have the textarea be scroll automatically
+    JButton music = new JButton(); // The sound button
 
     /**
      * The PVE Frame of the game
@@ -102,7 +104,14 @@ public class PVEFrame extends JFrame implements ActionListener {
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
         }
 
-        // add cardHas panel
+        music.setFont(new Font("Times", Font.PLAIN, 15));
+        music.setText("Music Off");
+        music.setBounds(30, 5, 100, 40);
+        music.setHorizontalAlignment(0);
+        music.addActionListener(this);
+        music.setBorderPainted(true);
+        music.setContentAreaFilled(false);
+        music.setOpaque(true);
 
         cardHas.setBorder(new LineBorder(new Color(0, 0, 0))); //set the border of all cards
         cardHas.setBounds(30, 400, 620, 210);
@@ -149,9 +158,10 @@ public class PVEFrame extends JFrame implements ActionListener {
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setBounds(30, 630, 620, 210);
         scroll.setBorder(new LineBorder(new Color(0, 0, 0)));
+
         this.add(scroll);
 
-
+        this.add(music);
         this.setBounds(680, 700, 700, 900); //set the location and size of frame
         this.add(id);
         this.add(remainingCards);
@@ -240,7 +250,17 @@ public class PVEFrame extends JFrame implements ActionListener {
         if (e.getSource() == closebutton) { //If user click close button
             System.exit(0);
         }
-        if (e.getSource() == next) { // If user decide to draw card or skip to next player
+        else if (e.getSource() == music && sound) {
+            clip.stop();
+            music.setText("Music On");
+            sound = false;
+        }
+        else if (e.getSource() == music && !sound) {
+            clip.start();
+            music.setText("Music Off");
+            sound = true;
+        }
+        else if (e.getSource() == next) { // If user decide to draw card or skip to next player
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
             int computerposition = controller.getGameRunner().getEachRound().getGameBoard().

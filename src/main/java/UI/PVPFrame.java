@@ -21,6 +21,7 @@ public class PVPFrame extends JFrame implements ActionListener {
     private final Presenter presenter;
     private final UserStatistics stats;
     private Clip clip;
+    Boolean sound = true;
 
     JPanel frame = new JPanel();
     JLabel currentCard = new JLabel(); //The last card played by player
@@ -33,6 +34,7 @@ public class PVPFrame extends JFrame implements ActionListener {
     ButtonGroup buttonGroup = new ButtonGroup(); // A frame of all button
     JTextArea textArea = new JTextArea(); // The text of each players played
     JScrollPane scroll = new JScrollPane(textArea); // To have the textarea be scroll automatically
+    JButton music = new JButton(); //The sound button
 
     /**
      * The PVP Frame of the game
@@ -96,6 +98,15 @@ public class PVPFrame extends JFrame implements ActionListener {
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ignored) {
         }
 
+        music.setFont(new Font("Times", Font.PLAIN, 15));
+        music.setText("Music Off");
+        music.setBounds(30, 5, 100, 40);
+        music.setHorizontalAlignment(0);
+        music.addActionListener(this);
+        music.setBorderPainted(true);
+        music.setContentAreaFilled(false);
+        music.setOpaque(true);
+
         cardHas.setBorder(new LineBorder(new Color(0, 0, 0))); //set the border of all cards
         cardHas.setBounds(30, 400, 620, 210);
         cardHas.setPreferredSize(new Dimension(570, 200));
@@ -104,15 +115,14 @@ public class PVPFrame extends JFrame implements ActionListener {
         fl_cardHas.setAlignment(FlowLayout.LEADING);
 
         closebutton.setFont(new Font("Times", Font.BOLD, 20));
+
         closebutton.setText("x");
         closebutton.setBounds(620, 5, 30, 30);
         closebutton.setForeground(Color.RED);
         closebutton.setBackground(new Color(225, 83, 83));
         closebutton.addActionListener(this);
-        closebutton.setBorderPainted(true);
         closebutton.setContentAreaFilled(false);
         closebutton.setOpaque(true);
-
 
         presenter.allhandcards().forEach(c -> { // To add all cards the player has to cardhas
                     JToggleButton button = new JToggleButton(c);
@@ -140,10 +150,12 @@ public class PVPFrame extends JFrame implements ActionListener {
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setBounds(30, 630, 620, 210);
         scroll.setBorder(new LineBorder(new Color(0, 0, 0)));
+
         this.add(scroll);
 
         this.setBounds(680, 700, 700, 900);//set the location and size of frame
 
+        this.add(music);
         this.add(id);
         this.add(remainingCards);
         this.add(playerCardCounts);
@@ -221,10 +233,24 @@ public class PVPFrame extends JFrame implements ActionListener {
         if (e.getSource() == closebutton) { //If user click close button
             System.exit(0);
         }
-        if (e.getSource() == next) { // If user decide to draw card or skip to next player
+        else if (e.getSource() == music && sound) {
+            clip.stop();
+            music.setText("Music On");
+            sound = false;
+        }
+        else if (e.getSource() == music && !sound) {
+            clip.start();
+            music.setText("Music Off");
+            sound = true;
+        }
+        else if (e.getSource() == next) { // If user decide to draw card or skip to next player
+            if (controller.getGameRunner().getEachRound().getGameBoard().getGameStatus().isTwoDecksBothRunOut()) {
+                JOptionPane.showMessageDialog(null, "No card to draw. You need to play a card.");
+            }
+            else{
             JButton playedcard = (JButton) e.getSource();
             controller.getGameRunner().runGameforGUI(playedcard.getText(), stats);
-            this.updateGUI();
+            this.updateGUI();}
         } else { // When user played a playable card
             JToggleButton playedcard = (JToggleButton) e.getSource();
             if (controller.getGameRunner().getEachRound().beginStage().toString().contains(playedcard.getText())) {
