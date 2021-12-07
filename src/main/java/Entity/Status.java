@@ -156,4 +156,11 @@ public class Status {
     public void setTwoDecksRunOut(boolean b) {
         twoDecksBothRunOut = b;
     }
+
+    /**
+     * @return the value of twoDecksBothRunOut
+     */
+    public boolean isTwoDecksBothRunOut() {
+        return twoDecksBothRunOut;
+    }
 }

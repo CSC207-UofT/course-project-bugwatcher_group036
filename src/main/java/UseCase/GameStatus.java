@@ -100,4 +100,11 @@ public class GameStatus {
     public void setTwoDecksRunOut(boolean b) {
         status.setTwoDecksRunOut(b);
     }
+
+    /**
+     * @return the value of twoDecksBothRunOut
+     */
+    public boolean isTwoDecksBothRunOut() {
+        return status.isTwoDecksBothRunOut();
+    }
 }

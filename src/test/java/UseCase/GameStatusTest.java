@@ -112,4 +112,10 @@ public class GameStatusTest {
         gameStatus.functionCardResponse("reverse");
         assertEquals(4, gameStatus.moveToNextPlayer());
     }
+
+    @Test
+    public void testSetTwoDecksRunOut() {
+        gameStatus.setTwoDecksRunOut(true);
+        assertTrue(gameStatus.isTwoDecksBothRunOut());
+    }
 }
