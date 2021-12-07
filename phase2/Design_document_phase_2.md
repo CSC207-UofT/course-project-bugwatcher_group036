@@ -37,7 +37,8 @@ Our directions are mainly on these *three aspects*:
 
 
 ## UML Diagram for phase 2:
-![Untitled Diagram](https://user-images.githubusercontent.com/90352316/144772448-6b24fefa-1310-4110-855e-c588ce49cc6d.jpg)
+![Untitled Diagram](https://user-images.githubusercontent.com/90352316/145121942-20ef2712-5de6-4b85-8a4d-3378e848a22e.jpg)
+
 
 
 ## Major Design Decisions We've Made:
