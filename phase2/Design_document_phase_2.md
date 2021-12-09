@@ -24,7 +24,6 @@ In phase 2, we focused on mainly three aspects and construct a comprehensive pla
    * We added user statistics collector and exp system that updates in each round, where user can access these information everytime before game starts.
    * We added "play again" option after each game play, and players can choose new game mode as they want.
 * **Aspect of GUI** We developed a GUI and added necessary information all inside the GUI:
-![image](https://user-images.githubusercontent.com/56620120/144762978-f1bd6935-1eb5-4a95-a9bb-e4ac7b3210ac.png)
 ![image](https://user-images.githubusercontent.com/90352316/145323512-60d65ba7-4ac4-49eb-a775-4dcf56a6793b.png)
 
 
